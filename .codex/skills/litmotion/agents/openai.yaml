@@ -1,0 +1,4 @@
+interface:
+  display_name: "LitMotion Animation"
+  short_description: "Implement Actor animations with LitMotion and UniTask"
+  default_prompt: "Use $litmotion to implement Actor animations with LitMotion and UniTask."

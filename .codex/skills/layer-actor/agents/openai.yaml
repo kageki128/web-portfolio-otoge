@@ -1,0 +1,4 @@
+interface:
+  display_name: "Actor Layer"
+  short_description: "Implement MonoBehaviour Actors, Factory, and Components"
+  default_prompt: "Use $layer-actor to implement Actor, Factory, and Component scripts for scene objects."
