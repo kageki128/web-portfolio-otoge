@@ -2785,6 +2785,7 @@ MonoBehaviour:
   gameActorHub: {fileID: 706006540}
   resultActorHub: {fileID: 1316483772}
   gameConfig: {fileID: 11400000, guid: 9415f96bd8527e641b288f2147ddd50b, type: 2}
+  beatmapFiles: {fileID: 11400000, guid: af3c859f748fd8644aa03c54980fabec, type: 2}
 --- !u!1 &1669529495
 GameObject:
   m_ObjectHideFlags: 0

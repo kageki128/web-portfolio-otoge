@@ -4,5 +4,6 @@ namespace MyProject.Core
     {
         Normal,
         Hard,
+        Unsupported,
     }
 }
