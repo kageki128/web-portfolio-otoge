@@ -2,13 +2,13 @@
     "name": "MyProject.Infrastructure",
     "rootNamespace": "",
     "references": [
+        "GUID:0f5a3cb0e6d048f429d3aa00058dc3f2",
         "GUID:1dc9adabc2ecf6d43a6c57353032333c",
         "GUID:f51ebe6a0ceec4240a699833d6309b23",
         "GUID:5c01796d064528144a599661eaab93a6",
         "GUID:593a5b492d29ac6448b1ebf7f035ef33",
         "GUID:9e24947de15b9834991c9d8411ea37cf",
-        "GUID:84651a3751eca9349aac36a66bba901b",
-        "GUID:ace1a962d6cb545a78234415708dae81"
+        "GUID:84651a3751eca9349aac36a66bba901b"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

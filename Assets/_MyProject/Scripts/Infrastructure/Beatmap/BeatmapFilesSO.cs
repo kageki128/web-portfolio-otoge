@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace MyProject.Core
 {
-    [CreateAssetMenu(fileName = "MusicInfoSO", menuName = "MyProject/MusicInfoSO")]
-    public class MusicInfoSO : ScriptableObject
+    [CreateAssetMenu(fileName = "BeatmapFilesSO", menuName = "MyProject/BeatmapFilesSO")]
+    public class BeatmapFilesSO : ScriptableObject
     {
         [field: SerializeField]
         public AudioClip Wave { get; private set; }

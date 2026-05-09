@@ -19,7 +19,7 @@ MonoBehaviour:
     m_Address: Assets/_MyProject/Datas/Musics/Psyched Fevereiro/Psyched Fevereiro.asset
     m_ReadOnly: 0
     m_SerializedLabels:
-    - MusicInfoSO
+    - BeatmapFilesSO
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2d306b509878bc842be5171bca91bf53, type: 2}

@@ -2,6 +2,7 @@
     "name": "MyProject.CompositionRoot",
     "rootNamespace": "",
     "references": [
+        "GUID:0f5a3cb0e6d048f429d3aa00058dc3f2",
         "GUID:1dc9adabc2ecf6d43a6c57353032333c",
         "GUID:1aab7825ac3d34b4a8330f6ac61fa1d9",
         "GUID:27d185cb58ceaf549a2eac02e2ea1157",
