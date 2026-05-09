@@ -12,7 +12,6 @@ namespace MyProject.CompositionRoot
     {
         [Header("Actor")]
         [SerializeField] RootActorHub rootActorHub;
-        [SerializeField] TitleActorHub titleActorHub;
         [SerializeField] SelectActorHub selectActorHub;
         [SerializeField] GameActorHub gameActorHub;
         [SerializeField] ResultActorHub resultActorHub;
@@ -34,16 +33,13 @@ namespace MyProject.CompositionRoot
 
         void RegisterActor(IContainerBuilder builder)
         {
-            builder.Register<TitleActions>(Lifetime.Singleton);
             builder.Register<SelectActions>(Lifetime.Singleton);
             builder.Register<GameActions>(Lifetime.Singleton);
             builder.Register<ResultActions>(Lifetime.Singleton);
-            builder.Register<TitleActionsObserver>(Lifetime.Singleton);
             builder.Register<SelectActionsObserver>(Lifetime.Singleton);
             builder.Register<GameActionsObserver>(Lifetime.Singleton);
             builder.Register<ResultActionsObserver>(Lifetime.Singleton);
             builder.RegisterComponent(rootActorHub);
-            builder.RegisterComponent(titleActorHub);
             builder.RegisterComponent(selectActorHub);
             builder.RegisterComponent(gameActorHub);
             builder.RegisterComponent(resultActorHub);
@@ -53,7 +49,6 @@ namespace MyProject.CompositionRoot
         {
             builder.RegisterEntryPoint<MainEntryPoint>(Lifetime.Singleton);
             builder.Register<RootDirector>(Lifetime.Singleton);
-            builder.Register<TitleSceneDirector>(Lifetime.Singleton);
             builder.Register<SelectSceneDirector>(Lifetime.Singleton);
             builder.Register<GameSceneDirector>(Lifetime.Singleton);
             builder.Register<ResultSceneDirector>(Lifetime.Singleton);
@@ -63,7 +58,7 @@ namespace MyProject.CompositionRoot
         {
             builder.Register<PlayerPrefsSaveDataRepository>(Lifetime.Singleton)
                 .As<ISaveDataRepository>();
-            builder.Register<UnityroomRankingRegisterer>(Lifetime.Singleton)
+            builder.Register<ServerRankingRegisterer>(Lifetime.Singleton)
                 .As<IRankingRegisterer>();
         }
     }

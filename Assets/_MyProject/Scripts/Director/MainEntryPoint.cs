@@ -23,7 +23,6 @@ namespace MyProject.Director
         (
             GameConfigSO gameConfig,
             RootDirector rootDirector,
-            TitleSceneDirector titleSceneDirector,
             SelectSceneDirector selectSceneDirector,
             GameSceneDirector gameSceneDirector,
             ResultSceneDirector resultSceneDirector
@@ -31,7 +30,6 @@ namespace MyProject.Director
         {
             this.rootDirector = rootDirector;
             currentScene = gameConfig.InitialSceneType;
-            sceneDirectors.Add(SceneType.Title, titleSceneDirector);
             sceneDirectors.Add(SceneType.Select, selectSceneDirector);
             sceneDirectors.Add(SceneType.Game, gameSceneDirector);
             sceneDirectors.Add(SceneType.Result, resultSceneDirector);

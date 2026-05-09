@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d1c58006abb674a8b5ceb3539037aa, type: 3}
+  m_Name: Psyched Fevereiro
+  m_EditorClassIdentifier: MyProject.Core::MyProject.Core.MusicInfoSO
+  <Wave>k__BackingField: {fileID: 8300000, guid: 7d2cdd300f057204e8924df468a6b9c3, type: 3}
+  <Beatmap>k__BackingField: {fileID: 2811297602134710623, guid: e658dab0c37dc164493ffd5a73a26397, type: 3}
