@@ -15,6 +15,10 @@ namespace MyProject.Core
 
         double startDspTime;
 
+        const float SmoothTime = 0.1f;
+        float smoothedSec;
+        float smoothVelocity;
+
         public ConductorCore(ConductorTiming timing)
         {
             this.timing = timing;
@@ -23,13 +27,16 @@ namespace MyProject.Core
         public double Start(double delaySec)
         {
             startDspTime = AudioSettings.dspTime + delaySec;
+            smoothedSec = (float)(AudioSettings.dspTime - startDspTime);
+            timing.SetTimeBySec(smoothedSec);
             return startDspTime;
         }
 
         public void Advance()
         {
-            float currentSec = (float)(AudioSettings.dspTime - startDspTime);
-            timing.SetTimeBySec(currentSec);
+            float targetSec = (float)(AudioSettings.dspTime - startDspTime);
+            smoothedSec = Mathf.SmoothDamp(smoothedSec, targetSec, ref smoothVelocity, SmoothTime);
+            timing.SetTimeBySec(smoothedSec);
         }
     }
 }

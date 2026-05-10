@@ -15,18 +15,7 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<int> CurrentMeasure => currentMeasure;
         readonly ReactiveProperty<int> currentMeasure = new(0);
 
-        public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll
-        {
-            get
-            {
-                var readOnlyTimelineToCurrentScroll = new Dictionary<int, ReadOnlyReactiveProperty<float>>();
-                foreach (var timelineToCurrentScroll in timelineToCurrentScroll)
-                {
-                    readOnlyTimelineToCurrentScroll[timelineToCurrentScroll.Key] = timelineToCurrentScroll.Value.ToReadOnlyReactiveProperty();
-                }
-                return readOnlyTimelineToCurrentScroll;
-            }
-        }
+        public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll { get; }
         readonly Dictionary<int, ReactiveProperty<float>> timelineToCurrentScroll = new();
 
         readonly IReadOnlyList<BpmChange> bpmChanges;
@@ -44,10 +33,14 @@ namespace MyProject.Core
             this.timelineToHighSpeedChanges = timelineToHighSpeedChanges;
             this.measureLengthChanges = measureLengthChanges;
 
+            var readOnlyTimelineToCurrentScroll = new Dictionary<int, ReadOnlyReactiveProperty<float>>();
             foreach (var timelineToHighSpeedChange in timelineToHighSpeedChanges)
             {
-                timelineToCurrentScroll[timelineToHighSpeedChange.Key] = new ReactiveProperty<float>(0);
+                var currentScroll = new ReactiveProperty<float>(0);
+                timelineToCurrentScroll[timelineToHighSpeedChange.Key] = currentScroll;
+                readOnlyTimelineToCurrentScroll[timelineToHighSpeedChange.Key] = currentScroll;
             }
+            TimelineToCurrentScroll = readOnlyTimelineToCurrentScroll;
         }
 
         public void SetTimeBySec(float sec)
