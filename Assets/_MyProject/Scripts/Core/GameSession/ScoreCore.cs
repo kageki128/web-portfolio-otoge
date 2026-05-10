@@ -7,14 +7,14 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<int> Value => value;
         readonly ReactiveProperty<int> value = new(0);
 
+        public void Initialize()
+        {
+            value.Value = 0;
+        }
+
         public void Add(int amount)
         {
             value.Value += amount;
-        }
-
-        public void Reset()
-        {
-            value.Value = 0;
         }
     }
 }

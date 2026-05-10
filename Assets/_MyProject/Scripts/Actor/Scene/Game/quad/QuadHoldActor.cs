@@ -27,11 +27,9 @@ namespace MyProject.Actor
 
         public override void SetPosition(float currentScroll, float scrollSpeed)
         {
-            float x = gameObject.transform.localPosition.x;
-            float beginY = (NoteCore.Property.ScrollBegin - currentScroll) * scrollSpeed;
-            float endY = (NoteCore.Property.ScrollEnd - currentScroll) * scrollSpeed;
-            float y = (beginY + endY) / 2f;
-            float height = Mathf.Abs(endY - beginY);
+            float x = CalculateCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
+            float y = CalculateCenterY(NoteCore.Property.ScrollBegin, NoteCore.Property.ScrollEnd, currentScroll, scrollSpeed);
+            float height = CalculateHeight(NoteCore.Property.ScrollBegin, NoteCore.Property.ScrollEnd, scrollSpeed);
 
             transform.localPosition = new Vector3(x, y, 0);
             image.size = new Vector2(image.size.x, height);
@@ -39,7 +37,7 @@ namespace MyProject.Actor
 
         protected override void SetWidth(int width)
         {
-            image.size = new Vector2((width * 2f) - 0.1f, image.size.y);
+            image.size = new Vector2(width, image.size.y);
         }
 
         protected override void SetLayer(int layer)

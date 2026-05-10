@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using R3;
 
 namespace MyProject.Core
@@ -6,55 +9,52 @@ namespace MyProject.Core
     public class GameSessionCore
     {
         public ReadOnlyReactiveProperty<GameState> State => state;
-        readonly ReactiveProperty<GameState> state = new(GameState.Ready);
+        readonly ReactiveProperty<GameState> state = new(GameState.Preparing);
 
         public ReadOnlyReactiveProperty<int> Score => scoreCore.Value;
         readonly ScoreCore scoreCore = new();
 
-        public void Reset()
+        public IReadOnlyList<NoteCore> NoteCores
         {
-            SetState(GameState.Ready);
-            scoreCore.Reset();
-        }
-
-        public void Start()
-        {
-            SetState(GameState.Playing);
-        }
-
-        public void Pause()
-        {
-            SetState(GameState.Paused);
-        }
-
-        public void Resume()
-        {
-            SetState(GameState.Playing);
-        }
-
-        public void Finish()
-        {
-            if (state.Value is not GameState.Playing)
+            get
             {
-                throw new InvalidOperationException("Cannot finish unless the game is playing.");
+                if (beatmap == null)
+                {
+                    throw new InvalidOperationException("Beatmap is not loaded yet.");
+                }
+                return beatmap.MainData.NoteCores;
             }
-
-            SetState(GameState.Finished);
         }
 
-        public void AddScore(int amount)
+        public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll
         {
-            if (state.Value is not GameState.Playing)
+            get
             {
-                throw new InvalidOperationException("Cannot add score unless the game is playing.");
+                if (beatmap == null)
+                {
+                    throw new InvalidOperationException("Beatmap is not loaded yet.");
+                }
+                return beatmap.MainData.ConductorCore.TimelineToCurrentScroll;
             }
-
-            scoreCore.Add(amount);
         }
 
-        void SetState(GameState next)
+        Beatmap beatmap;
+
+        readonly IBeatmapRepository beatmapRepository;
+
+        public GameSessionCore(IBeatmapRepository beatmapRepository)
         {
-            state.Value = next;
+            this.beatmapRepository = beatmapRepository;
+        }
+
+        public async UniTask InitializeAsync(CancellationToken ct)
+        {
+            state.Value = GameState.Preparing;
+
+            beatmap = await beatmapRepository.GetAsync(ct);
+            scoreCore.Initialize();
+
+            state.Value = GameState.Ready;
         }
     }
 }

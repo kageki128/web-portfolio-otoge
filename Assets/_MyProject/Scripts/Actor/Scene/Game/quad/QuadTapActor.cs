@@ -27,14 +27,14 @@ namespace MyProject.Actor
 
         public override void SetPosition(float currentScroll, float scrollSpeed)
         {
-            float x = gameObject.transform.localPosition.x;
+            float x = CalculateCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
             float y = (NoteCore.Property.ScrollBegin - currentScroll) * scrollSpeed;
             transform.localPosition = new Vector3(x, y, 0);
         }
 
         protected override void SetWidth(int width)
         {
-            image.size = new Vector2((width * 2f) - 0.1f, image.size.y);
+            image.size = new Vector2(width, image.size.y);
         }
 
         protected override void SetLayer(int layer)

@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MyProject.Core;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -10,6 +12,8 @@ namespace MyProject.Actor
     public class GameActorHub : SceneActorHubBase
     {
         public Observable<Unit> ToSelectButtonClicked = Observable.Empty<Unit>();
+
+        [SerializeField] NoteActorHub noteActorHub;
 
         ActorAnimationTimeline animationTimeline;
         GameActionsObserver gameActionsObserver;
@@ -49,5 +53,8 @@ namespace MyProject.Actor
             await animationTimeline.HideAsync(ct);
             gameObject.SetActive(false);
         }
+
+        public void CreateNotes(IReadOnlyList<NoteCore> noteCores) => noteActorHub.CreateNotes(noteCores);
+        public void UpdateNotesByTimeline(int timeline, float currentScroll, float scrollSpeed) => noteActorHub.UpdateNotesByTimeline(timeline, currentScroll, scrollSpeed);
     }
 }

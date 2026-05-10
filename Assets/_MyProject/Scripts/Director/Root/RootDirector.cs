@@ -18,7 +18,7 @@ namespace MyProject.Director
 
         public async UniTask InitializeAsync(CancellationToken cancellationToken)
         {
-            await beatmapRepository.GetAsync(cancellationToken);
+            await beatmapRepository.LoadAsync(cancellationToken);
             await rootActorHub.InitializeAsync(cancellationToken);
         }
 

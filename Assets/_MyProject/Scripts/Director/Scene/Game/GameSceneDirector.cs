@@ -15,25 +15,26 @@ namespace MyProject.Director
         public Observable<Unit> SceneReloadRequest => sceneReloadRequest;
         readonly Subject<Unit> sceneReloadRequest = new();
 
+        readonly GameSessionCore gameSessionCore;
         readonly GameActorHub gameActorHub;
 
         readonly CompositeDisposable disposables = new();
 
-        public GameSceneDirector(GameActorHub gameActorHub)
+        public GameSceneDirector(GameSessionCore gameSessionCore, GameActorHub gameActorHub)
         {
+            this.gameSessionCore = gameSessionCore;
             this.gameActorHub = gameActorHub;
         }
 
         public async UniTask InitializeAsync(CancellationToken ct)
         {
-            ct.ThrowIfCancellationRequested();
             gameActorHub.Initialize();
-            await UniTask.CompletedTask;
+            await gameSessionCore.InitializeAsync(ct);
         }
 
         public async UniTask BeforeEnterAsync(CancellationToken ct)
         {
-            await UniTask.CompletedTask;
+            await gameSessionCore.InitializeAsync(ct);
         }
 
         public async UniTask InitialEnterAsync(CancellationToken ct)
@@ -73,6 +74,17 @@ namespace MyProject.Director
         void HandleEnter()
         {
             disposables.Clear();
+
+            var noteCores = gameSessionCore.NoteCores;
+            var timelineToCurrentScroll = gameSessionCore.TimelineToCurrentScroll;
+            gameActorHub.CreateNotes(noteCores);
+            foreach (var kvp in timelineToCurrentScroll)
+            {
+                int timeline = kvp.Key;
+                var currentScroll = kvp.Value;
+                currentScroll.Subscribe(scroll => gameActorHub.UpdateNotesByTimeline(timeline, scroll, 5f)).AddTo(disposables);
+            }
+
             gameActorHub.ToSelectButtonClicked
                 .Take(1)
                 .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Select))

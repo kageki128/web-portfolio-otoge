@@ -30,6 +30,7 @@ namespace MyProject.CompositionRoot
         void RegisterCore(IContainerBuilder builder)
         {
             builder.RegisterInstance(gameConfig);
+            builder.Register<GameSessionCore>(Lifetime.Singleton);
         }
 
         void RegisterActor(IContainerBuilder builder)
