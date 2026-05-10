@@ -52,6 +52,26 @@ namespace MyProject.Core
             return startDspTime;
         }
 
+        public void JudgePress(int lane)
+        {
+            if (state.Value is not GameState.Playing)
+            {
+                return;
+            }
+
+            scoreCore.JudgePress(lane, beatmapCore.CurrentSec.CurrentValue);
+        }
+
+        public void JudgeRelease(int lane)
+        {
+            if (state.Value is not GameState.Playing)
+            {
+                return;
+            }
+
+            scoreCore.JudgeRelease(lane, beatmapCore.CurrentSec.CurrentValue);
+        }
+
         public void ProceedGame()
         {
             if (state.Value is not GameState.Playing)
@@ -60,6 +80,7 @@ namespace MyProject.Core
             }
 
             beatmapCore.AdvanceTime();
+            scoreCore.Update(beatmapCore.CurrentSec.CurrentValue);
         }
     }
 }

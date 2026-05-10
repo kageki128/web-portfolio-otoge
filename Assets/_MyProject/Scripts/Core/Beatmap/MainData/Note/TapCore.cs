@@ -4,8 +4,9 @@ namespace MyProject.Core
     {
         public TapCore(NoteProperty property) : base(property) { }
 
-        public override void JudgePress(float deltaSec)
+        public override void JudgePress(float currentSec)
         {
+            var deltaSec = currentSec - Property.TimingBegin.Sec;
             var judge = GetJudgeType(deltaSec);
             // 早ミスは無視
             if (judge is JudgeType.MissFast)
@@ -16,28 +17,33 @@ namespace MyProject.Core
             State = NoteState.AfterJudge;
         }
 
-        public override void JudgeRelease(float deltaSec)
+        public override void JudgeRelease(float currentSec)
         {
             return;
         }
 
-        public override void JudgeBeginPass()
+        public override void JudgeBeginPass(float currentSec)
         {
             return;
         }
 
-        public override void JudgeEndPass()
+        public override void JudgeEndPass(float currentSec)
         {
             return;
         }
 
-        public override void JudgeBeginMiss()
+        public override void JudgeBeginMiss(float currentSec)
         {
+            if (!IsBeginMiss(currentSec))
+            {
+                return;
+            }
+
             Judge = JudgeType.MissLate;
             State = NoteState.AfterJudge;
         }
 
-        public override void JudgeEndMiss()
+        public override void JudgeEndMiss(float currentSec)
         {
             return;
         }

@@ -17,12 +17,29 @@ namespace MyProject.Core
             Property = property;
         }
 
-        public abstract void JudgePress(float deltaSec);
-        public abstract void JudgeRelease(float deltaSec);
-        public abstract void JudgeBeginPass();
-        public abstract void JudgeEndPass();
-        public abstract void JudgeBeginMiss();
-        public abstract void JudgeEndMiss();
+        public abstract void JudgePress(float currentSec);
+        public abstract void JudgeRelease(float currentSec);
+        public abstract void JudgeBeginPass(float currentSec);
+        public abstract void JudgeEndPass(float currentSec);
+        public abstract void JudgeBeginMiss(float currentSec);
+        public abstract void JudgeEndMiss(float currentSec);
+
+        public bool IsBeginPass(float currentSec)
+        {
+            return currentSec >= Property.TimingBegin.Sec;
+        }
+        public bool IsEndPass(float currentSec)
+        {
+            return currentSec >= Property.TimingEnd.Sec;
+        }
+        public bool IsBeginMiss(float currentSec)
+        {
+            return currentSec >= Property.TimingBegin.Sec + GoodWidthSec;
+        }
+        public bool IsEndMiss(float currentSec)
+        {
+            return currentSec >= Property.TimingEnd.Sec + GoodWidthSec;
+        }
 
         protected JudgeType GetJudgeType(float deltaSec)
         {

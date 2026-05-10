@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using ObservableCollections;
 using R3;
 
 namespace MyProject.Core
@@ -12,16 +9,15 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<int> Value => value;
         readonly ReactiveProperty<int> value = new(0);
 
-        public ObservableDictionary<JudgeType, int> JudgeTypeToCount { get; } = new();
-
         readonly Dictionary<int, List<NoteCoreBase>> laneToRemainingNoteCores = new();
+        readonly List<NoteCoreBase> afterJudgeNoteCores = new();
 
         const int BaseMaxScore = 1000000;
 
         public void Initialize(IReadOnlyList<NoteCoreBase> noteCores)
         {
-            JudgeTypeToCount.Clear();
             laneToRemainingNoteCores.Clear();
+            afterJudgeNoteCores.Clear();
 
             value.Value = 0;
             foreach (var noteCore in noteCores)
@@ -45,9 +41,111 @@ namespace MyProject.Core
             }
         }
 
-        public void Judge(NoteCoreBase noteCore, float deltaSec)
+        public void JudgePress(int lane, float currentSec)
         {
+            // 指定されたレーンの最も近いノーツを取得
+            if (!laneToRemainingNoteCores.TryGetValue(lane, out var remainingNoteCores))
+            {
+                return;
+            }
+            var noteCore = remainingNoteCores[0];
 
+            // ノーツをジャッジ
+            noteCore.JudgePress(currentSec);
+            if (noteCore.State is NoteState.AfterJudge)
+            {
+                remainingNoteCores.Remove(noteCore);
+                afterJudgeNoteCores.Add(noteCore);
+            }
+        }
+
+        public void JudgeRelease(int lane, float currentSec)
+        {
+            // 指定されたレーンの最も近いノーツを取得
+            if (!laneToRemainingNoteCores.TryGetValue(lane, out var remainingNoteCores))
+            {
+                return;
+            }
+            var noteCore = remainingNoteCores[0];
+
+            // ノーツをジャッジ
+            noteCore.JudgeRelease(currentSec);
+            HandleAfterJudge(noteCore, remainingNoteCores);
+        }
+
+        public void Update(float currentSec)
+        {
+            JudgePass(currentSec);
+            JudgeMiss(currentSec);
+        }
+
+        void JudgePass(float currentSec)
+        {
+            foreach (var kvp in laneToRemainingNoteCores)
+            {
+                var remainingNoteCores = kvp.Value;
+                // Begin
+                foreach (var noteCore in remainingNoteCores)
+                {
+                    // 判定ラインを過ぎているノーツをジャッジ
+                    if (!noteCore.IsBeginPass(currentSec))
+                    {
+                        break;
+                    }
+                    noteCore.JudgeBeginPass(currentSec);
+                    HandleAfterJudge(noteCore, remainingNoteCores);
+                }
+                // End
+                foreach (var noteCore in remainingNoteCores)
+                {
+                    // 判定ラインを過ぎているノーツをジャッジ
+                    if (!noteCore.IsEndPass(currentSec))
+                    {
+                        break;
+                    }
+                    noteCore.JudgeEndPass(currentSec);
+                    HandleAfterJudge(noteCore, remainingNoteCores);
+                }
+            }
+        }
+
+        void JudgeMiss(float currentSec)
+        {
+            foreach (var kvp in laneToRemainingNoteCores)
+            {
+                var remainingNoteCores = kvp.Value;
+                // Begin
+                foreach (var noteCore in remainingNoteCores)
+                {
+                    // 判定幅を過ぎているノーツをジャッジ
+                    if (!noteCore.IsBeginMiss(currentSec))
+                    {
+                        break;
+                    }
+                    noteCore.JudgeBeginMiss(currentSec);
+                    HandleAfterJudge(noteCore, remainingNoteCores);
+                }
+                // End
+                foreach (var noteCore in remainingNoteCores)
+                {
+                    // 判定幅を過ぎているノーツをジャッジ
+                    if (!noteCore.IsEndMiss(currentSec))
+                    {
+                        break;
+                    }
+                    noteCore.JudgeEndMiss(currentSec);
+                    HandleAfterJudge(noteCore, remainingNoteCores);
+                }
+            }
+        }
+
+        void HandleAfterJudge(NoteCoreBase noteCore, List<NoteCoreBase> remainingNoteCores)
+        {
+            if (noteCore.State is NoteState.AfterJudge)
+            {
+                remainingNoteCores.Remove(noteCore);
+                afterJudgeNoteCores.Add(noteCore);
+            }
         }
     }
 }

@@ -4,8 +4,9 @@ namespace MyProject.Core
     {
         public HoldCore(NoteProperty property) : base(property) { }
 
-        public override void JudgePress(float deltaSec)
+        public override void JudgePress(float currentSec)
         {
+            var deltaSec = currentSec - Property.TimingBegin.Sec;
             switch (State)
             {
                 case NoteState.BeforeJudge:
@@ -29,8 +30,9 @@ namespace MyProject.Core
             }
         }
 
-        public override void JudgeRelease(float deltaSec)
+        public override void JudgeRelease(float currentSec)
         {
+            var deltaSec = currentSec - Property.TimingEnd.Sec;
             switch (State)
             {
                 case NoteState.Holding:
@@ -41,13 +43,18 @@ namespace MyProject.Core
             }
         }
 
-        public override void JudgeBeginPass()
+        public override void JudgeBeginPass(float currentSec)
         {
             return;
         }
 
-        public override void JudgeEndPass()
+        public override void JudgeEndPass(float currentSec)
         {
+            if (!IsEndPass(currentSec))
+            {
+                return;
+            }
+
             switch (State)
             {
                 case NoteState.Holding:
@@ -59,14 +66,24 @@ namespace MyProject.Core
             }
         }
 
-        public override void JudgeBeginMiss()
+        public override void JudgeBeginMiss(float currentSec)
         {
+            if (!IsBeginMiss(currentSec))
+            {
+                return;
+            }
+
             Judge = JudgeType.MissLate;
             State = NoteState.Missed;
         }
 
-        public override void JudgeEndMiss()
+        public override void JudgeEndMiss(float currentSec)
         {
+            if (!IsEndMiss(currentSec))
+            {
+                return;
+            }
+
             Judge = JudgeType.MissLate;
             State = NoteState.AfterJudge;
         }
