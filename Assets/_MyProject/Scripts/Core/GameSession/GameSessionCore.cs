@@ -11,7 +11,7 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<GameState> State => state;
         readonly ReactiveProperty<GameState> state = new(GameState.Preparing);
 
-        public ReadOnlyReactiveProperty<int> Score => scoreCore.Value;
+        public ReadOnlyReactiveProperty<int> Score => scoreCore.Score;
         readonly ScoreCore scoreCore = new();
 
         public BeatmapMetaData MetaData => beatmapCore.MetaData;

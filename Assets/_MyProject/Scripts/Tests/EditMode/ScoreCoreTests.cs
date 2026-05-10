@@ -210,6 +210,29 @@ namespace MyProject.Tests.EditMode
             Assert.Throws<System.InvalidOperationException>(() => scoreCore.Initialize(new List<NoteCoreBase> { tap }));
         }
 
+        [Test]
+        public void ノーツ0件でInitializeすると例外になる()
+        {
+            var scoreCore = new ScoreCore();
+
+            Assert.Throws<System.ArgumentException>(() => scoreCore.Initialize(new List<NoteCoreBase>()));
+        }
+
+        [Test]
+        public void AllPerfectなら端数補正で1000000点になる()
+        {
+            var lane0Tap = CreateTap(lane: 0, beat: 1f);
+            var lane1Tap = CreateTap(lane: 1, beat: 1f);
+            var lane2Tap = CreateTap(lane: 2, beat: 1f);
+            var scoreCore = CreateScoreCore(lane0Tap, lane1Tap, lane2Tap);
+
+            scoreCore.JudgePress(0, 1.05f);
+            scoreCore.JudgePress(1, 1.05f);
+            scoreCore.JudgePress(2, 1.05f);
+
+            Assert.That(scoreCore.Score.CurrentValue, Is.EqualTo(1000000));
+        }
+
         static ScoreCore CreateScoreCore(params NoteCoreBase[] notes)
         {
             var scoreCore = new ScoreCore();
