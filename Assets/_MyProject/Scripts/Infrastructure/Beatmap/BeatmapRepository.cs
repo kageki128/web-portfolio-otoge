@@ -18,7 +18,7 @@ namespace MyProject.Infrastructure
         readonly BeatmapParser parser = new();
         readonly BeatmapComposer composer = new();
 
-        Beatmap cachedBeatmap;
+        BeatmapCore cachedBeatmap;
 
         public BeatmapRepository(BeatmapFilesSO beatmapFiles)
         {
@@ -41,7 +41,7 @@ namespace MyProject.Infrastructure
         /// <summary>
         /// ScriptableObjectから譜面テキストと音源を取得し、Beatmapへ変換する。
         /// </summary>
-        public UniTask<Beatmap> GetAsync(CancellationToken ct)
+        public UniTask<BeatmapCore> GetAsync(CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
 
@@ -65,12 +65,12 @@ namespace MyProject.Infrastructure
             return UniTask.FromResult(beatmap);
         }
 
-        void DebugBeatmap(Beatmap beatmap)
+        void DebugBeatmap(BeatmapCore beatmap)
         {
             var meta = beatmap.MetaData;
-            var notes = beatmap.MainData.NoteCores;
+            var notes = beatmap.NoteCores;
             var messages = beatmap.Messages;
-            var timelines = beatmap.MainData.ConductorCore.TimelineToCurrentScroll.Keys.OrderBy(timeline => timeline).ToArray();
+            var timelines = beatmap.TimelineToCurrentScroll.Keys.OrderBy(timeline => timeline).ToArray();
 
             var noteTypeSummary = string.Join(", ", notes
                 .GroupBy(note => note.Property.Type)

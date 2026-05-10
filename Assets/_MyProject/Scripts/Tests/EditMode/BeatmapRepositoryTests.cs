@@ -38,10 +38,10 @@ namespace MyProject.Tests.EditMode
 
             Assert.That(beatmap.MetaData.Title, Is.EqualTo("Test Song"));
             Assert.That(beatmap.MetaData.Difficulty, Is.EqualTo(DifficultyType.Normal));
-            Assert.That(beatmap.MainData.NoteCores.Count, Is.EqualTo(2));
-            Assert.That(beatmap.MainData.NoteCores[0].Property.Type, Is.EqualTo(NoteType.Tap));
-            Assert.That(beatmap.MainData.NoteCores[1].Property.Type, Is.EqualTo(NoteType.Hold));
-            Assert.That(beatmap.MainData.NoteCores[1].Property.TimingEnd.Beat, Is.EqualTo(5f).Within(0.0001f));
+            Assert.That(beatmap.NoteCores.Count, Is.EqualTo(2));
+            Assert.That(beatmap.NoteCores[0].Property.Type, Is.EqualTo(NoteType.Tap));
+            Assert.That(beatmap.NoteCores[1].Property.Type, Is.EqualTo(NoteType.Hold));
+            Assert.That(beatmap.NoteCores[1].Property.TimingEnd.Beat, Is.EqualTo(5f).Within(0.0001f));
             Assert.That(beatmap.Messages.Count, Is.EqualTo(0));
         }
 
@@ -66,8 +66,8 @@ namespace MyProject.Tests.EditMode
             using var fixture = CreateFixture(ugc);
             var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
 
-            Assert.That(beatmap.MainData.NoteCores.Count, Is.EqualTo(1));
-            Assert.That(beatmap.MainData.NoteCores[0].Property.Type, Is.EqualTo(NoteType.Unsupported));
+            Assert.That(beatmap.NoteCores.Count, Is.EqualTo(1));
+            Assert.That(beatmap.NoteCores[0].Property.Type, Is.EqualTo(NoteType.Unsupported));
             Assert.That(beatmap.Messages.Any(message => message.Type == MessageType.Error && message.Content.Contains("未対応のノーツ種別")), Is.True);
         }
 
@@ -92,7 +92,7 @@ namespace MyProject.Tests.EditMode
             using var fixture = CreateFixture(ugc);
             var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
 
-            Assert.That(beatmap.MainData.NoteCores.Count, Is.EqualTo(0));
+            Assert.That(beatmap.NoteCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.Messages.Any(message => message.Type == MessageType.Error && message.Content.Contains("未対応のレーン")), Is.True);
         }
 
@@ -116,7 +116,7 @@ namespace MyProject.Tests.EditMode
             using var fixture = CreateFixture(ugc);
             var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
 
-            Assert.That(beatmap.MainData.NoteCores.Count, Is.EqualTo(0));
+            Assert.That(beatmap.NoteCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.Messages.Any(message => message.Type == MessageType.Fatal), Is.True);
         }
 

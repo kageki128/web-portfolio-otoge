@@ -40,7 +40,7 @@ namespace MyProject.Infrastructure
         /// <summary>
         /// Fatal判定を先に行い、問題なければ timing/note を生成する。
         /// </summary>
-        public Beatmap Compose(AudioClip wave, BeatmapParsedData parsedData, CancellationToken ct)
+        public BeatmapCore Compose(AudioClip wave, BeatmapParsedData parsedData, CancellationToken ct)
         {
             var messages = parsedData.Messages;
             // 小節長変化を「小節開始beat」に展開する。
@@ -97,7 +97,7 @@ namespace MyProject.Infrastructure
             // 致命エラー時は空譜面で返却する。
             if (hasFatal)
             {
-                return new Beatmap(metaData, CreateEmptyMainData(), messages);
+                return new BeatmapCore(metaData, CreateEmptyMainData(), messages);
             }
 
             // 各タイムラインのハイスピ変化をbeat基準に変換する。
@@ -171,7 +171,7 @@ namespace MyProject.Infrastructure
             ));
 
             var mainData = new BeatmapMainData(conductorCore, noteCores);
-            return new Beatmap(metaData, mainData, messages);
+            return new BeatmapCore(metaData, mainData, messages);
         }
 
         /// <summary>

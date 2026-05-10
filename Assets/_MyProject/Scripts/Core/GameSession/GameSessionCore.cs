@@ -18,11 +18,11 @@ namespace MyProject.Core
         {
             get
             {
-                if (beatmap == null)
+                if (beatmapCore == null)
                 {
                     throw new InvalidOperationException("Beatmap is not loaded yet.");
                 }
-                return beatmap.MainData.NoteCores;
+                return beatmapCore.NoteCores;
             }
         }
 
@@ -30,15 +30,15 @@ namespace MyProject.Core
         {
             get
             {
-                if (beatmap == null)
+                if (beatmapCore == null)
                 {
                     throw new InvalidOperationException("Beatmap is not loaded yet.");
                 }
-                return beatmap.MainData.ConductorCore.TimelineToCurrentScroll;
+                return beatmapCore.TimelineToCurrentScroll;
             }
         }
 
-        Beatmap beatmap;
+        BeatmapCore beatmapCore;
 
         readonly IBeatmapRepository beatmapRepository;
 
@@ -51,7 +51,7 @@ namespace MyProject.Core
         {
             state.Value = GameState.Preparing;
 
-            beatmap = await beatmapRepository.GetAsync(ct);
+            beatmapCore = await beatmapRepository.GetAsync(ct);
             scoreCore.Initialize();
 
             state.Value = GameState.Ready;
