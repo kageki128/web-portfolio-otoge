@@ -11,7 +11,7 @@ namespace MyProject.Infrastructure
     /// <summary>
     /// Parserが作った中間データを検証しつつ、最終的なBeatmapを組み立てる。
     /// </summary>
-    internal sealed class BeatmapComposer
+    public class BeatmapComposer
     {
         static readonly Dictionary<char, int> laneMap = new()
         {
