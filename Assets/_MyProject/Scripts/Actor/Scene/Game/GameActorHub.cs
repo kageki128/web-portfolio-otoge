@@ -9,9 +9,7 @@ namespace MyProject.Actor
     [RequireComponent(typeof(ActorAnimationTimeline))]
     public class GameActorHub : SceneActorHubBase
     {
-        public Observable<Unit> ToSelectButtonClicked => toSelectButton.Clicked;
-
-        [SerializeField] StandardButtonActor toSelectButton;
+        public Observable<Unit> ToSelectButtonClicked = Observable.Empty<Unit>();
 
         ActorAnimationTimeline animationTimeline;
         GameActionsObserver gameActionsObserver;
