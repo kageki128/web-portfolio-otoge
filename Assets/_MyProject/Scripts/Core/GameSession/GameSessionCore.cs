@@ -14,30 +14,12 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<int> Score => scoreCore.Value;
         readonly ScoreCore scoreCore = new();
 
-        public IReadOnlyList<NoteCore> NoteCores
-        {
-            get
-            {
-                if (beatmapCore == null)
-                {
-                    throw new InvalidOperationException("Beatmap is not loaded yet.");
-                }
-                return beatmapCore.NoteCores;
-            }
-        }
+        public BeatmapMetaData MetaData => beatmapCore.MetaData;
+        public IReadOnlyList<NoteCoreBase> NoteCores => beatmapCore.NoteCores;
 
-        public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll
-        {
-            get
-            {
-                if (beatmapCore == null)
-                {
-                    throw new InvalidOperationException("Beatmap is not loaded yet.");
-                }
-                return beatmapCore.TimelineToCurrentScroll;
-            }
-        }
+        public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll => beatmapCore.TimelineToCurrentScroll;
 
+        // 初期化忘れに注意～(今は許容)
         BeatmapCore beatmapCore;
 
         readonly IBeatmapRepository beatmapRepository;
@@ -52,7 +34,7 @@ namespace MyProject.Core
             state.Value = GameState.Preparing;
 
             beatmapCore = await beatmapRepository.GetAsync(ct);
-            scoreCore.Initialize();
+            scoreCore.Initialize(beatmapCore.NoteCores);
 
             state.Value = GameState.Ready;
         }

@@ -60,7 +60,7 @@ namespace MyProject.Actor
             AudioPlayer.Instance.PlayBgm(clip, scheduledDspTime, false);
         }
 
-        public void CreateNotes(IReadOnlyList<NoteCore> noteCores) => noteActorHub.CreateNotes(noteCores);
+        public void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores) => noteActorHub.CreateNotes(noteCores);
         public void UpdateNotesByTimeline(int timeline, float currentScroll, float scrollSpeed) => noteActorHub.UpdateNotesByTimeline(timeline, currentScroll, scrollSpeed);
     }
 }

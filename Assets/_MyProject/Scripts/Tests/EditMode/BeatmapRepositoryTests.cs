@@ -39,6 +39,8 @@ namespace MyProject.Tests.EditMode
             Assert.That(beatmap.MetaData.Title, Is.EqualTo("Test Song"));
             Assert.That(beatmap.MetaData.Difficulty, Is.EqualTo(DifficultyType.Normal));
             Assert.That(beatmap.NoteCores.Count, Is.EqualTo(2));
+            Assert.That(beatmap.NoteCores[0], Is.TypeOf<TapCore>());
+            Assert.That(beatmap.NoteCores[1], Is.TypeOf<HoldCore>());
             Assert.That(beatmap.NoteCores[0].Property.Type, Is.EqualTo(NoteType.Tap));
             Assert.That(beatmap.NoteCores[1].Property.Type, Is.EqualTo(NoteType.Hold));
             Assert.That(beatmap.NoteCores[1].Property.TimingEnd.Beat, Is.EqualTo(5f).Within(0.0001f));
@@ -46,7 +48,7 @@ namespace MyProject.Tests.EditMode
         }
 
         [Test]
-        public void GetAsync_未対応ノーツ種別はUnsupportedとして残す()
+        public void GetAsync_未対応ノーツ種別はスキップしてMessageを返す()
         {
             var ugc = string.Join("\n",
                 "@TITLE Test Song",
@@ -66,8 +68,7 @@ namespace MyProject.Tests.EditMode
             using var fixture = CreateFixture(ugc);
             var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
 
-            Assert.That(beatmap.NoteCores.Count, Is.EqualTo(1));
-            Assert.That(beatmap.NoteCores[0].Property.Type, Is.EqualTo(NoteType.Unsupported));
+            Assert.That(beatmap.NoteCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.Messages.Any(message => message.Type == MessageType.Error && message.Content.Contains("未対応のノーツ種別")), Is.True);
         }
 

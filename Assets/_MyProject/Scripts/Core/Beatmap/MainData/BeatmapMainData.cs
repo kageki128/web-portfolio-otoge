@@ -5,9 +5,9 @@ namespace MyProject.Core
     public class BeatmapMainData
     {
         public ConductorCore ConductorCore { get; }
-        public IReadOnlyList<NoteCore> NoteCores { get; }
+        public IReadOnlyList<NoteCoreBase> NoteCores { get; }
 
-        public BeatmapMainData(ConductorCore conductorCore, IReadOnlyList<NoteCore> noteCores)
+        public BeatmapMainData(ConductorCore conductorCore, IReadOnlyList<NoteCoreBase> noteCores)
         {
             ConductorCore = conductorCore;
             NoteCores = noteCores;

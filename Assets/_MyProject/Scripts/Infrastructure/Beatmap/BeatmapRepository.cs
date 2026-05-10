@@ -109,7 +109,7 @@ namespace MyProject.Infrastructure
 
         void LogSummary
         (
-            IReadOnlyList<NoteCore> notes,
+            IReadOnlyList<NoteCoreBase> notes,
             IReadOnlyList<Message> messages,
             int[] timelines,
             string noteTypeSummary,
@@ -130,7 +130,7 @@ namespace MyProject.Infrastructure
             );
         }
 
-        void LogAllNotes(IReadOnlyList<NoteCore> notes)
+        void LogAllNotes(IReadOnlyList<NoteCoreBase> notes)
         {
             for (var i = 0; i < notes.Count; i++)
             {

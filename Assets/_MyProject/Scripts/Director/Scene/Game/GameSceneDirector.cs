@@ -92,7 +92,10 @@ namespace MyProject.Director
                 .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Select))
                 .AddTo(disposables);
 
-            gameSessionCore.StartGame();
+            // ゲーム開始
+            var startDspTime = gameSessionCore.StartGame();
+            var wave = gameSessionCore.MetaData.Wave;
+            gameActorHub.PlayWave(wave, startDspTime);
         }
     }
 }

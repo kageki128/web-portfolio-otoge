@@ -5,9 +5,9 @@ namespace MyProject.Actor
 {
     public abstract class NoteActorBase : ActorBase
     {
-        public NoteCore NoteCore { get; private set; }
+        public NoteCoreBase NoteCore { get; private set; }
 
-        public void InstallCore(NoteCore noteCore)
+        public void InstallCore(NoteCoreBase noteCore)
         {
             NoteCore = noteCore;
             SetWidth(noteCore.Property.Width);

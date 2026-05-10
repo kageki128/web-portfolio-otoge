@@ -30,7 +30,7 @@ namespace MyProject.Actor
             return UniTask.CompletedTask;
         }
 
-        public void CreateNotes(IReadOnlyList<NoteCore> noteCores)
+        public void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores)
         {
             noteActors.Clear();
 

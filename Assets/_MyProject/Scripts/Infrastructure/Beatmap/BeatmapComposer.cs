@@ -107,7 +107,7 @@ namespace MyProject.Infrastructure
                 .ToList();
 
             // 中間ノーツから最終ノーツを生成する。
-            var noteCores = new List<NoteCore>();
+            var noteCores = new List<NoteCoreBase>();
             var layer = 0;
             foreach (var rawNote in parsedData.RawNotes)
             {
@@ -139,6 +139,11 @@ namespace MyProject.Infrastructure
 
                 // Unknown種別はUnsupportedへ落としてMessageを残す。
                 var noteType = ParseNoteType(rawNote.NoteType, rawNote.LineNum, messages);
+                if (noteType == NoteType.Unsupported)
+                {
+                    continue;
+                }
+
                 var beatBegin = ToBeatFromMeasure(rawNote.Measure, measureEntries) + (float)rawNote.Tick / parsedData.Ticks;
                 var beatEnd = beatBegin + (float)rawNote.Length / parsedData.Ticks;
                 var timingBegin = new NoteTiming(beatBegin, bpmChanges, timelineToHighSpeedChanges, measureLengthChanges);
@@ -146,7 +151,7 @@ namespace MyProject.Infrastructure
                 var scrollBegin = timingBegin.TimelineToScroll[rawNote.Timeline];
                 var scrollEnd = timingEnd.TimelineToScroll[rawNote.Timeline];
 
-                noteCores.Add(new NoteCore(new NoteProperty
+                var property = new NoteProperty
                 (
                     noteType,
                     rawNote.Timeline,
@@ -157,7 +162,8 @@ namespace MyProject.Infrastructure
                     lane,
                     width,
                     layer
-                )));
+                );
+                noteCores.Add(CreateNoteCore(property));
 
                 layer++;
             }
@@ -192,6 +198,16 @@ namespace MyProject.Infrastructure
 
             messages.Add(new Message(MessageType.Error, $"[{lineNum}] 未対応のノーツ種別です: {noteType}"));
             return NoteType.Unsupported;
+        }
+
+        static NoteCoreBase CreateNoteCore(NoteProperty property)
+        {
+            return property.Type switch
+            {
+                NoteType.Tap => new TapCore(property),
+                NoteType.Hold => new HoldCore(property),
+                _ => throw new ArgumentOutOfRangeException(nameof(property.Type), $"Unsupported note type: {property.Type}")
+            };
         }
 
         /// <summary>
@@ -316,7 +332,7 @@ namespace MyProject.Infrastructure
             };
 
             var conductorCore = new ConductorCore(new ConductorTiming(bpmChanges, highSpeedChanges, measureLengthChanges));
-            return new BeatmapMainData(conductorCore, Array.Empty<NoteCore>());
+            return new BeatmapMainData(conductorCore, Array.Empty<NoteCoreBase>());
         }
     }
 }

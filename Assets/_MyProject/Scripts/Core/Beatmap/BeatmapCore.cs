@@ -7,7 +7,7 @@ namespace MyProject.Core
     public class BeatmapCore
     {
         public BeatmapMetaData MetaData => metaData;
-        public IReadOnlyList<NoteCore> NoteCores => mainData.NoteCores;
+        public IReadOnlyList<NoteCoreBase> NoteCores => mainData.NoteCores;
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll => mainData.ConductorCore.TimelineToCurrentScroll;
         public IReadOnlyList<Message> Messages => messages;
 
