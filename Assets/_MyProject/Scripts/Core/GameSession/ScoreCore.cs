@@ -44,7 +44,7 @@ namespace MyProject.Core
         public void JudgePress(int lane, float currentSec)
         {
             // 指定されたレーンの最も近いノーツを取得
-            if (!laneToRemainingNoteCores.TryGetValue(lane, out var remainingNoteCores))
+            if (!laneToRemainingNoteCores.TryGetValue(lane, out var remainingNoteCores) || remainingNoteCores.Count == 0)
             {
                 return;
             }
@@ -52,17 +52,13 @@ namespace MyProject.Core
 
             // ノーツをジャッジ
             noteCore.JudgePress(currentSec);
-            if (noteCore.State is NoteState.AfterJudge)
-            {
-                remainingNoteCores.Remove(noteCore);
-                afterJudgeNoteCores.Add(noteCore);
-            }
+            HandleAfterJudge(noteCore, remainingNoteCores);
         }
 
         public void JudgeRelease(int lane, float currentSec)
         {
             // 指定されたレーンの最も近いノーツを取得
-            if (!laneToRemainingNoteCores.TryGetValue(lane, out var remainingNoteCores))
+            if (!laneToRemainingNoteCores.TryGetValue(lane, out var remainingNoteCores) || remainingNoteCores.Count == 0)
             {
                 return;
             }
@@ -84,6 +80,7 @@ namespace MyProject.Core
             foreach (var kvp in laneToRemainingNoteCores)
             {
                 var remainingNoteCores = kvp.Value;
+                var afterJudgeCandidates = new List<NoteCoreBase>();
                 // Begin
                 foreach (var noteCore in remainingNoteCores)
                 {
@@ -93,8 +90,14 @@ namespace MyProject.Core
                         break;
                     }
                     noteCore.JudgeBeginPass(currentSec);
-                    HandleAfterJudge(noteCore, remainingNoteCores);
+                    if (noteCore.State is NoteState.AfterJudge)
+                    {
+                        afterJudgeCandidates.Add(noteCore);
+                    }
                 }
+                HandleAfterJudges(afterJudgeCandidates, remainingNoteCores);
+                afterJudgeCandidates.Clear();
+
                 // End
                 foreach (var noteCore in remainingNoteCores)
                 {
@@ -104,8 +107,12 @@ namespace MyProject.Core
                         break;
                     }
                     noteCore.JudgeEndPass(currentSec);
-                    HandleAfterJudge(noteCore, remainingNoteCores);
+                    if (noteCore.State is NoteState.AfterJudge)
+                    {
+                        afterJudgeCandidates.Add(noteCore);
+                    }
                 }
+                HandleAfterJudges(afterJudgeCandidates, remainingNoteCores);
             }
         }
 
@@ -114,6 +121,7 @@ namespace MyProject.Core
             foreach (var kvp in laneToRemainingNoteCores)
             {
                 var remainingNoteCores = kvp.Value;
+                var afterJudgeCandidates = new List<NoteCoreBase>();
                 // Begin
                 foreach (var noteCore in remainingNoteCores)
                 {
@@ -123,8 +131,14 @@ namespace MyProject.Core
                         break;
                     }
                     noteCore.JudgeBeginMiss(currentSec);
-                    HandleAfterJudge(noteCore, remainingNoteCores);
+                    if (noteCore.State is NoteState.AfterJudge)
+                    {
+                        afterJudgeCandidates.Add(noteCore);
+                    }
                 }
+                HandleAfterJudges(afterJudgeCandidates, remainingNoteCores);
+                afterJudgeCandidates.Clear();
+
                 // End
                 foreach (var noteCore in remainingNoteCores)
                 {
@@ -134,8 +148,20 @@ namespace MyProject.Core
                         break;
                     }
                     noteCore.JudgeEndMiss(currentSec);
-                    HandleAfterJudge(noteCore, remainingNoteCores);
+                    if (noteCore.State is NoteState.AfterJudge)
+                    {
+                        afterJudgeCandidates.Add(noteCore);
+                    }
                 }
+                HandleAfterJudges(afterJudgeCandidates, remainingNoteCores);
+            }
+        }
+
+        void HandleAfterJudges(List<NoteCoreBase> noteCores, List<NoteCoreBase> remainingNoteCores)
+        {
+            foreach (var noteCore in noteCores)
+            {
+                HandleAfterJudge(noteCore, remainingNoteCores);
             }
         }
 

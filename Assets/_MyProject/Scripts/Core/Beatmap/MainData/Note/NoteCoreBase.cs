@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace MyProject.Core
@@ -6,7 +7,24 @@ namespace MyProject.Core
     {
         public NoteProperty Property { get; }
         public NoteState State { get; protected set; } = NoteState.BeforeJudge;
-        public JudgeType Judge { get; protected set; } = JudgeType.None;
+        // Noneから一度だけ変更できる
+        public JudgeType Judge
+        {
+            get => judge;
+            protected set
+            {
+                if (judge is not JudgeType.None)
+                {
+                    throw new InvalidOperationException($"Judge can only be set once.");
+                }
+                if (value is JudgeType.None)
+                {
+                    throw new InvalidOperationException("Judge must not be None.");
+                }
+                judge = value;
+            }
+        }
+        JudgeType judge = JudgeType.None;
 
         const float PerfectCriticalWidthSec = 0.033f;
         const float PerfectWidthSec = 0.066f;
