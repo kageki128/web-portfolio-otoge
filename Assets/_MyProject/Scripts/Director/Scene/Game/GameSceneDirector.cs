@@ -87,9 +87,13 @@ namespace MyProject.Director
                 currentScroll.Subscribe(scroll => gameActorHub.UpdateNotesByTimeline(timeline, scroll, 5f)).AddTo(disposables);
             }
 
+            // Actorを購読
             gameActorHub.ToSelectButtonClicked
                 .Take(1)
                 .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Select))
+                .AddTo(disposables);
+            gameActorHub.LanePressed
+                .Subscribe(lane => gameSessionCore.JudgePress(lane))
                 .AddTo(disposables);
 
             // ゲーム開始

@@ -91,13 +91,40 @@ namespace MyProject.Actor
     ""name"": ""GameActions"",
     ""maps"": [
         {
-            ""name"": ""Main"",
+            ""name"": ""Quad"",
             ""id"": ""3d628d34-7cbc-4a47-9eef-0b318b71426a"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Lane0"",
                     ""type"": ""Button"",
                     ""id"": ""c2c61ffb-a627-4f9f-8a0c-1299a7bcbd49"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lane1"",
+                    ""type"": ""Button"",
+                    ""id"": ""dd41d95c-9062-4d39-9f75-5a5e407db403"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lane2"",
+                    ""type"": ""Button"",
+                    ""id"": ""4c46f443-39be-4126-90c0-f3d14fb3bf01"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lane3"",
+                    ""type"": ""Button"",
+                    ""id"": ""d4a65985-3677-4a82-9e03-38b00b1e26e7"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -108,11 +135,44 @@ namespace MyProject.Actor
                 {
                     ""name"": """",
                     ""id"": ""8dfad4ef-cad6-4b52-b9f7-7bdeb7562d45"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Lane0"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""583b838a-deec-4b13-97b2-44ac9c1466ab"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lane1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bee1e300-402e-422e-970e-5fe8d65fc4d7"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lane2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef965bc6-dbb4-4bfa-8ba4-6a02624ba808"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lane3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -121,14 +181,17 @@ namespace MyProject.Actor
     ],
     ""controlSchemes"": []
 }");
-            // Main
-            m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
-            m_Main_Newaction = m_Main.FindAction("New action", throwIfNotFound: true);
+            // Quad
+            m_Quad = asset.FindActionMap("Quad", throwIfNotFound: true);
+            m_Quad_Lane0 = m_Quad.FindAction("Lane0", throwIfNotFound: true);
+            m_Quad_Lane1 = m_Quad.FindAction("Lane1", throwIfNotFound: true);
+            m_Quad_Lane2 = m_Quad.FindAction("Lane2", throwIfNotFound: true);
+            m_Quad_Lane3 = m_Quad.FindAction("Lane3", throwIfNotFound: true);
         }
 
         ~@GameActions()
         {
-            UnityEngine.Debug.Assert(!m_Main.enabled, "This will cause a leak and performance issues, GameActions.Main.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_Quad.enabled, "This will cause a leak and performance issues, GameActions.Quad.Disable() has not been called.");
         }
 
         /// <summary>
@@ -201,29 +264,44 @@ namespace MyProject.Actor
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // Main
-        private readonly InputActionMap m_Main;
-        private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
-        private readonly InputAction m_Main_Newaction;
+        // Quad
+        private readonly InputActionMap m_Quad;
+        private List<IQuadActions> m_QuadActionsCallbackInterfaces = new List<IQuadActions>();
+        private readonly InputAction m_Quad_Lane0;
+        private readonly InputAction m_Quad_Lane1;
+        private readonly InputAction m_Quad_Lane2;
+        private readonly InputAction m_Quad_Lane3;
         /// <summary>
-        /// Provides access to input actions defined in input action map "Main".
+        /// Provides access to input actions defined in input action map "Quad".
         /// </summary>
-        public struct MainActions
+        public struct QuadActions
         {
             private @GameActions m_Wrapper;
 
             /// <summary>
             /// Construct a new instance of the input action map wrapper class.
             /// </summary>
-            public MainActions(@GameActions wrapper) { m_Wrapper = wrapper; }
+            public QuadActions(@GameActions wrapper) { m_Wrapper = wrapper; }
             /// <summary>
-            /// Provides access to the underlying input action "Main/Newaction".
+            /// Provides access to the underlying input action "Quad/Lane0".
             /// </summary>
-            public InputAction @Newaction => m_Wrapper.m_Main_Newaction;
+            public InputAction @Lane0 => m_Wrapper.m_Quad_Lane0;
+            /// <summary>
+            /// Provides access to the underlying input action "Quad/Lane1".
+            /// </summary>
+            public InputAction @Lane1 => m_Wrapper.m_Quad_Lane1;
+            /// <summary>
+            /// Provides access to the underlying input action "Quad/Lane2".
+            /// </summary>
+            public InputAction @Lane2 => m_Wrapper.m_Quad_Lane2;
+            /// <summary>
+            /// Provides access to the underlying input action "Quad/Lane3".
+            /// </summary>
+            public InputAction @Lane3 => m_Wrapper.m_Quad_Lane3;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
-            public InputActionMap Get() { return m_Wrapper.m_Main; }
+            public InputActionMap Get() { return m_Wrapper.m_Quad; }
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
             public void Enable() { Get().Enable(); }
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
@@ -231,9 +309,9 @@ namespace MyProject.Actor
             /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
             public bool enabled => Get().enabled;
             /// <summary>
-            /// Implicitly converts an <see ref="MainActions" /> to an <see ref="InputActionMap" /> instance.
+            /// Implicitly converts an <see ref="QuadActions" /> to an <see ref="InputActionMap" /> instance.
             /// </summary>
-            public static implicit operator InputActionMap(MainActions set) { return set.Get(); }
+            public static implicit operator InputActionMap(QuadActions set) { return set.Get(); }
             /// <summary>
             /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
             /// </summary>
@@ -241,14 +319,23 @@ namespace MyProject.Actor
             /// <remarks>
             /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
             /// </remarks>
-            /// <seealso cref="MainActions" />
-            public void AddCallbacks(IMainActions instance)
+            /// <seealso cref="QuadActions" />
+            public void AddCallbacks(IQuadActions instance)
             {
-                if (instance == null || m_Wrapper.m_MainActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_MainActionsCallbackInterfaces.Add(instance);
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                if (instance == null || m_Wrapper.m_QuadActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_QuadActionsCallbackInterfaces.Add(instance);
+                @Lane0.started += instance.OnLane0;
+                @Lane0.performed += instance.OnLane0;
+                @Lane0.canceled += instance.OnLane0;
+                @Lane1.started += instance.OnLane1;
+                @Lane1.performed += instance.OnLane1;
+                @Lane1.canceled += instance.OnLane1;
+                @Lane2.started += instance.OnLane2;
+                @Lane2.performed += instance.OnLane2;
+                @Lane2.canceled += instance.OnLane2;
+                @Lane3.started += instance.OnLane3;
+                @Lane3.performed += instance.OnLane3;
+                @Lane3.canceled += instance.OnLane3;
             }
 
             /// <summary>
@@ -257,21 +344,30 @@ namespace MyProject.Actor
             /// <remarks>
             /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
             /// </remarks>
-            /// <seealso cref="MainActions" />
-            private void UnregisterCallbacks(IMainActions instance)
+            /// <seealso cref="QuadActions" />
+            private void UnregisterCallbacks(IQuadActions instance)
             {
-                @Newaction.started -= instance.OnNewaction;
-                @Newaction.performed -= instance.OnNewaction;
-                @Newaction.canceled -= instance.OnNewaction;
+                @Lane0.started -= instance.OnLane0;
+                @Lane0.performed -= instance.OnLane0;
+                @Lane0.canceled -= instance.OnLane0;
+                @Lane1.started -= instance.OnLane1;
+                @Lane1.performed -= instance.OnLane1;
+                @Lane1.canceled -= instance.OnLane1;
+                @Lane2.started -= instance.OnLane2;
+                @Lane2.performed -= instance.OnLane2;
+                @Lane2.canceled -= instance.OnLane2;
+                @Lane3.started -= instance.OnLane3;
+                @Lane3.performed -= instance.OnLane3;
+                @Lane3.canceled -= instance.OnLane3;
             }
 
             /// <summary>
-            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="MainActions.UnregisterCallbacks(IMainActions)" />.
+            /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="QuadActions.UnregisterCallbacks(IQuadActions)" />.
             /// </summary>
-            /// <seealso cref="MainActions.UnregisterCallbacks(IMainActions)" />
-            public void RemoveCallbacks(IMainActions instance)
+            /// <seealso cref="QuadActions.UnregisterCallbacks(IQuadActions)" />
+            public void RemoveCallbacks(IQuadActions instance)
             {
-                if (m_Wrapper.m_MainActionsCallbackInterfaces.Remove(instance))
+                if (m_Wrapper.m_QuadActionsCallbackInterfaces.Remove(instance))
                     UnregisterCallbacks(instance);
             }
 
@@ -281,35 +377,56 @@ namespace MyProject.Actor
             /// <remarks>
             /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
             /// </remarks>
-            /// <seealso cref="MainActions.AddCallbacks(IMainActions)" />
-            /// <seealso cref="MainActions.RemoveCallbacks(IMainActions)" />
-            /// <seealso cref="MainActions.UnregisterCallbacks(IMainActions)" />
-            public void SetCallbacks(IMainActions instance)
+            /// <seealso cref="QuadActions.AddCallbacks(IQuadActions)" />
+            /// <seealso cref="QuadActions.RemoveCallbacks(IQuadActions)" />
+            /// <seealso cref="QuadActions.UnregisterCallbacks(IQuadActions)" />
+            public void SetCallbacks(IQuadActions instance)
             {
-                foreach (var item in m_Wrapper.m_MainActionsCallbackInterfaces)
+                foreach (var item in m_Wrapper.m_QuadActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
-                m_Wrapper.m_MainActionsCallbackInterfaces.Clear();
+                m_Wrapper.m_QuadActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
             }
         }
         /// <summary>
-        /// Provides a new <see cref="MainActions" /> instance referencing this action map.
+        /// Provides a new <see cref="QuadActions" /> instance referencing this action map.
         /// </summary>
-        public MainActions @Main => new MainActions(this);
+        public QuadActions @Quad => new QuadActions(this);
         /// <summary>
-        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Main" which allows adding and removing callbacks.
+        /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Quad" which allows adding and removing callbacks.
         /// </summary>
-        /// <seealso cref="MainActions.AddCallbacks(IMainActions)" />
-        /// <seealso cref="MainActions.RemoveCallbacks(IMainActions)" />
-        public interface IMainActions
+        /// <seealso cref="QuadActions.AddCallbacks(IQuadActions)" />
+        /// <seealso cref="QuadActions.RemoveCallbacks(IQuadActions)" />
+        public interface IQuadActions
         {
             /// <summary>
-            /// Method invoked when associated input action "New action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Lane0" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnNewaction(InputAction.CallbackContext context);
+            void OnLane0(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Lane1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnLane1(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Lane2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnLane2(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Lane3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnLane3(InputAction.CallbackContext context);
         }
     }
 }

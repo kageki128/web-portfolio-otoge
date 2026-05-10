@@ -1,5 +1,6 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MyProject.Core;
 using UnityEngine;
 
 namespace MyProject.Actor
@@ -7,6 +8,8 @@ namespace MyProject.Actor
     public class QuadHoldActor : NoteActorBase
     {
         [SerializeField] SpriteRenderer image;
+        [SerializeField] Color normalColor;
+        [SerializeField] Color missColor;
 
         public override void Initialize()
         {
@@ -43,6 +46,23 @@ namespace MyProject.Actor
         protected override void SetLayer(int layer)
         {
             image.sortingOrder = layer;
+        }
+
+        protected override void SetAppearance(NoteState state)
+        {
+            if (state is NoteState.AfterJudge)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
+            gameObject.SetActive(true);
+            image.color = state switch
+            {
+                NoteState.Missed => missColor,
+                NoteState.Released => missColor,
+                _ => normalColor
+            };
         }
     }
 }

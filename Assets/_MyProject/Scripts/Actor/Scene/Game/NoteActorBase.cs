@@ -1,5 +1,6 @@
 using MyProject.Core;
 using UnityEngine;
+using R3;
 
 namespace MyProject.Actor
 {
@@ -12,6 +13,8 @@ namespace MyProject.Actor
             NoteCore = noteCore;
             SetWidth(noteCore.Property.Width);
             SetLayer(noteCore.Property.Layer);
+
+            noteCore.State.Subscribe(state => SetAppearance(state)).AddTo(this);
         }
 
         public abstract void SetPosition(float currentScroll, float scrollSpeed);
@@ -23,6 +26,7 @@ namespace MyProject.Actor
 
         protected abstract void SetWidth(int width);
         protected abstract void SetLayer(int layer);
+        protected abstract void SetAppearance(NoteState state);
 
         protected static float CalculateCenterX(int lane, int width)
         {

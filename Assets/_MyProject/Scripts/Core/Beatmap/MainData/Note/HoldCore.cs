@@ -7,7 +7,7 @@ namespace MyProject.Core
         public override void JudgePress(float currentSec)
         {
             var deltaSec = currentSec - Property.TimingBegin.Sec;
-            switch (State)
+            switch (state.Value)
             {
                 case NoteState.BeforeJudge:
                     var judge = GetJudgeType(deltaSec);
@@ -16,14 +16,14 @@ namespace MyProject.Core
                     {
                         return;
                     }
-                    Judge = judge;
-                    State = NoteState.Holding;
+                    SetJudge(judge);
+                    state.Value = NoteState.Holding;
                     return;
                 case NoteState.Missed:
-                    State = NoteState.Holding;
+                    state.Value = NoteState.Holding;
                     return;
                 case NoteState.Released:
-                    State = NoteState.Holding;
+                    state.Value = NoteState.Holding;
                     return;
                 default:
                     return;
@@ -32,10 +32,10 @@ namespace MyProject.Core
 
         public override void JudgeRelease(float currentSec)
         {
-            switch (State)
+            switch (state.Value)
             {
                 case NoteState.Holding:
-                    State = NoteState.Released;
+                    state.Value = NoteState.Released;
                     return;
                 default:
                     return;
@@ -54,11 +54,11 @@ namespace MyProject.Core
                 return;
             }
 
-            switch (State)
+            switch (state.Value)
             {
                 case NoteState.Holding:
                 case NoteState.Released:
-                    State = NoteState.AfterJudge;
+                    state.Value = NoteState.AfterJudge;
                     return;
                 default:
                     return;
@@ -67,13 +67,13 @@ namespace MyProject.Core
 
         public override void JudgeBeginMiss(float currentSec)
         {
-            if (State is not NoteState.BeforeJudge || !IsBeginMiss(currentSec))
+            if (state.Value is not NoteState.BeforeJudge || !IsBeginMiss(currentSec))
             {
                 return;
             }
 
-            Judge = JudgeType.MissLate;
-            State = NoteState.Missed;
+            SetJudge(JudgeType.MissLate);
+            state.Value = NoteState.Missed;
         }
 
         public override void JudgeEndMiss(float currentSec)
@@ -83,12 +83,12 @@ namespace MyProject.Core
                 return;
             }
 
-            switch (State)
+            switch (state.Value)
             {
                 case NoteState.Missed:
                 case NoteState.Holding:
                 case NoteState.Released:
-                    State = NoteState.AfterJudge;
+                    state.Value = NoteState.AfterJudge;
                     return;
                 default:
                     return;

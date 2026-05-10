@@ -13,8 +13,8 @@ namespace MyProject.Core
             {
                 return;
             }
-            Judge = judge;
-            State = NoteState.AfterJudge;
+            SetJudge(judge);
+            state.Value = NoteState.AfterJudge;
         }
 
         public override void JudgeRelease(float currentSec)
@@ -39,8 +39,8 @@ namespace MyProject.Core
                 return;
             }
 
-            Judge = JudgeType.MissLate;
-            State = NoteState.AfterJudge;
+            SetJudge(JudgeType.MissLate);
+            state.Value = NoteState.AfterJudge;
         }
 
         public override void JudgeEndMiss(float currentSec)

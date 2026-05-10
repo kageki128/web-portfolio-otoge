@@ -1,5 +1,6 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MyProject.Core;
 using UnityEngine;
 
 namespace MyProject.Actor
@@ -40,6 +41,11 @@ namespace MyProject.Actor
         protected override void SetLayer(int layer)
         {
             image.sortingOrder = layer;
+        }
+
+        protected override void SetAppearance(NoteState state)
+        {
+            gameObject.SetActive(state is not NoteState.AfterJudge);
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using ObservableCollections;
 using R3;
 
 namespace MyProject.Core
@@ -12,17 +13,19 @@ namespace MyProject.Core
         readonly ReactiveProperty<GameState> state = new(GameState.Preparing);
 
         public ReadOnlyReactiveProperty<int> Score => scoreCore.Score;
-        readonly ScoreCore scoreCore = new();
+        public ReadOnlyReactiveProperty<int> Combo => scoreCore.Combo;
+        public ObservableDictionary<JudgeType, int> JudgeCounts => scoreCore.JudgeCounts;
 
         public BeatmapMetaData MetaData => beatmapCore.MetaData;
         public IReadOnlyList<NoteCoreBase> NoteCores => beatmapCore.NoteCores;
 
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll => beatmapCore.TimelineToCurrentScroll;
 
+        readonly ScoreCore scoreCore = new();
+        readonly IBeatmapRepository beatmapRepository;
+
         // 初期化忘れに注意～(今は許容)
         BeatmapCore beatmapCore;
-
-        readonly IBeatmapRepository beatmapRepository;
 
         public GameSessionCore(IBeatmapRepository beatmapRepository)
         {

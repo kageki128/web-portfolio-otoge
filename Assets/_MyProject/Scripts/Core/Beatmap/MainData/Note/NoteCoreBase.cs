@@ -1,4 +1,5 @@
 using System;
+using R3;
 using UnityEngine;
 
 namespace MyProject.Core
@@ -6,25 +7,25 @@ namespace MyProject.Core
     public abstract class NoteCoreBase
     {
         public NoteProperty Property { get; }
-        public NoteState State { get; protected set; } = NoteState.BeforeJudge;
+        public ReadOnlyReactiveProperty<NoteState> State => state;
+        protected readonly ReactiveProperty<NoteState> state = new(NoteState.BeforeJudge);
+
         // Noneから一度だけ変更できる
-        public JudgeType Judge
+        public ReadOnlyReactiveProperty<JudgeType> Judge => judge;
+        readonly ReactiveProperty<JudgeType> judge = new(JudgeType.None);
+
+        protected void SetJudge(JudgeType value)
         {
-            get => judge;
-            protected set
+            if (judge.Value is not JudgeType.None)
             {
-                if (judge is not JudgeType.None)
-                {
-                    throw new InvalidOperationException($"Judge can only be set once.");
-                }
-                if (value is JudgeType.None)
-                {
-                    throw new InvalidOperationException("Judge must not be None.");
-                }
-                judge = value;
+                throw new InvalidOperationException("Judge can only be set once.");
             }
+            if (value is JudgeType.None)
+            {
+                throw new InvalidOperationException("Judge must not be None.");
+            }
+            judge.Value = value;
         }
-        JudgeType judge = JudgeType.None;
 
         const float PerfectCriticalWidthSec = 0.033f;
         const float PerfectWidthSec = 0.066f;

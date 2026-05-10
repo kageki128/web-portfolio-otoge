@@ -12,6 +12,7 @@ namespace MyProject.Actor
     public class GameActorHub : SceneActorHubBase
     {
         public Observable<Unit> ToSelectButtonClicked = Observable.Empty<Unit>();
+        public Observable<int> LanePressed => gameActionsObserver.LanePressed;
 
         [SerializeField] NoteActorHub noteActorHub;
 

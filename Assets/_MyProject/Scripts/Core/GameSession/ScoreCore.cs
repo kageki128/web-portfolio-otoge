@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ObservableCollections;
 using R3;
+using UnityEngine;
 
 namespace MyProject.Core
 {
@@ -43,7 +44,7 @@ namespace MyProject.Core
 
             foreach (var noteCore in noteCores)
             {
-                if (noteCore.State is not NoteState.BeforeJudge || noteCore.Judge is not JudgeType.None)
+                if (noteCore.State.CurrentValue is not NoteState.BeforeJudge || noteCore.Judge.CurrentValue is not JudgeType.None)
                 {
                     throw new InvalidOperationException("All NoteCores must be in the initial state");
                 }
@@ -126,7 +127,7 @@ namespace MyProject.Core
                         break;
                     }
                     noteCore.JudgeBeginPass(currentSec);
-                    if (noteCore.State is NoteState.AfterJudge)
+                    if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                     {
                         afterJudgeCandidates.Add(noteCore);
                     }
@@ -143,7 +144,7 @@ namespace MyProject.Core
                         break;
                     }
                     noteCore.JudgeEndPass(currentSec);
-                    if (noteCore.State is NoteState.AfterJudge)
+                    if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                     {
                         afterJudgeCandidates.Add(noteCore);
                     }
@@ -167,7 +168,7 @@ namespace MyProject.Core
                         break;
                     }
                     noteCore.JudgeBeginMiss(currentSec);
-                    if (noteCore.State is NoteState.AfterJudge)
+                    if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                     {
                         afterJudgeCandidates.Add(noteCore);
                     }
@@ -184,7 +185,7 @@ namespace MyProject.Core
                         break;
                     }
                     noteCore.JudgeEndMiss(currentSec);
-                    if (noteCore.State is NoteState.AfterJudge)
+                    if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                     {
                         afterJudgeCandidates.Add(noteCore);
                     }
@@ -203,13 +204,16 @@ namespace MyProject.Core
 
         void HandleAfterJudge(NoteCoreBase noteCore, List<NoteCoreBase> remainingNoteCores)
         {
-            if (noteCore.State is NoteState.AfterJudge)
+            if (noteCore.State.CurrentValue is NoteState.AfterJudge)
             {
                 remainingNoteCores.Remove(noteCore);
                 afterJudgeNoteCores.Add(noteCore);
-                JudgeCounts[noteCore.Judge]++;
-                AddScore(noteCore.Judge);
-                UpdateCombo(noteCore.Judge);
+                var judge = noteCore.Judge.CurrentValue;
+                JudgeCounts[judge]++;
+                AddScore(judge);
+                UpdateCombo(judge);
+
+                Debug.Log($"Judge: {judge}, Score: {score.Value}, Combo: {combo.Value}");
             }
         }
 

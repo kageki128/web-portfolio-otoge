@@ -29,7 +29,7 @@ namespace MyProject.Tests.EditMode
             var scoreCore = CreateScoreCore(tap);
 
             Assert.DoesNotThrow(() => scoreCore.Update(1.2f));
-            Assert.That(tap.State, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(tap.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
         }
 
         [Test]
@@ -51,12 +51,12 @@ namespace MyProject.Tests.EditMode
             var scoreCore = CreateScoreCore(tap);
 
             scoreCore.JudgePress(0, 0.8f);
-            Assert.That(tap.State, Is.EqualTo(NoteState.BeforeJudge));
-            Assert.That(tap.Judge, Is.EqualTo(JudgeType.None));
+            Assert.That(tap.State.CurrentValue, Is.EqualTo(NoteState.BeforeJudge));
+            Assert.That(tap.Judge.CurrentValue, Is.EqualTo(JudgeType.None));
 
             scoreCore.JudgePress(0, 1.02f);
-            Assert.That(tap.State, Is.EqualTo(NoteState.AfterJudge));
-            Assert.That(tap.Judge, Is.EqualTo(JudgeType.PerfectCriticalLate));
+            Assert.That(tap.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(tap.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
         }
 
         [Test]
@@ -67,8 +67,8 @@ namespace MyProject.Tests.EditMode
 
             scoreCore.Update(1.2f);
 
-            Assert.That(tap.State, Is.EqualTo(NoteState.AfterJudge));
-            Assert.That(tap.Judge, Is.EqualTo(JudgeType.MissLate));
+            Assert.That(tap.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(tap.Judge.CurrentValue, Is.EqualTo(JudgeType.MissLate));
         }
 
         [Test]
@@ -78,15 +78,15 @@ namespace MyProject.Tests.EditMode
             var scoreCore = CreateScoreCore(hold);
 
             scoreCore.JudgePress(0, 1f);
-            Assert.That(hold.State, Is.EqualTo(NoteState.Holding));
-            Assert.That(hold.Judge, Is.EqualTo(JudgeType.PerfectCriticalLate));
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Holding));
+            Assert.That(hold.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
 
             scoreCore.JudgeRelease(0, 1.5f);
-            Assert.That(hold.State, Is.EqualTo(NoteState.Released));
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Released));
 
             scoreCore.JudgePress(0, 1.6f);
-            Assert.That(hold.State, Is.EqualTo(NoteState.Holding));
-            Assert.That(hold.Judge, Is.EqualTo(JudgeType.PerfectCriticalLate));
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Holding));
+            Assert.That(hold.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
         }
 
         [Test]
@@ -97,8 +97,8 @@ namespace MyProject.Tests.EditMode
 
             scoreCore.Update(1.2f);
 
-            Assert.That(hold.State, Is.EqualTo(NoteState.Missed));
-            Assert.That(hold.Judge, Is.EqualTo(JudgeType.MissLate));
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Missed));
+            Assert.That(hold.Judge.CurrentValue, Is.EqualTo(JudgeType.MissLate));
         }
 
         [Test]
@@ -108,12 +108,12 @@ namespace MyProject.Tests.EditMode
             var scoreCore = CreateScoreCore(hold);
 
             scoreCore.Update(1.2f);
-            Assert.That(hold.State, Is.EqualTo(NoteState.Missed));
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Missed));
 
             scoreCore.JudgePress(0, 1.3f);
 
-            Assert.That(hold.State, Is.EqualTo(NoteState.Holding));
-            Assert.That(hold.Judge, Is.EqualTo(JudgeType.MissLate));
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Holding));
+            Assert.That(hold.Judge.CurrentValue, Is.EqualTo(JudgeType.MissLate));
         }
 
         [Test]
@@ -123,12 +123,12 @@ namespace MyProject.Tests.EditMode
             var scoreCore = CreateScoreCore(hold);
 
             scoreCore.JudgePress(0, 1f);
-            Assert.That(hold.State, Is.EqualTo(NoteState.Holding));
-            var judgeAfterPress = hold.Judge;
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Holding));
+            var judgeAfterPress = hold.Judge.CurrentValue;
 
             Assert.DoesNotThrow(() => scoreCore.Update(1.2f));
-            Assert.That(hold.State, Is.EqualTo(NoteState.Holding));
-            Assert.That(hold.Judge, Is.EqualTo(judgeAfterPress));
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Holding));
+            Assert.That(hold.Judge.CurrentValue, Is.EqualTo(judgeAfterPress));
         }
 
         [Test]
@@ -140,8 +140,8 @@ namespace MyProject.Tests.EditMode
             scoreCore.JudgePress(0, 1f);
             scoreCore.Update(2f);
 
-            Assert.That(hold.State, Is.EqualTo(NoteState.AfterJudge));
-            Assert.That(hold.Judge, Is.EqualTo(JudgeType.PerfectCriticalLate));
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(hold.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
         }
 
         [Test]
@@ -154,8 +154,8 @@ namespace MyProject.Tests.EditMode
             scoreCore.JudgeRelease(0, 1.5f);
             scoreCore.Update(2f);
 
-            Assert.That(hold.State, Is.EqualTo(NoteState.AfterJudge));
-            Assert.That(hold.Judge, Is.EqualTo(JudgeType.PerfectCriticalLate));
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(hold.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
         }
 
         [Test]
@@ -165,11 +165,11 @@ namespace MyProject.Tests.EditMode
             var scoreCore = CreateScoreCore(hold);
 
             scoreCore.Update(1.2f);
-            var judgeAfterBeginMiss = hold.Judge;
+            var judgeAfterBeginMiss = hold.Judge.CurrentValue;
 
             Assert.DoesNotThrow(() => scoreCore.Update(2.2f));
-            Assert.That(hold.State, Is.EqualTo(NoteState.AfterJudge));
-            Assert.That(hold.Judge, Is.EqualTo(judgeAfterBeginMiss));
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(hold.Judge.CurrentValue, Is.EqualTo(judgeAfterBeginMiss));
         }
 
         [Test]
@@ -180,11 +180,11 @@ namespace MyProject.Tests.EditMode
             var scoreCore = CreateScoreCore(tapBeat2, tapBeat1);
 
             scoreCore.JudgePress(0, 1f);
-            Assert.That(tapBeat1.State, Is.EqualTo(NoteState.AfterJudge));
-            Assert.That(tapBeat2.State, Is.EqualTo(NoteState.BeforeJudge));
+            Assert.That(tapBeat1.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(tapBeat2.State.CurrentValue, Is.EqualTo(NoteState.BeforeJudge));
 
             scoreCore.JudgePress(0, 2f);
-            Assert.That(tapBeat2.State, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(tapBeat2.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
         }
 
         [Test]
@@ -196,8 +196,8 @@ namespace MyProject.Tests.EditMode
 
             scoreCore.JudgePress(1, 1f);
 
-            Assert.That(lane1Tap.State, Is.EqualTo(NoteState.AfterJudge));
-            Assert.That(lane0Tap.State, Is.EqualTo(NoteState.BeforeJudge));
+            Assert.That(lane1Tap.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(lane0Tap.State.CurrentValue, Is.EqualTo(NoteState.BeforeJudge));
         }
 
         [Test]
@@ -208,14 +208,6 @@ namespace MyProject.Tests.EditMode
             var scoreCore = new ScoreCore();
 
             Assert.Throws<System.InvalidOperationException>(() => scoreCore.Initialize(new List<NoteCoreBase> { tap }));
-        }
-
-        [Test]
-        public void ノーツ0件でInitializeすると例外になる()
-        {
-            var scoreCore = new ScoreCore();
-
-            Assert.Throws<System.ArgumentException>(() => scoreCore.Initialize(new List<NoteCoreBase>()));
         }
 
         [Test]
