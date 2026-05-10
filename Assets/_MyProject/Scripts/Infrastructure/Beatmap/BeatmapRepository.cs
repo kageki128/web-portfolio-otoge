@@ -18,24 +18,9 @@ namespace MyProject.Infrastructure
         readonly BeatmapParser parser = new();
         readonly BeatmapComposer composer = new();
 
-        BeatmapCore cachedBeatmap;
-
         public BeatmapRepository(BeatmapFilesSO beatmapFiles)
         {
             this.beatmapFiles = beatmapFiles;
-        }
-
-        public async UniTask LoadAsync(CancellationToken ct)
-        {
-            ct.ThrowIfCancellationRequested();
-
-            if (cachedBeatmap != null)
-            {
-                Debug.Log("[BeatmapRepository] LoadAsync: Beatmap is already loaded, skipping.");
-                await UniTask.CompletedTask;
-            }
-
-            await GetAsync(ct);
         }
 
         /// <summary>
@@ -61,7 +46,6 @@ namespace MyProject.Infrastructure
             var beatmap = composer.Compose(beatmapFiles.Wave, parsedData, ct);
             DebugBeatmap(beatmap);
 
-            cachedBeatmap = beatmap;
             return UniTask.FromResult(beatmap);
         }
 

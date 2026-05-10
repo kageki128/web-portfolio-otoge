@@ -50,9 +50,9 @@ namespace MyProject.Core
             }
         }
 
-        public void AdvanceTimeByDeltaSec(float deltaSec)
+        public void SetTimeBySec(float sec)
         {
-            var newSec = currentSec.Value + deltaSec;
+            var newSec = sec;
             var newBeat = CalculateBeatFromSec(newSec, bpmChanges);
             var newMeasure = CalculateMeasureFromBeat(newBeat, measureLengthChanges);
 

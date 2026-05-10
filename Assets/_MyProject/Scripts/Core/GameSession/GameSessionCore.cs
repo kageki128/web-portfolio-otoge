@@ -56,5 +56,28 @@ namespace MyProject.Core
 
             state.Value = GameState.Ready;
         }
+
+        public double StartGame()
+        {
+            if (state.Value is not GameState.Ready)
+            {
+                throw new InvalidOperationException($"Cannot start game from state {state.Value}");
+            }
+
+            double startDspTime = beatmapCore.Start(0.5);
+            state.Value = GameState.Playing;
+
+            return startDspTime;
+        }
+
+        public void ProceedGame()
+        {
+            if (state.Value is not GameState.Playing)
+            {
+                return;
+            }
+
+            beatmapCore.AdvanceTime();
+        }
     }
 }

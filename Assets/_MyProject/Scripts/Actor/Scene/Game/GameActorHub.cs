@@ -50,8 +50,14 @@ namespace MyProject.Actor
         public override async UniTask HideAsync(CancellationToken ct)
         {
             gameActionsObserver.Disable();
+            AudioPlayer.Instance.StopBgm();
             await animationTimeline.HideAsync(ct);
             gameObject.SetActive(false);
+        }
+
+        public void PlayWave(AudioClip clip, double scheduledDspTime)
+        {
+            AudioPlayer.Instance.PlayBgm(clip, scheduledDspTime, false);
         }
 
         public void CreateNotes(IReadOnlyList<NoteCore> noteCores) => noteActorHub.CreateNotes(noteCores);

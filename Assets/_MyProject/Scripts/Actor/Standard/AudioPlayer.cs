@@ -58,7 +58,7 @@ namespace MyProject.Actor
             seVolume.Dispose();
         }
 
-        public void PlayBgm(AudioClip clip, bool loop = true)
+        public void PlayBgm(AudioClip clip, double scheduledDspTime = 0, bool loop = true)
         {
             if (!CanPlayClip(clip))
             {
@@ -67,7 +67,7 @@ namespace MyProject.Actor
 
             bgmAudioSource.clip = clip;
             bgmAudioSource.loop = loop;
-            bgmAudioSource.Play();
+            bgmAudioSource.PlayScheduled(scheduledDspTime);
         }
 
         public void PlaySe(AudioClip clip)

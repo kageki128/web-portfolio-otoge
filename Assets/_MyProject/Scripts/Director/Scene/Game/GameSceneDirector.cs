@@ -29,7 +29,7 @@ namespace MyProject.Director
         public async UniTask InitializeAsync(CancellationToken ct)
         {
             gameActorHub.Initialize();
-            await gameSessionCore.InitializeAsync(ct);
+            await UniTask.CompletedTask;
         }
 
         public async UniTask BeforeEnterAsync(CancellationToken ct)
@@ -51,6 +51,7 @@ namespace MyProject.Director
 
         public void Tick()
         {
+            gameSessionCore.ProceedGame();
         }
 
         public async UniTask BeforeExitAsync(CancellationToken ct)
@@ -75,6 +76,7 @@ namespace MyProject.Director
         {
             disposables.Clear();
 
+            // ノーツを生成してスクロールを購読
             var noteCores = gameSessionCore.NoteCores;
             var timelineToCurrentScroll = gameSessionCore.TimelineToCurrentScroll;
             gameActorHub.CreateNotes(noteCores);
@@ -89,6 +91,8 @@ namespace MyProject.Director
                 .Take(1)
                 .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Select))
                 .AddTo(disposables);
+
+            gameSessionCore.StartGame();
         }
     }
 }

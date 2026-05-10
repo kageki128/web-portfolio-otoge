@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using R3;
+using UnityEngine;
 
 namespace MyProject.Core
 {
@@ -12,14 +13,23 @@ namespace MyProject.Core
 
         readonly ConductorTiming timing;
 
+        double startDspTime;
+
         public ConductorCore(ConductorTiming timing)
         {
             this.timing = timing;
         }
 
-        public void AdvanceTimeByDeltaSec(float deltaSec)
+        public double Start(double delaySec)
         {
-            timing.AdvanceTimeByDeltaSec(deltaSec);
+            startDspTime = AudioSettings.dspTime + delaySec;
+            return startDspTime;
+        }
+
+        public void Advance()
+        {
+            float currentSec = (float)(AudioSettings.dspTime - startDspTime);
+            timing.SetTimeBySec(currentSec);
         }
     }
 }

@@ -27,6 +27,7 @@ namespace MyProject.Core
             this.messages = messages;
         }
 
-
+        public double Start(double delaySec) => mainData.ConductorCore.Start(delaySec);
+        public void AdvanceTime() => mainData.ConductorCore.Advance();
     }
 }
