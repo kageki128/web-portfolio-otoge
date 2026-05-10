@@ -87,6 +87,24 @@ namespace MyProject.Director
                 currentScroll.Subscribe(scroll => gameActorHub.UpdateNotesByTimeline(timeline, scroll, 5f)).AddTo(disposables);
             }
 
+            // スコア表示を購読
+            gameActorHub.SetScore(gameSessionCore.Score.CurrentValue);
+            gameActorHub.SetCombo(gameSessionCore.Combo.CurrentValue);
+            gameActorHub.SetJudgeCounts(gameSessionCore.JudgeCounts);
+            gameSessionCore.Score
+                .Subscribe(score => gameActorHub.SetScore(score))
+                .AddTo(disposables);
+            gameSessionCore.Combo
+                .Subscribe(combo => gameActorHub.SetCombo(combo))
+                .AddTo(disposables);
+            foreach (var noteCore in noteCores)
+            {
+                noteCore.Judge
+                    .Skip(1)
+                    .Subscribe(_ => gameActorHub.SetJudgeCounts(gameSessionCore.JudgeCounts))
+                    .AddTo(disposables);
+            }
+
             // Actorを購読
             gameActorHub.ToSelectButtonClicked
                 .Take(1)
