@@ -41,6 +41,7 @@ namespace MyProject.Core
         {
             JudgeCounts.Clear();
             remainingLaneNoteCores.Clear();
+            remainingAirNoteCores.Clear();
             afterJudgeNoteCores.Clear();
 
             foreach (var noteCore in noteCores)
@@ -50,6 +51,14 @@ namespace MyProject.Core
                     throw new InvalidOperationException("All NoteCores must be in the initial state");
                 }
 
+                // Airノーツは専用のリストで管理する
+                if (noteCore.Property.Type == NoteType.Air)
+                {
+                    remainingAirNoteCores.Add(noteCore);
+                    continue;
+                }
+
+                // 通常ノーツはレーンと幅を考慮して管理する
                 foreach (var lane in GetCoveredLanes(noteCore))
                 {
                     if (!remainingLaneNoteCores.ContainsKey(lane))
@@ -64,6 +73,7 @@ namespace MyProject.Core
             {
                 kvp.Value.Sort((x, y) => x.Property.TimingBegin.Beat.CompareTo(y.Property.TimingBegin.Beat));
             }
+            remainingAirNoteCores.Sort((x, y) => x.Property.TimingBegin.Beat.CompareTo(y.Property.TimingBegin.Beat));
 
             // ジャッジカウントを初期化
             JudgeCounts[JudgeType.PerfectCriticalFast] = 0;
@@ -111,12 +121,28 @@ namespace MyProject.Core
 
         public void JudgePressAir(float currentSec)
         {
+            if (remainingAirNoteCores.Count == 0)
+             {
+                 return;
+             }
+             var noteCore = remainingAirNoteCores[0];
 
+             // ノーツをジャッジ
+             noteCore.JudgePress(currentSec);
+             HandleAfterJudge(noteCore);
         }
 
         public void JudgeReleaseAir(float currentSec)
         {
+            if (remainingAirNoteCores.Count == 0)
+             {
+                 return;
+             }
+             var noteCore = remainingAirNoteCores[0];
 
+             // ノーツをジャッジ
+             noteCore.JudgeRelease(currentSec);
+             HandleAfterJudge(noteCore);
         }
 
         public void Update(float currentSec)

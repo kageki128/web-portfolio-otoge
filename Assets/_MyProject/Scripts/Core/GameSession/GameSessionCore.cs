@@ -75,6 +75,26 @@ namespace MyProject.Core
             scoreCore.JudgeReleaseLane(lane, beatmapCore.CurrentSec.CurrentValue);
         }
 
+        public void JudgePressAir()
+        {
+            if (state.Value is not GameState.Playing)
+            {
+                return;
+            }
+
+            scoreCore.JudgePressAir(beatmapCore.CurrentSec.CurrentValue);
+        }
+
+        public void JudgeReleaseAir()
+        {
+            if (state.Value is not GameState.Playing)
+            {
+                return;
+            }
+
+            scoreCore.JudgeReleaseAir(beatmapCore.CurrentSec.CurrentValue);
+        }
+
         public void ProceedGame()
         {
             if (state.Value is not GameState.Playing)
