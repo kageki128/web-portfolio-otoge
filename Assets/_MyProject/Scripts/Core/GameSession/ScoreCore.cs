@@ -190,6 +190,36 @@ namespace MyProject.Core
                 }
                 HandleAfterJudges(afterJudgeCandidates);
             }
+
+            var airAfterJudgeCandidates = new List<NoteCoreBase>();
+            foreach (var noteCore in remainingAirNoteCores)
+            {
+                if (!noteCore.IsBeginPass(currentSec))
+                {
+                    break;
+                }
+                noteCore.JudgeBeginPass(currentSec);
+                if (noteCore.State.CurrentValue is NoteState.AfterJudge)
+                {
+                    airAfterJudgeCandidates.Add(noteCore);
+                }
+            }
+            HandleAfterJudges(airAfterJudgeCandidates);
+            airAfterJudgeCandidates.Clear();
+
+            foreach (var noteCore in remainingAirNoteCores)
+            {
+                if (!noteCore.IsEndPass(currentSec))
+                {
+                    break;
+                }
+                noteCore.JudgeEndPass(currentSec);
+                if (noteCore.State.CurrentValue is NoteState.AfterJudge)
+                {
+                    airAfterJudgeCandidates.Add(noteCore);
+                }
+            }
+            HandleAfterJudges(airAfterJudgeCandidates);
         }
 
         void JudgeMiss(float currentSec)
@@ -231,6 +261,36 @@ namespace MyProject.Core
                 }
                 HandleAfterJudges(afterJudgeCandidates);
             }
+
+            var airAfterJudgeCandidates = new List<NoteCoreBase>();
+            foreach (var noteCore in remainingAirNoteCores)
+            {
+                if (!noteCore.IsBeginMiss(currentSec))
+                {
+                    break;
+                }
+                noteCore.JudgeBeginMiss(currentSec);
+                if (noteCore.State.CurrentValue is NoteState.AfterJudge)
+                {
+                    airAfterJudgeCandidates.Add(noteCore);
+                }
+            }
+            HandleAfterJudges(airAfterJudgeCandidates);
+            airAfterJudgeCandidates.Clear();
+
+            foreach (var noteCore in remainingAirNoteCores)
+            {
+                if (!noteCore.IsEndMiss(currentSec))
+                {
+                    break;
+                }
+                noteCore.JudgeEndMiss(currentSec);
+                if (noteCore.State.CurrentValue is NoteState.AfterJudge)
+                {
+                    airAfterJudgeCandidates.Add(noteCore);
+                }
+            }
+            HandleAfterJudges(airAfterJudgeCandidates);
         }
 
         static IReadOnlyList<int> GetCoveredLanes(NoteCoreBase noteCore)
@@ -257,6 +317,7 @@ namespace MyProject.Core
         {
             if (noteCore.State.CurrentValue is NoteState.AfterJudge)
             {
+                remainingAirNoteCores.Remove(noteCore);
                 foreach (var lane in GetCoveredLanes(noteCore))
                 {
                     if (remainingLaneNoteCores.TryGetValue(lane, out var remainingNoteCores))

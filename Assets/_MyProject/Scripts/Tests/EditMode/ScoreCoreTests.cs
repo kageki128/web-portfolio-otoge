@@ -228,6 +228,32 @@ namespace MyProject.Tests.EditMode
         }
 
         [Test]
+        public void Air判定後_再押下しても再判定されない()
+        {
+            var air = CreateAir(beat: 1f);
+            var scoreCore = CreateScoreCore(air);
+
+            scoreCore.JudgePressAir(1f);
+            Assert.That(air.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(air.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
+
+            Assert.DoesNotThrow(() => scoreCore.JudgePressAir(1f));
+            Assert.That(scoreCore.Combo.CurrentValue, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Air_未押下ならBeginMissでMissLate確定する()
+        {
+            var air = CreateAir(beat: 1f);
+            var scoreCore = CreateScoreCore(air);
+
+            scoreCore.Update(1.2f);
+
+            Assert.That(air.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(air.Judge.CurrentValue, Is.EqualTo(JudgeType.MissLate));
+        }
+
+        [Test]
         public void 初期状態でないノーツをInitializeすると例外になる()
         {
             var tap = CreateTap(lane: 0, beat: 1f);
@@ -272,6 +298,13 @@ namespace MyProject.Tests.EditMode
             var timingEnd = CreateTiming(endBeat);
             var property = new NoteProperty(NoteType.Hold, 0, timingBegin, timingEnd, 0f, 0f, lane, width, 0);
             return new HoldCore(property);
+        }
+
+        static AirCore CreateAir(float beat)
+        {
+            var timing = CreateTiming(beat);
+            var property = new NoteProperty(NoteType.Air, 0, timing, timing, 0f, 0f, 0, 1, 0);
+            return new AirCore(property);
         }
 
         static NoteTiming CreateTiming(float beat)
