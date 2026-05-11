@@ -55,24 +55,24 @@ namespace MyProject.Core
             return startDspTime;
         }
 
-        public void JudgePress(int lane)
+        public void JudgePressLane(int lane)
         {
             if (state.Value is not GameState.Playing)
             {
                 return;
             }
 
-            scoreCore.JudgePress(lane, beatmapCore.CurrentSec.CurrentValue);
+            scoreCore.JudgePressLane(lane, beatmapCore.CurrentSec.CurrentValue);
         }
 
-        public void JudgeRelease(int lane)
+        public void JudgeReleaseLane(int lane)
         {
             if (state.Value is not GameState.Playing)
             {
                 return;
             }
 
-            scoreCore.JudgeRelease(lane, beatmapCore.CurrentSec.CurrentValue);
+            scoreCore.JudgeReleaseLane(lane, beatmapCore.CurrentSec.CurrentValue);
         }
 
         public void ProceedGame()

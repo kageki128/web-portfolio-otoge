@@ -4,6 +4,7 @@ namespace MyProject.Core
     {
         Tap,
         Hold,
+        Air,
         Unsupported,
     }
 }

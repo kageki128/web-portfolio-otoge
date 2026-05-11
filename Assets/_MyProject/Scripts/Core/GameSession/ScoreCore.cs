@@ -16,7 +16,8 @@ namespace MyProject.Core
 
         public ObservableDictionary<JudgeType, int> JudgeCounts { get; } = new();
 
-        readonly Dictionary<int, List<NoteCoreBase>> laneToRemainingNoteCores = new();
+        readonly Dictionary<int, List<NoteCoreBase>> remainingLaneNoteCores = new();
+        readonly List<NoteCoreBase> remainingAirNoteCores = new();
         readonly List<NoteCoreBase> afterJudgeNoteCores = new();
 
         readonly Dictionary<JudgeType, float> judgeTypeToBaseScoreRate = new()
@@ -39,7 +40,7 @@ namespace MyProject.Core
         public void Initialize(IReadOnlyList<NoteCoreBase> noteCores)
         {
             JudgeCounts.Clear();
-            laneToRemainingNoteCores.Clear();
+            remainingLaneNoteCores.Clear();
             afterJudgeNoteCores.Clear();
 
             foreach (var noteCore in noteCores)
@@ -51,15 +52,15 @@ namespace MyProject.Core
 
                 foreach (var lane in GetCoveredLanes(noteCore))
                 {
-                    if (!laneToRemainingNoteCores.ContainsKey(lane))
+                    if (!remainingLaneNoteCores.ContainsKey(lane))
                     {
-                        laneToRemainingNoteCores[lane] = new List<NoteCoreBase>();
+                        remainingLaneNoteCores[lane] = new List<NoteCoreBase>();
                     }
-                    laneToRemainingNoteCores[lane].Add(noteCore);
+                    remainingLaneNoteCores[lane].Add(noteCore);
                 }
             }
             // BeginBeat順にソートする
-            foreach (var kvp in laneToRemainingNoteCores)
+            foreach (var kvp in remainingLaneNoteCores)
             {
                 kvp.Value.Sort((x, y) => x.Property.TimingBegin.Beat.CompareTo(y.Property.TimingBegin.Beat));
             }
@@ -80,10 +81,10 @@ namespace MyProject.Core
             maxScore = BaseMaxScore + maxCombo;
         }
 
-        public void JudgePress(int lane, float currentSec)
+        public void JudgePressLane(int lane, float currentSec)
         {
             // 指定されたレーンの最も近いノーツを取得
-            if (!laneToRemainingNoteCores.TryGetValue(lane, out var remainingNoteCores) || remainingNoteCores.Count == 0)
+            if (!remainingLaneNoteCores.TryGetValue(lane, out var remainingNoteCores) || remainingNoteCores.Count == 0)
             {
                 return;
             }
@@ -94,10 +95,10 @@ namespace MyProject.Core
             HandleAfterJudge(noteCore);
         }
 
-        public void JudgeRelease(int lane, float currentSec)
+        public void JudgeReleaseLane(int lane, float currentSec)
         {
             // 指定されたレーンの最も近いノーツを取得
-            if (!laneToRemainingNoteCores.TryGetValue(lane, out var remainingNoteCores) || remainingNoteCores.Count == 0)
+            if (!remainingLaneNoteCores.TryGetValue(lane, out var remainingNoteCores) || remainingNoteCores.Count == 0)
             {
                 return;
             }
@@ -108,6 +109,16 @@ namespace MyProject.Core
             HandleAfterJudge(noteCore);
         }
 
+        public void JudgePressAir(float currentSec)
+        {
+
+        }
+
+        public void JudgeReleaseAir(float currentSec)
+        {
+
+        }
+
         public void Update(float currentSec)
         {
             JudgePass(currentSec);
@@ -116,7 +127,7 @@ namespace MyProject.Core
 
         void JudgePass(float currentSec)
         {
-            foreach (var kvp in laneToRemainingNoteCores)
+            foreach (var kvp in remainingLaneNoteCores)
             {
                 var remainingNoteCores = kvp.Value;
                 var afterJudgeCandidates = new List<NoteCoreBase>();
@@ -157,7 +168,7 @@ namespace MyProject.Core
 
         void JudgeMiss(float currentSec)
         {
-            foreach (var kvp in laneToRemainingNoteCores)
+            foreach (var kvp in remainingLaneNoteCores)
             {
                 var remainingNoteCores = kvp.Value;
                 var afterJudgeCandidates = new List<NoteCoreBase>();
@@ -222,7 +233,7 @@ namespace MyProject.Core
             {
                 foreach (var lane in GetCoveredLanes(noteCore))
                 {
-                    if (laneToRemainingNoteCores.TryGetValue(lane, out var remainingNoteCores))
+                    if (remainingLaneNoteCores.TryGetValue(lane, out var remainingNoteCores))
                     {
                         remainingNoteCores.Remove(noteCore);
                     }

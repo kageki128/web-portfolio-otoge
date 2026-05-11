@@ -31,7 +31,8 @@ namespace MyProject.Tests.EditMode
                 "@ENDHEAD",
                 "#0'0:t02",
                 "#1'0:h24",
-                "#480>s"
+                "#480>s",
+                "#2'0:a02UCN"
             );
 
             using var fixture = CreateFixture(ugc);
@@ -40,11 +41,13 @@ namespace MyProject.Tests.EditMode
             Assert.That(beatmap.MetaData.Id, Is.EqualTo("test-song-id"));
             Assert.That(beatmap.MetaData.Title, Is.EqualTo("Test Song"));
             Assert.That(beatmap.MetaData.Difficulty, Is.EqualTo(DifficultyType.Normal));
-            Assert.That(beatmap.NoteCores.Count, Is.EqualTo(2));
+            Assert.That(beatmap.NoteCores.Count, Is.EqualTo(3));
             Assert.That(beatmap.NoteCores[0], Is.TypeOf<TapCore>());
             Assert.That(beatmap.NoteCores[1], Is.TypeOf<HoldCore>());
+            Assert.That(beatmap.NoteCores[2], Is.TypeOf<AirCore>());
             Assert.That(beatmap.NoteCores[0].Property.Type, Is.EqualTo(NoteType.Tap));
             Assert.That(beatmap.NoteCores[1].Property.Type, Is.EqualTo(NoteType.Hold));
+            Assert.That(beatmap.NoteCores[2].Property.Type, Is.EqualTo(NoteType.Air));
             Assert.That(beatmap.NoteCores[1].Property.TimingEnd.Beat, Is.EqualTo(5f).Within(0.0001f));
             Assert.That(beatmap.Messages.Count, Is.EqualTo(0));
         }

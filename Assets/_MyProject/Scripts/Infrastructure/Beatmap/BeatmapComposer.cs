@@ -197,6 +197,11 @@ namespace MyProject.Infrastructure
                 return NoteType.Hold;
             }
 
+            if (lower == 'a')
+            {
+                return NoteType.Air;
+            }
+
             messages.Add(new Message(MessageType.Error, $"[{lineNum}] 未対応のノーツ種別です: {noteType}"));
             return NoteType.Unsupported;
         }
@@ -207,6 +212,7 @@ namespace MyProject.Infrastructure
             {
                 NoteType.Tap => new TapCore(property),
                 NoteType.Hold => new HoldCore(property),
+                NoteType.Air => new AirCore(property),
                 _ => throw new ArgumentOutOfRangeException(nameof(property.Type), $"Unsupported note type: {property.Type}")
             };
         }

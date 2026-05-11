@@ -38,10 +38,10 @@ namespace MyProject.Tests.EditMode
             var tap = CreateTap(lane: 0, beat: 0f);
             var scoreCore = CreateScoreCore(tap);
 
-            scoreCore.JudgePress(0, 0f);
+            scoreCore.JudgePressLane(0, 0f);
 
-            Assert.DoesNotThrow(() => scoreCore.JudgePress(0, 0f));
-            Assert.DoesNotThrow(() => scoreCore.JudgeRelease(0, 0f));
+            Assert.DoesNotThrow(() => scoreCore.JudgePressLane(0, 0f));
+            Assert.DoesNotThrow(() => scoreCore.JudgeReleaseLane(0, 0f));
         }
 
         [Test]
@@ -50,11 +50,11 @@ namespace MyProject.Tests.EditMode
             var tap = CreateTap(lane: 0, beat: 1f);
             var scoreCore = CreateScoreCore(tap);
 
-            scoreCore.JudgePress(0, 0.8f);
+            scoreCore.JudgePressLane(0, 0.8f);
             Assert.That(tap.State.CurrentValue, Is.EqualTo(NoteState.BeforeJudge));
             Assert.That(tap.Judge.CurrentValue, Is.EqualTo(JudgeType.None));
 
-            scoreCore.JudgePress(0, 1.02f);
+            scoreCore.JudgePressLane(0, 1.02f);
             Assert.That(tap.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
             Assert.That(tap.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
         }
@@ -77,14 +77,14 @@ namespace MyProject.Tests.EditMode
             var hold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f);
             var scoreCore = CreateScoreCore(hold);
 
-            scoreCore.JudgePress(0, 1f);
+            scoreCore.JudgePressLane(0, 1f);
             Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Holding));
             Assert.That(hold.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
 
-            scoreCore.JudgeRelease(0, 1.5f);
+            scoreCore.JudgeReleaseLane(0, 1.5f);
             Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Released));
 
-            scoreCore.JudgePress(0, 1.6f);
+            scoreCore.JudgePressLane(0, 1.6f);
             Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Holding));
             Assert.That(hold.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
         }
@@ -110,7 +110,7 @@ namespace MyProject.Tests.EditMode
             scoreCore.Update(1.2f);
             Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Missed));
 
-            scoreCore.JudgePress(0, 1.3f);
+            scoreCore.JudgePressLane(0, 1.3f);
 
             Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Holding));
             Assert.That(hold.Judge.CurrentValue, Is.EqualTo(JudgeType.MissLate));
@@ -122,7 +122,7 @@ namespace MyProject.Tests.EditMode
             var hold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f);
             var scoreCore = CreateScoreCore(hold);
 
-            scoreCore.JudgePress(0, 1f);
+            scoreCore.JudgePressLane(0, 1f);
             Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Holding));
             var judgeAfterPress = hold.Judge.CurrentValue;
 
@@ -137,7 +137,7 @@ namespace MyProject.Tests.EditMode
             var hold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f);
             var scoreCore = CreateScoreCore(hold);
 
-            scoreCore.JudgePress(0, 1f);
+            scoreCore.JudgePressLane(0, 1f);
             scoreCore.Update(2f);
 
             Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
@@ -150,8 +150,8 @@ namespace MyProject.Tests.EditMode
             var hold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f);
             var scoreCore = CreateScoreCore(hold);
 
-            scoreCore.JudgePress(0, 1f);
-            scoreCore.JudgeRelease(0, 1.5f);
+            scoreCore.JudgePressLane(0, 1f);
+            scoreCore.JudgeReleaseLane(0, 1.5f);
             scoreCore.Update(2f);
 
             Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
@@ -179,11 +179,11 @@ namespace MyProject.Tests.EditMode
             var tapBeat1 = CreateTap(lane: 0, beat: 1f);
             var scoreCore = CreateScoreCore(tapBeat2, tapBeat1);
 
-            scoreCore.JudgePress(0, 1f);
+            scoreCore.JudgePressLane(0, 1f);
             Assert.That(tapBeat1.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
             Assert.That(tapBeat2.State.CurrentValue, Is.EqualTo(NoteState.BeforeJudge));
 
-            scoreCore.JudgePress(0, 2f);
+            scoreCore.JudgePressLane(0, 2f);
             Assert.That(tapBeat2.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
         }
 
@@ -194,7 +194,7 @@ namespace MyProject.Tests.EditMode
             var lane1Tap = CreateTap(lane: 1, beat: 1f);
             var scoreCore = CreateScoreCore(lane0Tap, lane1Tap);
 
-            scoreCore.JudgePress(1, 1f);
+            scoreCore.JudgePressLane(1, 1f);
 
             Assert.That(lane1Tap.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
             Assert.That(lane0Tap.State.CurrentValue, Is.EqualTo(NoteState.BeforeJudge));
@@ -206,11 +206,11 @@ namespace MyProject.Tests.EditMode
             var wideTap = CreateTap(lane: 0, beat: 1f, width: 2);
             var scoreCore = CreateScoreCore(wideTap);
 
-            scoreCore.JudgePress(1, 1f);
+            scoreCore.JudgePressLane(1, 1f);
             Assert.That(wideTap.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
             Assert.That(wideTap.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
 
-            scoreCore.JudgePress(0, 1f);
+            scoreCore.JudgePressLane(0, 1f);
             Assert.That(scoreCore.Combo.CurrentValue, Is.EqualTo(1));
         }
 
@@ -220,10 +220,10 @@ namespace MyProject.Tests.EditMode
             var wideHold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f, width: 2);
             var scoreCore = CreateScoreCore(wideHold);
 
-            scoreCore.JudgePress(1, 1f);
+            scoreCore.JudgePressLane(1, 1f);
             Assert.That(wideHold.State.CurrentValue, Is.EqualTo(NoteState.Holding));
 
-            scoreCore.JudgeRelease(0, 1.5f);
+            scoreCore.JudgeReleaseLane(0, 1.5f);
             Assert.That(wideHold.State.CurrentValue, Is.EqualTo(NoteState.Released));
         }
 
@@ -245,9 +245,9 @@ namespace MyProject.Tests.EditMode
             var lane2Tap = CreateTap(lane: 2, beat: 1f);
             var scoreCore = CreateScoreCore(lane0Tap, lane1Tap, lane2Tap);
 
-            scoreCore.JudgePress(0, 1.05f);
-            scoreCore.JudgePress(1, 1.05f);
-            scoreCore.JudgePress(2, 1.05f);
+            scoreCore.JudgePressLane(0, 1.05f);
+            scoreCore.JudgePressLane(1, 1.05f);
+            scoreCore.JudgePressLane(2, 1.05f);
 
             Assert.That(scoreCore.Score.CurrentValue, Is.EqualTo(1000000));
         }

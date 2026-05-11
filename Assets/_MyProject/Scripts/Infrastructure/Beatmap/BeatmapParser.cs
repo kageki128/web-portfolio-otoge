@@ -13,7 +13,7 @@ namespace MyProject.Infrastructure
     /// </summary>
     internal sealed class BeatmapParser
     {
-        static readonly Regex noteRegex = new(@"^#(?<measure>-?\d+)'(?<tick>-?\d+):(?<type>.)(?<lane>.)(?<width>.)(?<attr>.)?$", RegexOptions.Compiled);
+        static readonly Regex noteRegex = new(@"^#(?<measure>-?\d+)'(?<tick>-?\d+):(?<type>.)(?<lane>.)(?<width>.)(?<attr>.*)$", RegexOptions.Compiled);
         static readonly Regex holdLengthRegex = new(@"^#(?<length>-?\d+)>s$", RegexOptions.Compiled);
 
         /// <summary>
@@ -214,7 +214,7 @@ namespace MyProject.Infrastructure
         static bool IsSupportedNoteType(char noteType)
         {
             var lower = char.ToLowerInvariant(noteType);
-            return lower == 't' || lower == 'h';
+            return lower == 't' || lower == 'h' || lower == 'a';
         }
 
         /// <summary>

@@ -111,7 +111,7 @@ namespace MyProject.Director
                 .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Select))
                 .AddTo(disposables);
             gameActorHub.LanePressed
-                .Subscribe(lane => gameSessionCore.JudgePress(lane))
+                .Subscribe(lane => gameSessionCore.JudgePressLane(lane))
                 .AddTo(disposables);
 
             // ゲーム開始
