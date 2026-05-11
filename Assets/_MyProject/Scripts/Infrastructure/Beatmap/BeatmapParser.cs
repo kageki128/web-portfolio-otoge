@@ -64,6 +64,9 @@ namespace MyProject.Infrastructure
 
             switch (key)
             {
+                case "SONGID":
+                    parsedData.Id = payload;
+                    break;
                 case "TITLE":
                     // メタ情報
                     parsedData.Title = payload;

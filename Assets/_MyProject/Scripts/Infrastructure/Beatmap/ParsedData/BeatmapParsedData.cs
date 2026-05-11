@@ -6,6 +6,7 @@ namespace MyProject.Infrastructure
 {
     public class BeatmapParsedData
     {
+        public string Id { get; set; } = string.Empty;
         public string Title { get; set; } = string.Empty;
         public string Artist { get; set; } = string.Empty;
         public string Designers { get; set; } = string.Empty;

@@ -4,6 +4,7 @@ namespace MyProject.Core
 {
     public class BeatmapMetaData
     {
+        public string Id { get; }
         public string Title { get; }
         public string Artist { get; }
         public string NoteDesigners { get; }
@@ -17,6 +18,7 @@ namespace MyProject.Core
 
         public BeatmapMetaData
         (
+            string id,
             string title,
             string artist,
             string noteDesigners,
@@ -27,6 +29,7 @@ namespace MyProject.Core
             float minBpm
         )
         {
+            Id = id;
             Title = title;
             Artist = artist;
             NoteDesigners = noteDesigners;

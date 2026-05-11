@@ -17,6 +17,7 @@ namespace MyProject.Tests.EditMode
         public void GetAsync_正常UGCをBeatmapへ変換できる()
         {
             var ugc = string.Join("\n",
+                "@SONGID test-song-id",
                 "@TITLE Test Song",
                 "@ARTIST Test Artist",
                 "@DESIGN Tester",
@@ -36,6 +37,7 @@ namespace MyProject.Tests.EditMode
             using var fixture = CreateFixture(ugc);
             var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
 
+            Assert.That(beatmap.MetaData.Id, Is.EqualTo("test-song-id"));
             Assert.That(beatmap.MetaData.Title, Is.EqualTo("Test Song"));
             Assert.That(beatmap.MetaData.Difficulty, Is.EqualTo(DifficultyType.Normal));
             Assert.That(beatmap.NoteCores.Count, Is.EqualTo(2));

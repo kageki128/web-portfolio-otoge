@@ -84,6 +84,7 @@ namespace MyProject.Infrastructure
             var minBpm = bpmChanges.Count == 0 ? 0f : bpmChanges.Min(change => change.Bpm);
             var metaData = new BeatmapMetaData
             (
+                parsedData.Id,
                 parsedData.Title,
                 parsedData.Artist,
                 parsedData.Designers,
