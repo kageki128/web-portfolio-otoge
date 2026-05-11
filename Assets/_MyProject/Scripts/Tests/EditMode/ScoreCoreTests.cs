@@ -201,6 +201,33 @@ namespace MyProject.Tests.EditMode
         }
 
         [Test]
+        public void 幅付きTapは含まれるレーンならどこからでも押下判定できる()
+        {
+            var wideTap = CreateTap(lane: 0, beat: 1f, width: 2);
+            var scoreCore = CreateScoreCore(wideTap);
+
+            scoreCore.JudgePress(1, 1f);
+            Assert.That(wideTap.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(wideTap.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
+
+            scoreCore.JudgePress(0, 1f);
+            Assert.That(scoreCore.Combo.CurrentValue, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void 幅付きHoldは別レーン押下と離しでも状態遷移できる()
+        {
+            var wideHold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f, width: 2);
+            var scoreCore = CreateScoreCore(wideHold);
+
+            scoreCore.JudgePress(1, 1f);
+            Assert.That(wideHold.State.CurrentValue, Is.EqualTo(NoteState.Holding));
+
+            scoreCore.JudgeRelease(0, 1.5f);
+            Assert.That(wideHold.State.CurrentValue, Is.EqualTo(NoteState.Released));
+        }
+
+        [Test]
         public void 初期状態でないノーツをInitializeすると例外になる()
         {
             var tap = CreateTap(lane: 0, beat: 1f);
@@ -232,18 +259,18 @@ namespace MyProject.Tests.EditMode
             return scoreCore;
         }
 
-        static TapCore CreateTap(int lane, float beat)
+        static TapCore CreateTap(int lane, float beat, int width = 1)
         {
             var timing = CreateTiming(beat);
-            var property = new NoteProperty(NoteType.Tap, 0, timing, timing, 0f, 0f, lane, 1, 0);
+            var property = new NoteProperty(NoteType.Tap, 0, timing, timing, 0f, 0f, lane, width, 0);
             return new TapCore(property);
         }
 
-        static HoldCore CreateHold(int lane, float beginBeat, float endBeat)
+        static HoldCore CreateHold(int lane, float beginBeat, float endBeat, int width = 1)
         {
             var timingBegin = CreateTiming(beginBeat);
             var timingEnd = CreateTiming(endBeat);
-            var property = new NoteProperty(NoteType.Hold, 0, timingBegin, timingEnd, 0f, 0f, lane, 1, 0);
+            var property = new NoteProperty(NoteType.Hold, 0, timingBegin, timingEnd, 0f, 0f, lane, width, 0);
             return new HoldCore(property);
         }
 

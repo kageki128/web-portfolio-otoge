@@ -49,12 +49,14 @@ namespace MyProject.Core
                     throw new InvalidOperationException("All NoteCores must be in the initial state");
                 }
 
-                int lane = noteCore.Property.Lane;
-                if (!laneToRemainingNoteCores.ContainsKey(lane))
+                foreach (var lane in GetCoveredLanes(noteCore))
                 {
-                    laneToRemainingNoteCores[lane] = new List<NoteCoreBase>();
+                    if (!laneToRemainingNoteCores.ContainsKey(lane))
+                    {
+                        laneToRemainingNoteCores[lane] = new List<NoteCoreBase>();
+                    }
+                    laneToRemainingNoteCores[lane].Add(noteCore);
                 }
-                laneToRemainingNoteCores[lane].Add(noteCore);
             }
             // BeginBeat順にソートする
             foreach (var kvp in laneToRemainingNoteCores)
@@ -89,7 +91,7 @@ namespace MyProject.Core
 
             // ノーツをジャッジ
             noteCore.JudgePress(currentSec);
-            HandleAfterJudge(noteCore, remainingNoteCores);
+            HandleAfterJudge(noteCore);
         }
 
         public void JudgeRelease(int lane, float currentSec)
@@ -103,7 +105,7 @@ namespace MyProject.Core
 
             // ノーツをジャッジ
             noteCore.JudgeRelease(currentSec);
-            HandleAfterJudge(noteCore, remainingNoteCores);
+            HandleAfterJudge(noteCore);
         }
 
         public void Update(float currentSec)
@@ -132,7 +134,7 @@ namespace MyProject.Core
                         afterJudgeCandidates.Add(noteCore);
                     }
                 }
-                HandleAfterJudges(afterJudgeCandidates, remainingNoteCores);
+                HandleAfterJudges(afterJudgeCandidates);
                 afterJudgeCandidates.Clear();
 
                 // End
@@ -149,7 +151,7 @@ namespace MyProject.Core
                         afterJudgeCandidates.Add(noteCore);
                     }
                 }
-                HandleAfterJudges(afterJudgeCandidates, remainingNoteCores);
+                HandleAfterJudges(afterJudgeCandidates);
             }
         }
 
@@ -173,7 +175,7 @@ namespace MyProject.Core
                         afterJudgeCandidates.Add(noteCore);
                     }
                 }
-                HandleAfterJudges(afterJudgeCandidates, remainingNoteCores);
+                HandleAfterJudges(afterJudgeCandidates);
                 afterJudgeCandidates.Clear();
 
                 // End
@@ -190,23 +192,41 @@ namespace MyProject.Core
                         afterJudgeCandidates.Add(noteCore);
                     }
                 }
-                HandleAfterJudges(afterJudgeCandidates, remainingNoteCores);
+                HandleAfterJudges(afterJudgeCandidates);
             }
         }
 
-        void HandleAfterJudges(List<NoteCoreBase> noteCores, List<NoteCoreBase> remainingNoteCores)
+        static IReadOnlyList<int> GetCoveredLanes(NoteCoreBase noteCore)
+        {
+            int startLane = noteCore.Property.Lane;
+            int endLane = startLane + noteCore.Property.Width;
+            var coveredLanes = new List<int>();
+            for (int lane = startLane; lane < endLane; lane++)
+            {
+                coveredLanes.Add(lane);
+            }
+            return coveredLanes;
+        }
+
+        void HandleAfterJudges(List<NoteCoreBase> noteCores)
         {
             foreach (var noteCore in noteCores)
             {
-                HandleAfterJudge(noteCore, remainingNoteCores);
+                HandleAfterJudge(noteCore);
             }
         }
 
-        void HandleAfterJudge(NoteCoreBase noteCore, List<NoteCoreBase> remainingNoteCores)
+        void HandleAfterJudge(NoteCoreBase noteCore)
         {
             if (noteCore.State.CurrentValue is NoteState.AfterJudge)
             {
-                remainingNoteCores.Remove(noteCore);
+                foreach (var lane in GetCoveredLanes(noteCore))
+                {
+                    if (laneToRemainingNoteCores.TryGetValue(lane, out var remainingNoteCores))
+                    {
+                        remainingNoteCores.Remove(noteCore);
+                    }
+                }
                 afterJudgeNoteCores.Add(noteCore);
                 var judge = noteCore.Judge.CurrentValue;
                 JudgeCounts[judge]++;
