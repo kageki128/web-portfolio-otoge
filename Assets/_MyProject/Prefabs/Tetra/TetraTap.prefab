@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 5569138768513129614}
   - component: {fileID: 4137430466009650504}
   m_Layer: 0
-  m_Name: QuadTap
+  m_Name: TetraTap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

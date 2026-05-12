@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
-    public class QuadTapActor : NoteActorBase
+    public class TetraTapActor : NoteActorBase
     {
         [SerializeField] SpriteRenderer image;
 

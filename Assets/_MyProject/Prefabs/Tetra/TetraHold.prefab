@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 8728733847448314940}
   - component: {fileID: 2911079052193499454}
   m_Layer: 0
-  m_Name: QuadHold
+  m_Name: TetraHold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

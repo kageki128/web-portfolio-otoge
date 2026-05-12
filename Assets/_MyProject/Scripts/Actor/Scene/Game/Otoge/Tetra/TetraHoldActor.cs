@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
-    public class QuadHoldActor : NoteActorBase
+    public class TetraHoldActor : NoteActorBase
     {
         [SerializeField] SpriteRenderer image;
         [SerializeField] Color normalColor;
