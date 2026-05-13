@@ -238,8 +238,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: -0, y: 10, z: -0}
-  - {x: 0, y: -10, z: 0}
+  - {x: -0, y: 40, z: -0}
+  - {x: 0, y: -40, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.02
@@ -314,11 +314,15 @@ MonoBehaviour:
   - type: 0
     localPosition: {x: -2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
   - type: 1
     localPosition: {x: -2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
+  - type: 2
+    localPosition: {x: -2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
 --- !u!1 &70527381
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,8 +532,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: -0, y: 10, z: -0}
-  - {x: 0, y: -10, z: 0}
+  - {x: -0, y: 40, z: -0}
+  - {x: 0, y: -40, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.02
@@ -604,11 +608,15 @@ MonoBehaviour:
   - type: 0
     localPosition: {x: 2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
   - type: 1
     localPosition: {x: 3, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
+  - type: 2
+    localPosition: {x: 3, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
 --- !u!1 &213387731
 GameObject:
   m_ObjectHideFlags: 0
@@ -716,7 +724,6 @@ Transform:
   m_Children:
   - {fileID: 465268669}
   - {fileID: 1245732349}
-  - {fileID: 599133464}
   m_Father: {fileID: 334943694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &280336072
@@ -1107,6 +1114,7 @@ MonoBehaviour:
   runActor: {fileID: 634906987}
   scanActor: {fileID: 1642606648}
   sharedActors:
+  - {fileID: 519420034}
   - {fileID: 966040151}
   - {fileID: 1098299991}
   - {fileID: 1244703543}
@@ -1877,8 +1885,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: -0, y: 10, z: -0}
-  - {x: 0, y: -10, z: 0}
+  - {x: -0, y: 40, z: -0}
+  - {x: 0, y: -40, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.02
@@ -1953,11 +1961,15 @@ MonoBehaviour:
   - type: 0
     localPosition: {x: 1, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
   - type: 1
     localPosition: {x: 1, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
+  - type: 2
+    localPosition: {x: 1, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
 --- !u!1 &458357979
 GameObject:
   m_ObjectHideFlags: 0
@@ -2243,6 +2255,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -2361,13 +2374,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -11.5}
+  m_LocalRotation: {x: -0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 0, y: -7.5, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1487580002}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -60, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2384,6 +2397,31 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df3e063be374b464d8d226528a0d9593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OtogeCameraActor
+  otogeCameraSettings:
+  - type: 0
+    localPosition: {x: 0, y: 2, z: -8}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+  - type: 1
+    localPosition: {x: 0, y: 3, z: -11.5}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+  - type: 2
+    localPosition: {x: 0, y: -7.5, z: -7}
+    localEulerAngles: {x: -60, y: 0, z: 0}
+  defaultSettings:
+    localPosition: {x: 0, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
 --- !u!1 &599133463
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,7 +2454,7 @@ Transform:
   m_Children:
   - {fileID: 1162742434}
   - {fileID: 927871212}
-  m_Father: {fileID: 280336071}
+  m_Father: {fileID: 706006539}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &599133465
 MonoBehaviour:
@@ -2827,6 +2865,7 @@ Transform:
   - {fileID: 457606481}
   - {fileID: 1250455052}
   - {fileID: 207311624}
+  - {fileID: 599133464}
   m_Father: {fileID: 1356142521}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &706006540
@@ -2943,8 +2982,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: -0, y: 10, z: -0}
-  - {x: 0, y: -10, z: 0}
+  - {x: -0, y: 40, z: -0}
+  - {x: 0, y: -40, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.02
@@ -3019,11 +3058,15 @@ MonoBehaviour:
   - type: 0
     localPosition: {x: -2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
   - type: 1
     localPosition: {x: -3, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
+  - type: 2
+    localPosition: {x: -3, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
 --- !u!1 &780884685
 GameObject:
   m_ObjectHideFlags: 0
@@ -3335,8 +3378,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: -0, y: 10, z: -0}
-  - {x: 0, y: -10, z: 0}
+  - {x: -0, y: 40, z: -0}
+  - {x: 0, y: -40, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.02
@@ -3411,11 +3454,15 @@ MonoBehaviour:
   - type: 0
     localPosition: {x: 0, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
   - type: 1
     localPosition: {x: 0, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
+  - type: 2
+    localPosition: {x: 0, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
 --- !u!1 &808026285
 GameObject:
   m_ObjectHideFlags: 0
@@ -3804,8 +3851,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: -0, y: 10, z: -0}
-  - {x: 0, y: -10, z: 0}
+  - {x: -0, y: 40, z: -0}
+  - {x: 0, y: -40, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.02
@@ -3880,11 +3927,15 @@ MonoBehaviour:
   - type: 0
     localPosition: {x: -1, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
   - type: 1
     localPosition: {x: -1, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
+  - type: 2
+    localPosition: {x: -1, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
 --- !u!1 &927871211
 GameObject:
   m_ObjectHideFlags: 0
@@ -4227,6 +4278,10 @@ MonoBehaviour:
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 4
   - type: 1
+    localPosition: {x: 0, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 8
+  - type: 2
     localPosition: {x: 0, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 8
@@ -5250,8 +5305,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: -0, y: 10, z: -0}
-  - {x: 0, y: -10, z: 0}
+  - {x: -0, y: 40, z: -0}
+  - {x: 0, y: -40, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.02
@@ -5326,11 +5381,15 @@ MonoBehaviour:
   - type: 0
     localPosition: {x: -2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
   - type: 1
     localPosition: {x: -4, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
+  - type: 2
+    localPosition: {x: -4, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
 --- !u!1 &1134654720
 GameObject:
   m_ObjectHideFlags: 0
@@ -6070,8 +6129,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: -0, y: 10, z: -0}
-  - {x: 0, y: -10, z: 0}
+  - {x: -0, y: 40, z: -0}
+  - {x: 0, y: -40, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.02
@@ -6146,11 +6205,15 @@ MonoBehaviour:
   - type: 0
     localPosition: {x: 2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
   - type: 1
     localPosition: {x: 4, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
+  - type: 2
+    localPosition: {x: 4, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
 --- !u!1 &1245732348
 GameObject:
   m_ObjectHideFlags: 0
@@ -6287,8 +6350,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: -0, y: 10, z: -0}
-  - {x: 0, y: -10, z: 0}
+  - {x: -0, y: 40, z: -0}
+  - {x: 0, y: -40, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.02
@@ -6363,11 +6426,15 @@ MonoBehaviour:
   - type: 0
     localPosition: {x: 2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
   - type: 1
     localPosition: {x: 2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 20
+    lineLength: 80
+  - type: 2
+    localPosition: {x: 2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
 --- !u!1 &1310864649
 GameObject:
   m_ObjectHideFlags: 0
