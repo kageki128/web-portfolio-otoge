@@ -50,6 +50,9 @@ TagManager:
   - name: Note
     uniqueID: 356029137
     locked: 0
+  - name: Text
+    uniqueID: 736728647
+    locked: 0
   m_RenderingLayers:
   - Default
   m_MigratedRenderPipelines: []

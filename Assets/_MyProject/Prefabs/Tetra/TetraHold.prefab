@@ -78,7 +78,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 356029137
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: e96e98ca5e5b1cd4380666705313f18c, type: 3}
@@ -137,5 +137,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.QuadHoldActor
   image: {fileID: 211649785679673576}
-  normalColor: {r: 1, g: 1, b: 1, a: 1}
-  missColor: {r: 1, g: 1, b: 1, a: 0.2509804}
+  beforeColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 0.5019608}
+  holdingColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
+  missedColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 0.2509804}

@@ -9,7 +9,11 @@ namespace MyProject.Actor
 {
     public class JudgeTextActor : ActorBase
     {
-        [SerializeField] TMP_Text text;
+        [SerializeField] TMP_Text perfectText;
+        [SerializeField] TMP_Text goodText;
+        [SerializeField] TMP_Text missText;
+        [SerializeField] TMP_Text fastText;
+        [SerializeField] TMP_Text lateText;
 
         public override void Initialize()
         {
@@ -30,11 +34,17 @@ namespace MyProject.Actor
 
         public void SetJudgeCounts(IReadOnlyDictionary<JudgeType, int> judgeCounts)
         {
-            text.text =
-                $"PerfectCritical(F/L): {judgeCounts[JudgeType.PerfectCriticalFast]} / {judgeCounts[JudgeType.PerfectCriticalLate]}\n" +
-                $"Perfect(F/L): {judgeCounts[JudgeType.PerfectFast]} / {judgeCounts[JudgeType.PerfectLate]}\n" +
-                $"Good(F/L): {judgeCounts[JudgeType.GoodFast]} / {judgeCounts[JudgeType.GoodLate]}\n" +
-                $"Miss(F/L): {judgeCounts[JudgeType.MissFast]} / {judgeCounts[JudgeType.MissLate]}";
+            var perfectCount = judgeCounts[JudgeType.PerfectCriticalFast] + judgeCounts[JudgeType.PerfectCriticalLate] + judgeCounts[JudgeType.PerfectFast] + judgeCounts[JudgeType.PerfectLate];
+            var goodCount = judgeCounts[JudgeType.GoodFast] + judgeCounts[JudgeType.GoodLate];
+            var missCount = judgeCounts[JudgeType.MissFast] + judgeCounts[JudgeType.MissLate];
+            var fastCount = judgeCounts[JudgeType.PerfectFast] + judgeCounts[JudgeType.GoodFast];
+            var lateCount = judgeCounts[JudgeType.PerfectLate] + judgeCounts[JudgeType.GoodLate];
+
+            perfectText.text = $"{perfectCount}";
+            goodText.text = $"{goodCount}";
+            missText.text = $"{missCount}";
+            fastText.text = $"{fastCount}";
+            lateText.text = $"{lateCount}";
         }
     }
 }

@@ -1,25 +1,24 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MyProject.Core;
 using TMPro;
 using UnityEngine;
 
 namespace MyProject.Actor
 {
-    public class ComboTextActor : ActorBase
+    public class MusicTextActor : ActorBase
     {
-        [SerializeField] TMP_Text text;
-
-        int currentCombo;
+        [SerializeField] TMP_Text titleText;
+        [SerializeField] TMP_Text artistText;
 
         public override void Initialize()
         {
-            SetCombo(0);
             gameObject.SetActive(false);
         }
 
         public override UniTask ShowAsync(CancellationToken ct)
         {
-            SetCombo(currentCombo);
+            gameObject.SetActive(true);
             return UniTask.CompletedTask;
         }
 
@@ -29,17 +28,10 @@ namespace MyProject.Actor
             return UniTask.CompletedTask;
         }
 
-        public void SetCombo(int combo)
+        public void SetMetaData(BeatmapMetaData metaData)
         {
-            currentCombo = combo;
-            text.text = $"{combo}";
-
-            gameObject.SetActive(IsShow());
-        }
-
-        bool IsShow()
-        {
-            return currentCombo >= 5;
+            titleText.text = $"♪{metaData.Title}";
+            artistText.text = $"{metaData.Artist}";
         }
     }
 }

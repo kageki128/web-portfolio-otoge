@@ -21,6 +21,7 @@ namespace MyProject.Actor
         [SerializeField] ScoreTextActor scoreTextActor;
         [SerializeField] ComboTextActor comboTextActor;
         [SerializeField] JudgeTextActor judgeTextActor;
+        [SerializeField] MusicTextActor musicTextActor;
 
         ActorAnimationTimeline animationTimeline;
         GameActionsObserver gameActionsObserver;
@@ -41,6 +42,7 @@ namespace MyProject.Actor
             scoreTextActor.Initialize();
             comboTextActor.Initialize();
             judgeTextActor.Initialize();
+            musicTextActor.Initialize();
             gameObject.SetActive(false);
         }
 
@@ -53,7 +55,8 @@ namespace MyProject.Actor
                 otogeActorHub.InitialShowAsync(ct),
                 scoreTextActor.InitialShowAsync(ct),
                 comboTextActor.InitialShowAsync(ct),
-                judgeTextActor.InitialShowAsync(ct)
+                judgeTextActor.InitialShowAsync(ct),
+                musicTextActor.InitialShowAsync(ct)
             );
             gameActionsObserver.Enable();
         }
@@ -67,7 +70,8 @@ namespace MyProject.Actor
                 otogeActorHub.ShowAsync(ct),
                 scoreTextActor.ShowAsync(ct),
                 comboTextActor.ShowAsync(ct),
-                judgeTextActor.ShowAsync(ct)
+                judgeTextActor.ShowAsync(ct),
+                musicTextActor.ShowAsync(ct)
             );
             gameActionsObserver.Enable();
         }
@@ -82,7 +86,8 @@ namespace MyProject.Actor
                 otogeActorHub.HideAsync(ct),
                 scoreTextActor.HideAsync(ct),
                 comboTextActor.HideAsync(ct),
-                judgeTextActor.HideAsync(ct)
+                judgeTextActor.HideAsync(ct),
+                musicTextActor.HideAsync(ct)
             );
             gameObject.SetActive(false);
         }
@@ -98,5 +103,6 @@ namespace MyProject.Actor
         public void SetScore(int score) => scoreTextActor.SetScore(score);
         public void SetCombo(int combo) => comboTextActor.SetCombo(combo);
         public void SetJudgeCounts(IReadOnlyDictionary<JudgeType, int> judgeCounts) => judgeTextActor.SetJudgeCounts(judgeCounts);
+        public void SetMetaData(BeatmapMetaData metaData) => musicTextActor.SetMetaData(metaData);
     }
 }

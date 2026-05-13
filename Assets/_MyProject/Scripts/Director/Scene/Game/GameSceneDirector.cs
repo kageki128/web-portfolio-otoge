@@ -87,10 +87,8 @@ namespace MyProject.Director
                 currentScroll.Subscribe(scroll => gameActorHub.UpdateNotesByTimeline(timeline, scroll, 8f)).AddTo(disposables);
             }
 
-            // スコア表示を購読
-            gameActorHub.SetScore(gameSessionCore.Score.CurrentValue);
-            gameActorHub.SetCombo(gameSessionCore.Combo.CurrentValue);
-            gameActorHub.SetJudgeCounts(gameSessionCore.JudgeCounts);
+            // Coreを購読
+            gameActorHub.SetMetaData(gameSessionCore.MetaData);
             gameSessionCore.Score
                 .Subscribe(score => gameActorHub.SetScore(score))
                 .AddTo(disposables);

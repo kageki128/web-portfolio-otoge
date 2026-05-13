@@ -8,8 +8,9 @@ namespace MyProject.Actor
     public class TetraHoldActor : NoteActorBase
     {
         [SerializeField] SpriteRenderer image;
-        [SerializeField] Color normalColor;
-        [SerializeField] Color missColor;
+        [SerializeField] Color beforeColor;
+        [SerializeField] Color holdingColor;
+        [SerializeField] Color missedColor;
 
         public override void Initialize()
         {
@@ -59,9 +60,11 @@ namespace MyProject.Actor
             gameObject.SetActive(true);
             image.color = state switch
             {
-                NoteState.Missed => missColor,
-                NoteState.Released => missColor,
-                _ => normalColor
+                NoteState.BeforeJudge => beforeColor,
+                NoteState.Holding => holdingColor,
+                NoteState.Missed => missedColor,
+                NoteState.Released => missedColor,
+                _ => beforeColor
             };
         }
     }

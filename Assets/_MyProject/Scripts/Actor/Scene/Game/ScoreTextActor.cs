@@ -28,7 +28,8 @@ namespace MyProject.Actor
 
         public void SetScore(int score)
         {
-            text.text = $"Score: {score}";
+            // 7桁表示にする
+            text.text = $"{score:D7}";
         }
     }
 }
