@@ -100,9 +100,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8728733847448314940}
-  - component: {fileID: 2911079052193499454}
+  - component: {fileID: 6873140133655357821}
   m_Layer: 0
-  m_Name: TetraHold
+  m_Name: OctaHold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -124,7 +124,7 @@ Transform:
   - {fileID: 6132527090667009409}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2911079052193499454
+--- !u!114 &6873140133655357821
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,9 +133,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 7482288919458382035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91e0f541988d6d3499911d2d825a5bd3, type: 3}
+  m_Script: {fileID: 11500000, guid: c99fddcd433300e43a063c5c7a25c1e7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.QuadHoldActor
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OctaHoldActor
   image: {fileID: 211649785679673576}
   beforeColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 0.5019608}
   holdingColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}

@@ -15,6 +15,7 @@ namespace MyProject.Actor
         public Observable<Unit> AirPressed;
         public Observable<Unit> AirReleased;
 
+        [Header("Otoge Actors")]
         [SerializeField] TetraActor tetraActor;
         [SerializeField] OctaActor octaActor;
         [SerializeField] AirActor airActor;
@@ -25,12 +26,16 @@ namespace MyProject.Actor
         [SerializeField] RunActor runActor;
         [SerializeField] ScanActor scanActor;
 
+        [Header("Shared Actors")]
         [SerializeField] OtogeSharedActorBase[] sharedActors;
+
+        [Header("Settings")]
+        [SerializeField] OtogeType currentOtogeType = OtogeType.Tetra;
 
         OtogeActions otogeActions;
         Dictionary<OtogeType, OtogeActorBase> otogeTypeToActor = new();
 
-        OtogeType currentOtogeType = OtogeType.Tetra;
+
 
         public override void Initialize()
         {
