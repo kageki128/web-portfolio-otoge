@@ -165,6 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 50779144}
   - component: {fileID: 50779145}
+  - component: {fileID: 50779146}
   m_Layer: 0
   m_Name: LaneLine1
   m_TagString: Untagged
@@ -237,7 +238,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: 0, y: 10, z: 0}
+  - {x: -0, y: 10, z: -0}
   - {x: 0, y: -10, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -297,6 +298,27 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &50779146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50779143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7381779c711891499ef8d6e75adde28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OtogeLineActor
+  otogeLineSettings:
+  - type: 0
+    localPosition: {x: -2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
+  - type: 1
+    localPosition: {x: -2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
 --- !u!1 &70527381
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,6 +450,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207311624}
   - component: {fileID: 207311625}
+  - component: {fileID: 207311626}
   m_Layer: 0
   m_Name: LaneLine6
   m_TagString: Untagged
@@ -444,7 +467,7 @@ Transform:
   m_GameObject: {fileID: 207311623}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -500,7 +523,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: 0, y: 10, z: 0}
+  - {x: -0, y: 10, z: -0}
   - {x: 0, y: -10, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -560,6 +583,27 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &207311626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 207311623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7381779c711891499ef8d6e75adde28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OtogeLineActor
+  otogeLineSettings:
+  - type: 0
+    localPosition: {x: 2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
+  - type: 1
+    localPosition: {x: 3, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
 --- !u!1 &213387731
 GameObject:
   m_ObjectHideFlags: 0
@@ -875,6 +919,17 @@ MonoBehaviour:
   masterActor: {fileID: 2052178763}
   runActor: {fileID: 634906987}
   scanActor: {fileID: 1642606648}
+  sharedActors:
+  - {fileID: 966040151}
+  - {fileID: 1098299991}
+  - {fileID: 1244703543}
+  - {fileID: 770815723}
+  - {fileID: 50779146}
+  - {fileID: 884862200}
+  - {fileID: 807110952}
+  - {fileID: 457606483}
+  - {fileID: 1250455054}
+  - {fileID: 207311626}
 --- !u!1 &341459403
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,6 +1616,7 @@ GameObject:
   m_Component:
   - component: {fileID: 457606481}
   - component: {fileID: 457606482}
+  - component: {fileID: 457606483}
   m_Layer: 0
   m_Name: LaneLine4
   m_TagString: Untagged
@@ -1633,7 +1689,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: 0, y: 10, z: 0}
+  - {x: -0, y: 10, z: -0}
   - {x: 0, y: -10, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -1693,6 +1749,27 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &457606483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457606480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7381779c711891499ef8d6e75adde28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OtogeLineActor
+  otogeLineSettings:
+  - type: 0
+    localPosition: {x: 1, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
+  - type: 1
+    localPosition: {x: 1, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
 --- !u!1 &458357979
 GameObject:
   m_ObjectHideFlags: 0
@@ -2514,6 +2591,7 @@ GameObject:
   m_Component:
   - component: {fileID: 770815721}
   - component: {fileID: 770815722}
+  - component: {fileID: 770815723}
   m_Layer: 0
   m_Name: LaneLine0
   m_TagString: Untagged
@@ -2530,7 +2608,7 @@ Transform:
   m_GameObject: {fileID: 770815720}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 0, z: 0}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2586,7 +2664,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: 0, y: 10, z: 0}
+  - {x: -0, y: 10, z: -0}
   - {x: 0, y: -10, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -2646,6 +2724,27 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &770815723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770815720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7381779c711891499ef8d6e75adde28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OtogeLineActor
+  otogeLineSettings:
+  - type: 0
+    localPosition: {x: -2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
+  - type: 1
+    localPosition: {x: -3, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
 --- !u!1 &780884685
 GameObject:
   m_ObjectHideFlags: 0
@@ -2793,6 +2892,7 @@ GameObject:
   m_Component:
   - component: {fileID: 807110950}
   - component: {fileID: 807110951}
+  - component: {fileID: 807110952}
   m_Layer: 0
   m_Name: LaneLine3
   m_TagString: Untagged
@@ -2865,7 +2965,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: 0, y: 10, z: 0}
+  - {x: -0, y: 10, z: -0}
   - {x: 0, y: -10, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -2925,6 +3025,27 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &807110952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 807110949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7381779c711891499ef8d6e75adde28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OtogeLineActor
+  otogeLineSettings:
+  - type: 0
+    localPosition: {x: 0, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
+  - type: 1
+    localPosition: {x: 0, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
 --- !u!1 &808026285
 GameObject:
   m_ObjectHideFlags: 0
@@ -3240,6 +3361,7 @@ GameObject:
   m_Component:
   - component: {fileID: 884862198}
   - component: {fileID: 884862199}
+  - component: {fileID: 884862200}
   m_Layer: 0
   m_Name: LaneLine2
   m_TagString: Untagged
@@ -3312,7 +3434,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: 0, y: 10, z: 0}
+  - {x: -0, y: 10, z: -0}
   - {x: 0, y: -10, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -3372,6 +3494,27 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &884862200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 884862197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7381779c711891499ef8d6e75adde28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OtogeLineActor
+  otogeLineSettings:
+  - type: 0
+    localPosition: {x: -1, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
+  - type: 1
+    localPosition: {x: -1, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
 --- !u!1 &927871211
 GameObject:
   m_ObjectHideFlags: 0
@@ -3563,6 +3706,7 @@ GameObject:
   m_Component:
   - component: {fileID: 966040149}
   - component: {fileID: 966040150}
+  - component: {fileID: 966040151}
   m_Layer: 0
   m_Name: JudgeLine
   m_TagString: Untagged
@@ -3635,8 +3779,8 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: -4, y: 0, z: 0}
-  - {x: 4, y: 0, z: 0}
+  - {x: -2, y: -0, z: -0}
+  - {x: 2, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.05
@@ -3695,6 +3839,27 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &966040151
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966040148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7381779c711891499ef8d6e75adde28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OtogeLineActor
+  otogeLineSettings:
+  - type: 0
+    localPosition: {x: 0, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 4
+  - type: 1
+    localPosition: {x: 0, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 8
 --- !u!1 &972869247
 GameObject:
   m_ObjectHideFlags: 0
@@ -4551,6 +4716,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1098299989}
   - component: {fileID: 1098299990}
+  - component: {fileID: 1098299991}
   m_Layer: 0
   m_Name: SideLine0
   m_TagString: Untagged
@@ -4567,7 +4733,7 @@ Transform:
   m_GameObject: {fileID: 1098299988}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 0, z: 0}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4623,7 +4789,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: 0, y: 10, z: 0}
+  - {x: -0, y: 10, z: -0}
   - {x: 0, y: -10, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -4683,6 +4849,27 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1098299991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098299988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7381779c711891499ef8d6e75adde28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OtogeLineActor
+  otogeLineSettings:
+  - type: 0
+    localPosition: {x: -2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
+  - type: 1
+    localPosition: {x: -4, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
 --- !u!1 &1135851410
 GameObject:
   m_ObjectHideFlags: 0
@@ -5167,6 +5354,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1244703541}
   - component: {fileID: 1244703542}
+  - component: {fileID: 1244703543}
   m_Layer: 0
   m_Name: SideLine1
   m_TagString: Untagged
@@ -5183,7 +5371,7 @@ Transform:
   m_GameObject: {fileID: 1244703540}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5239,7 +5427,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: 0, y: 10, z: 0}
+  - {x: -0, y: 10, z: -0}
   - {x: 0, y: -10, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -5299,6 +5487,27 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1244703543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1244703540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7381779c711891499ef8d6e75adde28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OtogeLineActor
+  otogeLineSettings:
+  - type: 0
+    localPosition: {x: 2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
+  - type: 1
+    localPosition: {x: 4, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
 --- !u!1 &1245732348
 GameObject:
   m_ObjectHideFlags: 0
@@ -5362,6 +5571,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1250455052}
   - component: {fileID: 1250455053}
+  - component: {fileID: 1250455054}
   m_Layer: 0
   m_Name: LaneLine5
   m_TagString: Untagged
@@ -5434,7 +5644,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
-  - {x: 0, y: 10, z: 0}
+  - {x: -0, y: 10, z: -0}
   - {x: 0, y: -10, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -5494,6 +5704,27 @@ LineRenderer:
   m_UseWorldSpace: 0
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1250455054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1250455051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7381779c711891499ef8d6e75adde28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OtogeLineActor
+  otogeLineSettings:
+  - type: 0
+    localPosition: {x: 2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
+  - type: 1
+    localPosition: {x: 2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 20
 --- !u!1 &1310864649
 GameObject:
   m_ObjectHideFlags: 0

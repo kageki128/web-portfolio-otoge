@@ -25,6 +25,8 @@ namespace MyProject.Actor
         [SerializeField] RunActor runActor;
         [SerializeField] ScanActor scanActor;
 
+        [SerializeField] OtogeSharedActorBase[] sharedActors;
+
         OtogeActions otogeActions;
         Dictionary<OtogeType, OtogeActorBase> otogeTypeToActor = new();
 
@@ -87,6 +89,15 @@ namespace MyProject.Actor
         public void UpdateNotesByTimeline(int timeline, float currentScroll, float scrollSpeed)
         {
             otogeTypeToActor[currentOtogeType].UpdateNotesByTimeline(timeline, currentScroll, scrollSpeed);
+        }
+
+        public void SetSharedActorsState(OtogeType otogeType)
+        {
+            foreach (var sharedActor in sharedActors)
+            {
+                if (sharedActor == null) continue;
+                sharedActor.SetState(otogeType);
+            }
         }
 
         void DestroyNotes()
