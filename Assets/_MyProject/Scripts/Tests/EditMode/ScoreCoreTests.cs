@@ -242,6 +242,25 @@ namespace MyProject.Tests.EditMode
         }
 
         [Test]
+        public void Air_同時刻ノーツは1回の押下でまとめて判定される()
+        {
+            var airBeat2 = CreateAir(beat: 2f);
+            var airBeat1A = CreateAir(beat: 1f);
+            var airBeat1B = CreateAir(beat: 1f);
+            var scoreCore = CreateScoreCore(airBeat2, airBeat1A, airBeat1B);
+
+            scoreCore.JudgePressAir(1f);
+
+            Assert.That(airBeat1A.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(airBeat1B.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(airBeat2.State.CurrentValue, Is.EqualTo(NoteState.BeforeJudge));
+            Assert.That(scoreCore.Combo.CurrentValue, Is.EqualTo(2));
+
+            scoreCore.JudgePressAir(2f);
+            Assert.That(airBeat2.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+        }
+
+        [Test]
         public void Air_未押下ならBeginMissでMissLate確定する()
         {
             var air = CreateAir(beat: 1f);

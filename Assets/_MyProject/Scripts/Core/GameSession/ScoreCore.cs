@@ -121,28 +121,32 @@ namespace MyProject.Core
 
         public void JudgePressAir(float currentSec)
         {
-            if (remainingAirNoteCores.Count == 0)
-             {
-                 return;
-             }
-             var noteCore = remainingAirNoteCores[0];
+            var noteCores = GetLeadingAirNoteCoresWithSameSec();
+            if (noteCores.Count == 0)
+            {
+                return;
+            }
 
-             // ノーツをジャッジ
-             noteCore.JudgePress(currentSec);
-             HandleAfterJudge(noteCore);
+            foreach (var noteCore in noteCores)
+            {
+                noteCore.JudgePress(currentSec);
+            }
+            HandleAfterJudges(noteCores);
         }
 
         public void JudgeReleaseAir(float currentSec)
         {
-            if (remainingAirNoteCores.Count == 0)
-             {
-                 return;
-             }
-             var noteCore = remainingAirNoteCores[0];
+            var noteCores = GetLeadingAirNoteCoresWithSameSec();
+            if (noteCores.Count == 0)
+            {
+                return;
+            }
 
-             // ノーツをジャッジ
-             noteCore.JudgeRelease(currentSec);
-             HandleAfterJudge(noteCore);
+            foreach (var noteCore in noteCores)
+            {
+                noteCore.JudgeRelease(currentSec);
+            }
+            HandleAfterJudges(noteCores);
         }
 
         public void Update(float currentSec)
@@ -303,6 +307,26 @@ namespace MyProject.Core
                 coveredLanes.Add(lane);
             }
             return coveredLanes;
+        }
+
+        List<NoteCoreBase> GetLeadingAirNoteCoresWithSameSec()
+        {
+            var noteCores = new List<NoteCoreBase>();
+            if (remainingAirNoteCores.Count == 0)
+            {
+                return noteCores;
+            }
+
+            var leadingSec = remainingAirNoteCores[0].Property.TimingBegin.Sec;
+            foreach (var noteCore in remainingAirNoteCores)
+            {
+                if (!Mathf.Approximately(noteCore.Property.TimingBegin.Sec, leadingSec))
+                {
+                    break;
+                }
+                noteCores.Add(noteCore);
+            }
+            return noteCores;
         }
 
         void HandleAfterJudges(List<NoteCoreBase> noteCores)
