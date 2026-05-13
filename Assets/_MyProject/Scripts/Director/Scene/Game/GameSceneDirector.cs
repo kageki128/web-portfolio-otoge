@@ -106,12 +106,21 @@ namespace MyProject.Director
             }
 
             // Actorを購読
-            gameActorHub.ToSelectButtonClicked
+            gameActorHub.Quit
                 .Take(1)
                 .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Select))
                 .AddTo(disposables);
             gameActorHub.LanePressed
                 .Subscribe(lane => gameSessionCore.JudgePressLane(lane))
+                .AddTo(disposables);
+            gameActorHub.LaneReleased
+                .Subscribe(lane => gameSessionCore.JudgeReleaseLane(lane))
+                .AddTo(disposables);
+            gameActorHub.AirPressed
+                .Subscribe(_ => gameSessionCore.JudgePressAir())
+                .AddTo(disposables);
+            gameActorHub.AirReleased
+                .Subscribe(_ => gameSessionCore.JudgeReleaseAir())
                 .AddTo(disposables);
 
             // ゲーム開始

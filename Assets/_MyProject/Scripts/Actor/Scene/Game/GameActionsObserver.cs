@@ -5,38 +5,25 @@ namespace MyProject.Actor
 {
     public class GameActionsObserver : ActionsObserverBase, IDisposable
     {
-        public Observable<int> LanePressed => lanePressed;
-        readonly Subject<int> lanePressed = new();
+        public Observable<Unit> Quit;
 
-        readonly GameActions.QuadActions quadActions;
-
-        readonly CompositeDisposable disposables = new();
+        readonly GameActions.MainActions mainActions;
 
         public GameActionsObserver(GameActions gameActions)
         {
-            quadActions = gameActions.Quad;
+            mainActions = gameActions.Main;
 
-            ObserveStarted(quadActions.Lane0).Subscribe(_ => lanePressed.OnNext(0)).AddTo(disposables);
-            ObserveStarted(quadActions.Lane1).Subscribe(_ => lanePressed.OnNext(1)).AddTo(disposables);
-            ObserveStarted(quadActions.Lane2).Subscribe(_ => lanePressed.OnNext(2)).AddTo(disposables);
-            ObserveStarted(quadActions.Lane3).Subscribe(_ => lanePressed.OnNext(3)).AddTo(disposables);
+            Quit = ObservePerformed(mainActions.Quit).Select(_ => Unit.Default);
         }
 
         public override void Enable()
         {
-            quadActions.Enable();
+            mainActions.Enable();
         }
 
         public override void Disable()
         {
-            quadActions.Disable();
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            lanePressed.Dispose();
-            disposables.Dispose();
+            mainActions.Disable();
         }
     }
 }

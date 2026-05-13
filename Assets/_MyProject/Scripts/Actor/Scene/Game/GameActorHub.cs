@@ -11,10 +11,13 @@ namespace MyProject.Actor
     [RequireComponent(typeof(ActorAnimationTimeline))]
     public class GameActorHub : SceneActorHubBase
     {
-        public Observable<Unit> ToSelectButtonClicked = Observable.Empty<Unit>();
-        public Observable<int> LanePressed => gameActionsObserver.LanePressed;
+        public Observable<Unit> Quit => gameActionsObserver.Quit;
+        public Observable<int> LanePressed => otogeActorHub.LanePressed;
+        public Observable<int> LaneReleased => otogeActorHub.LaneReleased;
+        public Observable<Unit> AirPressed => otogeActorHub.AirPressed;
+        public Observable<Unit> AirReleased => otogeActorHub.AirReleased;
 
-        [SerializeField] NoteActorHub noteActorHub;
+        [SerializeField] OtogeActorHub otogeActorHub;
         [SerializeField] ScoreTextActor scoreTextActor;
         [SerializeField] ComboTextActor comboTextActor;
         [SerializeField] JudgeTextActor judgeTextActor;
@@ -34,6 +37,7 @@ namespace MyProject.Actor
 
             gameActionsObserver.Disable();
             animationTimeline.Initialize();
+            otogeActorHub.Initialize();
             scoreTextActor.Initialize();
             comboTextActor.Initialize();
             judgeTextActor.Initialize();
@@ -46,6 +50,7 @@ namespace MyProject.Actor
             await UniTask.WhenAll
             (
                 animationTimeline.InitialShowAsync(ct),
+                otogeActorHub.InitialShowAsync(ct),
                 scoreTextActor.InitialShowAsync(ct),
                 comboTextActor.InitialShowAsync(ct),
                 judgeTextActor.InitialShowAsync(ct)
@@ -59,6 +64,7 @@ namespace MyProject.Actor
             await UniTask.WhenAll
             (
                 animationTimeline.ShowAsync(ct),
+                otogeActorHub.ShowAsync(ct),
                 scoreTextActor.ShowAsync(ct),
                 comboTextActor.ShowAsync(ct),
                 judgeTextActor.ShowAsync(ct)
@@ -72,10 +78,11 @@ namespace MyProject.Actor
             AudioPlayer.Instance.StopBgm();
             await UniTask.WhenAll
             (
+                animationTimeline.HideAsync(ct),
+                otogeActorHub.HideAsync(ct),
                 scoreTextActor.HideAsync(ct),
                 comboTextActor.HideAsync(ct),
-                judgeTextActor.HideAsync(ct),
-                animationTimeline.HideAsync(ct)
+                judgeTextActor.HideAsync(ct)
             );
             gameObject.SetActive(false);
         }
@@ -85,10 +92,11 @@ namespace MyProject.Actor
             AudioPlayer.Instance.PlayBgm(clip, scheduledDspTime, false);
         }
 
+        public void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores) => otogeActorHub.CreateNotes(noteCores);
+        public void UpdateNotesByTimeline(int timeline, float currentScroll, float scrollSpeed) => otogeActorHub.UpdateNotesByTimeline(timeline, currentScroll, scrollSpeed);
+
         public void SetScore(int score) => scoreTextActor.SetScore(score);
         public void SetCombo(int combo) => comboTextActor.SetCombo(combo);
         public void SetJudgeCounts(IReadOnlyDictionary<JudgeType, int> judgeCounts) => judgeTextActor.SetJudgeCounts(judgeCounts);
-        public void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores) => noteActorHub.CreateNotes(noteCores);
-        public void UpdateNotesByTimeline(int timeline, float currentScroll, float scrollSpeed) => noteActorHub.UpdateNotesByTimeline(timeline, currentScroll, scrollSpeed);
     }
 }
