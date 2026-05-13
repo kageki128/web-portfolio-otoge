@@ -13,6 +13,7 @@ namespace MyProject.Actor
         [SerializeField] GameObject noteParent;
         [SerializeField] TetraTapActor tapPrefab;
         [SerializeField] TetraHoldActor holdPrefab;
+        [SerializeField] LaneLightActor laneLightActor;
 
         TetraActionsObserver tetraActionsObserver;
 
@@ -28,21 +29,43 @@ namespace MyProject.Actor
         public override void Initialize()
         {
             tetraActionsObserver.Disable();
+
             DestroyNotes();
+            laneLightActor.Initialize();
+
+            tetraActionsObserver.LanePressed.Subscribe(lane => laneLightActor.LightUp(lane)).AddTo(this);
+            tetraActionsObserver.LaneReleased.Subscribe(lane => laneLightActor.LightDown(lane)).AddTo(this);
+
             gameObject.SetActive(false);
         }
 
         public override async UniTask ShowAsync(CancellationToken ct)
         {
             gameObject.SetActive(true);
-            await UniTask.WhenAll(NoteActors.Select(noteActor => noteActor.ShowAsync(ct)));
+
+            var showTasks = new List<UniTask>();
+            foreach (var noteActor in NoteActors)
+            {
+                showTasks.Add(noteActor.ShowAsync(ct));
+            }
+            showTasks.Add(laneLightActor.ShowAsync(ct));
+            await UniTask.WhenAll(showTasks);
+
             tetraActionsObserver.Enable();
         }
 
         public override async UniTask HideAsync(CancellationToken ct)
         {
             tetraActionsObserver.Disable();
-            await UniTask.WhenAll(NoteActors.Select(noteActor => noteActor.HideAsync(ct)));
+
+            var hideTasks = new List<UniTask>();
+            foreach (var noteActor in NoteActors)
+            {
+                hideTasks.Add(noteActor.HideAsync(ct));
+            }
+            hideTasks.Add(laneLightActor.HideAsync(ct));
+            await UniTask.WhenAll(hideTasks);
+
             gameObject.SetActive(false);
         }
 

@@ -44,6 +44,9 @@ TagManager:
   - name: Line
     uniqueID: 4247728565
     locked: 0
+  - name: Light
+    uniqueID: 978404135
+    locked: 0
   - name: Note
     uniqueID: 356029137
     locked: 0
