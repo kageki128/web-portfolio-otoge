@@ -71,7 +71,7 @@ namespace MyProject.Actor
 
         public override void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores)
         {
-            NoteActors.Clear();
+            DestroyNotes();
             foreach (var noteCore in noteCores)
             {
                 var noteType = noteCore.Property.Type;
