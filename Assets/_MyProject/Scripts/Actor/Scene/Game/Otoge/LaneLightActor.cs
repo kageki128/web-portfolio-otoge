@@ -10,14 +10,19 @@ namespace MyProject.Actor
     {
         [SerializeField] List<SpriteRenderer> laneLightRenderers;
 
-        readonly Color activeColor = new(1f, 1f, 1f, 1f);
-        readonly Color inactiveColor = new(1f, 1f, 1f, 0f);
         readonly float fadeDuration = 0.033f;
 
         MotionHandle[] laneHandles;
+        Color[] baseLaneColors;
 
         public override void Initialize()
         {
+            baseLaneColors = new Color[laneLightRenderers.Count];
+            for (var i = 0; i < laneLightRenderers.Count; i++)
+            {
+                baseLaneColors[i] = laneLightRenderers[i].color;
+            }
+
             laneHandles = new MotionHandle[laneLightRenderers.Count];
             gameObject.SetActive(false);
         }
@@ -30,9 +35,9 @@ namespace MyProject.Actor
 
         public override UniTask ShowAsync(CancellationToken ct)
         {
-            foreach (var renderer in laneLightRenderers)
+            for (var i = 0; i < laneLightRenderers.Count; i++)
             {
-                renderer.color = inactiveColor;
+                laneLightRenderers[i].color = WithAlpha(baseLaneColors[i], 0f);
             }
             gameObject.SetActive(true);
             return UniTask.CompletedTask;
@@ -51,8 +56,7 @@ namespace MyProject.Actor
                 currentHandle.TryCancel();
             }
 
-            // 即時でアクティブ色にする
-            renderer.color = activeColor;
+            renderer.color = baseLaneColors[lane];
         }
 
         public void LightDown(int lane)
@@ -68,12 +72,18 @@ namespace MyProject.Actor
                 currentHandle.TryCancel();
             }
 
-            // フェードを開始（現在の色 -> inactiveColor）。
-            var newHandle = LMotion.Create(renderer.color, inactiveColor, fadeDuration)
+            var targetColor = WithAlpha(baseLaneColors[lane], 0f);
+            var newHandle = LMotion.Create(renderer.color, targetColor, fadeDuration)
                 .Bind(value => renderer.color = value)
                 .AddTo(this);
 
             laneHandles[lane] = newHandle;
+        }
+
+        static Color WithAlpha(Color color, float alpha)
+        {
+            color.a = alpha;
+            return color;
         }
     }
 }

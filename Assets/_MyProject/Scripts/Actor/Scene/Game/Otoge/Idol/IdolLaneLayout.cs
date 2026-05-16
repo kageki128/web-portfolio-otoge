@@ -8,14 +8,14 @@ namespace MyProject.Actor
         public const float InnerRadius = 2f;
         public const float ScaleUpDistance = 1f;
 
-        static readonly Vector2 center = new(0f, 10.609936f);
+        static readonly Vector2 center = new(0f, 15.914481f);
         static readonly Vector2[] judgePoints =
         {
-            new(-8.583836f, 4.373872f),
-            new(-4.816975f, 1.156498f),
+            new(-7.667306f, 1.968760f),
+            new(-3.958017f, 0.500046f),
             new(0f, 0f),
-            new(4.816975f, 1.156498f),
-            new(8.583836f, 4.373872f)
+            new(3.958017f, 0.500046f),
+            new(7.667306f, 1.968760f)
         };
 
         public static Vector2 GetCenterPosition()
