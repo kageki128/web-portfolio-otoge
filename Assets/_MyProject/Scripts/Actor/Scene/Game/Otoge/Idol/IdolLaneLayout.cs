@@ -5,7 +5,7 @@ namespace MyProject.Actor
     internal static class IdolLaneLayout
     {
         public const int CenterLane = 2;
-        public const float InnerRadius = 2f;
+        public const float InnerRadius = 5f;
         public const float ScaleUpDistance = 1f;
 
         static readonly Vector2 center = new(0f, 15.914481f);

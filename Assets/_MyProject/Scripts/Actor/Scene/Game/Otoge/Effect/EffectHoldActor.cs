@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
-    public class OctaHoldActor : NoteActorBase
+    public class EffectHoldActor : NoteActorBase
     {
         [SerializeField] SpriteRenderer image;
+        [SerializeField] Color centerColor;
 
         Color defaultColor;
         bool hasDefaultColor;
@@ -31,17 +32,23 @@ namespace MyProject.Actor
 
         public override void SetPosition(float currentScroll, float scrollSpeed)
         {
-            float x = CalculateCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
+            if (NoteCore.State.CurrentValue is NoteState.AfterJudge)
+            {
+                return;
+            }
+
+            float x = EffectLaneLayout.GetVisualCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
             float y = CalculateCenterY(NoteCore.Property.ScrollBegin, NoteCore.Property.ScrollEnd, currentScroll, scrollSpeed);
             float height = CalculateHeight(NoteCore.Property.ScrollBegin, NoteCore.Property.ScrollEnd, scrollSpeed);
 
-            transform.localPosition = new Vector3(x, y, 0);
+            transform.localPosition = new Vector3(x, y, 0f);
             image.size = new Vector2(image.size.x, height);
         }
 
         protected override void SetWidth(int width)
         {
-            image.size = new Vector2(width, image.size.y);
+            int visualWidth = EffectLaneLayout.GetVisualWidth(NoteCore.Property.Lane, width);
+            image.size = new Vector2(visualWidth, image.size.y);
         }
 
         protected override void SetLayer(int layer)
@@ -64,7 +71,8 @@ namespace MyProject.Actor
             }
 
             gameObject.SetActive(true);
-            image.color = HoldAppearance.ApplyStateAlpha(defaultColor, state);
+            var baseColor = EffectLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultColor;
+            image.color = HoldAppearance.ApplyStateAlpha(baseColor, state);
         }
     }
 }

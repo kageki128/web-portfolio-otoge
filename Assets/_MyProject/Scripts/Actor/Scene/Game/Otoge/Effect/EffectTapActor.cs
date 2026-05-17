@@ -5,9 +5,10 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
-    public class OctaHoldActor : NoteActorBase
+    public class EffectTapActor : NoteActorBase
     {
         [SerializeField] SpriteRenderer image;
+        [SerializeField] Color centerColor;
 
         Color defaultColor;
         bool hasDefaultColor;
@@ -31,17 +32,20 @@ namespace MyProject.Actor
 
         public override void SetPosition(float currentScroll, float scrollSpeed)
         {
-            float x = CalculateCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
-            float y = CalculateCenterY(NoteCore.Property.ScrollBegin, NoteCore.Property.ScrollEnd, currentScroll, scrollSpeed);
-            float height = CalculateHeight(NoteCore.Property.ScrollBegin, NoteCore.Property.ScrollEnd, scrollSpeed);
+            if (NoteCore.State.CurrentValue is NoteState.AfterJudge)
+            {
+                return;
+            }
 
-            transform.localPosition = new Vector3(x, y, 0);
-            image.size = new Vector2(image.size.x, height);
+            float x = EffectLaneLayout.GetVisualCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
+            float y = (NoteCore.Property.ScrollBegin - currentScroll) * scrollSpeed;
+            transform.localPosition = new Vector3(x, y, 0f);
         }
 
         protected override void SetWidth(int width)
         {
-            image.size = new Vector2(width, image.size.y);
+            int visualWidth = EffectLaneLayout.GetVisualWidth(NoteCore.Property.Lane, width);
+            image.size = new Vector2(visualWidth, image.size.y);
         }
 
         protected override void SetLayer(int layer)
@@ -51,20 +55,19 @@ namespace MyProject.Actor
 
         protected override void SetAppearance(NoteState state)
         {
-            if (state is NoteState.AfterJudge)
-            {
-                gameObject.SetActive(false);
-                return;
-            }
-
             if (!hasDefaultColor)
             {
                 defaultColor = image.color;
                 hasDefaultColor = true;
             }
 
-            gameObject.SetActive(true);
-            image.color = HoldAppearance.ApplyStateAlpha(defaultColor, state);
+            gameObject.SetActive(state is not NoteState.AfterJudge);
+            if (!gameObject.activeSelf)
+            {
+                return;
+            }
+
+            image.color = EffectLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultColor;
         }
     }
 }

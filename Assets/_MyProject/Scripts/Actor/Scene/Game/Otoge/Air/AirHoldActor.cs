@@ -8,9 +8,9 @@ namespace MyProject.Actor
     public class AirHoldActor : NoteActorBase
     {
         [SerializeField] SpriteRenderer image;
-        [SerializeField] Color beforeColor;
-        [SerializeField] Color holdingColor;
-        [SerializeField] Color missedColor;
+
+        Color defaultColor;
+        bool hasDefaultColor;
 
         public override void Initialize()
         {
@@ -57,15 +57,14 @@ namespace MyProject.Actor
                 return;
             }
 
-            gameObject.SetActive(true);
-            image.color = state switch
+            if (!hasDefaultColor)
             {
-                NoteState.BeforeJudge => beforeColor,
-                NoteState.Holding => holdingColor,
-                NoteState.Missed => missedColor,
-                NoteState.Released => missedColor,
-                _ => beforeColor
-            };
+                defaultColor = image.color;
+                hasDefaultColor = true;
+            }
+
+            gameObject.SetActive(true);
+            image.color = HoldAppearance.ApplyStateAlpha(defaultColor, state);
         }
     }
 }

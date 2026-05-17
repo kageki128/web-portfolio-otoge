@@ -8,9 +8,9 @@ namespace MyProject.Actor
     public class LaundryHoldActor : NoteActorBase
     {
         [SerializeField] SpriteRenderer image;
-        [SerializeField] Color beforeColor;
-        [SerializeField] Color holdingColor;
-        [SerializeField] Color missedColor;
+
+        Color defaultColor;
+        bool hasDefaultColor;
 
         public override void Initialize()
         {
@@ -86,14 +86,13 @@ namespace MyProject.Actor
                 return;
             }
 
-            image.color = state switch
+            if (!hasDefaultColor)
             {
-                NoteState.BeforeJudge => beforeColor,
-                NoteState.Holding => holdingColor,
-                NoteState.Missed => missedColor,
-                NoteState.Released => missedColor,
-                _ => beforeColor
-            };
+                defaultColor = image.color;
+                hasDefaultColor = true;
+            }
+
+            image.color = HoldAppearance.ApplyStateAlpha(defaultColor, state);
         }
 
         static float CalculateDisplayedDistance(float rawDistance, float judgeDistance)
