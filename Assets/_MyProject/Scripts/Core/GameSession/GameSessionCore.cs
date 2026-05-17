@@ -18,6 +18,7 @@ namespace MyProject.Core
 
         public BeatmapMetaData MetaData => beatmapCore.MetaData;
         public IReadOnlyList<NoteCoreBase> NoteCores => beatmapCore.NoteCores;
+        public ReadOnlyReactiveProperty<float> CurrentBeat => beatmapCore.CurrentBeat;
 
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll => beatmapCore.TimelineToCurrentScroll;
 

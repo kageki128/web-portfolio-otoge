@@ -91,9 +91,9 @@ namespace MyProject.Actor
             }
         }
 
-        public void UpdateNotesByTimeline(int timeline, float currentScroll, float scrollSpeed)
+        public void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed)
         {
-            otogeTypeToActor[currentOtogeType].UpdateNotesByTimeline(timeline, currentScroll, scrollSpeed);
+            otogeTypeToActor[currentOtogeType].UpdateNotesByTimeline(timeline, currentBeat, currentScroll, scrollSpeed);
         }
 
         public void SetSharedActorsState(OtogeType otogeType)

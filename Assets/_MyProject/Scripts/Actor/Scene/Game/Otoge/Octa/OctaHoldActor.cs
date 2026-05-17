@@ -29,7 +29,7 @@ namespace MyProject.Actor
             return UniTask.CompletedTask;
         }
 
-        public override void SetPosition(float currentScroll, float scrollSpeed)
+        public override void SetPosition(float currentBeat, float currentScroll, float scrollSpeed)
         {
             float x = CalculateCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
             float y = CalculateCenterY(NoteCore.Property.ScrollBegin, NoteCore.Property.ScrollEnd, currentScroll, scrollSpeed);

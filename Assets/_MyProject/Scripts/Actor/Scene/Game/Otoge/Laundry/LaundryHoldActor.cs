@@ -29,7 +29,7 @@ namespace MyProject.Actor
             return UniTask.CompletedTask;
         }
 
-        public override void SetPosition(float currentScroll, float scrollSpeed)
+        public override void SetPosition(float currentBeat, float currentScroll, float scrollSpeed)
         {
             if (NoteCore.State.CurrentValue is NoteState.AfterJudge)
             {

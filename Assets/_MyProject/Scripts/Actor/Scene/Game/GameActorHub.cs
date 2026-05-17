@@ -98,7 +98,7 @@ namespace MyProject.Actor
         }
 
         public void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores) => otogeActorHub.CreateNotes(noteCores);
-        public void UpdateNotesByTimeline(int timeline, float currentScroll, float scrollSpeed) => otogeActorHub.UpdateNotesByTimeline(timeline, currentScroll, scrollSpeed);
+        public void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed) => otogeActorHub.UpdateNotesByTimeline(timeline, currentBeat, currentScroll, scrollSpeed);
 
         public void SetScore(int score) => scoreTextActor.SetScore(score);
         public void SetCombo(int combo) => comboTextActor.SetCombo(combo);

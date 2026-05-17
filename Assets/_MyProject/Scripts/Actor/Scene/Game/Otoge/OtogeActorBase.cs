@@ -17,13 +17,13 @@ namespace MyProject.Actor
 
         public abstract void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores);
 
-        public void UpdateNotesByTimeline(int timeline, float currentScroll, float scrollSpeed)
+        public void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed)
         {
             foreach (var noteActor in NoteActors)
             {
                 if (noteActor.NoteCore.Property.Timeline == timeline)
                 {
-                    noteActor.SetPosition(currentScroll, scrollSpeed);
+                    noteActor.SetPosition(currentBeat, currentScroll, scrollSpeed);
                 }
             }
         }

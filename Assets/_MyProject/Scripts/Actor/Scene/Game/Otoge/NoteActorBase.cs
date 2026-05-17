@@ -17,7 +17,7 @@ namespace MyProject.Actor
             noteCore.State.Subscribe(state => SetAppearance(state)).AddTo(this);
         }
 
-        public abstract void SetPosition(float currentScroll, float scrollSpeed);
+        public abstract void SetPosition(float currentBeat, float currentScroll, float scrollSpeed);
 
         public void Destroy()
         {

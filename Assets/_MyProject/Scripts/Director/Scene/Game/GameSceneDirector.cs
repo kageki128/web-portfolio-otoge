@@ -84,7 +84,7 @@ namespace MyProject.Director
             {
                 int timeline = kvp.Key;
                 var currentScroll = kvp.Value;
-                currentScroll.Subscribe(scroll => gameActorHub.UpdateNotesByTimeline(timeline, scroll, 8f)).AddTo(disposables);
+                currentScroll.Subscribe(scroll => gameActorHub.UpdateNotesByTimeline(timeline, gameSessionCore.CurrentBeat.CurrentValue, scroll, 8f)).AddTo(disposables);
             }
 
             // Coreを購読
