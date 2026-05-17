@@ -5,14 +5,16 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
-    public class MasterTapActor : NoteActorBase
+    public class RunHoldActor : NoteActorBase
     {
         [SerializeField] SpriteRenderer image;
         [SerializeField] Sprite laneSprite0;
         [SerializeField] Sprite laneSprite1;
 
+        Color defaultColor;
         Sprite defaultSprite;
-        bool hasDefaultSprite;
+        bool hasDefaultAppearance;
+        float laneWidth = 1f;
 
         public override void Initialize()
         {
@@ -38,13 +40,20 @@ namespace MyProject.Actor
                 return;
             }
 
-            var x = (NoteCore.Property.ScrollBegin - currentScroll) * scrollSpeed;
-            transform.localPosition = new Vector3(x, 0f, 0f);
+            var beginX = (NoteCore.Property.ScrollBegin - currentScroll) * scrollSpeed;
+            var endX = (NoteCore.Property.ScrollEnd - currentScroll) * scrollSpeed;
+            var x = (beginX + endX) * 0.5f;
+            var y = RunLaneLayout.GetLaneY(NoteCore.Property.Lane);
+            var length = Mathf.Abs(endX - beginX);
+
+            transform.localPosition = new Vector3(x, y, 0f);
+            image.size = new Vector2(length, laneWidth);
         }
 
         protected override void SetWidth(int width)
         {
-            image.size = new Vector2(width, image.size.y);
+            laneWidth = width;
+            image.size = new Vector2(image.size.x, width);
         }
 
         protected override void SetLayer(int layer)
@@ -54,24 +63,27 @@ namespace MyProject.Actor
 
         protected override void SetAppearance(NoteState state)
         {
-            if (!hasDefaultSprite)
+            if (state is NoteState.AfterJudge)
             {
-                defaultSprite = image.sprite;
-                hasDefaultSprite = true;
-            }
-
-            gameObject.SetActive(state is not NoteState.AfterJudge);
-            if (!gameObject.activeSelf)
-            {
+                gameObject.SetActive(false);
                 return;
             }
 
+            if (!hasDefaultAppearance)
+            {
+                defaultColor = image.color;
+                defaultSprite = image.sprite;
+                hasDefaultAppearance = true;
+            }
+
+            gameObject.SetActive(true);
             image.sprite = NoteCore.Property.Lane switch
             {
                 0 => laneSprite0 != null ? laneSprite0 : defaultSprite,
                 1 => laneSprite1 != null ? laneSprite1 : defaultSprite,
                 _ => defaultSprite
             };
+            image.color = HoldAppearance.ApplyStateAlpha(defaultColor, state);
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
-    public class MasterTapActor : NoteActorBase
+    public class RunTapActor : NoteActorBase
     {
         [SerializeField] SpriteRenderer image;
         [SerializeField] Sprite laneSprite0;
@@ -39,7 +39,8 @@ namespace MyProject.Actor
             }
 
             var x = (NoteCore.Property.ScrollBegin - currentScroll) * scrollSpeed;
-            transform.localPosition = new Vector3(x, 0f, 0f);
+            var y = RunLaneLayout.GetLaneY(NoteCore.Property.Lane);
+            transform.localPosition = new Vector3(x, y, 0f);
         }
 
         protected override void SetWidth(int width)
