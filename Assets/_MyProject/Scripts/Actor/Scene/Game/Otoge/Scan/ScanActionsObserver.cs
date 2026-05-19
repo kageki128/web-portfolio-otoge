@@ -19,14 +19,16 @@ namespace MyProject.Actor
                 ObservePerformed(scanActions.Lane0).Select(_ => 0),
                 ObservePerformed(scanActions.Lane1).Select(_ => 1),
                 ObservePerformed(scanActions.Lane2).Select(_ => 2),
-                ObservePerformed(scanActions.Lane3).Select(_ => 3)
+                ObservePerformed(scanActions.Lane3).Select(_ => 3),
+                ObservePerformed(scanActions.Lane4).Select(_ => 4)
             );
             LaneReleased = Observable.Merge
             (
                 ObserveCanceled(scanActions.Lane0).Select(_ => 0),
                 ObserveCanceled(scanActions.Lane1).Select(_ => 1),
                 ObserveCanceled(scanActions.Lane2).Select(_ => 2),
-                ObserveCanceled(scanActions.Lane3).Select(_ => 3)
+                ObserveCanceled(scanActions.Lane3).Select(_ => 3),
+                ObserveCanceled(scanActions.Lane4).Select(_ => 4)
             );
         }
 

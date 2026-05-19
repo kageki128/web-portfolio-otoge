@@ -1,0 +1,83 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using MyProject.Core;
+using UnityEngine;
+
+namespace MyProject.Actor
+{
+    public class ScanTapActor : NoteActorBase
+    {
+        [SerializeField] SpriteRenderer image;
+        [SerializeField] Color centerColor;
+
+        Color defaultColor;
+        bool hasDefaultColor;
+
+        public override void Initialize()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public override UniTask ShowAsync(CancellationToken ct)
+        {
+            gameObject.SetActive(true);
+            return UniTask.CompletedTask;
+        }
+
+        public override UniTask HideAsync(CancellationToken ct)
+        {
+            gameObject.SetActive(false);
+            return UniTask.CompletedTask;
+        }
+
+        public override void SetPosition(float currentBeat, float currentScroll, float scrollSpeed)
+        {
+            if (NoteCore.State.CurrentValue is NoteState.AfterJudge)
+            {
+                return;
+            }
+
+            var startBeat = NoteCore.Property.TimingBegin.Beat;
+            var appearBeat = startBeat - 1f;
+            if (currentBeat < appearBeat)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
+            var x = ScanLaneLayout.GetLaneCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
+            var y = ScanLaneLayout.GetJudgeLineY(startBeat);
+            transform.localPosition = new Vector3(x, y, 0f);
+            transform.localScale = Vector3.one * Mathf.Clamp01(currentBeat - appearBeat);
+            gameObject.SetActive(true);
+        }
+
+        protected override void SetWidth(int width)
+        {
+            image.size = new Vector2(width, image.size.y);
+        }
+
+        protected override void SetLayer(int layer)
+        {
+            image.sortingOrder = layer;
+        }
+
+        protected override void SetAppearance(NoteState state)
+        {
+            if (!hasDefaultColor)
+            {
+                defaultColor = image.color;
+                hasDefaultColor = true;
+            }
+
+            if (state is NoteState.AfterJudge)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
+            gameObject.SetActive(true);
+            image.color = ScanLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultColor;
+        }
+    }
+}

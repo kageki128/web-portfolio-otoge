@@ -17,7 +17,7 @@ namespace MyProject.Actor
 
         public abstract void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores);
 
-        public void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed)
+        public virtual void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed)
         {
             foreach (var noteActor in NoteActors)
             {

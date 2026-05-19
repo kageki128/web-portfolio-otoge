@@ -995,7 +995,7 @@
                 {
                     "name": "Lane2",
                     "type": "Button",
-                    "id": "42614ca7-c253-47bb-8cb6-1c5850ad9e33",
+                    "id": "eef03de6-1f5d-4ad8-b07f-32910c73ba87",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1003,6 +1003,15 @@
                 },
                 {
                     "name": "Lane3",
+                    "type": "Button",
+                    "id": "42614ca7-c253-47bb-8cb6-1c5850ad9e33",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Lane4",
                     "type": "Button",
                     "id": "c35ef8b9-8b74-49b1-a25a-5b9231803722",
                     "expectedControlType": "",
@@ -1041,7 +1050,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lane2",
+                    "action": "Lane3",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -1052,7 +1061,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lane3",
+                    "action": "Lane4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "429ed416-6966-4602-89ba-0e74d116bf92",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lane2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

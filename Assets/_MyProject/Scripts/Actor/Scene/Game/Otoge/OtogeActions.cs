@@ -1083,7 +1083,7 @@ namespace MyProject.Actor
                 {
                     ""name"": ""Lane2"",
                     ""type"": ""Button"",
-                    ""id"": ""42614ca7-c253-47bb-8cb6-1c5850ad9e33"",
+                    ""id"": ""eef03de6-1f5d-4ad8-b07f-32910c73ba87"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1091,6 +1091,15 @@ namespace MyProject.Actor
                 },
                 {
                     ""name"": ""Lane3"",
+                    ""type"": ""Button"",
+                    ""id"": ""42614ca7-c253-47bb-8cb6-1c5850ad9e33"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lane4"",
                     ""type"": ""Button"",
                     ""id"": ""c35ef8b9-8b74-49b1-a25a-5b9231803722"",
                     ""expectedControlType"": """",
@@ -1129,7 +1138,7 @@ namespace MyProject.Actor
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Lane2"",
+                    ""action"": ""Lane3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1140,7 +1149,18 @@ namespace MyProject.Actor
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Lane3"",
+                    ""action"": ""Lane4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""429ed416-6966-4602-89ba-0e74d116bf92"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Lane2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1214,6 +1234,7 @@ namespace MyProject.Actor
             m_Scan_Lane1 = m_Scan.FindAction("Lane1", throwIfNotFound: true);
             m_Scan_Lane2 = m_Scan.FindAction("Lane2", throwIfNotFound: true);
             m_Scan_Lane3 = m_Scan.FindAction("Lane3", throwIfNotFound: true);
+            m_Scan_Lane4 = m_Scan.FindAction("Lane4", throwIfNotFound: true);
         }
 
         ~@OtogeActions()
@@ -2459,6 +2480,7 @@ namespace MyProject.Actor
         private readonly InputAction m_Scan_Lane1;
         private readonly InputAction m_Scan_Lane2;
         private readonly InputAction m_Scan_Lane3;
+        private readonly InputAction m_Scan_Lane4;
         /// <summary>
         /// Provides access to input actions defined in input action map "Scan".
         /// </summary>
@@ -2486,6 +2508,10 @@ namespace MyProject.Actor
             /// Provides access to the underlying input action "Scan/Lane3".
             /// </summary>
             public InputAction @Lane3 => m_Wrapper.m_Scan_Lane3;
+            /// <summary>
+            /// Provides access to the underlying input action "Scan/Lane4".
+            /// </summary>
+            public InputAction @Lane4 => m_Wrapper.m_Scan_Lane4;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -2524,6 +2550,9 @@ namespace MyProject.Actor
                 @Lane3.started += instance.OnLane3;
                 @Lane3.performed += instance.OnLane3;
                 @Lane3.canceled += instance.OnLane3;
+                @Lane4.started += instance.OnLane4;
+                @Lane4.performed += instance.OnLane4;
+                @Lane4.canceled += instance.OnLane4;
             }
 
             /// <summary>
@@ -2547,6 +2576,9 @@ namespace MyProject.Actor
                 @Lane3.started -= instance.OnLane3;
                 @Lane3.performed -= instance.OnLane3;
                 @Lane3.canceled -= instance.OnLane3;
+                @Lane4.started -= instance.OnLane4;
+                @Lane4.performed -= instance.OnLane4;
+                @Lane4.canceled -= instance.OnLane4;
             }
 
             /// <summary>
@@ -2980,6 +3012,13 @@ namespace MyProject.Actor
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnLane3(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Lane4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnLane4(InputAction.CallbackContext context);
         }
     }
 }
