@@ -8,6 +8,7 @@ namespace MyProject.Actor
         public const float MinY = -2.5f;
         public const float MaxY = 2.5f;
         public const float RoundTripBeats = 4f;
+        public const float NoteAppearBeats = 2f;
         public const float LaneStepX = 2f;
 
         public static bool IsCenterLane(int lane)
@@ -30,6 +31,12 @@ namespace MyProject.Actor
                 : 1f - ((phase - halfTripBeats) / halfTripBeats);
 
             return Mathf.Lerp(MinY, MaxY, t);
+        }
+
+        public static float EaseNoteIn(float t)
+        {
+            t = Mathf.Clamp01(t);
+            return 1f - Mathf.Cos((t * Mathf.PI) * 0.5f);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace MyProject.Actor
             }
 
             var startBeat = NoteCore.Property.TimingBegin.Beat;
-            var appearBeat = startBeat - 1f;
+            var appearBeat = startBeat - ScanLaneLayout.NoteAppearBeats;
             if (currentBeat < appearBeat)
             {
                 gameObject.SetActive(false);
@@ -47,8 +47,9 @@ namespace MyProject.Actor
 
             var x = ScanLaneLayout.GetLaneCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
             var y = ScanLaneLayout.GetJudgeLineY(startBeat);
+            var appearProgress = (currentBeat - appearBeat) / ScanLaneLayout.NoteAppearBeats;
             transform.localPosition = new Vector3(x, y, 0f);
-            transform.localScale = Vector3.one * Mathf.Clamp01(currentBeat - appearBeat);
+            transform.localScale = Vector3.one * ScanLaneLayout.EaseNoteIn(appearProgress);
             gameObject.SetActive(true);
         }
 
