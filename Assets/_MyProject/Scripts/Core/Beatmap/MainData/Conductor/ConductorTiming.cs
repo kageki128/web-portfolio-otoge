@@ -18,6 +18,9 @@ namespace MyProject.Core
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll { get; }
         readonly Dictionary<int, ReactiveProperty<float>> timelineToCurrentScroll = new();
 
+        public ReadOnlyReactiveProperty<OtogeType> CurrentOtogeType => currentOtogeType;
+        readonly ReactiveProperty<OtogeType> currentOtogeType = new(OtogeType.Tetra);
+
         readonly IReadOnlyList<BpmChange> bpmChanges;
         readonly IReadOnlyDictionary<int, IReadOnlyList<HighSpeedChange>> timelineToHighSpeedChanges;
         readonly IReadOnlyList<MeasureLengthChange> measureLengthChanges;

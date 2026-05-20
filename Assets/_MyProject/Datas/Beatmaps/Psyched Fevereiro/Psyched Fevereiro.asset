@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: MyProject.Core::MyProject.Core.MusicInfoSO
   <Wave>k__BackingField: {fileID: 8300000, guid: 7d2cdd300f057204e8924df468a6b9c3, type: 3}
   <Beatmap>k__BackingField: {fileID: 2811297602134710623, guid: e658dab0c37dc164493ffd5a73a26397, type: 3}
+  <OtogeChanges>k__BackingField: {fileID: 11400000, guid: 60332bfb6bd6fe649a0b9e517e2ef06d, type: 2}

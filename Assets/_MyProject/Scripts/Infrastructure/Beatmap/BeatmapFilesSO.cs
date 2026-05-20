@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MyProject.Core
+namespace MyProject.Infrastructure
 {
     [CreateAssetMenu(fileName = "BeatmapFilesSO", menuName = "MyProject/BeatmapFilesSO")]
     public class BeatmapFilesSO : ScriptableObject
@@ -10,5 +10,8 @@ namespace MyProject.Core
 
         [field: SerializeField]
         public TextAsset Beatmap { get; private set; }
+
+        [field: SerializeField]
+        public OtogeChangesSO OtogeChanges { get; private set; }
     }
 }

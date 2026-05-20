@@ -1,4 +1,4 @@
-namespace MyProject.Actor
+namespace MyProject.Core
 {
     public enum OtogeType
     {

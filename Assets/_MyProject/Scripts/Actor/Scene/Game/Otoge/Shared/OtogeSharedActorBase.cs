@@ -1,3 +1,5 @@
+using MyProject.Core;
+
 namespace MyProject.Actor
 {
     public abstract class OtogeSharedActorBase : ActorBase

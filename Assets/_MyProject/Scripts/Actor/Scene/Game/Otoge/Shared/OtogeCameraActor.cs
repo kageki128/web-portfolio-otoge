@@ -1,6 +1,7 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MyProject.Core;
 using UnityEngine;
 
 namespace MyProject.Actor
