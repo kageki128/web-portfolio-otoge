@@ -10,6 +10,7 @@ namespace MyProject.Core
         public IReadOnlyList<NoteCoreBase> NoteCores => mainData.NoteCores;
         public ReadOnlyReactiveProperty<float> CurrentBeat => mainData.ConductorCore.CurrentBeat;
         public ReadOnlyReactiveProperty<float> CurrentSec => mainData.ConductorCore.CurrentSec;
+        public ReadOnlyReactiveProperty<OtogeType> CurrentOtogeType => mainData.ConductorCore.CurrentOtogeType;
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll => mainData.ConductorCore.TimelineToCurrentScroll;
         public IReadOnlyList<Message> Messages => messages;
 

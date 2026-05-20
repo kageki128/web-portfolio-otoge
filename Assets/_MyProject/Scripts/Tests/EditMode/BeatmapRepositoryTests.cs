@@ -129,14 +129,17 @@ namespace MyProject.Tests.EditMode
         static TestFixture CreateFixture(string ugc)
         {
             var beatmapFiles = ScriptableObject.CreateInstance<BeatmapFilesSO>();
+            var otogeChanges = ScriptableObject.CreateInstance<OtogeChangesSO>();
             var wave = AudioClip.Create("test", 44100, 1, 44100, false);
             var text = new TextAsset(ugc);
 
+            SetEmptyArrayField(otogeChanges, "otogeChanges");
             SetBackingField(beatmapFiles, "<Wave>k__BackingField", wave);
             SetBackingField(beatmapFiles, "<Beatmap>k__BackingField", text);
+            SetBackingField(beatmapFiles, "<OtogeChanges>k__BackingField", otogeChanges);
 
             var repository = new BeatmapRepository(beatmapFiles);
-            return new TestFixture(beatmapFiles, wave, text, repository);
+            return new TestFixture(beatmapFiles, otogeChanges, wave, text, repository);
         }
 
         static void SetBackingField<T>(object target, string fieldName, T value)
@@ -146,16 +149,30 @@ namespace MyProject.Tests.EditMode
             field!.SetValue(target, value);
         }
 
+        static void SetEmptyArrayField(object target, string fieldName)
+        {
+            var field = target.GetType().GetField(fieldName, InstanceNonPublic);
+            Assert.That(field, Is.Not.Null, $"{fieldName} の設定に失敗しました。");
+
+            var elementType = field!.FieldType.GetElementType();
+            Assert.That(elementType, Is.Not.Null, $"{fieldName} は配列フィールドではありません。");
+
+            var emptyArray = System.Array.CreateInstance(elementType!, 0);
+            field.SetValue(target, emptyArray);
+        }
+
         sealed class TestFixture : System.IDisposable
         {
             public BeatmapFilesSO BeatmapFiles { get; }
+            public OtogeChangesSO OtogeChanges { get; }
             public AudioClip Wave { get; }
             public TextAsset Text { get; }
             public BeatmapRepository Repository { get; }
 
-            public TestFixture(BeatmapFilesSO beatmapFiles, AudioClip wave, TextAsset text, BeatmapRepository repository)
+            public TestFixture(BeatmapFilesSO beatmapFiles, OtogeChangesSO otogeChanges, AudioClip wave, TextAsset text, BeatmapRepository repository)
             {
                 BeatmapFiles = beatmapFiles;
+                OtogeChanges = otogeChanges;
                 Wave = wave;
                 Text = text;
                 Repository = repository;
@@ -165,6 +182,7 @@ namespace MyProject.Tests.EditMode
             {
                 Object.DestroyImmediate(Text);
                 Object.DestroyImmediate(Wave);
+                Object.DestroyImmediate(OtogeChanges);
                 Object.DestroyImmediate(BeatmapFiles);
             }
         }

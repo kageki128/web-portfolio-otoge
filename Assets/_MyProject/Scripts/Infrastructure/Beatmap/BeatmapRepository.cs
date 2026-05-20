@@ -40,10 +40,15 @@ namespace MyProject.Infrastructure
                 throw new InvalidOperationException("BeatmapFilesSO.Beatmap is not assigned.");
             }
 
+            if (beatmapFiles.OtogeChanges == null)
+            {
+                throw new InvalidOperationException("BeatmapFilesSO.OtogeChanges is not assigned.");
+            }
+
             // 1) テキストを中間データにパース
             var parsedData = parser.Parse(beatmapFiles.Beatmap.text, ct);
             // 2) 中間データから最終Beatmapを組み立て
-            var beatmap = composer.Compose(beatmapFiles.Wave, parsedData, ct);
+            var beatmap = composer.Compose(beatmapFiles.Wave, parsedData, beatmapFiles.OtogeChanges.OtogeChanges, ct);
             DebugBeatmap(beatmap);
 
             return UniTask.FromResult(beatmap);

@@ -95,6 +95,9 @@ namespace MyProject.Director
             gameSessionCore.Combo
                 .Subscribe(combo => gameActorHub.SetCombo(combo))
                 .AddTo(disposables);
+            gameSessionCore.CurrentOtogeType
+                .Subscribe(otogeType => gameActorHub.SwitchOtogeType(otogeType))
+                .AddTo(disposables);
             foreach (var noteCore in noteCores)
             {
                 noteCore.Judge

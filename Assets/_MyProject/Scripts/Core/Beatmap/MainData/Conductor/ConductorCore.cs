@@ -9,6 +9,7 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<float> CurrentBeat => timing.CurrentBeat;
         public ReadOnlyReactiveProperty<float> CurrentSec => timing.CurrentSec;
         public ReadOnlyReactiveProperty<int> CurrentMeasure => timing.CurrentMeasure;
+        public ReadOnlyReactiveProperty<OtogeType> CurrentOtogeType => timing.CurrentOtogeType;
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll => timing.TimelineToCurrentScroll;
 
         readonly ConductorTiming timing;

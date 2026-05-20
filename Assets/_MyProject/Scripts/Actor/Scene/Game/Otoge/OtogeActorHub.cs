@@ -96,6 +96,11 @@ namespace MyProject.Actor
             otogeTypeToActor[currentOtogeType].UpdateNotesByTimeline(timeline, currentBeat, currentScroll, scrollSpeed);
         }
 
+        public void SwitchOtogeType(OtogeType newType)
+        {
+            Debug.Log($"Switching OtogeType from {currentOtogeType} to {newType}");
+        }
+
         public void SetSharedActorsState(OtogeType otogeType)
         {
             foreach (var sharedActor in sharedActors)
@@ -115,13 +120,13 @@ namespace MyProject.Actor
 
         async UniTask SwitchOtogeTypeAsync(OtogeType newType, CancellationToken ct)
         {
-            await UniTask.WhenAll
-            (
-                otogeTypeToActor[currentOtogeType].HideAsync(ct),
-                otogeTypeToActor[newType].ShowAsync(ct)
-            );
+                await UniTask.WhenAll
+                (
+                    otogeTypeToActor[currentOtogeType].HideAsync(ct),
+                    otogeTypeToActor[newType].ShowAsync(ct)
+                );
 
-            currentOtogeType = newType;
+                currentOtogeType = newType;
         }
     }
 }

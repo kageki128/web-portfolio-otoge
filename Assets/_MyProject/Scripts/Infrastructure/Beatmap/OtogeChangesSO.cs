@@ -17,7 +17,18 @@ namespace MyProject.Infrastructure
             [SerializeField] OtogeType type;
         }
 
-        public MyProject.Core.OtogeChange[] OtogeChanges => Array.ConvertAll(otogeChanges, x => new MyProject.Core.OtogeChange(x.Beat, x.Type));
+        public MyProject.Core.OtogeChange[] OtogeChanges
+        {
+            get
+            {
+                if (otogeChanges == null)
+                {
+                    throw new InvalidOperationException("OtogeChangesSO.otogeChanges is not assigned.");
+                }
+
+                return Array.ConvertAll(otogeChanges, x => new MyProject.Core.OtogeChange(x.Beat, x.Type));
+            }
+        }
 
         [SerializeField] OtogeChange[] otogeChanges;
     }

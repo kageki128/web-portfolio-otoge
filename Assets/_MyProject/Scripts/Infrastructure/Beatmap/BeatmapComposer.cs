@@ -40,7 +40,7 @@ namespace MyProject.Infrastructure
         /// <summary>
         /// Fatal判定を先に行い、問題なければ timing/note を生成する。
         /// </summary>
-        public BeatmapCore Compose(AudioClip wave, BeatmapParsedData parsedData, CancellationToken ct)
+        public BeatmapCore Compose(AudioClip wave, BeatmapParsedData parsedData, IReadOnlyList<OtogeChange> otogeChanges, CancellationToken ct)
         {
             var messages = parsedData.Messages;
             // 小節長変化を「小節開始beat」に展開する。
@@ -98,7 +98,7 @@ namespace MyProject.Infrastructure
             // 致命エラー時は空譜面で返却する。
             if (hasFatal)
             {
-                return new BeatmapCore(metaData, CreateEmptyMainData(), messages);
+                return new BeatmapCore(metaData, CreateEmptyMainData(otogeChanges), messages);
             }
 
             // 各タイムラインのハイスピ変化をbeat基準に変換する。
@@ -174,7 +174,8 @@ namespace MyProject.Infrastructure
             (
                 bpmChanges,
                 timelineToHighSpeedChanges,
-                measureLengthChanges
+                measureLengthChanges,
+                otogeChanges
             ));
 
             var mainData = new BeatmapMainData(conductorCore, noteCores);
@@ -323,7 +324,7 @@ namespace MyProject.Infrastructure
         /// <summary>
         /// Fatal時に返す最小構成のMainDataを作る。
         /// </summary>
-        static BeatmapMainData CreateEmptyMainData()
+        static BeatmapMainData CreateEmptyMainData(IReadOnlyList<OtogeChange> otogeChanges)
         {
             var bpmChanges = new List<BpmChange>
             {
@@ -338,7 +339,7 @@ namespace MyProject.Infrastructure
                 new(4, 0f),
             };
 
-            var conductorCore = new ConductorCore(new ConductorTiming(bpmChanges, highSpeedChanges, measureLengthChanges));
+            var conductorCore = new ConductorCore(new ConductorTiming(bpmChanges, highSpeedChanges, measureLengthChanges, otogeChanges));
             return new BeatmapMainData(conductorCore, Array.Empty<NoteCoreBase>());
         }
     }
