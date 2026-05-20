@@ -8,7 +8,7 @@ namespace MyProject.Actor
         public const float MinY = -2.5f;
         public const float MaxY = 2.5f;
         public const float RoundTripBeats = 4f;
-        public const float NoteAppearBeats = 2f;
+        public const float NoteAppearBeats = 1.5f;
         public const float LaneStepX = 2f;
 
         public static bool IsCenterLane(int lane)

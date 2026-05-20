@@ -51,14 +51,17 @@ namespace MyProject.Actor
         public override void SetState(OtogeType otogeType)
         {
             var lineSettings = Array.Find(otogeJudgeLineSettings, x => x.Type == otogeType);
+            var lineRenderer = GetComponent<LineRenderer>();
             if (lineSettings == null)
             {
-                gameObject.SetActive(false);
+                gameObject.SetActive(true);
+                lineRenderer.positionCount = 2;
+                lineRenderer.SetPosition(0, Vector3.zero);
+                lineRenderer.SetPosition(1, Vector3.zero);
                 return;
             }
 
             gameObject.SetActive(true);
-            var lineRenderer = GetComponent<LineRenderer>();
             transform.localPosition = lineSettings.LocalPosition;
             transform.localEulerAngles = lineSettings.LocalEulerAngles;
 
