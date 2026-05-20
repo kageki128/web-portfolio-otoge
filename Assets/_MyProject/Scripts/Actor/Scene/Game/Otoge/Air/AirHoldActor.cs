@@ -64,7 +64,7 @@ namespace MyProject.Actor
             }
 
             gameObject.SetActive(true);
-            image.color = HoldAppearance.ApplyStateAlpha(defaultColor, state);
+            image.color = HoldAppearance.ApplyStateBrightness(defaultColor, state);
         }
     }
 }

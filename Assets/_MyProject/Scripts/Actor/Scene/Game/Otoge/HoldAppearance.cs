@@ -5,21 +5,27 @@ namespace MyProject.Actor
 {
     internal static class HoldAppearance
     {
-        const float BeforeAlpha = 0.5f;
-        const float HoldingAlpha = 1f;
-        const float MissedAlpha = 0.25f;
+        const float BeforeBrightness = 0.75f;
+        const float HoldingBrightness = 1f;
+        const float MissedBrightness = 0.5f;
 
-        public static Color ApplyStateAlpha(Color baseColor, NoteState state)
+        public static Color ApplyStateBrightness(Color baseColor, NoteState state)
         {
-            baseColor.a = state switch
+            var brightness = state switch
             {
-                NoteState.BeforeJudge => BeforeAlpha,
-                NoteState.Holding => HoldingAlpha,
-                NoteState.Missed => MissedAlpha,
-                NoteState.Released => MissedAlpha,
-                _ => BeforeAlpha
+                NoteState.BeforeJudge => BeforeBrightness,
+                NoteState.Holding => HoldingBrightness,
+                NoteState.Missed => MissedBrightness,
+                NoteState.Released => MissedBrightness,
+                _ => BeforeBrightness
             };
-            return baseColor;
+
+            return new Color(
+                baseColor.r * brightness,
+                baseColor.g * brightness,
+                baseColor.b * brightness,
+                baseColor.a
+            );
         }
     }
 }

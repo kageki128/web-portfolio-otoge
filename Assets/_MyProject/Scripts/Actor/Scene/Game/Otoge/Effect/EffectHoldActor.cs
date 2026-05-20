@@ -72,7 +72,7 @@ namespace MyProject.Actor
 
             gameObject.SetActive(true);
             var baseColor = EffectLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultColor;
-            image.color = HoldAppearance.ApplyStateAlpha(baseColor, state);
+            image.color = HoldAppearance.ApplyStateBrightness(baseColor, state);
         }
     }
 }
