@@ -7,11 +7,15 @@ namespace MyProject.Actor
 {
     public class ScanHoldActor : NoteActorBase
     {
-        [SerializeField] SpriteRenderer image;
+        [SerializeField] SpriteRenderer beginImage;
+        [SerializeField] SpriteRenderer trailImage;
         [SerializeField] Color centerColor;
 
-        Color defaultColor;
-        bool hasDefaultColor;
+        Color defaultBeginColor;
+        Color defaultTrailColor;
+        Vector3 defaultBeginScale;
+        Vector3 defaultTrailScale;
+        bool hasDefaults;
 
         public override void Initialize()
         {
@@ -37,6 +41,8 @@ namespace MyProject.Actor
                 return;
             }
 
+            EnsureDefaults();
+
             var startBeat = NoteCore.Property.TimingBegin.Beat;
             var appearBeat = startBeat - ScanLaneLayout.NoteAppearBeats;
             if (currentBeat < appearBeat)
@@ -48,25 +54,40 @@ namespace MyProject.Actor
             var endBeat = NoteCore.Property.TimingEnd.Beat;
             var beginY = ScanLaneLayout.GetJudgeLineY(startBeat);
             var endY = ScanLaneLayout.GetJudgeLineY(endBeat);
+            var deltaY = endY - beginY;
             var x = ScanLaneLayout.GetLaneCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
-            var y = (beginY + endY) * 0.5f;
             var height = Mathf.Abs(endY - beginY);
             var appearProgress = (currentBeat - appearBeat) / ScanLaneLayout.NoteAppearBeats;
+            var appearScale = ScanLaneLayout.EaseNoteIn(appearProgress);
+            var trailYDirection = IsJudgeLineMovingUp(startBeat) ? -1f : 1f;
 
-            transform.localPosition = new Vector3(x, y, 0f);
-            transform.localScale = Vector3.one * ScanLaneLayout.EaseNoteIn(appearProgress);
-            image.size = new Vector2(image.size.x, height);
+            transform.localPosition = new Vector3(x, beginY, 0f);
+            beginImage.transform.localPosition = Vector3.zero;
+            beginImage.transform.localScale = new Vector3(
+                defaultBeginScale.x * appearScale,
+                defaultBeginScale.y * appearScale,
+                defaultBeginScale.z
+            );
+
+            trailImage.transform.localPosition = new Vector3(0f, deltaY * 0.5f, 0f);
+            trailImage.transform.localScale = new Vector3(
+                defaultTrailScale.x * appearScale,
+                defaultTrailScale.y * trailYDirection,
+                defaultTrailScale.z
+            );
+            trailImage.size = new Vector2(trailImage.size.x, height);
             gameObject.SetActive(true);
         }
 
         protected override void SetWidth(int width)
         {
-            image.size = new Vector2(width, image.size.y);
+            beginImage.size = new Vector2(width, beginImage.size.y);
+            trailImage.size = new Vector2(width, trailImage.size.y);
         }
 
         protected override void SetLayer(int layer)
         {
-            image.sortingOrder = layer;
+            beginImage.sortingOrder = layer;
         }
 
         protected override void SetAppearance(NoteState state)
@@ -77,15 +98,34 @@ namespace MyProject.Actor
                 return;
             }
 
-            if (!hasDefaultColor)
-            {
-                defaultColor = image.color;
-                hasDefaultColor = true;
-            }
+            EnsureDefaults();
 
             gameObject.SetActive(true);
-            var baseColor = ScanLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultColor;
-            image.color = HoldAppearance.ApplyStateAlpha(baseColor, state);
+            var beginBaseColor = ScanLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultBeginColor;
+            var trailBaseColor = ScanLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultTrailColor;
+            beginImage.color = HoldAppearance.ApplyStateAlpha(beginBaseColor, state);
+            trailImage.color = HoldAppearance.ApplyStateAlpha(trailBaseColor, state);
+        }
+
+        void EnsureDefaults()
+        {
+            if (hasDefaults)
+            {
+                return;
+            }
+
+            defaultBeginColor = beginImage.color;
+            defaultTrailColor = trailImage.color;
+            defaultBeginScale = beginImage.transform.localScale;
+            defaultTrailScale = trailImage.transform.localScale;
+            hasDefaults = true;
+        }
+
+        static bool IsJudgeLineMovingUp(float beat)
+        {
+            var halfTripBeats = ScanLaneLayout.RoundTripBeats * 0.5f;
+            var phase = Mathf.Repeat(beat, ScanLaneLayout.RoundTripBeats);
+            return phase < halfTripBeats;
         }
     }
 }
