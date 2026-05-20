@@ -55,14 +55,23 @@ namespace MyProject.Actor
             var beginY = ScanLaneLayout.GetJudgeLineY(startBeat);
             var endY = ScanLaneLayout.GetJudgeLineY(endBeat);
             var deltaY = endY - beginY;
+            var judgeLineY = ScanLaneLayout.GetJudgeLineY(currentBeat);
             var x = ScanLaneLayout.GetLaneCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
             var height = Mathf.Abs(endY - beginY);
             var appearProgress = (currentBeat - appearBeat) / ScanLaneLayout.NoteAppearBeats;
             var appearScale = ScanLaneLayout.EaseNoteIn(appearProgress);
             var trailYDirection = IsJudgeLineMovingUp(startBeat) ? -1f : 1f;
+            var beginOffsetY = GetBeginImageOffsetY(
+                currentBeat,
+                startBeat,
+                endBeat,
+                judgeLineY,
+                beginY,
+                endY
+            );
 
             transform.localPosition = new Vector3(x, beginY, 0f);
-            beginImage.transform.localPosition = Vector3.zero;
+            beginImage.transform.localPosition = new Vector3(0f, beginOffsetY, 0f);
             beginImage.transform.localScale = new Vector3(
                 defaultBeginScale.x * appearScale,
                 defaultBeginScale.y * appearScale,
@@ -126,6 +135,28 @@ namespace MyProject.Actor
             var halfTripBeats = ScanLaneLayout.RoundTripBeats * 0.5f;
             var phase = Mathf.Repeat(beat, ScanLaneLayout.RoundTripBeats);
             return phase < halfTripBeats;
+        }
+
+        static float GetBeginImageOffsetY(
+            float currentBeat,
+            float startBeat,
+            float endBeat,
+            float judgeLineY,
+            float beginY,
+            float endY
+        )
+        {
+            if (currentBeat <= startBeat)
+            {
+                return 0f;
+            }
+
+            if (currentBeat >= endBeat)
+            {
+                return endY - beginY;
+            }
+
+            return judgeLineY - beginY;
         }
     }
 }
