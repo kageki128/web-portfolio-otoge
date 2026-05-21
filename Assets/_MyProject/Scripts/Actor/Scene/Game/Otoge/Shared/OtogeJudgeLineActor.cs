@@ -40,10 +40,14 @@ namespace MyProject.Actor
         MotionHandle rotationHandle;
         MotionHandle lineShapeHandle;
         MotionHandle widthHandle;
+        float currentLineLength;
+        float currentCurveRatePercent;
+        bool hasCurrentLineShape;
 
         public override void Initialize()
         {
             lineRenderer = GetComponent<LineRenderer>();
+            CaptureCurrentLineShape();
             gameObject.SetActive(false);
         }
 
@@ -75,32 +79,11 @@ namespace MyProject.Actor
             lineRenderer.widthMultiplier = lineSettings.LineWidth;
             transform.localPosition = lineSettings.LocalPosition;
             transform.localEulerAngles = lineSettings.LocalEulerAngles;
+            ApplyLineShape(lineSettings.LineLength, lineSettings.CurveRatePercent);
 
-            var curveRate = Mathf.Clamp01(lineSettings.CurveRatePercent / 100f);
-            if (curveRate == 0f)
-            {
-                lineRenderer.positionCount = 2;
-                var halfLength = lineSettings.LineLength / 2f;
-                lineRenderer.SetPosition(0, new Vector3(-halfLength, 0f, 0f));
-                lineRenderer.SetPosition(1, new Vector3(halfLength, 0f, 0f));
-                return;
-            }
-
-            var arcAngle = Mathf.Lerp(0.0001f, Mathf.PI * 2f, curveRate);
-            var radius = lineSettings.LineLength / arcAngle;
-            var halfArcAngle = arcAngle / 2f;
-
-            var points = Mathf.Max(2, curveSegments);
-            lineRenderer.positionCount = points + 1;
-
-            for (var i = 0; i <= points; i++)
-            {
-                var t = i / (float)points;
-                var angle = Mathf.Lerp(-halfArcAngle, halfArcAngle, t);
-                var x = radius * Mathf.Sin(angle);
-                var y = radius - radius * Mathf.Cos(angle);
-                lineRenderer.SetPosition(i, new Vector3(x, y, 0f));
-            }
+            currentLineLength = lineSettings.LineLength;
+            currentCurveRatePercent = lineSettings.CurveRatePercent;
+            hasCurrentLineShape = true;
         }
 
         public override async UniTask SetStateAsync(OtogeType otogeType, CancellationToken cancellationToken)
@@ -111,11 +94,16 @@ namespace MyProject.Actor
             var lineSettings = Array.Find(otogeJudgeLineSettings, x => x.Type == otogeType);
             var targetPosition = lineSettings?.LocalPosition ?? transform.localPosition;
             var targetEuler = lineSettings?.LocalEulerAngles ?? transform.localEulerAngles;
-            var currentPoints = GetCurrentLinePoints();
-            var targetPoints = lineSettings == null
-                ? currentPoints
-                : CreateTargetPoints(lineSettings);
             var targetWidth = lineSettings == null ? 0f : lineSettings.LineWidth;
+            if (!hasCurrentLineShape)
+            {
+                CaptureCurrentLineShape();
+            }
+
+            var fromLineLength = currentLineLength;
+            var fromCurveRatePercent = currentCurveRatePercent;
+            var targetLineLength = lineSettings?.LineLength ?? fromLineLength;
+            var targetCurveRatePercent = lineSettings?.CurveRatePercent ?? fromCurveRatePercent;
 
             positionHandle.TryCancel();
             rotationHandle.TryCancel();
@@ -136,7 +124,15 @@ namespace MyProject.Actor
 
             lineShapeHandle = LMotion.Create(0f, 1f, StateTransitionDuration)
                 .WithEase(StateTransitionEase)
-                .Bind(progress => ApplyLineShape(currentPoints, targetPoints, progress))
+                .Bind(progress =>
+                {
+                    var lineLength = Mathf.Lerp(fromLineLength, targetLineLength, progress);
+                    var curveRatePercent = Mathf.Lerp(fromCurveRatePercent, targetCurveRatePercent, progress);
+                    ApplyLineShape(lineLength, curveRatePercent);
+                    currentLineLength = lineLength;
+                    currentCurveRatePercent = curveRatePercent;
+                    hasCurrentLineShape = true;
+                })
                 .AddTo(this);
 
             widthHandle = LMotion.Create(lineRenderer.widthMultiplier, targetWidth, StateTransitionDuration)
@@ -151,31 +147,32 @@ namespace MyProject.Actor
                 lineShapeHandle.ToUniTask(CancelBehavior.Cancel, false, cancellationToken),
                 widthHandle.ToUniTask(CancelBehavior.Cancel, false, cancellationToken)
             );
+
+            currentLineLength = targetLineLength;
+            currentCurveRatePercent = targetCurveRatePercent;
+            hasCurrentLineShape = true;
         }
 
-        Vector3[] CreateTargetPoints(OtogeJudgeLineSettings lineSettings)
+        void ApplyLineShape(float lineLength, float curveRatePercent)
         {
-            if (lineSettings == null)
-            {
-                return new[] { Vector3.zero, Vector3.zero };
-            }
-
-            var curveRate = Mathf.Clamp01(lineSettings.CurveRatePercent / 100f);
+            var curveRate = Mathf.Clamp01(curveRatePercent / 100f);
+            var points = Mathf.Max(2, curveSegments);
+            lineRenderer.positionCount = points + 1;
             if (curveRate == 0f)
             {
-                var halfLength = lineSettings.LineLength / 2f;
-                return new[]
+                var halfLength = lineLength / 2f;
+                for (var i = 0; i <= points; i++)
                 {
-                    new Vector3(-halfLength, 0f, 0f),
-                    new Vector3(halfLength, 0f, 0f)
-                };
+                    var t = i / (float)points;
+                    var x = Mathf.Lerp(-halfLength, halfLength, t);
+                    lineRenderer.SetPosition(i, new Vector3(x, 0f, 0f));
+                }
+                return;
             }
 
             var arcAngle = Mathf.Lerp(0.0001f, Mathf.PI * 2f, curveRate);
-            var radius = lineSettings.LineLength / arcAngle;
+            var radius = lineLength / arcAngle;
             var halfArcAngle = arcAngle / 2f;
-            var points = Mathf.Max(2, curveSegments);
-            var results = new Vector3[points + 1];
 
             for (var i = 0; i <= points; i++)
             {
@@ -183,54 +180,78 @@ namespace MyProject.Actor
                 var angle = Mathf.Lerp(-halfArcAngle, halfArcAngle, t);
                 var x = radius * Mathf.Sin(angle);
                 var y = radius - radius * Mathf.Cos(angle);
-                results[i] = new Vector3(x, y, 0f);
+                lineRenderer.SetPosition(i, new Vector3(x, y, 0f));
             }
+        }
 
-            return results;
+        void CaptureCurrentLineShape()
+        {
+            var points = GetCurrentLinePoints();
+            currentLineLength = CalculatePolylineLength(points);
+            currentCurveRatePercent = EstimateCurveRatePercent(points, currentLineLength);
+            hasCurrentLineShape = true;
         }
 
         Vector3[] GetCurrentLinePoints()
         {
             var count = Mathf.Max(2, lineRenderer.positionCount);
-            var points = new Vector3[count];
+            var result = new Vector3[count];
             for (var i = 0; i < count; i++)
             {
-                points[i] = i < lineRenderer.positionCount ? lineRenderer.GetPosition(i) : Vector3.zero;
+                result[i] = i < lineRenderer.positionCount ? lineRenderer.GetPosition(i) : Vector3.zero;
             }
-            return points;
+            return result;
         }
 
-        void ApplyLineShape(Vector3[] fromPoints, Vector3[] toPoints, float progress)
+        static float CalculatePolylineLength(Vector3[] points)
         {
-            var count = Mathf.Max(fromPoints.Length, toPoints.Length);
-            lineRenderer.positionCount = count;
-
-            for (var i = 0; i < count; i++)
+            var length = 0f;
+            for (var i = 1; i < points.Length; i++)
             {
-                var from = SamplePoint(fromPoints, i, count);
-                var to = SamplePoint(toPoints, i, count);
-                lineRenderer.SetPosition(i, Vector3.Lerp(from, to, progress));
+                length += Vector3.Distance(points[i - 1], points[i]);
             }
+            return length;
         }
 
-        static Vector3 SamplePoint(Vector3[] points, int index, int targetCount)
+        static float EstimateCurveRatePercent(Vector3[] points, float lineLength)
         {
-            if (points.Length == 0)
+            if (points.Length < 2 || lineLength <= 0f)
             {
-                return Vector3.zero;
+                return 0f;
             }
 
-            if (points.Length == 1 || targetCount <= 1)
+            var start = points[0];
+            var end = points[points.Length - 1];
+            var chordLength = Vector3.Distance(start, end);
+            if (chordLength <= 0f)
             {
-                return points[0];
+                return 100f;
             }
 
-            var normalizedIndex = index / (float)(targetCount - 1);
-            var sourcePosition = normalizedIndex * (points.Length - 1);
-            var fromIndex = Mathf.FloorToInt(sourcePosition);
-            var toIndex = Mathf.Min(fromIndex + 1, points.Length - 1);
-            var t = sourcePosition - fromIndex;
-            return Vector3.Lerp(points[fromIndex], points[toIndex], t);
+            var ratio = Mathf.Clamp01(chordLength / lineLength);
+            if (ratio >= 0.9999f)
+            {
+                return 0f;
+            }
+
+            var minTheta = 0.0001f;
+            var maxTheta = Mathf.PI * 2f;
+            for (var i = 0; i < 20; i++)
+            {
+                var theta = (minTheta + maxTheta) * 0.5f;
+                var thetaRatio = 2f * Mathf.Sin(theta * 0.5f) / theta;
+                if (thetaRatio > ratio)
+                {
+                    minTheta = theta;
+                }
+                else
+                {
+                    maxTheta = theta;
+                }
+            }
+
+            var solvedTheta = (minTheta + maxTheta) * 0.5f;
+            return Mathf.InverseLerp(0.0001f, Mathf.PI * 2f, solvedTheta) * 100f;
         }
     }
 }
