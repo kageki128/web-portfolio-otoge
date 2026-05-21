@@ -133,10 +133,9 @@ namespace MyProject.Actor
             (
                 otogeTypeToActor[oldType].HideAsync(ct),
                 otogeTypeToActor[newType].ShowAsync(ct),
-                SetSharedActorsStateAsync(newType, ct)
+                SetSharedActorsStateAsync(newType, ct),
+                DelayAndSetCurrentOtogeTypeAsync(newType, ct)
             );
-
-            currentOtogeType = newType;
         }
 
         async UniTask SetSharedActorsStateAsync(OtogeType otogeType, CancellationToken ct)
@@ -149,6 +148,12 @@ namespace MyProject.Actor
             }
 
             await UniTask.WhenAll(tasks);
+        }
+
+        async UniTask DelayAndSetCurrentOtogeTypeAsync(OtogeType otogeType, CancellationToken ct)
+        {
+            await UniTask.Delay((int)(OtogeAppearance.StateChangeDelay * 1000f), cancellationToken: ct);
+            currentOtogeType = otogeType;
         }
 
         void OnDestroy()

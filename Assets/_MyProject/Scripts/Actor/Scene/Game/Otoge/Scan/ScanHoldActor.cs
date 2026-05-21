@@ -113,8 +113,8 @@ namespace MyProject.Actor
             gameObject.SetActive(true);
             var beginBaseColor = ScanLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultBeginColor;
             var trailBaseColor = ScanLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultTrailColor;
-            beginImage.color = NoteAppearance.GetHoldColor(beginBaseColor, state);
-            trailImage.color = NoteAppearance.GetHoldColor(trailBaseColor, state);
+            beginImage.color = OtogeAppearance.GetHoldColor(beginBaseColor, state);
+            trailImage.color = OtogeAppearance.GetHoldColor(trailBaseColor, state);
         }
 
         void EnsureDefaults()

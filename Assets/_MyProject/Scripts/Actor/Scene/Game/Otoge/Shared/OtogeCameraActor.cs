@@ -74,13 +74,16 @@ namespace MyProject.Actor
             positionHandle.TryCancel();
             rotationHandle.TryCancel();
 
-            positionHandle = LMotion.Create(transform.localPosition, targetPosition, StateTransitionDuration)
-                .WithEase(StateTransitionEase)
+            var stateTransitionDuration = OtogeAppearance.StateTransitionDuration;
+            var stateTransitionEase = OtogeAppearance.StateTransitionEase;
+
+            positionHandle = LMotion.Create(transform.localPosition, targetPosition, stateTransitionDuration)
+                .WithEase(stateTransitionEase)
                 .Bind(value => transform.localPosition = value)
                 .AddTo(this);
 
-            rotationHandle = LMotion.Create(transform.localRotation, Quaternion.Euler(targetEuler), StateTransitionDuration)
-                .WithEase(StateTransitionEase)
+            rotationHandle = LMotion.Create(transform.localRotation, Quaternion.Euler(targetEuler), stateTransitionDuration)
+                .WithEase(stateTransitionEase)
                 .Bind(value => transform.localRotation = value)
                 .AddTo(this);
 

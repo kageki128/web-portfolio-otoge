@@ -9994,6 +9994,12 @@ MonoBehaviour:
   tapPrefab: {fileID: 5767703113346120638, guid: 3413727db45fea84aa8b22316df4b2a6, type: 3}
   holdPrefab: {fileID: 3162522604057605287, guid: 0159febf50bab6744b11fda1aee7abd7, type: 3}
   laneLightActor: {fileID: 1029456986}
+  points:
+  - {fileID: 1364048514}
+  - {fileID: 703088225}
+  - {fileID: 1729016514}
+  - {fileID: 801083281}
+  - {fileID: 742159600}
 --- !u!1 &1316483770
 GameObject:
   m_ObjectHideFlags: 0
@@ -11082,6 +11088,15 @@ MonoBehaviour:
   tapPrefab: {fileID: 8179974866322459759, guid: 8f8b930ee1bc48c4fa1f0031a25c6f2e, type: 3}
   holdPrefab: {fileID: 8206978077278460639, guid: 51bd692cc9c95924eb1431b77aa6128c, type: 3}
   laneLightActor: {fileID: 965041715}
+  points:
+  - {fileID: 622906285}
+  - {fileID: 1430750215}
+  - {fileID: 1357166435}
+  - {fileID: 938602043}
+  - {fileID: 1156517800}
+  - {fileID: 1813849961}
+  - {fileID: 350123405}
+  - {fileID: 1053406344}
 --- !u!1 &1430750213
 GameObject:
   m_ObjectHideFlags: 0

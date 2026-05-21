@@ -93,7 +93,7 @@ namespace MyProject.Actor
                 hasDefaultColor = true;
             }
 
-            image.color = NoteAppearance.GetHoldColor(defaultColor, state);
+            image.color = OtogeAppearance.GetHoldColor(defaultColor, state);
         }
 
         static float CalculateDisplayedDistance(float rawDistance, float judgeDistance)

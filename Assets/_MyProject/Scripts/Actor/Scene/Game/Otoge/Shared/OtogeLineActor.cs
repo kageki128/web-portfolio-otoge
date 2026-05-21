@@ -104,23 +104,26 @@ namespace MyProject.Actor
 
             gameObject.SetActive(true);
 
-            positionHandle = LMotion.Create(transform.localPosition, targetPosition, StateTransitionDuration)
-                .WithEase(StateTransitionEase)
+            var stateTransitionDuration = OtogeAppearance.StateTransitionDuration;
+            var stateTransitionEase = OtogeAppearance.StateTransitionEase;
+
+            positionHandle = LMotion.Create(transform.localPosition, targetPosition, stateTransitionDuration)
+                .WithEase(stateTransitionEase)
                 .Bind(value => transform.localPosition = value)
                 .AddTo(this);
 
-            rotationHandle = LMotion.Create(transform.localRotation, Quaternion.Euler(targetEuler), StateTransitionDuration)
-                .WithEase(StateTransitionEase)
+            rotationHandle = LMotion.Create(transform.localRotation, Quaternion.Euler(targetEuler), stateTransitionDuration)
+                .WithEase(stateTransitionEase)
                 .Bind(value => transform.localRotation = value)
                 .AddTo(this);
 
-            lineShapeHandle = LMotion.Create(0f, 1f, StateTransitionDuration)
-                .WithEase(StateTransitionEase)
+            lineShapeHandle = LMotion.Create(0f, 1f, stateTransitionDuration)
+                .WithEase(stateTransitionEase)
                 .Bind(progress => ApplyLineShape(currentLinePoints, targetLinePoints, progress))
                 .AddTo(this);
 
-            widthHandle = LMotion.Create(lineRenderer.widthMultiplier, targetWidth, StateTransitionDuration)
-                .WithEase(StateTransitionEase)
+            widthHandle = LMotion.Create(lineRenderer.widthMultiplier, targetWidth, stateTransitionDuration)
+                .WithEase(stateTransitionEase)
                 .Bind(value => lineRenderer.widthMultiplier = value)
                 .AddTo(this);
 

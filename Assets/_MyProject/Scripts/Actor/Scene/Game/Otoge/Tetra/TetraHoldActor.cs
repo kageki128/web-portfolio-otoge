@@ -65,7 +65,7 @@ namespace MyProject.Actor
             }
 
             gameObject.SetActive(true);
-            image.color = NoteAppearance.GetHoldColor(defaultColor, state);
+            image.color = OtogeAppearance.GetHoldColor(defaultColor, state);
         }
     }
 }

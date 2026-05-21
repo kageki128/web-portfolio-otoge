@@ -100,7 +100,7 @@ namespace MyProject.Actor
 
             gameObject.SetActive(true);
             var baseColor = NoteCore.Property.Lane == IdolLaneLayout.CenterLane ? centerColor : defaultColor;
-            image.color = NoteAppearance.GetHoldColor(baseColor, state);
+            image.color = OtogeAppearance.GetHoldColor(baseColor, state);
         }
 
         static float CalculateRawDistance(float scroll, float currentScroll, float scrollSpeed, float judgeDistance)

@@ -73,7 +73,7 @@ namespace MyProject.Actor
 
             gameObject.SetActive(true);
             var baseColor = EffectLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultColor;
-            image.color = NoteAppearance.GetHoldColor(baseColor, state);
+            image.color = OtogeAppearance.GetHoldColor(baseColor, state);
         }
     }
 }

@@ -84,7 +84,7 @@ namespace MyProject.Actor
                 1 => laneSprite1 != null ? laneSprite1 : defaultSprite,
                 _ => defaultSprite
             };
-            image.color = NoteAppearance.GetHoldColor(defaultColor, state);
+            image.color = OtogeAppearance.GetHoldColor(defaultColor, state);
         }
     }
 }
