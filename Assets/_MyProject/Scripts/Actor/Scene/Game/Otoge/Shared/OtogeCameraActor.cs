@@ -9,9 +9,6 @@ namespace MyProject.Actor
 {
     public class OtogeCameraActor : OtogeSharedActorBase
     {
-        const float StateTransitionDuration = 0.5f;
-        const Ease StateTransitionEase = Ease.OutCubic;
-
         [Serializable]
         class OtogeCameraSettings
         {
@@ -39,7 +36,7 @@ namespace MyProject.Actor
         [SerializeField] DefaultCameraSettings defaultSettings;
 
         MotionHandle positionHandle;
-        MotionHandle eulerHandle;
+        MotionHandle rotationHandle;
 
         public override void Initialize()
         {
@@ -75,22 +72,22 @@ namespace MyProject.Actor
             var targetEuler = settings?.LocalEulerAngles ?? defaultSettings.LocalEulerAngles;
 
             positionHandle.TryCancel();
-            eulerHandle.TryCancel();
+            rotationHandle.TryCancel();
 
             positionHandle = LMotion.Create(transform.localPosition, targetPosition, StateTransitionDuration)
                 .WithEase(StateTransitionEase)
                 .Bind(value => transform.localPosition = value)
                 .AddTo(this);
 
-            eulerHandle = LMotion.Create(transform.localEulerAngles, targetEuler, StateTransitionDuration)
+            rotationHandle = LMotion.Create(transform.localRotation, Quaternion.Euler(targetEuler), StateTransitionDuration)
                 .WithEase(StateTransitionEase)
-                .Bind(value => transform.localEulerAngles = value)
+                .Bind(value => transform.localRotation = value)
                 .AddTo(this);
 
             await UniTask.WhenAll
             (
                 positionHandle.ToUniTask(CancelBehavior.Cancel, false, cancellationToken),
-                eulerHandle.ToUniTask(CancelBehavior.Cancel, false, cancellationToken)
+                rotationHandle.ToUniTask(CancelBehavior.Cancel, false, cancellationToken)
             );
         }
     }

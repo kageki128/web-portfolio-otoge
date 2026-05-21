@@ -93,7 +93,7 @@ namespace MyProject.Actor
                 hasDefaultColor = true;
             }
 
-            image.color = HoldAppearance.ApplyStateBrightness(defaultColor, state);
+            image.color = NoteAppearance.GetHoldColor(defaultColor, state);
         }
 
         static float CalculateDisplayedDistance(float rawDistance, float judgeDistance)

@@ -10,9 +10,6 @@ namespace MyProject.Actor
     [RequireComponent(typeof(LineRenderer))]
     public class OtogeJudgeLineActor : OtogeSharedActorBase
     {
-        const float StateTransitionDuration = 0.5f;
-        const Ease StateTransitionEase = Ease.OutCubic;
-
         [Serializable]
         class OtogeJudgeLineSettings
         {
@@ -28,6 +25,9 @@ namespace MyProject.Actor
             public float LineLength => lineLength;
             [SerializeField] float lineLength;
 
+            public float LineWidth => lineWidth;
+            [SerializeField, Min(0f)] float lineWidth = 0.05f;
+
             public float CurveRatePercent => curveRatePercent;
             [SerializeField, Range(0f, 100f)] float curveRatePercent;
         }
@@ -37,8 +37,9 @@ namespace MyProject.Actor
 
         LineRenderer lineRenderer;
         MotionHandle positionHandle;
-        MotionHandle eulerHandle;
+        MotionHandle rotationHandle;
         MotionHandle lineShapeHandle;
+        MotionHandle widthHandle;
 
         public override void Initialize()
         {
@@ -66,13 +67,12 @@ namespace MyProject.Actor
             if (lineSettings == null)
             {
                 gameObject.SetActive(true);
-                lineRenderer.positionCount = 2;
-                lineRenderer.SetPosition(0, Vector3.zero);
-                lineRenderer.SetPosition(1, Vector3.zero);
+                lineRenderer.widthMultiplier = 0f;
                 return;
             }
 
             gameObject.SetActive(true);
+            lineRenderer.widthMultiplier = lineSettings.LineWidth;
             transform.localPosition = lineSettings.LocalPosition;
             transform.localEulerAngles = lineSettings.LocalEulerAngles;
 
@@ -111,12 +111,16 @@ namespace MyProject.Actor
             var lineSettings = Array.Find(otogeJudgeLineSettings, x => x.Type == otogeType);
             var targetPosition = lineSettings?.LocalPosition ?? transform.localPosition;
             var targetEuler = lineSettings?.LocalEulerAngles ?? transform.localEulerAngles;
-            var targetPoints = CreateTargetPoints(lineSettings);
             var currentPoints = GetCurrentLinePoints();
+            var targetPoints = lineSettings == null
+                ? currentPoints
+                : CreateTargetPoints(lineSettings);
+            var targetWidth = lineSettings == null ? 0f : lineSettings.LineWidth;
 
             positionHandle.TryCancel();
-            eulerHandle.TryCancel();
+            rotationHandle.TryCancel();
             lineShapeHandle.TryCancel();
+            widthHandle.TryCancel();
 
             gameObject.SetActive(true);
 
@@ -125,9 +129,9 @@ namespace MyProject.Actor
                 .Bind(value => transform.localPosition = value)
                 .AddTo(this);
 
-            eulerHandle = LMotion.Create(transform.localEulerAngles, targetEuler, StateTransitionDuration)
+            rotationHandle = LMotion.Create(transform.localRotation, Quaternion.Euler(targetEuler), StateTransitionDuration)
                 .WithEase(StateTransitionEase)
-                .Bind(value => transform.localEulerAngles = value)
+                .Bind(value => transform.localRotation = value)
                 .AddTo(this);
 
             lineShapeHandle = LMotion.Create(0f, 1f, StateTransitionDuration)
@@ -135,11 +139,17 @@ namespace MyProject.Actor
                 .Bind(progress => ApplyLineShape(currentPoints, targetPoints, progress))
                 .AddTo(this);
 
+            widthHandle = LMotion.Create(lineRenderer.widthMultiplier, targetWidth, StateTransitionDuration)
+                .WithEase(StateTransitionEase)
+                .Bind(value => lineRenderer.widthMultiplier = value)
+                .AddTo(this);
+
             await UniTask.WhenAll
             (
                 positionHandle.ToUniTask(CancelBehavior.Cancel, false, cancellationToken),
-                eulerHandle.ToUniTask(CancelBehavior.Cancel, false, cancellationToken),
-                lineShapeHandle.ToUniTask(CancelBehavior.Cancel, false, cancellationToken)
+                rotationHandle.ToUniTask(CancelBehavior.Cancel, false, cancellationToken),
+                lineShapeHandle.ToUniTask(CancelBehavior.Cancel, false, cancellationToken),
+                widthHandle.ToUniTask(CancelBehavior.Cancel, false, cancellationToken)
             );
         }
 

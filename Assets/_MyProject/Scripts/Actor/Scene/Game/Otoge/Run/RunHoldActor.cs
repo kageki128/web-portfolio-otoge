@@ -84,7 +84,7 @@ namespace MyProject.Actor
                 1 => laneSprite1 != null ? laneSprite1 : defaultSprite,
                 _ => defaultSprite
             };
-            image.color = HoldAppearance.ApplyStateBrightness(defaultColor, state);
+            image.color = NoteAppearance.GetHoldColor(defaultColor, state);
         }
     }
 }

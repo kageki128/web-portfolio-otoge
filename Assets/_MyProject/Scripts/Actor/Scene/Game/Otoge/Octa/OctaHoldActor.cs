@@ -65,7 +65,7 @@ namespace MyProject.Actor
             }
 
             gameObject.SetActive(true);
-            image.color = HoldAppearance.ApplyStateBrightness(defaultColor, state);
+            image.color = NoteAppearance.GetHoldColor(defaultColor, state);
         }
     }
 }
