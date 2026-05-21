@@ -1,3 +1,5 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using MyProject.Core;
 
 namespace MyProject.Actor
@@ -6,5 +8,6 @@ namespace MyProject.Actor
     {
         // OtogeTypeに応じたTransformや長さなどの切り替えを行う
         public abstract void SetState(OtogeType otogeType);
+        public abstract UniTask SetStateAsync(OtogeType otogeType, CancellationToken cancellationToken);
     }
 }

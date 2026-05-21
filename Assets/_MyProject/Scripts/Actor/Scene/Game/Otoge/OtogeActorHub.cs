@@ -34,8 +34,7 @@ namespace MyProject.Actor
 
         OtogeActions otogeActions;
         Dictionary<OtogeType, OtogeActorBase> otogeTypeToActor = new();
-
-
+        CancellationTokenSource switchOtogeTypeCts;
 
         public override void Initialize()
         {
@@ -98,7 +97,15 @@ namespace MyProject.Actor
 
         public void SwitchOtogeType(OtogeType newType)
         {
-            Debug.Log($"Switching OtogeType from {currentOtogeType} to {newType}");
+            if (newType == currentOtogeType)
+            {
+                return;
+            }
+
+            switchOtogeTypeCts?.Cancel();
+            switchOtogeTypeCts?.Dispose();
+            switchOtogeTypeCts = new CancellationTokenSource();
+            ExecuteSwitchOtogeTypeAsync(newType, switchOtogeTypeCts.Token).Forget();
         }
 
         public void SetSharedActorsState(OtogeType otogeType)
@@ -118,15 +125,37 @@ namespace MyProject.Actor
             }
         }
 
-        async UniTask SwitchOtogeTypeAsync(OtogeType newType, CancellationToken ct)
+        async UniTask ExecuteSwitchOtogeTypeAsync(OtogeType newType, CancellationToken ct)
         {
-                await UniTask.WhenAll
-                (
-                    otogeTypeToActor[currentOtogeType].HideAsync(ct),
-                    otogeTypeToActor[newType].ShowAsync(ct)
-                );
+            var oldType = currentOtogeType;
 
-                currentOtogeType = newType;
+            await UniTask.WhenAll
+            (
+                otogeTypeToActor[oldType].HideAsync(ct),
+                otogeTypeToActor[newType].ShowAsync(ct),
+                SetSharedActorsStateAsync(newType, ct)
+            );
+
+            currentOtogeType = newType;
+        }
+
+        async UniTask SetSharedActorsStateAsync(OtogeType otogeType, CancellationToken ct)
+        {
+            var tasks = new List<UniTask>();
+            foreach (var sharedActor in sharedActors)
+            {
+                if (sharedActor == null) continue;
+                tasks.Add(sharedActor.SetStateAsync(otogeType, ct));
+            }
+
+            await UniTask.WhenAll(tasks);
+        }
+
+        void OnDestroy()
+        {
+            switchOtogeTypeCts?.Cancel();
+            switchOtogeTypeCts?.Dispose();
+            switchOtogeTypeCts = null;
         }
     }
 }
