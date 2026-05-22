@@ -315,18 +315,13 @@ MonoBehaviour:
     localPosition: {x: -2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 80
-    lineWidth: 0.02
+    lineWidth: 0
   - type: 1
     localPosition: {x: -2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 80
     lineWidth: 0.02
   - type: 2
-    localPosition: {x: -2, y: 0, z: 0}
-    localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 80
-    lineWidth: 0.02
-  - type: 5
     localPosition: {x: -2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 80
@@ -817,7 +812,7 @@ MonoBehaviour:
     localPosition: {x: 2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 80
-    lineWidth: 0.02
+    lineWidth: 0
   - type: 1
     localPosition: {x: 3, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
@@ -825,11 +820,6 @@ MonoBehaviour:
     lineWidth: 0.02
   - type: 2
     localPosition: {x: 3, y: 0, z: 0}
-    localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 80
-    lineWidth: 0.02
-  - type: 5
-    localPosition: {x: 2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 80
     lineWidth: 0.02
@@ -1015,7 +1005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &280336071
 Transform:
   m_ObjectHideFlags: 0
@@ -2413,7 +2403,7 @@ LineRenderer:
   - {x: 0, y: 40, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0
+    widthMultiplier: 0.02
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -3288,7 +3278,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.5, y: 0.15, z: -12}
+  m_LocalPosition: {x: 0, y: 2, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4238,7 +4228,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &634906986
 Transform:
   m_ObjectHideFlags: 0
@@ -5167,7 +5157,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770815720}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5228,7 +5218,7 @@ LineRenderer:
   - {x: 0, y: 40, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.02
+    widthMultiplier: 0
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -5301,7 +5291,7 @@ MonoBehaviour:
     localPosition: {x: -2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 80
-    lineWidth: 0.02
+    lineWidth: 0
   - type: 1
     localPosition: {x: -3, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
@@ -5312,16 +5302,11 @@ MonoBehaviour:
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 80
     lineWidth: 0.02
-  - type: 5
-    localPosition: {x: -2, y: 0, z: 0}
-    localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 80
-    lineWidth: 0.02
   - type: 6
     localPosition: {x: 0, y: 1, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 90}
     lineLength: 80
-    lineWidth: 0.02
+    lineWidth: 0
   - type: 7
     localPosition: {x: 0, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 90}
@@ -5733,7 +5718,7 @@ LineRenderer:
   - {x: 0, y: 40, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0
+    widthMultiplier: 0.02
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -6401,7 +6386,7 @@ LineRenderer:
   - {x: 0, y: 40, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0
+    widthMultiplier: 0.02
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -6946,7 +6931,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966040148}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7004,6 +6989,133 @@ LineRenderer:
   m_MaskInteraction: 0
   m_Positions:
   - {x: -2, y: 0, z: 0}
+  - {x: -1.96875, y: 0, z: 0}
+  - {x: -1.9375, y: 0, z: 0}
+  - {x: -1.90625, y: 0, z: 0}
+  - {x: -1.875, y: 0, z: 0}
+  - {x: -1.84375, y: 0, z: 0}
+  - {x: -1.8125, y: 0, z: 0}
+  - {x: -1.78125, y: 0, z: 0}
+  - {x: -1.75, y: 0, z: 0}
+  - {x: -1.71875, y: 0, z: 0}
+  - {x: -1.6875, y: 0, z: 0}
+  - {x: -1.65625, y: 0, z: 0}
+  - {x: -1.625, y: 0, z: 0}
+  - {x: -1.59375, y: 0, z: 0}
+  - {x: -1.5625, y: 0, z: 0}
+  - {x: -1.53125, y: 0, z: 0}
+  - {x: -1.5, y: 0, z: 0}
+  - {x: -1.46875, y: 0, z: 0}
+  - {x: -1.4375, y: 0, z: 0}
+  - {x: -1.40625, y: 0, z: 0}
+  - {x: -1.375, y: 0, z: 0}
+  - {x: -1.34375, y: 0, z: 0}
+  - {x: -1.3125, y: 0, z: 0}
+  - {x: -1.28125, y: 0, z: 0}
+  - {x: -1.25, y: 0, z: 0}
+  - {x: -1.21875, y: 0, z: 0}
+  - {x: -1.1875, y: 0, z: 0}
+  - {x: -1.15625, y: 0, z: 0}
+  - {x: -1.125, y: 0, z: 0}
+  - {x: -1.09375, y: 0, z: 0}
+  - {x: -1.0625, y: 0, z: 0}
+  - {x: -1.03125, y: 0, z: 0}
+  - {x: -1, y: 0, z: 0}
+  - {x: -0.96875, y: 0, z: 0}
+  - {x: -0.9375, y: 0, z: 0}
+  - {x: -0.90625, y: 0, z: 0}
+  - {x: -0.875, y: 0, z: 0}
+  - {x: -0.84375, y: 0, z: 0}
+  - {x: -0.8125, y: 0, z: 0}
+  - {x: -0.78125, y: 0, z: 0}
+  - {x: -0.75, y: 0, z: 0}
+  - {x: -0.71875, y: 0, z: 0}
+  - {x: -0.6875, y: 0, z: 0}
+  - {x: -0.65625, y: 0, z: 0}
+  - {x: -0.625, y: 0, z: 0}
+  - {x: -0.59375, y: 0, z: 0}
+  - {x: -0.5625, y: 0, z: 0}
+  - {x: -0.53125, y: 0, z: 0}
+  - {x: -0.5, y: 0, z: 0}
+  - {x: -0.46875, y: 0, z: 0}
+  - {x: -0.4375, y: 0, z: 0}
+  - {x: -0.40625, y: 0, z: 0}
+  - {x: -0.375, y: 0, z: 0}
+  - {x: -0.34375, y: 0, z: 0}
+  - {x: -0.3125, y: 0, z: 0}
+  - {x: -0.28125, y: 0, z: 0}
+  - {x: -0.25, y: 0, z: 0}
+  - {x: -0.21875, y: 0, z: 0}
+  - {x: -0.1875, y: 0, z: 0}
+  - {x: -0.15625, y: 0, z: 0}
+  - {x: -0.125, y: 0, z: 0}
+  - {x: -0.09375, y: 0, z: 0}
+  - {x: -0.0625, y: 0, z: 0}
+  - {x: -0.03125, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0.03125, y: 0, z: 0}
+  - {x: 0.0625, y: 0, z: 0}
+  - {x: 0.09375, y: 0, z: 0}
+  - {x: 0.125, y: 0, z: 0}
+  - {x: 0.15625, y: 0, z: 0}
+  - {x: 0.1875, y: 0, z: 0}
+  - {x: 0.21875, y: 0, z: 0}
+  - {x: 0.25, y: 0, z: 0}
+  - {x: 0.28125, y: 0, z: 0}
+  - {x: 0.3125, y: 0, z: 0}
+  - {x: 0.34375, y: 0, z: 0}
+  - {x: 0.375, y: 0, z: 0}
+  - {x: 0.40625, y: 0, z: 0}
+  - {x: 0.4375, y: 0, z: 0}
+  - {x: 0.46875, y: 0, z: 0}
+  - {x: 0.5, y: 0, z: 0}
+  - {x: 0.53125, y: 0, z: 0}
+  - {x: 0.5625, y: 0, z: 0}
+  - {x: 0.59375, y: 0, z: 0}
+  - {x: 0.625, y: 0, z: 0}
+  - {x: 0.65625, y: 0, z: 0}
+  - {x: 0.6875, y: 0, z: 0}
+  - {x: 0.71875, y: 0, z: 0}
+  - {x: 0.75, y: 0, z: 0}
+  - {x: 0.78125, y: 0, z: 0}
+  - {x: 0.8125, y: 0, z: 0}
+  - {x: 0.84375, y: 0, z: 0}
+  - {x: 0.875, y: 0, z: 0}
+  - {x: 0.90625, y: 0, z: 0}
+  - {x: 0.9375, y: 0, z: 0}
+  - {x: 0.96875, y: 0, z: 0}
+  - {x: 1, y: 0, z: 0}
+  - {x: 1.03125, y: 0, z: 0}
+  - {x: 1.0625, y: 0, z: 0}
+  - {x: 1.09375, y: 0, z: 0}
+  - {x: 1.125, y: 0, z: 0}
+  - {x: 1.15625, y: 0, z: 0}
+  - {x: 1.1875, y: 0, z: 0}
+  - {x: 1.21875, y: 0, z: 0}
+  - {x: 1.25, y: 0, z: 0}
+  - {x: 1.28125, y: 0, z: 0}
+  - {x: 1.3125, y: 0, z: 0}
+  - {x: 1.34375, y: 0, z: 0}
+  - {x: 1.375, y: 0, z: 0}
+  - {x: 1.40625, y: 0, z: 0}
+  - {x: 1.4375, y: 0, z: 0}
+  - {x: 1.46875, y: 0, z: 0}
+  - {x: 1.5, y: 0, z: 0}
+  - {x: 1.53125, y: 0, z: 0}
+  - {x: 1.5625, y: 0, z: 0}
+  - {x: 1.59375, y: 0, z: 0}
+  - {x: 1.625, y: 0, z: 0}
+  - {x: 1.65625, y: 0, z: 0}
+  - {x: 1.6875, y: 0, z: 0}
+  - {x: 1.71875, y: 0, z: 0}
+  - {x: 1.75, y: 0, z: 0}
+  - {x: 1.78125, y: 0, z: 0}
+  - {x: 1.8125, y: 0, z: 0}
+  - {x: 1.84375, y: 0, z: 0}
+  - {x: 1.875, y: 0, z: 0}
+  - {x: 1.90625, y: 0, z: 0}
+  - {x: 1.9375, y: 0, z: 0}
+  - {x: 1.96875, y: 0, z: 0}
   - {x: 2, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
@@ -7123,6 +7235,12 @@ MonoBehaviour:
     localEulerAngles: {x: 0, y: 0, z: 90}
     lineLength: 4
     lineWidth: 0.05
+    curveRatePercent: 0
+  - type: 8
+    localPosition: {x: 0, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 4
+    lineWidth: 0
     curveRatePercent: 0
   curveSegments: 128
 --- !u!1 &972869247
@@ -8416,8 +8534,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1098299988}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8561,6 +8679,11 @@ MonoBehaviour:
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 80
     lineWidth: 0.02
+  - type: 4
+    localPosition: {x: -2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
+    lineWidth: 0
   - type: 5
     localPosition: {x: -2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
@@ -8576,6 +8699,11 @@ MonoBehaviour:
     localEulerAngles: {x: 0, y: 0, z: 90}
     lineLength: 80
     lineWidth: 0.02
+  - type: 8
+    localPosition: {x: -2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
+    lineWidth: 0
 --- !u!1 &1127709016
 GameObject:
   m_ObjectHideFlags: 0
@@ -9320,8 +9448,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1244703540}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9465,6 +9593,11 @@ MonoBehaviour:
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 80
     lineWidth: 0.02
+  - type: 4
+    localPosition: {x: 2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
+    lineWidth: 0
   - type: 5
     localPosition: {x: 2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
@@ -9480,6 +9613,11 @@ MonoBehaviour:
     localEulerAngles: {x: 0, y: 0, z: 90}
     lineLength: 80
     lineWidth: 0.02
+  - type: 8
+    localPosition: {x: 2, y: 0, z: 0}
+    localEulerAngles: {x: 0, y: 0, z: 0}
+    lineLength: 80
+    lineWidth: 0
 --- !u!1 &1245732348
 GameObject:
   m_ObjectHideFlags: 0
@@ -9693,18 +9831,13 @@ MonoBehaviour:
     localPosition: {x: 2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 80
-    lineWidth: 0.02
+    lineWidth: 0
   - type: 1
     localPosition: {x: 2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 80
     lineWidth: 0.02
   - type: 2
-    localPosition: {x: 2, y: 0, z: 0}
-    localEulerAngles: {x: 0, y: 0, z: 0}
-    lineLength: 80
-    lineWidth: 0.02
-  - type: 5
     localPosition: {x: 2, y: 0, z: 0}
     localEulerAngles: {x: 0, y: 0, z: 0}
     lineLength: 80

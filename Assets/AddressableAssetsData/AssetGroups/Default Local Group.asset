@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
   m_GroupName: Default Local Group
   m_GUID: dd39c0f57bfa672458190049fb50452d
-  m_SerializeEntries:
-  - m_GUID: af3c859f748fd8644aa03c54980fabec
-    m_Address: Assets/_MyProject/Datas/Musics/Psyched Fevereiro/Psyched Fevereiro.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - BeatmapFilesSO
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2d306b509878bc842be5171bca91bf53, type: 2}
   m_SchemaSet:
