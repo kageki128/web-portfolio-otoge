@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -44,7 +45,10 @@ namespace MyProject.Actor
         {
             gameObject.SetActive(true);
 
-            var showTasks = new List<UniTask>();
+            var showTasks = new List<UniTask>
+            {
+                UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.StateTransitionDuration), cancellationToken: ct)
+            };
             foreach (var noteActor in NoteActors)
             {
                 showTasks.Add(noteActor.ShowAsync(ct));
@@ -57,7 +61,10 @@ namespace MyProject.Actor
 
         public override async UniTask HideAsync(CancellationToken ct)
         {
-            var hideTasks = new List<UniTask>();
+            var hideTasks = new List<UniTask>
+            {
+                UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.StateTransitionDuration), cancellationToken: ct)
+            };
             foreach (var noteActor in NoteActors)
             {
                 hideTasks.Add(noteActor.HideAsync(ct));

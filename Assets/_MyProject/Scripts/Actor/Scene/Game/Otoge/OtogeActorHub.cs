@@ -128,6 +128,17 @@ namespace MyProject.Actor
         async UniTask ExecuteSwitchOtogeTypeAsync(OtogeType newType, CancellationToken ct)
         {
             var oldType = currentOtogeType;
+
+            if (newType == oldType)
+            {
+                await UniTask.WhenAll
+                (
+                    otogeTypeToActor[newType].ShowAsync(ct),
+                    SetSharedActorsStateAsync(newType, ct)
+                );
+                return;
+            }
+
             currentOtogeType = newType;
 
             updatedOtogeTypes.Add(newType);
@@ -139,10 +150,7 @@ namespace MyProject.Actor
                 SetSharedActorsStateAsync(newType, ct)
             );
 
-            if (newType != oldType)
-            {
-                updatedOtogeTypes.Remove(oldType);
-            }
+            updatedOtogeTypes.Remove(oldType);
         }
 
         async UniTask SetSharedActorsStateAsync(OtogeType otogeType, CancellationToken ct)
