@@ -33,9 +33,9 @@ namespace MyProject.Core
             return startDspTime;
         }
 
-        public void Advance()
+        public void Advance(float secOffset)
         {
-            float targetSec = (float)(AudioSettings.dspTime - startDspTime);
+            float targetSec = (float)(AudioSettings.dspTime - startDspTime) + secOffset;
             smoothedSec = Mathf.SmoothDamp(smoothedSec, targetSec, ref smoothVelocity, SmoothTime);
             timing.SetTimeBySec(smoothedSec);
         }

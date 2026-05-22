@@ -31,6 +31,6 @@ namespace MyProject.Core
         }
 
         public double Start(double delaySec) => mainData.ConductorCore.Start(delaySec);
-        public void AdvanceTime() => mainData.ConductorCore.Advance();
+        public void AdvanceTime(float secOffset) => mainData.ConductorCore.Advance(secOffset);
     }
 }

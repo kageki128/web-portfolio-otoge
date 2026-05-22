@@ -31,6 +31,7 @@ namespace MyProject.CompositionRoot
         {
             builder.RegisterInstance(gameConfig);
             builder.Register<GameSessionCore>(Lifetime.Singleton);
+            builder.Register<PlayerSettingsCore>(Lifetime.Singleton);
         }
 
         void RegisterActor(IContainerBuilder builder)

@@ -97,14 +97,14 @@ namespace MyProject.Core
             scoreCore.JudgeReleaseAir(beatmapCore.CurrentSec.CurrentValue);
         }
 
-        public void ProceedGame()
+        public void ProceedGame(float secOffset)
         {
             if (state.Value is not GameState.Playing)
             {
                 return;
             }
 
-            beatmapCore.AdvanceTime();
+            beatmapCore.AdvanceTime(secOffset);
             scoreCore.Update(beatmapCore.CurrentSec.CurrentValue);
         }
     }

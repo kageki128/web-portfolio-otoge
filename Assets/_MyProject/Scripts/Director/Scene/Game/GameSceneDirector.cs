@@ -15,13 +15,15 @@ namespace MyProject.Director
         public Observable<Unit> SceneReloadRequest => sceneReloadRequest;
         readonly Subject<Unit> sceneReloadRequest = new();
 
+        readonly PlayerSettingsCore playerSettingsCore;
         readonly GameSessionCore gameSessionCore;
         readonly GameActorHub gameActorHub;
 
         readonly CompositeDisposable disposables = new();
 
-        public GameSceneDirector(GameSessionCore gameSessionCore, GameActorHub gameActorHub)
+        public GameSceneDirector(PlayerSettingsCore playerSettingsCore, GameSessionCore gameSessionCore, GameActorHub gameActorHub)
         {
+            this.playerSettingsCore = playerSettingsCore;
             this.gameSessionCore = gameSessionCore;
             this.gameActorHub = gameActorHub;
         }
@@ -51,7 +53,7 @@ namespace MyProject.Director
 
         public void Tick()
         {
-            gameSessionCore.ProceedGame();
+            gameSessionCore.ProceedGame(playerSettingsCore.SecOffset.CurrentValue);
         }
 
         public async UniTask BeforeExitAsync(CancellationToken ct)
@@ -84,7 +86,7 @@ namespace MyProject.Director
             {
                 int timeline = kvp.Key;
                 var currentScroll = kvp.Value;
-                currentScroll.Subscribe(scroll => gameActorHub.UpdateNotesByTimeline(timeline, gameSessionCore.CurrentBeat.CurrentValue, scroll, 8f)).AddTo(disposables);
+                currentScroll.Subscribe(scroll => gameActorHub.UpdateNotesByTimeline(timeline, gameSessionCore.CurrentBeat.CurrentValue, scroll, playerSettingsCore.ScrollSpeed.CurrentValue)).AddTo(disposables);
             }
 
             // Coreを購読
@@ -127,7 +129,8 @@ namespace MyProject.Director
             // ゲーム開始
             var startDspTime = gameSessionCore.StartGame();
             var wave = gameSessionCore.MetaData.Wave;
-            gameActorHub.PlayWave(wave, startDspTime);
+            var waveOffset = gameSessionCore.MetaData.WaveOffset;
+            gameActorHub.PlayWave(wave, startDspTime + waveOffset);
         }
     }
 }
