@@ -45,9 +45,9 @@ namespace MyProject.Tests.EditMode
             Assert.That(beatmap.NoteCores[0], Is.TypeOf<TapCore>());
             Assert.That(beatmap.NoteCores[1], Is.TypeOf<HoldCore>());
             Assert.That(beatmap.NoteCores[2], Is.TypeOf<AirCore>());
-            Assert.That(beatmap.NoteCores[0].Property.Type, Is.EqualTo(NoteType.Tap));
-            Assert.That(beatmap.NoteCores[1].Property.Type, Is.EqualTo(NoteType.Hold));
-            Assert.That(beatmap.NoteCores[2].Property.Type, Is.EqualTo(NoteType.Air));
+            Assert.That(beatmap.NoteCores[0].Property.NoteType, Is.EqualTo(NoteType.Tap));
+            Assert.That(beatmap.NoteCores[1].Property.NoteType, Is.EqualTo(NoteType.Hold));
+            Assert.That(beatmap.NoteCores[2].Property.NoteType, Is.EqualTo(NoteType.Air));
             Assert.That(beatmap.NoteCores[1].Property.TimingEnd.Beat, Is.EqualTo(5f).Within(0.0001f));
             Assert.That(beatmap.Messages.Count, Is.EqualTo(0));
         }

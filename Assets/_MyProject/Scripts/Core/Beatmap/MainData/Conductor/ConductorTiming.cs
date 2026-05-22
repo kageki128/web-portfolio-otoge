@@ -48,7 +48,7 @@ namespace MyProject.Core
                 readOnlyTimelineToCurrentScroll[timelineToHighSpeedChange.Key] = currentScroll;
             }
             TimelineToCurrentScroll = readOnlyTimelineToCurrentScroll;
-            currentOtogeType.Value = ResolveCurrentOtogeType(0f);
+            currentOtogeType.Value = CalculateOtogeTypeFromBeat(0f, otogeChanges);
         }
 
         public void SetTimeBySec(float sec)
@@ -60,28 +60,12 @@ namespace MyProject.Core
             currentSec.Value = newSec;
             currentBeat.Value = newBeat;
             currentMeasure.Value = newMeasure;
-            currentOtogeType.Value = ResolveCurrentOtogeType(newBeat);
+            currentOtogeType.Value = CalculateOtogeTypeFromBeat(newBeat, otogeChanges);
 
             foreach (var timelineToHighSpeedChange in timelineToHighSpeedChanges)
             {
                 timelineToCurrentScroll[timelineToHighSpeedChange.Key].Value = CalculateScrollFromBeat(newBeat, bpmChanges, timelineToHighSpeedChange.Value);
             }
-        }
-
-        OtogeType ResolveCurrentOtogeType(float beat)
-        {
-            var type = OtogeType.Tetra;
-            foreach (var change in otogeChanges)
-            {
-                if (change.Beat > beat)
-                {
-                    break;
-                }
-
-                type = change.Type;
-            }
-
-            return type;
         }
     }
 }

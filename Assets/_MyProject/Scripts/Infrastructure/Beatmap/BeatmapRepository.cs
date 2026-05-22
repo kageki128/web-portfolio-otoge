@@ -62,7 +62,7 @@ namespace MyProject.Infrastructure
             var timelines = beatmap.TimelineToCurrentScroll.Keys.OrderBy(timeline => timeline).ToArray();
 
             var noteTypeSummary = string.Join(", ", notes
-                .GroupBy(note => note.Property.Type)
+                .GroupBy(note => note.Property.NoteType)
                 .OrderBy(group => group.Key)
                 .Select(group => $"{group.Key}:{group.Count()}"));
             var timelineSummary = string.Join(", ", notes
@@ -143,7 +143,7 @@ namespace MyProject.Infrastructure
                 Debug.Log
                 (
                     $"[BeatmapRepository] Note[{i}] " +
-                    $"type={property.Type}, " +
+                    $"type={property.NoteType}, " +
                     $"timeline={property.Timeline}, " +
                     $"lane={property.Lane}, " +
                     $"width={property.Width}, " +

@@ -307,7 +307,7 @@ namespace MyProject.Tests.EditMode
         static TapCore CreateTap(int lane, float beat, int width = 1)
         {
             var timing = CreateTiming(beat);
-            var property = new NoteProperty(NoteType.Tap, 0, timing, timing, 0f, 0f, lane, width, 0);
+            var property = new NoteProperty(NoteType.Tap, OtogeType.Tetra, 0, timing, timing, 0f, 0f, lane, width, 0);
             return new TapCore(property);
         }
 
@@ -315,14 +315,14 @@ namespace MyProject.Tests.EditMode
         {
             var timingBegin = CreateTiming(beginBeat);
             var timingEnd = CreateTiming(endBeat);
-            var property = new NoteProperty(NoteType.Hold, 0, timingBegin, timingEnd, 0f, 0f, lane, width, 0);
+            var property = new NoteProperty(NoteType.Hold, OtogeType.Tetra, 0, timingBegin, timingEnd, 0f, 0f, lane, width, 0);
             return new HoldCore(property);
         }
 
         static AirCore CreateAir(float beat)
         {
             var timing = CreateTiming(beat);
-            var property = new NoteProperty(NoteType.Air, 0, timing, timing, 0f, 0f, 0, 1, 0);
+            var property = new NoteProperty(NoteType.Air, OtogeType.Tetra, 0, timing, timing, 0f, 0f, 0, 1, 0);
             return new AirCore(property);
         }
 

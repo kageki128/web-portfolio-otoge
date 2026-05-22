@@ -2,7 +2,8 @@ namespace MyProject.Core
 {
     public class NoteProperty
     {
-        public NoteType Type { get; }
+        public NoteType NoteType { get; }
+        public OtogeType OtogeType { get; }
         public int Timeline { get; }
 
         public NoteTiming TimingBegin { get; }
@@ -17,7 +18,8 @@ namespace MyProject.Core
 
         public NoteProperty
         (
-            NoteType type,
+            NoteType noteType,
+            OtogeType otogeType,
             int timeline,
             NoteTiming timingBegin,
             NoteTiming timingEnd,
@@ -28,7 +30,8 @@ namespace MyProject.Core
             int layer
         )
         {
-            Type = type;
+            NoteType = noteType;
+            OtogeType = otogeType;
             Timeline = timeline;
             TimingBegin = timingBegin;
             TimingEnd = timingEnd;

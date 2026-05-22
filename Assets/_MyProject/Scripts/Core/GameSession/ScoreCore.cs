@@ -52,7 +52,7 @@ namespace MyProject.Core
                 }
 
                 // Airノーツは専用のリストで管理する
-                if (noteCore.Property.Type == NoteType.Air)
+                if (noteCore.Property.NoteType == NoteType.Air)
                 {
                     remainingAirNoteCores.Add(noteCore);
                     continue;

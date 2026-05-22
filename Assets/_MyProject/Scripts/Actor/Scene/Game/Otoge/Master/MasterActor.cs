@@ -9,6 +9,8 @@ namespace MyProject.Actor
 {
     public class MasterActor : OtogeActorBase
     {
+        protected override OtogeType ActorOtogeType => OtogeType.Master;
+
         [SerializeField] GameObject noteParent;
         [SerializeField] MasterTapActor tapPrefab;
         [SerializeField] LaneLightActor laneLightActor;
@@ -70,7 +72,12 @@ namespace MyProject.Actor
             DestroyNotes();
             foreach (var noteCore in noteCores)
             {
-                if (noteCore.Property.Type is not NoteType.Tap)
+                if (!IsOwnedNote(noteCore))
+                {
+                    continue;
+                }
+
+                if (noteCore.Property.NoteType is not NoteType.Tap)
                 {
                     continue;
                 }

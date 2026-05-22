@@ -12,10 +12,16 @@ namespace MyProject.Actor
         public Observable<Unit> AirReleased;
 
         protected readonly List<NoteActorBase> NoteActors = new();
+        protected abstract OtogeType ActorOtogeType { get; }
 
         public abstract void InstallActions(OtogeActions otogeActions);
 
         public abstract void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores);
+
+        protected bool IsOwnedNote(NoteCoreBase noteCore)
+        {
+            return noteCore.Property.OtogeType == ActorOtogeType;
+        }
 
         public virtual void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed)
         {

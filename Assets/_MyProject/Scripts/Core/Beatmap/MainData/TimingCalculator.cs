@@ -164,5 +164,21 @@ namespace MyProject.Core
                 }
             }
         }
+
+        public static OtogeType CalculateOtogeTypeFromBeat(float beat, IReadOnlyList<OtogeChange> otogeChanges)
+        {
+            var type = OtogeType.Tetra;
+            foreach (var change in otogeChanges)
+            {
+                if (change.Beat > beat)
+                {
+                    break;
+                }
+
+                type = change.Type;
+            }
+
+            return type;
+        }
     }
 }

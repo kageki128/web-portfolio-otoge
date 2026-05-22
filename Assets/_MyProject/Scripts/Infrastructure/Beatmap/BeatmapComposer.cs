@@ -43,6 +43,7 @@ namespace MyProject.Infrastructure
         public BeatmapCore Compose(AudioClip wave, BeatmapParsedData parsedData, IReadOnlyList<OtogeChange> otogeChanges, CancellationToken ct)
         {
             var messages = parsedData.Messages;
+            var sortedOtogeChanges = otogeChanges.OrderBy(change => change.Beat).ToArray();
             // 小節長変化を「小節開始beat」に展開する。
             var measureEntries = BuildMeasureEntries(parsedData.RawMeasureLengthChanges, messages);
             var hasFatal = messages.Any(message => message.Type == MessageType.Fatal);
@@ -98,7 +99,7 @@ namespace MyProject.Infrastructure
             // 致命エラー時は空譜面で返却する。
             if (hasFatal)
             {
-                return new BeatmapCore(metaData, CreateEmptyMainData(otogeChanges), messages);
+                return new BeatmapCore(metaData, CreateEmptyMainData(sortedOtogeChanges), messages);
             }
 
             // 各タイムラインのハイスピ変化をbeat基準に変換する。
@@ -147,6 +148,7 @@ namespace MyProject.Infrastructure
 
                 var beatBegin = ToBeatFromMeasure(rawNote.Measure, measureEntries) + (float)rawNote.Tick / parsedData.Ticks;
                 var beatEnd = beatBegin + (float)rawNote.Length / parsedData.Ticks;
+                var otogeType = TimingCalculator.CalculateOtogeTypeFromBeat(beatBegin, sortedOtogeChanges);
                 var timingBegin = new NoteTiming(beatBegin, bpmChanges, timelineToHighSpeedChanges, measureLengthChanges);
                 var timingEnd = new NoteTiming(beatEnd, bpmChanges, timelineToHighSpeedChanges, measureLengthChanges);
                 var scrollBegin = timingBegin.TimelineToScroll[rawNote.Timeline];
@@ -155,6 +157,7 @@ namespace MyProject.Infrastructure
                 var property = new NoteProperty
                 (
                     noteType,
+                    otogeType,
                     rawNote.Timeline,
                     timingBegin,
                     timingEnd,
@@ -175,7 +178,7 @@ namespace MyProject.Infrastructure
                 bpmChanges,
                 timelineToHighSpeedChanges,
                 measureLengthChanges,
-                otogeChanges
+                sortedOtogeChanges
             ));
 
             var mainData = new BeatmapMainData(conductorCore, noteCores);
@@ -209,12 +212,12 @@ namespace MyProject.Infrastructure
 
         static NoteCoreBase CreateNoteCore(NoteProperty property)
         {
-            return property.Type switch
+            return property.NoteType switch
             {
                 NoteType.Tap => new TapCore(property),
                 NoteType.Hold => new HoldCore(property),
                 NoteType.Air => new AirCore(property),
-                _ => throw new ArgumentOutOfRangeException(nameof(property.Type), $"Unsupported note type: {property.Type}")
+                _ => throw new ArgumentOutOfRangeException(nameof(property.NoteType), $"Unsupported note type: {property.NoteType}")
             };
         }
 

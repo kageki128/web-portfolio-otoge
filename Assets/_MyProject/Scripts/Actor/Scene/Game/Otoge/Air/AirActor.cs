@@ -9,6 +9,8 @@ namespace MyProject.Actor
 {
     public class AirActor : OtogeActorBase
     {
+        protected override OtogeType ActorOtogeType => OtogeType.Air;
+
         [SerializeField] GameObject noteParent;
         [SerializeField] AirTapActor tapPrefab;
         [SerializeField] AirHoldActor holdPrefab;
@@ -72,7 +74,12 @@ namespace MyProject.Actor
             DestroyNotes();
             foreach (var noteCore in noteCores)
             {
-                var noteType = noteCore.Property.Type;
+                if (!IsOwnedNote(noteCore))
+                {
+                    continue;
+                }
+
+                var noteType = noteCore.Property.NoteType;
                 NoteActorBase noteActor = noteType switch
                 {
                     NoteType.Tap => Instantiate(tapPrefab, noteParent.transform),
