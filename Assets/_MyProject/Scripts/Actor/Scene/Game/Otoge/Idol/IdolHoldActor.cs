@@ -33,7 +33,8 @@ namespace MyProject.Actor
 
         public override void SetPosition(float currentBeat, float currentScroll, float scrollSpeed)
         {
-            if (NoteCore.State.CurrentValue is NoteState.AfterJudge)
+            var state = NoteCore.State.CurrentValue;
+            if (state is NoteState.AfterJudge)
             {
                 return;
             }
@@ -43,7 +44,9 @@ namespace MyProject.Actor
             var judgeDistance = IdolLaneLayout.GetJudgeDistance(lane, width);
             var direction = IdolLaneLayout.GetDirection(lane, width);
 
-            var beginRawDistance = CalculateRawDistance(NoteCore.Property.ScrollBegin, currentScroll, scrollSpeed, judgeDistance);
+            var beginRawDistance = IsHoldStartFixed(state)
+                ? judgeDistance
+                : CalculateRawDistance(NoteCore.Property.ScrollBegin, currentScroll, scrollSpeed, judgeDistance);
             if (beginRawDistance < IdolLaneLayout.InnerRadius)
             {
                 gameObject.SetActive(false);

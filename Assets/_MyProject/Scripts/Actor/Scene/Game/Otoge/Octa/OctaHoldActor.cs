@@ -32,9 +32,11 @@ namespace MyProject.Actor
 
         public override void SetPosition(float currentBeat, float currentScroll, float scrollSpeed)
         {
+            var state = NoteCore.State.CurrentValue;
+            var startScroll = GetHoldStartScroll(NoteCore.Property.ScrollBegin, currentScroll, state);
             float x = CalculateCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
-            float y = CalculateCenterY(NoteCore.Property.ScrollBegin, NoteCore.Property.ScrollEnd, currentScroll, scrollSpeed);
-            float height = CalculateHeight(NoteCore.Property.ScrollBegin, NoteCore.Property.ScrollEnd, scrollSpeed);
+            float y = CalculateCenterY(startScroll, NoteCore.Property.ScrollEnd, currentScroll, scrollSpeed);
+            float height = CalculateHeight(startScroll, NoteCore.Property.ScrollEnd, scrollSpeed) + 0.5f;
 
             transform.localPosition = new Vector3(x, y, 0);
             image.size = new Vector2(image.size.x, height);

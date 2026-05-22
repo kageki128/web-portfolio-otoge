@@ -36,16 +36,18 @@ namespace MyProject.Actor
 
         public override void SetPosition(float currentBeat, float currentScroll, float scrollSpeed)
         {
-            if (NoteCore.State.CurrentValue is NoteState.AfterJudge)
+            var state = NoteCore.State.CurrentValue;
+            if (state is NoteState.AfterJudge)
             {
                 return;
             }
 
-            var beginX = (NoteCore.Property.ScrollBegin - currentScroll) * scrollSpeed;
+            var startScroll = GetHoldStartScroll(NoteCore.Property.ScrollBegin, currentScroll, state);
+            var beginX = (startScroll - currentScroll) * scrollSpeed;
             var endX = (NoteCore.Property.ScrollEnd - currentScroll) * scrollSpeed;
             var x = (beginX + endX) * 0.5f;
             var y = RunLaneLayout.GetLaneY(NoteCore.Property.Lane);
-            var length = Mathf.Abs(endX - beginX);
+            var length = Mathf.Abs(endX - beginX) + 0.5f;
 
             transform.localPosition = new Vector3(x, y, 0f);
             image.size = new Vector2(length, laneWidth);

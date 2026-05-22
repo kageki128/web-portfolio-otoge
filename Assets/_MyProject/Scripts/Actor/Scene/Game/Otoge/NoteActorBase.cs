@@ -32,6 +32,17 @@ namespace MyProject.Actor
         {
             return lane + ((width - 1) * 0.5f);
         }
+
+        protected static bool IsHoldStartFixed(NoteState state)
+        {
+            return state is NoteState.Holding or NoteState.Released;
+        }
+
+        protected static float GetHoldStartScroll(float scrollBegin, float currentScroll, NoteState state)
+        {
+            return IsHoldStartFixed(state) ? currentScroll : scrollBegin;
+        }
+
         protected static float CalculateCenterY(float scrollBegin, float scrollEnd, float currentScroll, float scrollSpeed)
         {
             float beginY = (scrollBegin - currentScroll) * scrollSpeed;
