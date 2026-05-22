@@ -10,7 +10,10 @@ namespace MyProject.Actor
 {
     public class AirActor : OtogeActorBase
     {
+        const float ScrollSpeedMultiplierValue = 3.5f;
+
         protected override OtogeType ActorOtogeType => OtogeType.Air;
+        protected override float ScrollSpeedMultiplier => ScrollSpeedMultiplierValue;
 
         [SerializeField] GameObject noteParent;
         [SerializeField] AirTapActor tapPrefab;
@@ -43,6 +46,8 @@ namespace MyProject.Actor
 
         public override async UniTask ShowAsync(CancellationToken ct)
         {
+            airActionsObserver.Enable();
+
             gameObject.SetActive(true);
 
             var showTasks = new List<UniTask>
@@ -55,8 +60,6 @@ namespace MyProject.Actor
             }
             showTasks.Add(laneLightActor.ShowAsync(ct));
             await UniTask.WhenAll(showTasks);
-
-            airActionsObserver.Enable();
         }
 
         public override async UniTask HideAsync(CancellationToken ct)
@@ -103,5 +106,6 @@ namespace MyProject.Actor
                 NoteActors.Add(noteActor);
             }
         }
+
     }
 }

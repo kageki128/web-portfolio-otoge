@@ -11,7 +11,10 @@ namespace MyProject.Actor
 {
     public class LaundryActor : OtogeActorBase
     {
+        const float ScrollSpeedMultiplierValue = 1f;
+
         protected override OtogeType ActorOtogeType => OtogeType.Laundry;
+        protected override float ScrollSpeedMultiplier => ScrollSpeedMultiplierValue;
 
         [SerializeField] GameObject noteParent;
         [SerializeField] LaundryTapActor tapPrefab;
@@ -53,6 +56,8 @@ namespace MyProject.Actor
 
         public override async UniTask ShowAsync(CancellationToken ct)
         {
+            laundryActionsObserver.Enable();
+
             gameObject.SetActive(true);
 
             var showTasks = new List<UniTask>
@@ -66,8 +71,6 @@ namespace MyProject.Actor
             showTasks.Add(laneLightActor.ShowAsync(ct));
             showTasks.Add(FadePointsAsync(true, ct));
             await UniTask.WhenAll(showTasks);
-
-            laundryActionsObserver.Enable();
         }
 
         public override async UniTask HideAsync(CancellationToken ct)
@@ -151,5 +154,6 @@ namespace MyProject.Actor
             color.a = alpha;
             return color;
         }
+
     }
 }

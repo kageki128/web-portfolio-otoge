@@ -13,6 +13,7 @@ namespace MyProject.Actor
 
         protected readonly List<NoteActorBase> NoteActors = new();
         protected abstract OtogeType ActorOtogeType { get; }
+        protected virtual float ScrollSpeedMultiplier => 1f;
 
         public abstract void InstallActions(OtogeActions otogeActions);
 
@@ -25,11 +26,12 @@ namespace MyProject.Actor
 
         public virtual void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed)
         {
+            var adjustedScrollSpeed = scrollSpeed * ScrollSpeedMultiplier;
             foreach (var noteActor in NoteActors)
             {
                 if (noteActor.NoteCore.Property.Timeline == timeline)
                 {
-                    noteActor.SetPosition(currentBeat, currentScroll, scrollSpeed);
+                    noteActor.SetPosition(currentBeat, currentScroll, adjustedScrollSpeed);
                 }
             }
         }

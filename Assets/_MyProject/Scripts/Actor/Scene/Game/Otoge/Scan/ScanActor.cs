@@ -44,6 +44,8 @@ namespace MyProject.Actor
 
         public override async UniTask ShowAsync(CancellationToken ct)
         {
+            scanActionsObserver.Enable();
+
             gameObject.SetActive(true);
 
             var showTasks = new List<UniTask>
@@ -57,8 +59,6 @@ namespace MyProject.Actor
             showTasks.Add(laneLightActor.ShowAsync(ct));
             showTasks.Add(judgeLineActor.ShowAsync(ct));
             await UniTask.WhenAll(showTasks);
-
-            scanActionsObserver.Enable();
         }
 
         public override async UniTask HideAsync(CancellationToken ct)

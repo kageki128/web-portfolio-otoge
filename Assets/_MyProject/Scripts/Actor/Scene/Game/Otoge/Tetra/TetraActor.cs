@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyProject.Core;
@@ -11,7 +10,10 @@ namespace MyProject.Actor
 {
     public class TetraActor : OtogeActorBase
     {
+        const float ScrollSpeedMultiplierValue = 0.9f;
+
         protected override OtogeType ActorOtogeType => OtogeType.Tetra;
+        protected override float ScrollSpeedMultiplier => ScrollSpeedMultiplierValue;
 
         [SerializeField] GameObject noteParent;
         [SerializeField] TetraTapActor tapPrefab;
@@ -43,6 +45,8 @@ namespace MyProject.Actor
 
         public override async UniTask ShowAsync(CancellationToken ct)
         {
+            tetraActionsObserver.Enable();
+
             gameObject.SetActive(true);
 
             var showTasks = new List<UniTask>
@@ -55,8 +59,6 @@ namespace MyProject.Actor
             }
             showTasks.Add(laneLightActor.ShowAsync(ct));
             await UniTask.WhenAll(showTasks);
-
-            tetraActionsObserver.Enable();
         }
 
         public override async UniTask HideAsync(CancellationToken ct)
@@ -102,5 +104,6 @@ namespace MyProject.Actor
                 NoteActors.Add(noteActor);
             }
         }
+
     }
 }

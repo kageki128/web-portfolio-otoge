@@ -10,7 +10,10 @@ namespace MyProject.Actor
 {
     public class MasterActor : OtogeActorBase
     {
+        const float ScrollSpeedMultiplierValue = 1f;
+
         protected override OtogeType ActorOtogeType => OtogeType.Master;
+        protected override float ScrollSpeedMultiplier => ScrollSpeedMultiplierValue;
 
         [SerializeField] GameObject noteParent;
         [SerializeField] MasterTapActor tapPrefab;
@@ -41,6 +44,8 @@ namespace MyProject.Actor
 
         public override async UniTask ShowAsync(CancellationToken ct)
         {
+            masterActionsObserver.Enable();
+
             gameObject.SetActive(true);
 
             var showTasks = new List<UniTask>
@@ -53,8 +58,6 @@ namespace MyProject.Actor
             }
             showTasks.Add(laneLightActor.ShowAsync(ct));
             await UniTask.WhenAll(showTasks);
-
-            masterActionsObserver.Enable();
         }
 
         public override async UniTask HideAsync(CancellationToken ct)
@@ -94,5 +97,6 @@ namespace MyProject.Actor
                 NoteActors.Add(noteActor);
             }
         }
+
     }
 }
