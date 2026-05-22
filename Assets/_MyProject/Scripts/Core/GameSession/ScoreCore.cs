@@ -19,6 +19,7 @@ namespace MyProject.Core
         readonly Dictionary<int, List<NoteCoreBase>> remainingLaneNoteCores = new();
         readonly List<NoteCoreBase> remainingAirNoteCores = new();
         readonly List<NoteCoreBase> afterJudgeNoteCores = new();
+        readonly HashSet<NoteCoreBase> countedNoteCores = new();
 
         readonly Dictionary<JudgeType, float> judgeTypeToBaseScoreRate = new()
         {
@@ -43,6 +44,7 @@ namespace MyProject.Core
             remainingLaneNoteCores.Clear();
             remainingAirNoteCores.Clear();
             afterJudgeNoteCores.Clear();
+            countedNoteCores.Clear();
 
             foreach (var noteCore in noteCores)
             {
@@ -101,7 +103,9 @@ namespace MyProject.Core
             var noteCore = remainingNoteCores[0];
 
             // ノーツをジャッジ
+            var beforeState = noteCore.State.CurrentValue;
             noteCore.JudgePress(currentSec);
+            HandleJudgeCount(noteCore, beforeState);
             HandleAfterJudge(noteCore);
         }
 
@@ -115,7 +119,9 @@ namespace MyProject.Core
             var noteCore = remainingNoteCores[0];
 
             // ノーツをジャッジ
+            var beforeState = noteCore.State.CurrentValue;
             noteCore.JudgeRelease(currentSec);
+            HandleJudgeCount(noteCore, beforeState);
             HandleAfterJudge(noteCore);
         }
 
@@ -129,7 +135,9 @@ namespace MyProject.Core
 
             foreach (var noteCore in noteCores)
             {
+                var beforeState = noteCore.State.CurrentValue;
                 noteCore.JudgePress(currentSec);
+                HandleJudgeCount(noteCore, beforeState);
             }
             HandleAfterJudges(noteCores);
         }
@@ -144,7 +152,9 @@ namespace MyProject.Core
 
             foreach (var noteCore in noteCores)
             {
+                var beforeState = noteCore.State.CurrentValue;
                 noteCore.JudgeRelease(currentSec);
+                HandleJudgeCount(noteCore, beforeState);
             }
             HandleAfterJudges(noteCores);
         }
@@ -169,7 +179,9 @@ namespace MyProject.Core
                     {
                         break;
                     }
+                    var beforeState = noteCore.State.CurrentValue;
                     noteCore.JudgeBeginPass(currentSec);
+                    HandleJudgeCount(noteCore, beforeState);
                     if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                     {
                         afterJudgeCandidates.Add(noteCore);
@@ -186,7 +198,9 @@ namespace MyProject.Core
                     {
                         break;
                     }
+                    var beforeState = noteCore.State.CurrentValue;
                     noteCore.JudgeEndPass(currentSec);
+                    HandleJudgeCount(noteCore, beforeState);
                     if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                     {
                         afterJudgeCandidates.Add(noteCore);
@@ -202,7 +216,9 @@ namespace MyProject.Core
                 {
                     break;
                 }
+                var beforeState = noteCore.State.CurrentValue;
                 noteCore.JudgeBeginPass(currentSec);
+                HandleJudgeCount(noteCore, beforeState);
                 if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                 {
                     airAfterJudgeCandidates.Add(noteCore);
@@ -217,7 +233,9 @@ namespace MyProject.Core
                 {
                     break;
                 }
+                var beforeState = noteCore.State.CurrentValue;
                 noteCore.JudgeEndPass(currentSec);
+                HandleJudgeCount(noteCore, beforeState);
                 if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                 {
                     airAfterJudgeCandidates.Add(noteCore);
@@ -240,7 +258,9 @@ namespace MyProject.Core
                     {
                         break;
                     }
+                    var beforeState = noteCore.State.CurrentValue;
                     noteCore.JudgeBeginMiss(currentSec);
+                    HandleJudgeCount(noteCore, beforeState);
                     if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                     {
                         afterJudgeCandidates.Add(noteCore);
@@ -257,7 +277,9 @@ namespace MyProject.Core
                     {
                         break;
                     }
+                    var beforeState = noteCore.State.CurrentValue;
                     noteCore.JudgeEndMiss(currentSec);
+                    HandleJudgeCount(noteCore, beforeState);
                     if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                     {
                         afterJudgeCandidates.Add(noteCore);
@@ -273,7 +295,9 @@ namespace MyProject.Core
                 {
                     break;
                 }
+                var beforeState = noteCore.State.CurrentValue;
                 noteCore.JudgeBeginMiss(currentSec);
+                HandleJudgeCount(noteCore, beforeState);
                 if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                 {
                     airAfterJudgeCandidates.Add(noteCore);
@@ -288,7 +312,9 @@ namespace MyProject.Core
                 {
                     break;
                 }
+                var beforeState = noteCore.State.CurrentValue;
                 noteCore.JudgeEndMiss(currentSec);
+                HandleJudgeCount(noteCore, beforeState);
                 if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                 {
                     airAfterJudgeCandidates.Add(noteCore);
@@ -350,13 +376,31 @@ namespace MyProject.Core
                     }
                 }
                 afterJudgeNoteCores.Add(noteCore);
-                var judge = noteCore.Judge.CurrentValue;
-                JudgeCounts[judge]++;
-                AddScore(judge);
-                UpdateCombo(judge);
-
-                Debug.Log($"Judge: {judge}, Score: {score.Value}, Combo: {combo.Value}");
             }
+        }
+
+        void HandleJudgeCount(NoteCoreBase noteCore, NoteState beforeState)
+        {
+            if (beforeState is not NoteState.BeforeJudge || noteCore.State.CurrentValue is NoteState.BeforeJudge)
+            {
+                return;
+            }
+            if (!countedNoteCores.Add(noteCore))
+            {
+                return;
+            }
+
+            var judge = noteCore.Judge.CurrentValue;
+            if (judge is JudgeType.None)
+            {
+                throw new InvalidOperationException("Judge must be set when leaving BeforeJudge.");
+            }
+
+            JudgeCounts[judge]++;
+            AddScore(judge);
+            UpdateCombo(judge);
+
+            Debug.Log($"Judge: {judge}, Score: {score.Value}, Combo: {combo.Value}");
         }
 
         void AddScore(JudgeType judge)
