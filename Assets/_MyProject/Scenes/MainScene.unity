@@ -1468,7 +1468,6 @@ MonoBehaviour:
   - {fileID: 457606483}
   - {fileID: 1250455054}
   - {fileID: 207311626}
-  currentOtogeType: 8
 --- !u!1 &340857535
 GameObject:
   m_ObjectHideFlags: 0

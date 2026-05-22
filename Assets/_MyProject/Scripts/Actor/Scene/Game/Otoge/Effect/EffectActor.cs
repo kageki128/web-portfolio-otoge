@@ -27,8 +27,6 @@ namespace MyProject.Actor
 
         public override void Initialize()
         {
-            effectActionsObserver.Disable();
-
             DestroyNotes();
             laneLightActor.Initialize();
 
@@ -36,6 +34,7 @@ namespace MyProject.Actor
             effectActionsObserver.LaneReleased.Subscribe(lane => laneLightActor.LightDown(lane)).AddTo(this);
 
             gameObject.SetActive(false);
+            effectActionsObserver.Disable();
         }
 
         public override async UniTask ShowAsync(CancellationToken ct)
@@ -55,8 +54,6 @@ namespace MyProject.Actor
 
         public override async UniTask HideAsync(CancellationToken ct)
         {
-            effectActionsObserver.Disable();
-
             var hideTasks = new List<UniTask>();
             foreach (var noteActor in NoteActors)
             {
@@ -66,6 +63,7 @@ namespace MyProject.Actor
             await UniTask.WhenAll(hideTasks);
 
             gameObject.SetActive(false);
+            effectActionsObserver.Disable();
         }
 
         public override void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores)

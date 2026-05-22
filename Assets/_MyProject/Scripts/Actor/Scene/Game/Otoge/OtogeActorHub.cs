@@ -29,9 +29,8 @@ namespace MyProject.Actor
         [Header("Shared Actors")]
         [SerializeField] OtogeSharedActorBase[] sharedActors;
 
-        [Header("Settings")]
-        [SerializeField] OtogeType currentOtogeType = OtogeType.Tetra;
-
+        readonly HashSet<OtogeType> updatedOtogeTypes = new();
+        OtogeType currentOtogeType = OtogeType.Tetra;
         OtogeActions otogeActions;
         Dictionary<OtogeType, OtogeActorBase> otogeTypeToActor = new();
         CancellationTokenSource switchOtogeTypeCts;
@@ -64,6 +63,9 @@ namespace MyProject.Actor
 
             DestroyNotes();
 
+            updatedOtogeTypes.Clear();
+            updatedOtogeTypes.Add(currentOtogeType);
+
             gameObject.SetActive(false);
         }
 
@@ -92,16 +94,14 @@ namespace MyProject.Actor
 
         public void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed)
         {
-            otogeTypeToActor[currentOtogeType].UpdateNotesByTimeline(timeline, currentBeat, currentScroll, scrollSpeed);
+            foreach (var otogeType in updatedOtogeTypes)
+            {
+                otogeTypeToActor[otogeType].UpdateNotesByTimeline(timeline, currentBeat, currentScroll, scrollSpeed);
+            }
         }
 
         public void SwitchOtogeType(OtogeType newType)
         {
-            if (newType == currentOtogeType)
-            {
-                return;
-            }
-
             switchOtogeTypeCts?.Cancel();
             switchOtogeTypeCts?.Dispose();
             switchOtogeTypeCts = new CancellationTokenSource();
@@ -128,14 +128,21 @@ namespace MyProject.Actor
         async UniTask ExecuteSwitchOtogeTypeAsync(OtogeType newType, CancellationToken ct)
         {
             var oldType = currentOtogeType;
+            currentOtogeType = newType;
+
+            updatedOtogeTypes.Add(newType);
 
             await UniTask.WhenAll
             (
                 otogeTypeToActor[oldType].HideAsync(ct),
                 otogeTypeToActor[newType].ShowAsync(ct),
-                SetSharedActorsStateAsync(newType, ct),
-                DelayAndSetCurrentOtogeTypeAsync(newType, ct)
+                SetSharedActorsStateAsync(newType, ct)
             );
+
+            if (newType != oldType)
+            {
+                updatedOtogeTypes.Remove(oldType);
+            }
         }
 
         async UniTask SetSharedActorsStateAsync(OtogeType otogeType, CancellationToken ct)
@@ -148,12 +155,6 @@ namespace MyProject.Actor
             }
 
             await UniTask.WhenAll(tasks);
-        }
-
-        async UniTask DelayAndSetCurrentOtogeTypeAsync(OtogeType otogeType, CancellationToken ct)
-        {
-            await UniTask.Delay((int)(OtogeAppearance.StateChangeDelay * 1000f), cancellationToken: ct);
-            currentOtogeType = otogeType;
         }
 
         void OnDestroy()

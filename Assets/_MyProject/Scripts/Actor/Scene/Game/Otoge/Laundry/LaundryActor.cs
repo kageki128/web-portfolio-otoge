@@ -31,8 +31,6 @@ namespace MyProject.Actor
 
         public override void Initialize()
         {
-            laundryActionsObserver.Disable();
-
             DestroyNotes();
             laneLightActor.Initialize();
             pointBaseColors = new Color[points.Length];
@@ -47,6 +45,7 @@ namespace MyProject.Actor
             laundryActionsObserver.LaneReleased.Subscribe(lane => laneLightActor.LightDown(lane)).AddTo(this);
 
             gameObject.SetActive(false);
+            laundryActionsObserver.Disable();
         }
 
         public override async UniTask ShowAsync(CancellationToken ct)
@@ -67,8 +66,6 @@ namespace MyProject.Actor
 
         public override async UniTask HideAsync(CancellationToken ct)
         {
-            laundryActionsObserver.Disable();
-
             var hideTasks = new List<UniTask>();
             foreach (var noteActor in NoteActors)
             {
@@ -79,6 +76,7 @@ namespace MyProject.Actor
             await UniTask.WhenAll(hideTasks);
 
             gameObject.SetActive(false);
+            laundryActionsObserver.Disable();
         }
 
         public override void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores)
@@ -105,6 +103,16 @@ namespace MyProject.Actor
 
         async UniTask FadePointsAsync(bool show, CancellationToken ct)
         {
+            if (!show)
+            {
+                for (var i = 0; i < points.Length; i++)
+                {
+                    pointHandles[i].TryCancel();
+                    points[i].color = WithAlpha(pointBaseColors[i], 0f);
+                }
+                return;
+            }
+
             var duration = OtogeAppearance.StateTransitionDuration;
             var ease = OtogeAppearance.StateTransitionEase;
             var fadeTasks = new List<UniTask>(points.Length);
@@ -114,8 +122,7 @@ namespace MyProject.Actor
                 pointHandles[i].TryCancel();
 
                 var point = points[i];
-                var targetColor = show ? pointBaseColors[i] : WithAlpha(pointBaseColors[i], 0f);
-                pointHandles[i] = LMotion.Create(point.color, targetColor, duration)
+                pointHandles[i] = LMotion.Create(point.color, pointBaseColors[i], duration)
                     .WithEase(ease)
                     .Bind(value => point.color = value)
                     .AddTo(this);

@@ -7,7 +7,6 @@ namespace MyProject.Actor
     internal static class OtogeAppearance
     {
         public const float StateTransitionDuration = 0.4f;
-        public const float StateChangeDelay = 0.2f;
         public const Ease StateTransitionEase = Ease.OutCubic;
 
         const float HoldBeforeBrightness = 0.75f;
