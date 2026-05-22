@@ -3,6 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyProject.Actor;
 using MyProject.Core;
+using ObservableCollections;
 using R3;
 
 namespace MyProject.Director
@@ -100,13 +101,11 @@ namespace MyProject.Director
             gameSessionCore.CurrentOtogeType
                 .Subscribe(otogeType => gameActorHub.SwitchOtogeType(otogeType))
                 .AddTo(disposables);
-            foreach (var noteCore in noteCores)
-            {
-                noteCore.Judge
-                    .Skip(1)
-                    .Subscribe(_ => gameActorHub.SetJudgeCounts(gameSessionCore.JudgeCounts))
-                    .AddTo(disposables);
-            }
+            gameActorHub.SetJudgeCounts(gameSessionCore.JudgeCounts);
+            gameSessionCore.JudgeCounts
+                .ObserveDictionaryReplace()
+                .Subscribe(_ => gameActorHub.SetJudgeCounts(gameSessionCore.JudgeCounts))
+                .AddTo(disposables);
 
             // Actorを購読
             gameActorHub.Quit
