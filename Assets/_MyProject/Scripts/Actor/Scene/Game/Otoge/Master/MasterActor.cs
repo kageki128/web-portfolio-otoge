@@ -44,13 +44,11 @@ namespace MyProject.Actor
 
         public override async UniTask ShowAsync(CancellationToken ct)
         {
-            masterActionsObserver.Enable();
-
             gameObject.SetActive(true);
 
             var showTasks = new List<UniTask>
             {
-                UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.StateTransitionDuration), cancellationToken: ct)
+                UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.SwitchActionsDelay), cancellationToken: ct)
             };
             foreach (var noteActor in NoteActors)
             {
@@ -58,13 +56,15 @@ namespace MyProject.Actor
             }
             showTasks.Add(laneLightActor.ShowAsync(ct));
             await UniTask.WhenAll(showTasks);
+
+            masterActionsObserver.Enable();
         }
 
         public override async UniTask HideAsync(CancellationToken ct)
         {
             var hideTasks = new List<UniTask>
             {
-                UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.StateTransitionDuration), cancellationToken: ct)
+                UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.SwitchActionsDelay), cancellationToken: ct)
             };
             foreach (var noteActor in NoteActors)
             {

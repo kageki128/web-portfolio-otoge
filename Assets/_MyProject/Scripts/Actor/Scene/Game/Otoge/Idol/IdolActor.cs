@@ -11,7 +11,7 @@ namespace MyProject.Actor
 {
     public class IdolActor : OtogeActorBase
     {
-        const float ScrollSpeedMultiplierValue = 1.8f;
+        const float ScrollSpeedMultiplierValue = 2f;
 
         protected override OtogeType ActorOtogeType => OtogeType.Idol;
         protected override float ScrollSpeedMultiplier => ScrollSpeedMultiplierValue;
@@ -56,13 +56,11 @@ namespace MyProject.Actor
 
         public override async UniTask ShowAsync(CancellationToken ct)
         {
-            idolActionsObserver.Enable();
-
             gameObject.SetActive(true);
 
             var showTasks = new List<UniTask>
             {
-                UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.StateTransitionDuration), cancellationToken: ct)
+                UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.SwitchActionsDelay), cancellationToken: ct)
             };
             foreach (var noteActor in NoteActors)
             {
@@ -71,13 +69,15 @@ namespace MyProject.Actor
             showTasks.Add(laneLightActor.ShowAsync(ct));
             showTasks.Add(FadePointsAsync(true, ct));
             await UniTask.WhenAll(showTasks);
+
+            idolActionsObserver.Enable();
         }
 
         public override async UniTask HideAsync(CancellationToken ct)
         {
             var hideTasks = new List<UniTask>
             {
-                UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.StateTransitionDuration), cancellationToken: ct)
+                UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.SwitchActionsDelay), cancellationToken: ct)
             };
             foreach (var noteActor in NoteActors)
             {
