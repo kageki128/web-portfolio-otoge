@@ -10,7 +10,7 @@ namespace MyProject.Actor
 {
     public class OctaActor : OtogeActorBase
     {
-        const float ScrollSpeedMultiplierValue = 1.1f;
+        const float ScrollSpeedMultiplierValue = 1.2f;
 
         protected override OtogeType ActorOtogeType => OtogeType.Octa;
         protected override float ScrollSpeedMultiplier => ScrollSpeedMultiplierValue;

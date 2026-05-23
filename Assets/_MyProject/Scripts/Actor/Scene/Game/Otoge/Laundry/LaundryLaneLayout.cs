@@ -5,11 +5,11 @@ namespace MyProject.Actor
     internal static class LaundryLaneLayout
     {
         public const float JudgeRadius = 4.774f;
-        public const float InnerRadius = 1f;
+        public const float InnerRadius = 1.5f;
         public const float ScaleUpDistance = 1f;
 
-        const float laneStartAngleDeg = 112.5f;
-        const float laneStepAngleDeg = 45f;
+        const float LaneStartAngleDeg = 112.5f;
+        const float LaneStepAngleDeg = 45f;
 
         public static Vector2 GetDirection(int lane, int width)
         {
@@ -41,7 +41,7 @@ namespace MyProject.Actor
         public static float GetLaneAngleDeg(int lane, int width)
         {
             var laneCenter = lane + ((width - 1) * 0.5f);
-            return laneStartAngleDeg + (laneStepAngleDeg * laneCenter);
+            return LaneStartAngleDeg + (LaneStepAngleDeg * laneCenter);
         }
     }
 }
