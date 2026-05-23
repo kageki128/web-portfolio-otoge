@@ -6,7 +6,6 @@ namespace MyProject.Actor
     {
         public const int CenterLane = 2;
         public const float InnerRadius = 5f;
-        public const float ScaleUpDistance = 1f;
 
         static readonly Vector2 center = new(0f, 15.914481f);
         static readonly Vector2[] judgePoints =

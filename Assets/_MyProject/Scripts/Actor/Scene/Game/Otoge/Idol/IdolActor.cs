@@ -11,7 +11,7 @@ namespace MyProject.Actor
 {
     public class IdolActor : OtogeActorBase
     {
-        const float ScrollSpeedMultiplierValue = 2f;
+        const float ScrollSpeedMultiplierValue = 1.8f;
 
         protected override OtogeType ActorOtogeType => OtogeType.Idol;
         protected override float ScrollSpeedMultiplier => ScrollSpeedMultiplierValue;

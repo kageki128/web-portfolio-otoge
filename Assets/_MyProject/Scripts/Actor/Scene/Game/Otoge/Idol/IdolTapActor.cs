@@ -46,21 +46,17 @@ namespace MyProject.Actor
             if (rawDistance < IdolLaneLayout.InnerRadius)
             {
                 gameObject.SetActive(false);
-                transform.localScale = Vector3.zero;
                 return;
             }
 
-            var displayedDistance = CalculateDisplayedDistance(rawDistance, judgeDistance);
             var center = IdolLaneLayout.GetCenterPosition();
             gameObject.SetActive(true);
             transform.localPosition = new Vector3(
-                center.x + (direction.x * displayedDistance),
-                center.y + (direction.y * displayedDistance),
+                center.x + (direction.x * rawDistance),
+                center.y + (direction.y * rawDistance),
                 0f
             );
-
-            var scaleT = CalculateScale(rawDistance);
-            transform.localScale = Vector3.one * scaleT;
+            transform.localScale = Vector3.one;
         }
 
         protected override void SetWidth(int width)
@@ -95,28 +91,5 @@ namespace MyProject.Actor
             return judgeDistance - ((scroll - currentScroll) * scrollSpeed);
         }
 
-        static float CalculateScale(float rawDistance)
-        {
-            if (rawDistance < IdolLaneLayout.InnerRadius)
-            {
-                return 0f;
-            }
-
-            return Mathf.Clamp01((rawDistance - IdolLaneLayout.InnerRadius) / IdolLaneLayout.ScaleUpDistance);
-        }
-
-        static float CalculateDisplayedDistance(float rawDistance, float judgeDistance)
-        {
-            var movementStartRawDistance = IdolLaneLayout.InnerRadius + IdolLaneLayout.ScaleUpDistance;
-            if (rawDistance <= movementStartRawDistance)
-            {
-                return IdolLaneLayout.InnerRadius;
-            }
-
-            var moveRangeRaw = judgeDistance - movementStartRawDistance;
-            var moveT = Mathf.Clamp01((rawDistance - movementStartRawDistance) / moveRangeRaw);
-            var clampedDistance = Mathf.Lerp(IdolLaneLayout.InnerRadius, judgeDistance, moveT);
-            return clampedDistance + Mathf.Max(0f, rawDistance - judgeDistance);
-        }
     }
 }

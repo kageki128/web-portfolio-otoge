@@ -50,19 +50,17 @@ namespace MyProject.Actor
             if (beginRawDistance < IdolLaneLayout.InnerRadius)
             {
                 gameObject.SetActive(false);
-                transform.localScale = Vector3.zero;
                 return;
             }
 
             var endRawDistance = CalculateRawDistance(NoteCore.Property.ScrollEnd, currentScroll, scrollSpeed, judgeDistance);
             var clampedEndRawDistance = Mathf.Max(IdolLaneLayout.InnerRadius, endRawDistance);
 
-            var beginDistance = CalculateDisplayedDistance(beginRawDistance, judgeDistance);
-            var endDistance = CalculateDisplayedDistance(clampedEndRawDistance, judgeDistance);
+            var beginDistance = beginRawDistance;
+            var endDistance = clampedEndRawDistance;
 
             var centerDistance = (beginDistance + endDistance) * 0.5f;
             var length = Mathf.Abs(beginDistance - endDistance);
-            var scaleT = CalculateScale(beginRawDistance);
             var center = IdolLaneLayout.GetCenterPosition();
             var angleDeg = IdolLaneLayout.GetLaneAngleDeg(lane, width);
 
@@ -73,8 +71,9 @@ namespace MyProject.Actor
                 0f
             );
             transform.localRotation = Quaternion.Euler(0f, 0f, angleDeg - 90f);
-            image.size = new Vector2(image.size.x, 1f + length);
-            transform.localScale = Vector3.one * scaleT;
+            var imageLengthScale = Mathf.Abs(image.transform.localScale.y);
+            image.size = new Vector2(image.size.x, (1f + length) / imageLengthScale);
+            transform.localScale = Vector3.one;
         }
 
         protected override void SetWidth(int width)
@@ -111,28 +110,5 @@ namespace MyProject.Actor
             return judgeDistance - ((scroll - currentScroll) * scrollSpeed);
         }
 
-        static float CalculateScale(float rawDistance)
-        {
-            if (rawDistance < IdolLaneLayout.InnerRadius)
-            {
-                return 0f;
-            }
-
-            return Mathf.Clamp01((rawDistance - IdolLaneLayout.InnerRadius) / IdolLaneLayout.ScaleUpDistance);
-        }
-
-        static float CalculateDisplayedDistance(float rawDistance, float judgeDistance)
-        {
-            var movementStartRawDistance = IdolLaneLayout.InnerRadius + IdolLaneLayout.ScaleUpDistance;
-            if (rawDistance <= movementStartRawDistance)
-            {
-                return IdolLaneLayout.InnerRadius;
-            }
-
-            var moveRangeRaw = judgeDistance - movementStartRawDistance;
-            var moveT = Mathf.Clamp01((rawDistance - movementStartRawDistance) / moveRangeRaw);
-            var clampedDistance = Mathf.Lerp(IdolLaneLayout.InnerRadius, judgeDistance, moveT);
-            return clampedDistance + Mathf.Max(0f, rawDistance - judgeDistance);
-        }
     }
 }
