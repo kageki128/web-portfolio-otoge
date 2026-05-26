@@ -173,6 +173,116 @@ namespace MyProject.Tests.EditMode
         }
 
         [Test]
+        public void HoldTick_PressReleaseでは直接判定されない()
+        {
+            var hold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f);
+            var holdTick = CreateHoldTick(hold, beat: 1.5f);
+            var scoreCore = CreateScoreCore(hold, holdTick);
+
+            scoreCore.JudgePressLane(0, 1f);
+            scoreCore.JudgeReleaseLane(0, 1.1f);
+
+            Assert.That(holdTick.State.CurrentValue, Is.EqualTo(NoteState.BeforeJudge));
+            Assert.That(holdTick.Judge.CurrentValue, Is.EqualTo(JudgeType.None));
+        }
+
+        [Test]
+        public void HoldTick_判定ライン通過後に押下中かつ親HoldHoldingならPerfectCriticalLateになる()
+        {
+            var hold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f);
+            var holdTick = CreateHoldTick(hold, beat: 1.5f);
+            var scoreCore = CreateScoreCore(hold, holdTick);
+
+            scoreCore.JudgePressLane(0, 1f);
+            scoreCore.Update(1.55f);
+
+            Assert.That(holdTick.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(holdTick.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
+        }
+
+        [Test]
+        public void HoldTick_親HoldがReleasedなら押下中でも判定されない()
+        {
+            var hold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f);
+            var holdTick = CreateHoldTick(hold, beat: 1.5f);
+            var scoreCore = CreateScoreCore(hold, holdTick);
+
+            scoreCore.JudgePressLane(0, 1f);
+            hold.JudgeRelease(1.1f);
+            scoreCore.Update(1.55f);
+
+            Assert.That(holdTick.State.CurrentValue, Is.EqualTo(NoteState.BeforeJudge));
+            Assert.That(holdTick.Judge.CurrentValue, Is.EqualTo(JudgeType.None));
+        }
+
+        [Test]
+        public void HoldTick_親HoldがHoldingへ戻ればMiss前なら判定される()
+        {
+            var hold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f);
+            var holdTick = CreateHoldTick(hold, beat: 1.5f);
+            var scoreCore = CreateScoreCore(hold, holdTick);
+
+            scoreCore.JudgePressLane(0, 1f);
+            hold.JudgeRelease(1.1f);
+            scoreCore.Update(1.55f);
+            Assert.That(holdTick.State.CurrentValue, Is.EqualTo(NoteState.BeforeJudge));
+
+            hold.JudgePress(1.56f);
+            scoreCore.Update(1.57f);
+
+            Assert.That(holdTick.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(holdTick.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
+        }
+
+        [Test]
+        public void HoldTick_Miss時刻到達でMissLateになる()
+        {
+            var hold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f);
+            var holdTick = CreateHoldTick(hold, beat: 1.5f);
+            var scoreCore = CreateScoreCore(hold, holdTick);
+
+            scoreCore.JudgePressLane(0, 1f);
+            scoreCore.Update(1.6f);
+
+            Assert.That(holdTick.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(holdTick.Judge.CurrentValue, Is.EqualTo(JudgeType.MissLate));
+        }
+
+        [Test]
+        public void HoldTick_幅付きは被覆レーンのどれか押下で判定される()
+        {
+            var hold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f, width: 2);
+            var holdTick = CreateHoldTick(hold, beat: 1.5f);
+            var scoreCore = CreateScoreCore(hold, holdTick);
+
+            scoreCore.JudgePressLane(1, 1f);
+            scoreCore.Update(1.55f);
+
+            Assert.That(holdTick.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(holdTick.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
+        }
+
+        [Test]
+        public void HoldTickが先頭でもJudgePressLaneは後続ノーツを正しく判定できる()
+        {
+            var hold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 1.55f);
+            var holdTick = CreateHoldTick(hold, beat: 1.5f);
+            var tap = CreateTap(lane: 0, beat: 1.56f);
+            var scoreCore = CreateScoreCore(hold, holdTick, tap);
+
+            scoreCore.JudgePressLane(0, 1f);
+            scoreCore.JudgeReleaseLane(0, 1.1f);
+            scoreCore.Update(1.55f);
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(holdTick.State.CurrentValue, Is.EqualTo(NoteState.BeforeJudge));
+
+            scoreCore.JudgePressLane(0, 1.56f);
+
+            Assert.That(tap.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(tap.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
+        }
+
+        [Test]
         public void 同一レーン複数ノーツはBeginBeat順に判定される()
         {
             var tapBeat2 = CreateTap(lane: 0, beat: 2f);
@@ -324,6 +434,14 @@ namespace MyProject.Tests.EditMode
             var timing = CreateTiming(beat);
             var property = new NoteProperty(NoteType.Air, OtogeType.Tetra, 0, timing, timing, 0f, 0f, 0, 1, 0);
             return new AirCore(property);
+        }
+
+        static HoldTickCore CreateHoldTick(HoldCore parentHold, float beat)
+        {
+            var timing = CreateTiming(beat);
+            var parentProperty = parentHold.Property;
+            var property = new NoteProperty(NoteType.HoldTick, parentProperty.OtogeType, parentProperty.Timeline, timing, timing, 0f, 0f, parentProperty.Lane, parentProperty.Width, 0);
+            return new HoldTickCore(property, parentHold);
         }
 
         static NoteTiming CreateTiming(float beat)

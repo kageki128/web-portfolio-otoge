@@ -17,6 +17,7 @@ namespace MyProject.Core
         public ObservableDictionary<JudgeType, int> JudgeCounts { get; } = new();
 
         readonly Dictionary<int, List<NoteCoreBase>> remainingLaneNoteCores = new();
+        readonly Dictionary<int, int> lanePressCounts = new();
         readonly List<NoteCoreBase> remainingAirNoteCores = new();
         readonly List<NoteCoreBase> afterJudgeNoteCores = new();
         readonly HashSet<NoteCoreBase> countedNoteCores = new();
@@ -42,6 +43,7 @@ namespace MyProject.Core
         {
             JudgeCounts.Clear();
             remainingLaneNoteCores.Clear();
+            lanePressCounts.Clear();
             remainingAirNoteCores.Clear();
             afterJudgeNoteCores.Clear();
             countedNoteCores.Clear();
@@ -95,12 +97,18 @@ namespace MyProject.Core
 
         public void JudgePressLane(int lane, float currentSec)
         {
+            IncrementLanePressCount(lane);
+
             // 指定されたレーンの最も近いノーツを取得
             if (!remainingLaneNoteCores.TryGetValue(lane, out var remainingNoteCores) || remainingNoteCores.Count == 0)
             {
                 return;
             }
-            var noteCore = remainingNoteCores[0];
+            var noteCore = GetLeadingInputJudgeTarget(remainingNoteCores);
+            if (noteCore == null)
+            {
+                return;
+            }
 
             // ノーツをジャッジ
             var beforeState = noteCore.State.CurrentValue;
@@ -111,12 +119,18 @@ namespace MyProject.Core
 
         public void JudgeReleaseLane(int lane, float currentSec)
         {
+            DecrementLanePressCount(lane);
+
             // 指定されたレーンの最も近いノーツを取得
             if (!remainingLaneNoteCores.TryGetValue(lane, out var remainingNoteCores) || remainingNoteCores.Count == 0)
             {
                 return;
             }
-            var noteCore = remainingNoteCores[0];
+            var noteCore = GetLeadingInputJudgeTarget(remainingNoteCores);
+            if (noteCore == null)
+            {
+                return;
+            }
 
             // ノーツをジャッジ
             var beforeState = noteCore.State.CurrentValue;
@@ -180,7 +194,18 @@ namespace MyProject.Core
                         break;
                     }
                     var beforeState = noteCore.State.CurrentValue;
-                    noteCore.JudgeBeginPass(currentSec);
+                    if (noteCore is HoldTickCore holdTickCore)
+                    {
+                        if (!IsAnyCoveredLanePressed(holdTickCore))
+                        {
+                            continue;
+                        }
+                        holdTickCore.JudgeBeginPass(currentSec);
+                    }
+                    else
+                    {
+                        noteCore.JudgeBeginPass(currentSec);
+                    }
                     HandleJudgeCount(noteCore, beforeState);
                     if (noteCore.State.CurrentValue is NoteState.AfterJudge)
                     {
@@ -333,6 +358,59 @@ namespace MyProject.Core
                 coveredLanes.Add(lane);
             }
             return coveredLanes;
+        }
+
+        static NoteCoreBase GetLeadingInputJudgeTarget(IReadOnlyList<NoteCoreBase> noteCores)
+        {
+            foreach (var noteCore in noteCores)
+            {
+                if (noteCore.Property.NoteType is not NoteType.HoldTick)
+                {
+                    return noteCore;
+                }
+            }
+
+            return null;
+        }
+
+        bool IsAnyCoveredLanePressed(NoteCoreBase noteCore)
+        {
+            foreach (var lane in GetCoveredLanes(noteCore))
+            {
+                if (IsLanePressed(lane))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        bool IsLanePressed(int lane)
+        {
+            return lanePressCounts.TryGetValue(lane, out var count) && count > 0;
+        }
+
+        void IncrementLanePressCount(int lane)
+        {
+            lanePressCounts.TryGetValue(lane, out var currentCount);
+            lanePressCounts[lane] = currentCount + 1;
+        }
+
+        void DecrementLanePressCount(int lane)
+        {
+            if (!lanePressCounts.TryGetValue(lane, out var currentCount))
+            {
+                return;
+            }
+
+            if (currentCount <= 1)
+            {
+                lanePressCounts.Remove(lane);
+                return;
+            }
+
+            lanePressCounts[lane] = currentCount - 1;
         }
 
         List<NoteCoreBase> GetLeadingAirNoteCoresWithSameSec()

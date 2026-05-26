@@ -13,6 +13,8 @@ namespace MyProject.Infrastructure
     /// </summary>
     public class BeatmapComposer
     {
+        const float HoldTickIntervalBeat = 0.5f;
+
         static readonly Dictionary<char, int> laneMap = new()
         {
             { '0', 0 },
@@ -167,8 +169,20 @@ namespace MyProject.Infrastructure
                     width,
                     layer
                 );
-                noteCores.Add(CreateNoteCore(property));
+                if (noteType == NoteType.Hold)
+                {
+                    var holdCore = new HoldCore(property);
+                    noteCores.Add(holdCore);
+                    layer++;
 
+                    foreach (var holdTickCore in CreateHoldTickCores(holdCore, bpmChanges, timelineToHighSpeedChanges, measureLengthChanges, ref layer))
+                    {
+                        noteCores.Add(holdTickCore);
+                    }
+                    continue;
+                }
+
+                noteCores.Add(CreateNoteCore(property));
                 layer++;
             }
 
@@ -219,6 +233,46 @@ namespace MyProject.Infrastructure
                 NoteType.Air => new AirCore(property),
                 _ => throw new ArgumentOutOfRangeException(nameof(property.NoteType), $"Unsupported note type: {property.NoteType}")
             };
+        }
+
+        static IReadOnlyList<HoldTickCore> CreateHoldTickCores
+        (
+            HoldCore holdCore,
+            IReadOnlyList<BpmChange> bpmChanges,
+            IReadOnlyDictionary<int, IReadOnlyList<HighSpeedChange>> timelineToHighSpeedChanges,
+            IReadOnlyList<MeasureLengthChange> measureLengthChanges,
+            ref int layer
+        )
+        {
+            const float Epsilon = 0.0001f;
+
+            var parentProperty = holdCore.Property;
+            var startBeat = parentProperty.TimingBegin.Beat;
+            var endBeat = parentProperty.TimingEnd.Beat;
+            var holdTickCores = new List<HoldTickCore>();
+
+            for (var tickBeat = startBeat + HoldTickIntervalBeat; tickBeat < endBeat - Epsilon; tickBeat += HoldTickIntervalBeat)
+            {
+                var tickTiming = new NoteTiming(tickBeat, bpmChanges, timelineToHighSpeedChanges, measureLengthChanges);
+                var tickScroll = tickTiming.TimelineToScroll[parentProperty.Timeline];
+                var tickProperty = new NoteProperty
+                (
+                    NoteType.HoldTick,
+                    parentProperty.OtogeType,
+                    parentProperty.Timeline,
+                    tickTiming,
+                    tickTiming,
+                    tickScroll,
+                    tickScroll,
+                    parentProperty.Lane,
+                    parentProperty.Width,
+                    layer
+                );
+                holdTickCores.Add(new HoldTickCore(tickProperty, holdCore));
+                layer++;
+            }
+
+            return holdTickCores;
         }
 
         /// <summary>
