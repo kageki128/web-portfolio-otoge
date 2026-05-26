@@ -47,7 +47,10 @@ TagManager:
   - name: Light
     uniqueID: 978404135
     locked: 0
-  - name: Note
+  - name: Hold
+    uniqueID: 720777569
+    locked: 0
+  - name: Tap
     uniqueID: 356029137
     locked: 0
   - name: Text
