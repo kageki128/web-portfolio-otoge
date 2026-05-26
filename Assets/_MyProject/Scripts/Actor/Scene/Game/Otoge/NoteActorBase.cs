@@ -1,11 +1,17 @@
+using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using LitMotion;
 using MyProject.Core;
-using UnityEngine;
 using R3;
+using UnityEngine;
 
 namespace MyProject.Actor
 {
     public abstract class NoteActorBase : ActorBase
     {
+        readonly Dictionary<SpriteRenderer, MotionHandle> fadeHandles = new();
+
         public NoteCoreBase NoteCore { get; private set; }
 
         public void InstallCore(NoteCoreBase noteCore)
@@ -54,6 +60,47 @@ namespace MyProject.Actor
             float beginY = scrollBegin * scrollSpeed;
             float endY = scrollEnd * scrollSpeed;
             return Mathf.Abs(endY - beginY);
+        }
+
+        protected async UniTask ShowWithFadeAsync(CancellationToken ct, params SpriteRenderer[] targets)
+        {
+            gameObject.SetActive(true);
+            SetAppearance(NoteCore.State.CurrentValue);
+            if (!gameObject.activeSelf || targets.Length == 0)
+            {
+                return;
+            }
+
+            var duration = OtogeAppearance.StateTransitionDuration;
+            var ease = OtogeAppearance.StateTransitionEase;
+            var fadeTasks = new List<UniTask>(targets.Length);
+
+            for (var i = 0; i < targets.Length; i++)
+            {
+                var target = targets[i];
+                if (fadeHandles.TryGetValue(target, out var currentHandle))
+                {
+                    currentHandle.TryCancel();
+                }
+
+                var to = target.color;
+                target.color = WithAlpha(to, 0f);
+
+                var handle = LMotion.Create(target.color, to, duration)
+                    .WithEase(ease)
+                    .Bind(value => target.color = value)
+                    .AddTo(this);
+                fadeHandles[target] = handle;
+                fadeTasks.Add(handle.ToUniTask(CancelBehavior.Cancel, false, ct));
+            }
+
+            await UniTask.WhenAll(fadeTasks);
+        }
+
+        static Color WithAlpha(Color color, float alpha)
+        {
+            color.a = alpha;
+            return color;
         }
     }
 }

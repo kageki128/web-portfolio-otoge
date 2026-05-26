@@ -24,9 +24,7 @@ namespace MyProject.Actor
 
         public override UniTask ShowAsync(CancellationToken ct)
         {
-            gameObject.SetActive(true);
-            SetAppearance(NoteCore.State.CurrentValue);
-            return UniTask.CompletedTask;
+            return ShowWithFadeAsync(ct, beginImage, trailImage);
         }
 
         public override UniTask HideAsync(CancellationToken ct)
