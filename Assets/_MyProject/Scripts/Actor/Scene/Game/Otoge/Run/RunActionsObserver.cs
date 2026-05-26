@@ -16,13 +16,17 @@ namespace MyProject.Actor
 
             LanePressed = Observable.Merge
             (
-                ObservePerformed(runActions.Lane0).Select(_ => 0),
-                ObservePerformed(runActions.Lane1).Select(_ => 1)
+                ObservePerformed(runActions.Lane0_L).Select(_ => 0),
+                ObservePerformed(runActions.Lane0_R).Select(_ => 0),
+                ObservePerformed(runActions.Lane1_L).Select(_ => 1),
+                ObservePerformed(runActions.Lane1_R).Select(_ => 1)
             );
             LaneReleased = Observable.Merge
             (
-                ObserveCanceled(runActions.Lane0).Select(_ => 0),
-                ObserveCanceled(runActions.Lane1).Select(_ => 1)
+                ObserveCanceled(runActions.Lane0_L).Select(_ => 0),
+                ObserveCanceled(runActions.Lane0_R).Select(_ => 0),
+                ObserveCanceled(runActions.Lane1_L).Select(_ => 1),
+                ObserveCanceled(runActions.Lane1_R).Select(_ => 1)
             );
         }
 

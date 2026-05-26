@@ -923,7 +923,7 @@ namespace MyProject.Actor
             ""id"": ""41e49a45-6e3b-47ab-ac35-5c64c399f6e6"",
             ""actions"": [
                 {
-                    ""name"": ""Lane0"",
+                    ""name"": ""Lane0_L"",
                     ""type"": ""Button"",
                     ""id"": ""ac55b33a-0644-491a-ab1c-5eee0560a3bf"",
                     ""expectedControlType"": """",
@@ -932,9 +932,27 @@ namespace MyProject.Actor
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Lane1"",
+                    ""name"": ""Lane0_R"",
+                    ""type"": ""Button"",
+                    ""id"": ""96cccfad-4d15-4c1d-b44d-b4c3e5bd5aea"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lane1_L"",
                     ""type"": ""Button"",
                     ""id"": ""3d909c13-ef9f-460c-9ab9-19db6cd351e4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lane1_R"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f2626b1-70c1-4eab-8f61-b996239c2b56"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -949,18 +967,18 @@ namespace MyProject.Actor
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Lane0"",
+                    ""action"": ""Lane0_L"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""7e8ca2ef-e241-453b-91e1-1c046c43a818"",
+                    ""id"": ""fadab261-171d-419e-812d-183b1fb058b0"",
                     ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Lane0"",
+                    ""action"": ""Lane0_R"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -971,18 +989,18 @@ namespace MyProject.Actor
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Lane1"",
+                    ""action"": ""Lane1_L"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""23e32d14-bb24-4332-8b87-6ab1b29af1a7"",
+                    ""id"": ""2352da14-69fe-487f-874a-ee2579d98191"",
                     ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Lane1"",
+                    ""action"": ""Lane1_R"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -993,7 +1011,7 @@ namespace MyProject.Actor
             ""id"": ""72244576-5d69-42d8-bd13-4527292dd229"",
             ""actions"": [
                 {
-                    ""name"": ""Lane0"",
+                    ""name"": ""Lane0_L"",
                     ""type"": ""Button"",
                     ""id"": ""bd954336-f340-4ed4-bafb-7ffa869f20ba"",
                     ""expectedControlType"": """",
@@ -1002,9 +1020,27 @@ namespace MyProject.Actor
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Lane1"",
+                    ""name"": ""Lane0_R"",
+                    ""type"": ""Button"",
+                    ""id"": ""bac13f07-4558-4487-8947-bbdd2791de65"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lane1_L"",
                     ""type"": ""Button"",
                     ""id"": ""93ad6a4b-e73b-4cbb-9706-863724314abc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Lane1_R"",
+                    ""type"": ""Button"",
+                    ""id"": ""4dbde76b-9d96-4190-9e40-9aa652025c91"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -1019,18 +1055,18 @@ namespace MyProject.Actor
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Lane0"",
+                    ""action"": ""Lane0_L"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b070998e-1a58-40e0-b331-7c0ac879f7ef"",
+                    ""id"": ""2cf76a9b-b251-41ab-88e5-d6b3748a3ff4"",
                     ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Lane0"",
+                    ""action"": ""Lane0_R"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1041,18 +1077,18 @@ namespace MyProject.Actor
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Lane1"",
+                    ""action"": ""Lane1_L"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4479c55d-9e94-430d-8c71-b328ec597ba8"",
+                    ""id"": ""e21d194e-0def-4e1a-b845-47d577ae3a7c"",
                     ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Lane1"",
+                    ""action"": ""Lane1_R"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1222,12 +1258,16 @@ namespace MyProject.Actor
             m_Effect_Lane4 = m_Effect.FindAction("Lane4", throwIfNotFound: true);
             // Master
             m_Master = asset.FindActionMap("Master", throwIfNotFound: true);
-            m_Master_Lane0 = m_Master.FindAction("Lane0", throwIfNotFound: true);
-            m_Master_Lane1 = m_Master.FindAction("Lane1", throwIfNotFound: true);
+            m_Master_Lane0_L = m_Master.FindAction("Lane0_L", throwIfNotFound: true);
+            m_Master_Lane0_R = m_Master.FindAction("Lane0_R", throwIfNotFound: true);
+            m_Master_Lane1_L = m_Master.FindAction("Lane1_L", throwIfNotFound: true);
+            m_Master_Lane1_R = m_Master.FindAction("Lane1_R", throwIfNotFound: true);
             // Run
             m_Run = asset.FindActionMap("Run", throwIfNotFound: true);
-            m_Run_Lane0 = m_Run.FindAction("Lane0", throwIfNotFound: true);
-            m_Run_Lane1 = m_Run.FindAction("Lane1", throwIfNotFound: true);
+            m_Run_Lane0_L = m_Run.FindAction("Lane0_L", throwIfNotFound: true);
+            m_Run_Lane0_R = m_Run.FindAction("Lane0_R", throwIfNotFound: true);
+            m_Run_Lane1_L = m_Run.FindAction("Lane1_L", throwIfNotFound: true);
+            m_Run_Lane1_R = m_Run.FindAction("Lane1_R", throwIfNotFound: true);
             // Scan
             m_Scan = asset.FindActionMap("Scan", throwIfNotFound: true);
             m_Scan_Lane0 = m_Scan.FindAction("Lane0", throwIfNotFound: true);
@@ -2262,8 +2302,10 @@ namespace MyProject.Actor
         // Master
         private readonly InputActionMap m_Master;
         private List<IMasterActions> m_MasterActionsCallbackInterfaces = new List<IMasterActions>();
-        private readonly InputAction m_Master_Lane0;
-        private readonly InputAction m_Master_Lane1;
+        private readonly InputAction m_Master_Lane0_L;
+        private readonly InputAction m_Master_Lane0_R;
+        private readonly InputAction m_Master_Lane1_L;
+        private readonly InputAction m_Master_Lane1_R;
         /// <summary>
         /// Provides access to input actions defined in input action map "Master".
         /// </summary>
@@ -2276,13 +2318,21 @@ namespace MyProject.Actor
             /// </summary>
             public MasterActions(@OtogeActions wrapper) { m_Wrapper = wrapper; }
             /// <summary>
-            /// Provides access to the underlying input action "Master/Lane0".
+            /// Provides access to the underlying input action "Master/Lane0_L".
             /// </summary>
-            public InputAction @Lane0 => m_Wrapper.m_Master_Lane0;
+            public InputAction @Lane0_L => m_Wrapper.m_Master_Lane0_L;
             /// <summary>
-            /// Provides access to the underlying input action "Master/Lane1".
+            /// Provides access to the underlying input action "Master/Lane0_R".
             /// </summary>
-            public InputAction @Lane1 => m_Wrapper.m_Master_Lane1;
+            public InputAction @Lane0_R => m_Wrapper.m_Master_Lane0_R;
+            /// <summary>
+            /// Provides access to the underlying input action "Master/Lane1_L".
+            /// </summary>
+            public InputAction @Lane1_L => m_Wrapper.m_Master_Lane1_L;
+            /// <summary>
+            /// Provides access to the underlying input action "Master/Lane1_R".
+            /// </summary>
+            public InputAction @Lane1_R => m_Wrapper.m_Master_Lane1_R;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -2309,12 +2359,18 @@ namespace MyProject.Actor
             {
                 if (instance == null || m_Wrapper.m_MasterActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_MasterActionsCallbackInterfaces.Add(instance);
-                @Lane0.started += instance.OnLane0;
-                @Lane0.performed += instance.OnLane0;
-                @Lane0.canceled += instance.OnLane0;
-                @Lane1.started += instance.OnLane1;
-                @Lane1.performed += instance.OnLane1;
-                @Lane1.canceled += instance.OnLane1;
+                @Lane0_L.started += instance.OnLane0_L;
+                @Lane0_L.performed += instance.OnLane0_L;
+                @Lane0_L.canceled += instance.OnLane0_L;
+                @Lane0_R.started += instance.OnLane0_R;
+                @Lane0_R.performed += instance.OnLane0_R;
+                @Lane0_R.canceled += instance.OnLane0_R;
+                @Lane1_L.started += instance.OnLane1_L;
+                @Lane1_L.performed += instance.OnLane1_L;
+                @Lane1_L.canceled += instance.OnLane1_L;
+                @Lane1_R.started += instance.OnLane1_R;
+                @Lane1_R.performed += instance.OnLane1_R;
+                @Lane1_R.canceled += instance.OnLane1_R;
             }
 
             /// <summary>
@@ -2326,12 +2382,18 @@ namespace MyProject.Actor
             /// <seealso cref="MasterActions" />
             private void UnregisterCallbacks(IMasterActions instance)
             {
-                @Lane0.started -= instance.OnLane0;
-                @Lane0.performed -= instance.OnLane0;
-                @Lane0.canceled -= instance.OnLane0;
-                @Lane1.started -= instance.OnLane1;
-                @Lane1.performed -= instance.OnLane1;
-                @Lane1.canceled -= instance.OnLane1;
+                @Lane0_L.started -= instance.OnLane0_L;
+                @Lane0_L.performed -= instance.OnLane0_L;
+                @Lane0_L.canceled -= instance.OnLane0_L;
+                @Lane0_R.started -= instance.OnLane0_R;
+                @Lane0_R.performed -= instance.OnLane0_R;
+                @Lane0_R.canceled -= instance.OnLane0_R;
+                @Lane1_L.started -= instance.OnLane1_L;
+                @Lane1_L.performed -= instance.OnLane1_L;
+                @Lane1_L.canceled -= instance.OnLane1_L;
+                @Lane1_R.started -= instance.OnLane1_R;
+                @Lane1_R.performed -= instance.OnLane1_R;
+                @Lane1_R.canceled -= instance.OnLane1_R;
             }
 
             /// <summary>
@@ -2369,8 +2431,10 @@ namespace MyProject.Actor
         // Run
         private readonly InputActionMap m_Run;
         private List<IRunActions> m_RunActionsCallbackInterfaces = new List<IRunActions>();
-        private readonly InputAction m_Run_Lane0;
-        private readonly InputAction m_Run_Lane1;
+        private readonly InputAction m_Run_Lane0_L;
+        private readonly InputAction m_Run_Lane0_R;
+        private readonly InputAction m_Run_Lane1_L;
+        private readonly InputAction m_Run_Lane1_R;
         /// <summary>
         /// Provides access to input actions defined in input action map "Run".
         /// </summary>
@@ -2383,13 +2447,21 @@ namespace MyProject.Actor
             /// </summary>
             public RunActions(@OtogeActions wrapper) { m_Wrapper = wrapper; }
             /// <summary>
-            /// Provides access to the underlying input action "Run/Lane0".
+            /// Provides access to the underlying input action "Run/Lane0_L".
             /// </summary>
-            public InputAction @Lane0 => m_Wrapper.m_Run_Lane0;
+            public InputAction @Lane0_L => m_Wrapper.m_Run_Lane0_L;
             /// <summary>
-            /// Provides access to the underlying input action "Run/Lane1".
+            /// Provides access to the underlying input action "Run/Lane0_R".
             /// </summary>
-            public InputAction @Lane1 => m_Wrapper.m_Run_Lane1;
+            public InputAction @Lane0_R => m_Wrapper.m_Run_Lane0_R;
+            /// <summary>
+            /// Provides access to the underlying input action "Run/Lane1_L".
+            /// </summary>
+            public InputAction @Lane1_L => m_Wrapper.m_Run_Lane1_L;
+            /// <summary>
+            /// Provides access to the underlying input action "Run/Lane1_R".
+            /// </summary>
+            public InputAction @Lane1_R => m_Wrapper.m_Run_Lane1_R;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -2416,12 +2488,18 @@ namespace MyProject.Actor
             {
                 if (instance == null || m_Wrapper.m_RunActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_RunActionsCallbackInterfaces.Add(instance);
-                @Lane0.started += instance.OnLane0;
-                @Lane0.performed += instance.OnLane0;
-                @Lane0.canceled += instance.OnLane0;
-                @Lane1.started += instance.OnLane1;
-                @Lane1.performed += instance.OnLane1;
-                @Lane1.canceled += instance.OnLane1;
+                @Lane0_L.started += instance.OnLane0_L;
+                @Lane0_L.performed += instance.OnLane0_L;
+                @Lane0_L.canceled += instance.OnLane0_L;
+                @Lane0_R.started += instance.OnLane0_R;
+                @Lane0_R.performed += instance.OnLane0_R;
+                @Lane0_R.canceled += instance.OnLane0_R;
+                @Lane1_L.started += instance.OnLane1_L;
+                @Lane1_L.performed += instance.OnLane1_L;
+                @Lane1_L.canceled += instance.OnLane1_L;
+                @Lane1_R.started += instance.OnLane1_R;
+                @Lane1_R.performed += instance.OnLane1_R;
+                @Lane1_R.canceled += instance.OnLane1_R;
             }
 
             /// <summary>
@@ -2433,12 +2511,18 @@ namespace MyProject.Actor
             /// <seealso cref="RunActions" />
             private void UnregisterCallbacks(IRunActions instance)
             {
-                @Lane0.started -= instance.OnLane0;
-                @Lane0.performed -= instance.OnLane0;
-                @Lane0.canceled -= instance.OnLane0;
-                @Lane1.started -= instance.OnLane1;
-                @Lane1.performed -= instance.OnLane1;
-                @Lane1.canceled -= instance.OnLane1;
+                @Lane0_L.started -= instance.OnLane0_L;
+                @Lane0_L.performed -= instance.OnLane0_L;
+                @Lane0_L.canceled -= instance.OnLane0_L;
+                @Lane0_R.started -= instance.OnLane0_R;
+                @Lane0_R.performed -= instance.OnLane0_R;
+                @Lane0_R.canceled -= instance.OnLane0_R;
+                @Lane1_L.started -= instance.OnLane1_L;
+                @Lane1_L.performed -= instance.OnLane1_L;
+                @Lane1_L.canceled -= instance.OnLane1_L;
+                @Lane1_R.started -= instance.OnLane1_R;
+                @Lane1_R.performed -= instance.OnLane1_R;
+                @Lane1_R.canceled -= instance.OnLane1_R;
             }
 
             /// <summary>
@@ -2941,19 +3025,33 @@ namespace MyProject.Actor
         public interface IMasterActions
         {
             /// <summary>
-            /// Method invoked when associated input action "Lane0" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Lane0_L" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnLane0(InputAction.CallbackContext context);
+            void OnLane0_L(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "Lane1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Lane0_R" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnLane1(InputAction.CallbackContext context);
+            void OnLane0_R(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Lane1_L" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnLane1_L(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Lane1_R" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnLane1_R(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Run" which allows adding and removing callbacks.
@@ -2963,19 +3061,33 @@ namespace MyProject.Actor
         public interface IRunActions
         {
             /// <summary>
-            /// Method invoked when associated input action "Lane0" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Lane0_L" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnLane0(InputAction.CallbackContext context);
+            void OnLane0_L(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "Lane1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Lane0_R" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnLane1(InputAction.CallbackContext context);
+            void OnLane0_R(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Lane1_L" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnLane1_L(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Lane1_R" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnLane1_R(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Scan" which allows adding and removing callbacks.

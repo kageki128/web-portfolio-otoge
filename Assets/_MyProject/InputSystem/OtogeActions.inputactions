@@ -835,7 +835,7 @@
             "id": "41e49a45-6e3b-47ab-ac35-5c64c399f6e6",
             "actions": [
                 {
-                    "name": "Lane0",
+                    "name": "Lane0_L",
                     "type": "Button",
                     "id": "ac55b33a-0644-491a-ab1c-5eee0560a3bf",
                     "expectedControlType": "",
@@ -844,9 +844,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Lane1",
+                    "name": "Lane0_R",
+                    "type": "Button",
+                    "id": "96cccfad-4d15-4c1d-b44d-b4c3e5bd5aea",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Lane1_L",
                     "type": "Button",
                     "id": "3d909c13-ef9f-460c-9ab9-19db6cd351e4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Lane1_R",
+                    "type": "Button",
+                    "id": "0f2626b1-70c1-4eab-8f61-b996239c2b56",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -861,18 +879,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lane0",
+                    "action": "Lane0_L",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "7e8ca2ef-e241-453b-91e1-1c046c43a818",
+                    "id": "fadab261-171d-419e-812d-183b1fb058b0",
                     "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lane0",
+                    "action": "Lane0_R",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -883,18 +901,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lane1",
+                    "action": "Lane1_L",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "23e32d14-bb24-4332-8b87-6ab1b29af1a7",
+                    "id": "2352da14-69fe-487f-874a-ee2579d98191",
                     "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lane1",
+                    "action": "Lane1_R",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -905,7 +923,7 @@
             "id": "72244576-5d69-42d8-bd13-4527292dd229",
             "actions": [
                 {
-                    "name": "Lane0",
+                    "name": "Lane0_L",
                     "type": "Button",
                     "id": "bd954336-f340-4ed4-bafb-7ffa869f20ba",
                     "expectedControlType": "",
@@ -914,9 +932,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Lane1",
+                    "name": "Lane0_R",
+                    "type": "Button",
+                    "id": "bac13f07-4558-4487-8947-bbdd2791de65",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Lane1_L",
                     "type": "Button",
                     "id": "93ad6a4b-e73b-4cbb-9706-863724314abc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Lane1_R",
+                    "type": "Button",
+                    "id": "4dbde76b-9d96-4190-9e40-9aa652025c91",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -931,18 +967,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lane0",
+                    "action": "Lane0_L",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "b070998e-1a58-40e0-b331-7c0ac879f7ef",
+                    "id": "2cf76a9b-b251-41ab-88e5-d6b3748a3ff4",
                     "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lane0",
+                    "action": "Lane0_R",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -953,18 +989,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lane1",
+                    "action": "Lane1_L",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "4479c55d-9e94-430d-8c71-b328ec597ba8",
+                    "id": "e21d194e-0def-4e1a-b845-47d577ae3a7c",
                     "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Lane1",
+                    "action": "Lane1_R",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
