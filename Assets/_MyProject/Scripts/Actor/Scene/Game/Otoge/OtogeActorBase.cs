@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using MyProject.Core;
 using R3;
 
@@ -43,6 +46,12 @@ namespace MyProject.Actor
                 noteActor.Destroy();
             }
             NoteActors.Clear();
+        }
+
+        protected static async UniTask SwitchActionsAfterDelayAsync(Action switchActions, CancellationToken ct)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.SwitchActionsDelay), cancellationToken: ct);
+            switchActions();
         }
     }
 }

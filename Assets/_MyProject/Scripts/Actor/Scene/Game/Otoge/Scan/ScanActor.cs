@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
@@ -48,35 +47,32 @@ namespace MyProject.Actor
 
             var showTasks = new List<UniTask>
             {
-                UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.SwitchActionsDelay), cancellationToken: ct)
+                SwitchActionsAfterDelayAsync(scanActionsObserver.Enable, ct),
+                laneLightActor.ShowAsync(ct)
             };
             foreach (var noteActor in NoteActors)
             {
                 showTasks.Add(noteActor.ShowAsync(ct));
             }
-            showTasks.Add(laneLightActor.ShowAsync(ct));
             showTasks.Add(judgeLineActor.ShowAsync(ct));
             await UniTask.WhenAll(showTasks);
-
-            scanActionsObserver.Enable();
         }
 
         public override async UniTask HideAsync(CancellationToken ct)
         {
             var hideTasks = new List<UniTask>
             {
-                UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.SwitchActionsDelay), cancellationToken: ct)
+                SwitchActionsAfterDelayAsync(scanActionsObserver.Disable, ct),
+                laneLightActor.HideAsync(ct)
             };
             foreach (var noteActor in NoteActors)
             {
                 hideTasks.Add(noteActor.HideAsync(ct));
             }
-            hideTasks.Add(laneLightActor.HideAsync(ct));
             hideTasks.Add(judgeLineActor.HideAsync(ct));
             await UniTask.WhenAll(hideTasks);
 
             gameObject.SetActive(false);
-            scanActionsObserver.Disable();
         }
 
         public override void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores)
