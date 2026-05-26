@@ -47,7 +47,7 @@ namespace MyProject.Actor
             var endX = (NoteCore.Property.ScrollEnd - currentScroll) * scrollSpeed;
             var x = (beginX + endX) * 0.5f;
             var y = RunLaneLayout.GetLaneY(NoteCore.Property.Lane);
-            var length = Mathf.Abs(endX - beginX) + 0.5f;
+            var length = Mathf.Abs(endX - beginX) + 1f;
 
             transform.localPosition = new Vector3(x, y, 0f);
             image.size = new Vector2(length, laneWidth);

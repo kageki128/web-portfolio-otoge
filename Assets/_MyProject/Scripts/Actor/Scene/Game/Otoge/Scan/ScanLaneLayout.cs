@@ -36,7 +36,9 @@ namespace MyProject.Actor
         public static float EaseNoteIn(float t)
         {
             t = Mathf.Clamp01(t);
-            return 1f - Mathf.Cos((t * Mathf.PI) * 0.5f);
+            // return t; // Linear
+            return Mathf.Sin((t * Mathf.PI) * 0.5f); // OutSine
+            //return 1f - Mathf.Pow(1f - t, 3f); // OutCubic
         }
     }
 }
