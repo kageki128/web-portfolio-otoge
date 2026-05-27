@@ -3,14 +3,15 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using LitMotion;
 using MyProject.Core;
-using R3;
 using UnityEngine;
+using R3;
 
 namespace MyProject.Actor
 {
     public abstract class NoteActorBase : ActorBase
     {
         readonly Dictionary<SpriteRenderer, MotionHandle> fadeHandles = new();
+        readonly Dictionary<SpriteRenderer, Color> lastFadeColors = new();
 
         public NoteCoreBase NoteCore { get; private set; }
 
@@ -84,17 +85,56 @@ namespace MyProject.Actor
                 }
 
                 var to = target.color;
-                target.color = WithAlpha(to, 0f);
+                var from = WithAlpha(to, 0f);
+                target.color = from;
+                lastFadeColors[target] = from;
 
-                var handle = LMotion.Create(target.color, to, duration)
+                MotionHandle handle = default;
+                handle = LMotion.Create(from, to, duration)
                     .WithEase(ease)
-                    .Bind(value => target.color = value)
+                    .Bind(value =>
+                    {
+                        if (IsColorOverridden(target))
+                        {
+                            handle.TryCancel();
+                            return;
+                        }
+
+                        target.color = value;
+                        lastFadeColors[target] = value;
+                    })
                     .AddTo(this);
                 fadeHandles[target] = handle;
-                fadeTasks.Add(handle.ToUniTask(CancelBehavior.Cancel, false, ct));
+                fadeTasks.Add(AwaitFadeTaskAsync(target, handle, ct));
             }
 
             await UniTask.WhenAll(fadeTasks);
+        }
+
+        async UniTask AwaitFadeTaskAsync(SpriteRenderer target, MotionHandle handle, CancellationToken ct)
+        {
+            try
+            {
+                await handle.ToUniTask(CancelBehavior.Cancel, false, ct);
+            }
+            catch (System.OperationCanceledException) when (!ct.IsCancellationRequested)
+            {
+            }
+            finally
+            {
+                fadeHandles.Remove(target);
+                lastFadeColors.Remove(target);
+            }
+        }
+
+        bool IsColorOverridden(SpriteRenderer target)
+        {
+            if (!lastFadeColors.TryGetValue(target, out var lastColor))
+            {
+                return false;
+            }
+
+            return target.color != lastColor;
         }
 
         static Color WithAlpha(Color color, float alpha)
