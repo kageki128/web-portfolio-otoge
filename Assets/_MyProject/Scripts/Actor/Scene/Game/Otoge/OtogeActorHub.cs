@@ -110,7 +110,7 @@ namespace MyProject.Actor
 
         public void ExecuteEvent()
         {
-            otogeTypeToActor[currentOtogeType].ExecuteEvent();
+            otogeTypeToActor[currentOtogeType].ExecuteEvent().Forget();
         }
 
         public void SetSharedActorsState(OtogeType otogeType)

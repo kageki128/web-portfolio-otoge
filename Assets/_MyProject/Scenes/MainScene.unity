@@ -1005,7 +1005,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &280336071
 Transform:
   m_ObjectHideFlags: 0
@@ -3277,13 +3277,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -8}
+  m_LocalRotation: {x: -0.60876137, y: 0, z: 0, w: 0.7933534}
+  m_LocalPosition: {x: 0, y: -5, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1487580002}
-  m_LocalEulerAnglesHint: {x: -70, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -75, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14080,7 +14080,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1852555635
 Transform:
   m_ObjectHideFlags: 0
@@ -14115,6 +14115,8 @@ MonoBehaviour:
   tapPrefab: {fileID: 5235946270570557737, guid: 06d75e5c2a66038459191b6a972b1a5d, type: 3}
   holdPrefab: {fileID: 771023781711942789, guid: df22f93c987ad9041bd8fd288445daa9, type: 3}
   laneLightActor: {fileID: 1791396254}
+  eventCameraLocalPosition: {x: 0, y: -5, z: -2.5}
+  eventCameraLocalEulerX: -75
 --- !u!1 &1903267189
 GameObject:
   m_ObjectHideFlags: 0

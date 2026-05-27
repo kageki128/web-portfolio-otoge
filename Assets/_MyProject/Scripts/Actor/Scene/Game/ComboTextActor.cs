@@ -8,7 +8,7 @@ namespace MyProject.Actor
 {
     public class ComboTextActor : ActorBase
     {
-        const float ComboPopScaleMultiplier = 1f;
+        const float ComboPopScaleMultiplier = 1.01f;
         const float ComboPopDuration = 0.15f;
 
         [SerializeField] TMP_Text text;

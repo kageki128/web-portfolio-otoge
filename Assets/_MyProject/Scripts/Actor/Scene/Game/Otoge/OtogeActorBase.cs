@@ -39,8 +39,9 @@ namespace MyProject.Actor
             }
         }
 
-        public virtual void ExecuteEvent()
+        public virtual UniTask ExecuteEvent()
         {
+            return UniTask.CompletedTask;
         }
 
         public void DestroyNotes()
