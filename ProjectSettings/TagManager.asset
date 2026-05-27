@@ -41,14 +41,14 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: MeasureLine
-    uniqueID: 1492167365
-    locked: 0
   - name: Line
     uniqueID: 4247728565
     locked: 0
   - name: Light
     uniqueID: 978404135
+    locked: 0
+  - name: MeasureLine
+    uniqueID: 1492167365
     locked: 0
   - name: Hold
     uniqueID: 720777569

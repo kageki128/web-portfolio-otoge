@@ -46,7 +46,7 @@ namespace MyProject.Actor
 
         public override void Initialize()
         {
-            lineRenderer = GetComponent<LineRenderer>();
+            EnsureLineRenderer();
             CaptureCurrentLineShape();
             gameObject.SetActive(false);
         }
@@ -65,7 +65,7 @@ namespace MyProject.Actor
 
         public override void SetState(OtogeType otogeType)
         {
-            lineRenderer ??= GetComponent<LineRenderer>();
+            EnsureLineRenderer();
 
             var lineSettings = Array.Find(otogeJudgeLineSettings, x => x.Type == otogeType);
             if (lineSettings == null)
@@ -89,7 +89,7 @@ namespace MyProject.Actor
         public override async UniTask SetStateAsync(OtogeType otogeType, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            lineRenderer ??= GetComponent<LineRenderer>();
+            EnsureLineRenderer();
 
             var lineSettings = Array.Find(otogeJudgeLineSettings, x => x.Type == otogeType);
             var targetPosition = lineSettings?.LocalPosition ?? transform.localPosition;
@@ -193,6 +193,14 @@ namespace MyProject.Actor
             currentLineLength = CalculatePolylineLength(points);
             currentCurveRatePercent = EstimateCurveRatePercent(points, currentLineLength);
             hasCurrentLineShape = true;
+        }
+
+        void EnsureLineRenderer()
+        {
+            if (!lineRenderer)
+            {
+                lineRenderer = GetComponent<LineRenderer>();
+            }
         }
 
         Vector3[] GetCurrentLinePoints()

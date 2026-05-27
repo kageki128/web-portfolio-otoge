@@ -39,7 +39,7 @@ namespace MyProject.Actor
 
         public override void Initialize()
         {
-            lineRenderer = GetComponent<LineRenderer>();
+            EnsureLineRenderer();
             gameObject.SetActive(false);
         }
 
@@ -57,7 +57,7 @@ namespace MyProject.Actor
 
         public override void SetState(OtogeType otogeType)
         {
-            lineRenderer ??= GetComponent<LineRenderer>();
+            EnsureLineRenderer();
 
             var lineSettings = Array.Find(otogeLineSettings, x => x.Type == otogeType);
             if (lineSettings == null)
@@ -86,7 +86,7 @@ namespace MyProject.Actor
         public override async UniTask SetStateAsync(OtogeType otogeType, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();
-            lineRenderer ??= GetComponent<LineRenderer>();
+            EnsureLineRenderer();
 
             var lineSettings = Array.Find(otogeLineSettings, x => x.Type == otogeType);
             var targetPosition = lineSettings?.LocalPosition ?? transform.localPosition;
@@ -194,6 +194,14 @@ namespace MyProject.Actor
             var toIndex = Mathf.Min(fromIndex + 1, points.Length - 1);
             var t = sourcePosition - fromIndex;
             return Vector3.Lerp(points[fromIndex], points[toIndex], t);
+        }
+
+        void EnsureLineRenderer()
+        {
+            if (!lineRenderer)
+            {
+                lineRenderer = GetComponent<LineRenderer>();
+            }
         }
     }
 }
