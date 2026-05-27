@@ -173,12 +173,12 @@ namespace MyProject.Actor
                 }
 
                 eventReturnHandle = LMotion.Create(mainCameraTransform.localPosition, eventCameraBaseLocalPosition, EventMoveDuration)
-                    .WithEase(Ease.OutCubic)
+                    .WithEase(Ease.OutQuart)
                     .Bind(value => mainCameraTransform.localPosition = value)
                     .AddTo(this);
 
                 eventReturnRotateXHandle = LMotion.Create(fromReturnXRotation, toReturnXRotation, EventMoveDuration)
-                    .WithEase(Ease.OutCubic)
+                    .WithEase(Ease.OutQuart)
                     .Bind(value =>
                     {
                         currentReturnXRotation = value;
@@ -187,7 +187,7 @@ namespace MyProject.Actor
                     .AddTo(this);
 
                 eventRotateHandle = LMotion.Create(0f, EventRotateZ, EventMoveDuration)
-                    .WithEase(Ease.OutCubic)
+                    .WithEase(Ease.OutQuart)
                     .Bind(value =>
                     {
                         currentReturnZ = startZ + value;
