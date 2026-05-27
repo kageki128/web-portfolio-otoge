@@ -39,6 +39,10 @@ namespace MyProject.Actor
             }
         }
 
+        public virtual void ExecuteEvent()
+        {
+        }
+
         public void DestroyNotes()
         {
             foreach (var noteActor in NoteActors)

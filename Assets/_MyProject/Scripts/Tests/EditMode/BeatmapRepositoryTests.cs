@@ -134,16 +134,19 @@ namespace MyProject.Tests.EditMode
         {
             var beatmapFiles = ScriptableObject.CreateInstance<BeatmapFilesSO>();
             var otogeChanges = ScriptableObject.CreateInstance<OtogeChangesSO>();
+            var otogeEvents = ScriptableObject.CreateInstance<OtogeEventsSO>();
             var wave = AudioClip.Create("test", 44100, 1, 44100, false);
             var text = new TextAsset(ugc);
 
             SetEmptyArrayField(otogeChanges, "otogeChanges");
+            SetEmptyArrayField(otogeEvents, "otogeEventBeats");
             SetBackingField(beatmapFiles, "<Wave>k__BackingField", wave);
             SetBackingField(beatmapFiles, "<Beatmap>k__BackingField", text);
             SetBackingField(beatmapFiles, "<OtogeChanges>k__BackingField", otogeChanges);
+            SetBackingField(beatmapFiles, "<OtogeEvents>k__BackingField", otogeEvents);
 
             var repository = new BeatmapRepository(beatmapFiles);
-            return new TestFixture(beatmapFiles, otogeChanges, wave, text, repository);
+            return new TestFixture(beatmapFiles, otogeChanges, otogeEvents, wave, text, repository);
         }
 
         static void SetBackingField<T>(object target, string fieldName, T value)
@@ -169,14 +172,16 @@ namespace MyProject.Tests.EditMode
         {
             public BeatmapFilesSO BeatmapFiles { get; }
             public OtogeChangesSO OtogeChanges { get; }
+            public OtogeEventsSO OtogeEvents { get; }
             public AudioClip Wave { get; }
             public TextAsset Text { get; }
             public BeatmapRepository Repository { get; }
 
-            public TestFixture(BeatmapFilesSO beatmapFiles, OtogeChangesSO otogeChanges, AudioClip wave, TextAsset text, BeatmapRepository repository)
+            public TestFixture(BeatmapFilesSO beatmapFiles, OtogeChangesSO otogeChanges, OtogeEventsSO otogeEvents, AudioClip wave, TextAsset text, BeatmapRepository repository)
             {
                 BeatmapFiles = beatmapFiles;
                 OtogeChanges = otogeChanges;
+                OtogeEvents = otogeEvents;
                 Wave = wave;
                 Text = text;
                 Repository = repository;
@@ -187,6 +192,7 @@ namespace MyProject.Tests.EditMode
                 Object.DestroyImmediate(Text);
                 Object.DestroyImmediate(Wave);
                 Object.DestroyImmediate(OtogeChanges);
+                Object.DestroyImmediate(OtogeEvents);
                 Object.DestroyImmediate(BeatmapFiles);
             }
         }

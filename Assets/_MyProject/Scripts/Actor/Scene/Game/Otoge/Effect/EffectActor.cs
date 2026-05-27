@@ -102,5 +102,10 @@ namespace MyProject.Actor
             }
         }
 
+        public override void ExecuteEvent()
+        {
+            Debug.Log("EffectActor: ExecuteEvent");
+        }
+
     }
 }

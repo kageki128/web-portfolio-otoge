@@ -42,7 +42,14 @@ namespace MyProject.Infrastructure
         /// <summary>
         /// Fatal判定を先に行い、問題なければ timing/note を生成する。
         /// </summary>
-        public BeatmapCore Compose(AudioClip wave, BeatmapParsedData parsedData, IReadOnlyList<OtogeChange> otogeChanges, CancellationToken ct)
+        public BeatmapCore Compose
+        (
+            AudioClip wave,
+            BeatmapParsedData parsedData,
+            IReadOnlyList<OtogeChange> otogeChanges,
+            IReadOnlyList<float> otogeEventBeats,
+            CancellationToken ct
+        )
         {
             var messages = parsedData.Messages;
             var sortedOtogeChanges = otogeChanges.OrderBy(change => change.Beat).ToArray();
@@ -101,7 +108,7 @@ namespace MyProject.Infrastructure
             // 致命エラー時は空譜面で返却する。
             if (hasFatal)
             {
-                return new BeatmapCore(metaData, CreateEmptyMainData(sortedOtogeChanges), messages);
+                return new BeatmapCore(metaData, CreateEmptyMainData(sortedOtogeChanges, otogeEventBeats), messages);
             }
 
             // 各タイムラインのハイスピ変化をbeat基準に変換する。
@@ -192,7 +199,8 @@ namespace MyProject.Infrastructure
                 bpmChanges,
                 timelineToHighSpeedChanges,
                 measureLengthChanges,
-                sortedOtogeChanges
+                sortedOtogeChanges,
+                otogeEventBeats
             ));
 
             var mainData = new BeatmapMainData(conductorCore, noteCores);
@@ -381,7 +389,7 @@ namespace MyProject.Infrastructure
         /// <summary>
         /// Fatal時に返す最小構成のMainDataを作る。
         /// </summary>
-        static BeatmapMainData CreateEmptyMainData(IReadOnlyList<OtogeChange> otogeChanges)
+        static BeatmapMainData CreateEmptyMainData(IReadOnlyList<OtogeChange> otogeChanges, IReadOnlyList<float> otogeEventBeats)
         {
             var bpmChanges = new List<BpmChange>
             {
@@ -396,7 +404,7 @@ namespace MyProject.Infrastructure
                 new(4, 0f),
             };
 
-            var conductorCore = new ConductorCore(new ConductorTiming(bpmChanges, highSpeedChanges, measureLengthChanges, otogeChanges));
+            var conductorCore = new ConductorCore(new ConductorTiming(bpmChanges, highSpeedChanges, measureLengthChanges, otogeChanges, otogeEventBeats));
             return new BeatmapMainData(conductorCore, Array.Empty<NoteCoreBase>());
         }
     }

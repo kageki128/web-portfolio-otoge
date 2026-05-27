@@ -10,6 +10,7 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<float> CurrentSec => timing.CurrentSec;
         public ReadOnlyReactiveProperty<int> CurrentMeasure => timing.CurrentMeasure;
         public ReadOnlyReactiveProperty<OtogeType> CurrentOtogeType => timing.CurrentOtogeType;
+        public Observable<Unit> OtogeEvent => timing.OtogeEvent;
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll => timing.TimelineToCurrentScroll;
 
         readonly ConductorTiming timing;

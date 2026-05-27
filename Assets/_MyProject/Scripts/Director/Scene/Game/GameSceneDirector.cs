@@ -101,6 +101,9 @@ namespace MyProject.Director
             gameSessionCore.CurrentOtogeType
                 .Subscribe(otogeType => gameActorHub.SwitchOtogeType(otogeType))
                 .AddTo(disposables);
+            gameSessionCore.OtogeEventTriggered
+                .Subscribe(_ => gameActorHub.ExecuteOtogeEvent())
+                .AddTo(disposables);
             gameActorHub.SetJudgeCounts(gameSessionCore.JudgeCounts);
             gameSessionCore.JudgeCounts
                 .ObserveDictionaryReplace()

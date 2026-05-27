@@ -1,0 +1,63 @@
+using System.Collections.Generic;
+using MyProject.Core;
+using NUnit.Framework;
+using R3;
+
+namespace MyProject.Tests.EditMode
+{
+    public class ConductorTimingTests
+    {
+        static readonly IReadOnlyList<BpmChange> BpmChanges = new List<BpmChange>
+        {
+            new(60f, 0f),
+        };
+
+        static readonly IReadOnlyDictionary<int, IReadOnlyList<HighSpeedChange>> TimelineToHighSpeedChanges =
+            new Dictionary<int, IReadOnlyList<HighSpeedChange>>
+            {
+                { 0, new List<HighSpeedChange> { new(1f, 0f) } },
+            };
+
+        static readonly IReadOnlyList<MeasureLengthChange> MeasureLengthChanges = new List<MeasureLengthChange>
+        {
+            new(4, 0f),
+        };
+
+        static readonly IReadOnlyList<OtogeChange> OtogeChanges = new List<OtogeChange>
+        {
+            new(0f, OtogeType.Tetra),
+        };
+
+        [Test]
+        public void SetTimeBySec_イベントBeat到達時に1回発火する()
+        {
+            var timing = CreateTiming(new[] { 2f });
+            var emitCount = 0;
+            using var subscription = timing.OtogeEvent.Subscribe(_ => emitCount++);
+
+            timing.SetTimeBySec(1f);
+            timing.SetTimeBySec(2.1f);
+
+            Assert.That(emitCount, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void SetTimeBySec_巻き戻し後に再到達しても再発火しない()
+        {
+            var timing = CreateTiming(new[] { 2f });
+            var emitCount = 0;
+            using var subscription = timing.OtogeEvent.Subscribe(_ => emitCount++);
+
+            timing.SetTimeBySec(2.1f);
+            timing.SetTimeBySec(1f);
+            timing.SetTimeBySec(2.2f);
+
+            Assert.That(emitCount, Is.EqualTo(1));
+        }
+
+        static ConductorTiming CreateTiming(IReadOnlyList<float> otogeEventBeats)
+        {
+            return new ConductorTiming(BpmChanges, TimelineToHighSpeedChanges, MeasureLengthChanges, OtogeChanges, otogeEventBeats);
+        }
+    }
+}

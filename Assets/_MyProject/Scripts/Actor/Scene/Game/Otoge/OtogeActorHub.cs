@@ -108,6 +108,11 @@ namespace MyProject.Actor
             ExecuteSwitchOtogeTypeAsync(newType, switchOtogeTypeCts.Token).Forget();
         }
 
+        public void ExecuteEvent()
+        {
+            otogeTypeToActor[currentOtogeType].ExecuteEvent();
+        }
+
         public void SetSharedActorsState(OtogeType otogeType)
         {
             foreach (var sharedActor in sharedActors)

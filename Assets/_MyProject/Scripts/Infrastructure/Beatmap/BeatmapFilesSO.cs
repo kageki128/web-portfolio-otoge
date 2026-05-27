@@ -13,5 +13,8 @@ namespace MyProject.Infrastructure
 
         [field: SerializeField]
         public OtogeChangesSO OtogeChanges { get; private set; }
+
+        [field: SerializeField]
+        public OtogeEventsSO OtogeEvents { get; private set; }
     }
 }

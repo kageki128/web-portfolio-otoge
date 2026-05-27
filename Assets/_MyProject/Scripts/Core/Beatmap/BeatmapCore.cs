@@ -11,6 +11,7 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<float> CurrentBeat => mainData.ConductorCore.CurrentBeat;
         public ReadOnlyReactiveProperty<float> CurrentSec => mainData.ConductorCore.CurrentSec;
         public ReadOnlyReactiveProperty<OtogeType> CurrentOtogeType => mainData.ConductorCore.CurrentOtogeType;
+        public Observable<Unit> OtogeEvent => mainData.ConductorCore.OtogeEvent;
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll => mainData.ConductorCore.TimelineToCurrentScroll;
         public IReadOnlyList<Message> Messages => messages;
 

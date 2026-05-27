@@ -20,6 +20,7 @@ namespace MyProject.Core
         public IReadOnlyList<NoteCoreBase> NoteCores => beatmapCore.NoteCores;
         public ReadOnlyReactiveProperty<float> CurrentBeat => beatmapCore.CurrentBeat;
         public ReadOnlyReactiveProperty<OtogeType> CurrentOtogeType => beatmapCore.CurrentOtogeType;
+        public Observable<Unit> OtogeEventTriggered => beatmapCore.OtogeEvent;
 
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll => beatmapCore.TimelineToCurrentScroll;
 
