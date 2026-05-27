@@ -14,6 +14,7 @@ namespace MyProject.Infrastructure
     public class BeatmapComposer
     {
         const float HoldTickIntervalBeat = 0.5f;
+        const int MeasureLineWidth = 8;
 
         static readonly Dictionary<char, int> laneMap = new()
         {
@@ -334,7 +335,7 @@ namespace MyProject.Infrastructure
                         scroll,
                         scroll,
                         0,
-                        8,
+                        MeasureLineWidth,
                         -1
                     );
                     measureLineCores.Add(new MeasureLineCore(property));

@@ -21,6 +21,7 @@ namespace MyProject.Actor
         [SerializeField] GameObject noteParent;
         [SerializeField] EffectTapActor tapPrefab;
         [SerializeField] EffectHoldActor holdPrefab;
+        [SerializeField] EffectMeasureLineActor measureLinePrefab;
         [SerializeField] LaneLightActor laneLightActor;
         [SerializeField] Vector3 eventCameraLocalPosition;
         [SerializeField] float eventCameraLocalEulerX;
@@ -109,6 +110,7 @@ namespace MyProject.Actor
                 {
                     NoteType.Tap => Instantiate(tapPrefab, noteParent.transform),
                     NoteType.Hold => Instantiate(holdPrefab, noteParent.transform),
+                    NoteType.MeasureLine => Instantiate(measureLinePrefab, noteParent.transform),
                     _ => null
                 };
 

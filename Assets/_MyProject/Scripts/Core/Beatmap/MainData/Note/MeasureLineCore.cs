@@ -2,7 +2,10 @@ namespace MyProject.Core
 {
     public class MeasureLineCore : NoteCoreBase
     {
-        public MeasureLineCore(NoteProperty property) : base(property) { }
+        public MeasureLineCore(NoteProperty property) : base(property)
+        {
+            state.Value = NoteState.None;
+        }
 
         public override void JudgePress(float currentSec)
         {

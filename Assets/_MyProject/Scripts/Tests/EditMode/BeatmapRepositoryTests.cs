@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -53,6 +54,7 @@ namespace MyProject.Tests.EditMode
             Assert.That(beatmap.NoteCores[2].Property.NoteType, Is.EqualTo(NoteType.HoldTick));
             Assert.That(beatmap.NoteCores[3].Property.NoteType, Is.EqualTo(NoteType.Air));
             Assert.That(beatmap.MeasureLineCores[0].Property.NoteType, Is.EqualTo(NoteType.MeasureLine));
+            Assert.That(beatmap.MeasureLineCores[0].Property.Width, Is.EqualTo(8));
             Assert.That(beatmap.MeasureLineCores[0].Property.TimingBegin.Beat, Is.EqualTo(0f).Within(0.0001f));
             Assert.That(beatmap.MeasureLineCores[1].Property.TimingBegin.Beat, Is.EqualTo(4f).Within(0.0001f));
             Assert.That(beatmap.MeasureLineCores[2].Property.TimingBegin.Beat, Is.EqualTo(8f).Within(0.0001f));
@@ -61,6 +63,45 @@ namespace MyProject.Tests.EditMode
             Assert.That(beatmap.NoteCores[2].Property.TimingEnd.Beat, Is.EqualTo(4.5f).Within(0.0001f));
             Assert.That(beatmap.NoteCores[1].Property.TimingEnd.Beat, Is.EqualTo(5f).Within(0.0001f));
             Assert.That(beatmap.Messages.Count, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void GetAsync_MeasureLine幅はOtogeTypeに関係なく8固定()
+        {
+            var ugc = string.Join("\n",
+                "@SONGID test-song-id",
+                "@TITLE Test Song",
+                "@ARTIST Test Artist",
+                "@DESIGN Tester",
+                "@DIFF 0",
+                "@BGMOFS 0",
+                "@TICKS 480",
+                "@BEAT 0 4 4",
+                "@BPM 0'0 120",
+                "@TIL 0 0'0 1.0",
+                "@MAINTIL 0",
+                "@ENDHEAD",
+                "#20'0:t02"
+            );
+
+            using var fixture = CreateFixture
+            (
+                ugc,
+                (0.1f, OtogeType.Octa),
+                (4.1f, OtogeType.Air),
+                (8.1f, OtogeType.Effect),
+                (12.1f, OtogeType.Master),
+                (16.1f, OtogeType.Run)
+            );
+            var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
+
+            Assert.That(beatmap.MeasureLineCores.Count, Is.GreaterThanOrEqualTo(6));
+            Assert.That(beatmap.MeasureLineCores[0].Property.Width, Is.EqualTo(8));
+            Assert.That(beatmap.MeasureLineCores[1].Property.Width, Is.EqualTo(8));
+            Assert.That(beatmap.MeasureLineCores[2].Property.Width, Is.EqualTo(8));
+            Assert.That(beatmap.MeasureLineCores[3].Property.Width, Is.EqualTo(8));
+            Assert.That(beatmap.MeasureLineCores[4].Property.Width, Is.EqualTo(8));
+            Assert.That(beatmap.MeasureLineCores[5].Property.Width, Is.EqualTo(8));
         }
 
         [Test]
@@ -140,7 +181,7 @@ namespace MyProject.Tests.EditMode
             Assert.That(beatmap.Messages.Any(message => message.Type == MessageType.Fatal), Is.True);
         }
 
-        static TestFixture CreateFixture(string ugc)
+        static TestFixture CreateFixture(string ugc, params (float beat, OtogeType type)[] otogeChangeValues)
         {
             var beatmapFiles = ScriptableObject.CreateInstance<BeatmapFilesSO>();
             var otogeChanges = ScriptableObject.CreateInstance<OtogeChangesSO>();
@@ -148,7 +189,7 @@ namespace MyProject.Tests.EditMode
             var wave = AudioClip.Create("test", 44100, 1, 44100, false);
             var text = new TextAsset(ugc);
 
-            SetEmptyArrayField(otogeChanges, "otogeChanges");
+            SetOtogeChanges(otogeChanges, otogeChangeValues);
             SetEmptyArrayField(otogeEvents, "otogeEventBeats");
             SetBackingField(beatmapFiles, "<Wave>k__BackingField", wave);
             SetBackingField(beatmapFiles, "<Beatmap>k__BackingField", text);
@@ -176,6 +217,39 @@ namespace MyProject.Tests.EditMode
 
             var emptyArray = System.Array.CreateInstance(elementType!, 0);
             field.SetValue(target, emptyArray);
+        }
+
+        static void SetOtogeChanges(OtogeChangesSO target, IReadOnlyList<(float beat, OtogeType type)> values)
+        {
+            if (values.Count == 0)
+            {
+                SetEmptyArrayField(target, "otogeChanges");
+                return;
+            }
+
+            var field = target.GetType().GetField("otogeChanges", InstanceNonPublic);
+            Assert.That(field, Is.Not.Null, "otogeChanges の設定に失敗しました。");
+
+            var elementType = field!.FieldType.GetElementType();
+            Assert.That(elementType, Is.Not.Null, "otogeChanges の要素型取得に失敗しました。");
+
+            var array = System.Array.CreateInstance(elementType!, values.Count);
+            for (var i = 0; i < values.Count; i++)
+            {
+                var element = System.Activator.CreateInstance(elementType!, true);
+                Assert.That(element, Is.Not.Null, "otogeChanges 要素の生成に失敗しました。");
+
+                var beatField = elementType.GetField("beat", InstanceNonPublic);
+                var typeField = elementType.GetField("type", InstanceNonPublic);
+                Assert.That(beatField, Is.Not.Null, "beat フィールドの取得に失敗しました。");
+                Assert.That(typeField, Is.Not.Null, "type フィールドの取得に失敗しました。");
+
+                beatField!.SetValue(element, values[i].beat);
+                typeField!.SetValue(element, values[i].type);
+                array.SetValue(element, i);
+            }
+
+            field.SetValue(target, array);
         }
 
         sealed class TestFixture : System.IDisposable

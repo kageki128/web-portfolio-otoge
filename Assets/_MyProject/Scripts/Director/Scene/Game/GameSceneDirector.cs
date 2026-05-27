@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyProject.Actor;
@@ -80,7 +81,9 @@ namespace MyProject.Director
             disposables.Clear();
 
             // ノーツを生成してスクロールを購読
-            var noteCores = gameSessionCore.NoteCores;
+            var noteCores = new List<NoteCoreBase>();
+            noteCores.AddRange(gameSessionCore.NoteCores);
+            noteCores.AddRange(gameSessionCore.MeasureLineCores);
             var timelineToCurrentScroll = gameSessionCore.TimelineToCurrentScroll;
             gameActorHub.CreateNotes(noteCores);
             foreach (var kvp in timelineToCurrentScroll)

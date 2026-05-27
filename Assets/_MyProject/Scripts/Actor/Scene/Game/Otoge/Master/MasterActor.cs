@@ -16,6 +16,7 @@ namespace MyProject.Actor
 
         [SerializeField] GameObject noteParent;
         [SerializeField] MasterTapActor tapPrefab;
+        [SerializeField] MasterMeasureLineActor measureLinePrefab;
         [SerializeField] LaneLightActor laneLightActor;
 
         MasterActionsObserver masterActionsObserver;
@@ -83,12 +84,17 @@ namespace MyProject.Actor
                     continue;
                 }
 
-                if (noteCore.Property.NoteType is not NoteType.Tap)
+                NoteActorBase noteActor = noteCore.Property.NoteType switch
+                {
+                    NoteType.Tap => Instantiate(tapPrefab, noteParent.transform),
+                    NoteType.MeasureLine => Instantiate(measureLinePrefab, noteParent.transform),
+                    _ => null
+                };
+
+                if (noteActor == null)
                 {
                     continue;
                 }
-
-                var noteActor = Instantiate(tapPrefab, noteParent.transform);
                 noteActor.InstallCore(noteCore);
                 NoteActors.Add(noteActor);
             }
