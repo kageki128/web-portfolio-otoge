@@ -18,6 +18,7 @@ namespace MyProject.Core
 
         public BeatmapMetaData MetaData => beatmapCore.MetaData;
         public IReadOnlyList<NoteCoreBase> NoteCores => beatmapCore.NoteCores;
+        public IReadOnlyList<MeasureLineCore> MeasureLineCores => beatmapCore.MeasureLineCores;
         public ReadOnlyReactiveProperty<float> CurrentBeat => beatmapCore.CurrentBeat;
         public ReadOnlyReactiveProperty<OtogeType> CurrentOtogeType => beatmapCore.CurrentOtogeType;
         public Observable<Unit> OtogeEventTriggered => beatmapCore.OtogeEvent;

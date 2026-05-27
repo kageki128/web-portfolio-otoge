@@ -6,6 +6,7 @@ namespace MyProject.Core
         Hold,
         HoldTick,
         Air,
+        MeasureLine,
         Unsupported,
     }
 }

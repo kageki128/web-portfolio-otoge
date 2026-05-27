@@ -192,6 +192,15 @@ namespace MyProject.Infrastructure
                 noteCores.Add(CreateNoteCore(property));
                 layer++;
             }
+            var measureLineCores = CreateMeasureLineCores
+            (
+                noteCores,
+                measureEntries,
+                bpmChanges,
+                timelineToHighSpeedChanges,
+                measureLengthChanges,
+                sortedOtogeChanges
+            );
 
             // 再生中の時間進行を扱うConductorを構築する。
             var conductorCore = new ConductorCore(new ConductorTiming
@@ -203,7 +212,7 @@ namespace MyProject.Infrastructure
                 otogeEventBeats
             ));
 
-            var mainData = new BeatmapMainData(conductorCore, noteCores);
+            var mainData = new BeatmapMainData(conductorCore, noteCores, measureLineCores);
             return new BeatmapCore(metaData, mainData, messages);
         }
 
@@ -281,6 +290,58 @@ namespace MyProject.Infrastructure
             }
 
             return holdTickCores;
+        }
+
+        static IReadOnlyList<MeasureLineCore> CreateMeasureLineCores
+        (
+            IReadOnlyList<NoteCoreBase> noteCores,
+            IReadOnlyList<MeasureEntry> measureEntries,
+            IReadOnlyList<BpmChange> bpmChanges,
+            IReadOnlyDictionary<int, IReadOnlyList<HighSpeedChange>> timelineToHighSpeedChanges,
+            IReadOnlyList<MeasureLengthChange> measureLengthChanges,
+            IReadOnlyList<OtogeChange> otogeChanges
+        )
+        {
+            if (noteCores.Count == 0)
+            {
+                return Array.Empty<MeasureLineCore>();
+            }
+
+            var timelines = noteCores
+                .Select(noteCore => noteCore.Property.Timeline)
+                .Distinct()
+                .OrderBy(timeline => timeline)
+                .ToArray();
+
+            var lastNoteEndMeasure = noteCores.Max(noteCore => noteCore.Property.TimingEnd.Measure);
+            var measureLineCores = new List<MeasureLineCore>();
+            for (var measure = 0; measure <= lastNoteEndMeasure + 1; measure++)
+            {
+                var beat = ToBeatFromMeasure(measure, measureEntries);
+                var otogeType = TimingCalculator.CalculateOtogeTypeFromBeat(beat, otogeChanges);
+                var timing = new NoteTiming(beat, bpmChanges, timelineToHighSpeedChanges, measureLengthChanges);
+
+                foreach (var timeline in timelines)
+                {
+                    var scroll = timing.TimelineToScroll[timeline];
+                    var property = new NoteProperty
+                    (
+                        NoteType.MeasureLine,
+                        otogeType,
+                        timeline,
+                        timing,
+                        timing,
+                        scroll,
+                        scroll,
+                        0,
+                        8,
+                        -1
+                    );
+                    measureLineCores.Add(new MeasureLineCore(property));
+                }
+            }
+
+            return measureLineCores;
         }
 
         /// <summary>
@@ -405,7 +466,7 @@ namespace MyProject.Infrastructure
             };
 
             var conductorCore = new ConductorCore(new ConductorTiming(bpmChanges, highSpeedChanges, measureLengthChanges, otogeChanges, otogeEventBeats));
-            return new BeatmapMainData(conductorCore, Array.Empty<NoteCoreBase>());
+            return new BeatmapMainData(conductorCore, Array.Empty<NoteCoreBase>(), Array.Empty<MeasureLineCore>());
         }
     }
 }

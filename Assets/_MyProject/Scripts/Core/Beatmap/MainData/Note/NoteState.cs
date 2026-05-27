@@ -7,5 +7,6 @@ namespace MyProject.Core
         Holding, // Holdが押されている
         Released, // ホールドが途中で離された
         AfterJudge, // 判定が終了した
+        None,
     }
 }

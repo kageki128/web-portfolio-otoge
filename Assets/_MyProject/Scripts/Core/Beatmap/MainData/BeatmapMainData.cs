@@ -6,11 +6,18 @@ namespace MyProject.Core
     {
         public ConductorCore ConductorCore { get; }
         public IReadOnlyList<NoteCoreBase> NoteCores { get; }
+        public IReadOnlyList<MeasureLineCore> MeasureLineCores { get; }
 
-        public BeatmapMainData(ConductorCore conductorCore, IReadOnlyList<NoteCoreBase> noteCores)
+        public BeatmapMainData
+        (
+            ConductorCore conductorCore,
+            IReadOnlyList<NoteCoreBase> noteCores,
+            IReadOnlyList<MeasureLineCore> measureLineCores
+        )
         {
             ConductorCore = conductorCore;
             NoteCores = noteCores;
+            MeasureLineCores = measureLineCores;
         }
     }
 }

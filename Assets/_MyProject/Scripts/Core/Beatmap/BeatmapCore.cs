@@ -8,6 +8,7 @@ namespace MyProject.Core
     {
         public BeatmapMetaData MetaData => metaData;
         public IReadOnlyList<NoteCoreBase> NoteCores => mainData.NoteCores;
+        public IReadOnlyList<MeasureLineCore> MeasureLineCores => mainData.MeasureLineCores;
         public ReadOnlyReactiveProperty<float> CurrentBeat => mainData.ConductorCore.CurrentBeat;
         public ReadOnlyReactiveProperty<float> CurrentSec => mainData.ConductorCore.CurrentSec;
         public ReadOnlyReactiveProperty<OtogeType> CurrentOtogeType => mainData.ConductorCore.CurrentOtogeType;

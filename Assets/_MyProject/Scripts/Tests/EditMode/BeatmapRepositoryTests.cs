@@ -42,14 +42,21 @@ namespace MyProject.Tests.EditMode
             Assert.That(beatmap.MetaData.Title, Is.EqualTo("Test Song"));
             Assert.That(beatmap.MetaData.Difficulty, Is.EqualTo(DifficultyType.Normal));
             Assert.That(beatmap.NoteCores.Count, Is.EqualTo(4));
+            Assert.That(beatmap.MeasureLineCores.Count, Is.EqualTo(4));
             Assert.That(beatmap.NoteCores[0], Is.TypeOf<TapCore>());
             Assert.That(beatmap.NoteCores[1], Is.TypeOf<HoldCore>());
             Assert.That(beatmap.NoteCores[2], Is.TypeOf<HoldTickCore>());
             Assert.That(beatmap.NoteCores[3], Is.TypeOf<AirCore>());
+            Assert.That(beatmap.MeasureLineCores[0], Is.TypeOf<MeasureLineCore>());
             Assert.That(beatmap.NoteCores[0].Property.NoteType, Is.EqualTo(NoteType.Tap));
             Assert.That(beatmap.NoteCores[1].Property.NoteType, Is.EqualTo(NoteType.Hold));
             Assert.That(beatmap.NoteCores[2].Property.NoteType, Is.EqualTo(NoteType.HoldTick));
             Assert.That(beatmap.NoteCores[3].Property.NoteType, Is.EqualTo(NoteType.Air));
+            Assert.That(beatmap.MeasureLineCores[0].Property.NoteType, Is.EqualTo(NoteType.MeasureLine));
+            Assert.That(beatmap.MeasureLineCores[0].Property.TimingBegin.Beat, Is.EqualTo(0f).Within(0.0001f));
+            Assert.That(beatmap.MeasureLineCores[1].Property.TimingBegin.Beat, Is.EqualTo(4f).Within(0.0001f));
+            Assert.That(beatmap.MeasureLineCores[2].Property.TimingBegin.Beat, Is.EqualTo(8f).Within(0.0001f));
+            Assert.That(beatmap.MeasureLineCores[3].Property.TimingBegin.Beat, Is.EqualTo(12f).Within(0.0001f));
             Assert.That(beatmap.NoteCores[2].Property.TimingBegin.Beat, Is.EqualTo(4.5f).Within(0.0001f));
             Assert.That(beatmap.NoteCores[2].Property.TimingEnd.Beat, Is.EqualTo(4.5f).Within(0.0001f));
             Assert.That(beatmap.NoteCores[1].Property.TimingEnd.Beat, Is.EqualTo(5f).Within(0.0001f));
@@ -78,6 +85,7 @@ namespace MyProject.Tests.EditMode
             var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
 
             Assert.That(beatmap.NoteCores.Count, Is.EqualTo(0));
+            Assert.That(beatmap.MeasureLineCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.Messages.Any(message => message.Type == MessageType.Error && message.Content.Contains("未対応のノーツ種別")), Is.True);
         }
 
@@ -103,6 +111,7 @@ namespace MyProject.Tests.EditMode
             var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
 
             Assert.That(beatmap.NoteCores.Count, Is.EqualTo(0));
+            Assert.That(beatmap.MeasureLineCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.Messages.Any(message => message.Type == MessageType.Error && message.Content.Contains("未対応のレーン")), Is.True);
         }
 
@@ -127,6 +136,7 @@ namespace MyProject.Tests.EditMode
             var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
 
             Assert.That(beatmap.NoteCores.Count, Is.EqualTo(0));
+            Assert.That(beatmap.MeasureLineCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.Messages.Any(message => message.Type == MessageType.Fatal), Is.True);
         }
 
