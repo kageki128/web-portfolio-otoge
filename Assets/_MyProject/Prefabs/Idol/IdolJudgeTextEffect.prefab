@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1779311107835031709, guid: 7c612770d39476a4d9a41345830c3c57, type: 2}
+  - {fileID: 1779311107835031709, guid: c9f4a1bbd98b77a4ba97bf2e1a73ebc2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -108,8 +108,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: FAST
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c612770d39476a4d9a41345830c3c57, type: 2}
-  m_sharedMaterial: {fileID: 1779311107835031709, guid: 7c612770d39476a4d9a41345830c3c57, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9f4a1bbd98b77a4ba97bf2e1a73ebc2, type: 2}
+  m_sharedMaterial: {fileID: 1779311107835031709, guid: c9f4a1bbd98b77a4ba97bf2e1a73ebc2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 5729963205887401426}
   - component: {fileID: 5123169781834985164}
   m_Layer: 0
-  m_Name: JudgeTextEffect
+  m_Name: IdolJudgeTextEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -208,7 +208,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4198703320806965158}
@@ -296,7 +296,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1779311107835031709, guid: 7c612770d39476a4d9a41345830c3c57, type: 2}
+  - {fileID: 1779311107835031709, guid: c9f4a1bbd98b77a4ba97bf2e1a73ebc2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -342,8 +342,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: PERFECT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 7c612770d39476a4d9a41345830c3c57, type: 2}
-  m_sharedMaterial: {fileID: 1779311107835031709, guid: 7c612770d39476a4d9a41345830c3c57, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c9f4a1bbd98b77a4ba97bf2e1a73ebc2, type: 2}
+  m_sharedMaterial: {fileID: 1779311107835031709, guid: c9f4a1bbd98b77a4ba97bf2e1a73ebc2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

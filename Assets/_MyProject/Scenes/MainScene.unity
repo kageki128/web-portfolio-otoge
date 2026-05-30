@@ -242,7 +242,7 @@ LineRenderer:
   - {x: 0, y: 40, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0
+    widthMultiplier: 0.02
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -523,7 +523,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &136956589
 Transform:
   m_ObjectHideFlags: 0
@@ -794,7 +794,7 @@ Transform:
   m_GameObject: {fileID: 207311623}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -854,7 +854,7 @@ LineRenderer:
   - {x: 0, y: 40, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0
+    widthMultiplier: 0.02
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -1167,7 +1167,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &280336071
 Transform:
   m_ObjectHideFlags: 0
@@ -3693,7 +3693,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -8}
+  m_LocalPosition: {x: 0, y: 3, z: -11.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5638,7 +5638,7 @@ Transform:
   m_GameObject: {fileID: 770815720}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5698,7 +5698,7 @@ LineRenderer:
   - {x: 0, y: 40, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0
+    widthMultiplier: 0.02
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -6708,8 +6708,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288892927
-  m_fontColor: {r: 1, g: 0.30980393, b: 0.6392157, a: 1}
+    rgba: 4279618810
+  m_fontColor: {r: 0.98039216, g: 0.8, b: 0.08235294, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7468,135 +7468,135 @@ LineRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Positions:
+  - {x: -4, y: 0, z: 0}
+  - {x: -3.9375, y: 0, z: 0}
+  - {x: -3.875, y: 0, z: 0}
+  - {x: -3.8125, y: 0, z: 0}
+  - {x: -3.75, y: 0, z: 0}
+  - {x: -3.6875, y: 0, z: 0}
+  - {x: -3.625, y: 0, z: 0}
+  - {x: -3.5625, y: 0, z: 0}
+  - {x: -3.5, y: 0, z: 0}
+  - {x: -3.4375, y: 0, z: 0}
+  - {x: -3.375, y: 0, z: 0}
+  - {x: -3.3125, y: 0, z: 0}
+  - {x: -3.25, y: 0, z: 0}
+  - {x: -3.1875, y: 0, z: 0}
+  - {x: -3.125, y: 0, z: 0}
+  - {x: -3.0625, y: 0, z: 0}
+  - {x: -3, y: 0, z: 0}
+  - {x: -2.9375, y: 0, z: 0}
+  - {x: -2.875, y: 0, z: 0}
+  - {x: -2.8125, y: 0, z: 0}
+  - {x: -2.75, y: 0, z: 0}
+  - {x: -2.6875, y: 0, z: 0}
+  - {x: -2.625, y: 0, z: 0}
+  - {x: -2.5625, y: 0, z: 0}
+  - {x: -2.5, y: 0, z: 0}
+  - {x: -2.4375, y: 0, z: 0}
+  - {x: -2.375, y: 0, z: 0}
+  - {x: -2.3125, y: 0, z: 0}
+  - {x: -2.25, y: 0, z: 0}
+  - {x: -2.1875, y: 0, z: 0}
+  - {x: -2.125, y: 0, z: 0}
+  - {x: -2.0625, y: 0, z: 0}
   - {x: -2, y: 0, z: 0}
-  - {x: -1.96875, y: 0, z: 0}
   - {x: -1.9375, y: 0, z: 0}
-  - {x: -1.90625, y: 0, z: 0}
   - {x: -1.875, y: 0, z: 0}
-  - {x: -1.84375, y: 0, z: 0}
   - {x: -1.8125, y: 0, z: 0}
-  - {x: -1.78125, y: 0, z: 0}
   - {x: -1.75, y: 0, z: 0}
-  - {x: -1.71875, y: 0, z: 0}
   - {x: -1.6875, y: 0, z: 0}
-  - {x: -1.65625, y: 0, z: 0}
   - {x: -1.625, y: 0, z: 0}
-  - {x: -1.59375, y: 0, z: 0}
   - {x: -1.5625, y: 0, z: 0}
-  - {x: -1.53125, y: 0, z: 0}
   - {x: -1.5, y: 0, z: 0}
-  - {x: -1.46875, y: 0, z: 0}
   - {x: -1.4375, y: 0, z: 0}
-  - {x: -1.40625, y: 0, z: 0}
   - {x: -1.375, y: 0, z: 0}
-  - {x: -1.34375, y: 0, z: 0}
   - {x: -1.3125, y: 0, z: 0}
-  - {x: -1.28125, y: 0, z: 0}
   - {x: -1.25, y: 0, z: 0}
-  - {x: -1.21875, y: 0, z: 0}
   - {x: -1.1875, y: 0, z: 0}
-  - {x: -1.15625, y: 0, z: 0}
   - {x: -1.125, y: 0, z: 0}
-  - {x: -1.09375, y: 0, z: 0}
   - {x: -1.0625, y: 0, z: 0}
-  - {x: -1.03125, y: 0, z: 0}
   - {x: -1, y: 0, z: 0}
-  - {x: -0.96875, y: 0, z: 0}
   - {x: -0.9375, y: 0, z: 0}
-  - {x: -0.90625, y: 0, z: 0}
   - {x: -0.875, y: 0, z: 0}
-  - {x: -0.84375, y: 0, z: 0}
   - {x: -0.8125, y: 0, z: 0}
-  - {x: -0.78125, y: 0, z: 0}
   - {x: -0.75, y: 0, z: 0}
-  - {x: -0.71875, y: 0, z: 0}
   - {x: -0.6875, y: 0, z: 0}
-  - {x: -0.65625, y: 0, z: 0}
   - {x: -0.625, y: 0, z: 0}
-  - {x: -0.59375, y: 0, z: 0}
   - {x: -0.5625, y: 0, z: 0}
-  - {x: -0.53125, y: 0, z: 0}
   - {x: -0.5, y: 0, z: 0}
-  - {x: -0.46875, y: 0, z: 0}
   - {x: -0.4375, y: 0, z: 0}
-  - {x: -0.40625, y: 0, z: 0}
   - {x: -0.375, y: 0, z: 0}
-  - {x: -0.34375, y: 0, z: 0}
   - {x: -0.3125, y: 0, z: 0}
-  - {x: -0.28125, y: 0, z: 0}
   - {x: -0.25, y: 0, z: 0}
-  - {x: -0.21875, y: 0, z: 0}
   - {x: -0.1875, y: 0, z: 0}
-  - {x: -0.15625, y: 0, z: 0}
   - {x: -0.125, y: 0, z: 0}
-  - {x: -0.09375, y: 0, z: 0}
   - {x: -0.0625, y: 0, z: 0}
-  - {x: -0.03125, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
-  - {x: 0.03125, y: 0, z: 0}
   - {x: 0.0625, y: 0, z: 0}
-  - {x: 0.09375, y: 0, z: 0}
   - {x: 0.125, y: 0, z: 0}
-  - {x: 0.15625, y: 0, z: 0}
   - {x: 0.1875, y: 0, z: 0}
-  - {x: 0.21875, y: 0, z: 0}
   - {x: 0.25, y: 0, z: 0}
-  - {x: 0.28125, y: 0, z: 0}
   - {x: 0.3125, y: 0, z: 0}
-  - {x: 0.34375, y: 0, z: 0}
   - {x: 0.375, y: 0, z: 0}
-  - {x: 0.40625, y: 0, z: 0}
   - {x: 0.4375, y: 0, z: 0}
-  - {x: 0.46875, y: 0, z: 0}
   - {x: 0.5, y: 0, z: 0}
-  - {x: 0.53125, y: 0, z: 0}
   - {x: 0.5625, y: 0, z: 0}
-  - {x: 0.59375, y: 0, z: 0}
   - {x: 0.625, y: 0, z: 0}
-  - {x: 0.65625, y: 0, z: 0}
   - {x: 0.6875, y: 0, z: 0}
-  - {x: 0.71875, y: 0, z: 0}
   - {x: 0.75, y: 0, z: 0}
-  - {x: 0.78125, y: 0, z: 0}
   - {x: 0.8125, y: 0, z: 0}
-  - {x: 0.84375, y: 0, z: 0}
   - {x: 0.875, y: 0, z: 0}
-  - {x: 0.90625, y: 0, z: 0}
   - {x: 0.9375, y: 0, z: 0}
-  - {x: 0.96875, y: 0, z: 0}
   - {x: 1, y: 0, z: 0}
-  - {x: 1.03125, y: 0, z: 0}
   - {x: 1.0625, y: 0, z: 0}
-  - {x: 1.09375, y: 0, z: 0}
   - {x: 1.125, y: 0, z: 0}
-  - {x: 1.15625, y: 0, z: 0}
   - {x: 1.1875, y: 0, z: 0}
-  - {x: 1.21875, y: 0, z: 0}
   - {x: 1.25, y: 0, z: 0}
-  - {x: 1.28125, y: 0, z: 0}
   - {x: 1.3125, y: 0, z: 0}
-  - {x: 1.34375, y: 0, z: 0}
   - {x: 1.375, y: 0, z: 0}
-  - {x: 1.40625, y: 0, z: 0}
   - {x: 1.4375, y: 0, z: 0}
-  - {x: 1.46875, y: 0, z: 0}
   - {x: 1.5, y: 0, z: 0}
-  - {x: 1.53125, y: 0, z: 0}
   - {x: 1.5625, y: 0, z: 0}
-  - {x: 1.59375, y: 0, z: 0}
   - {x: 1.625, y: 0, z: 0}
-  - {x: 1.65625, y: 0, z: 0}
   - {x: 1.6875, y: 0, z: 0}
-  - {x: 1.71875, y: 0, z: 0}
   - {x: 1.75, y: 0, z: 0}
-  - {x: 1.78125, y: 0, z: 0}
   - {x: 1.8125, y: 0, z: 0}
-  - {x: 1.84375, y: 0, z: 0}
   - {x: 1.875, y: 0, z: 0}
-  - {x: 1.90625, y: 0, z: 0}
   - {x: 1.9375, y: 0, z: 0}
-  - {x: 1.96875, y: 0, z: 0}
   - {x: 2, y: 0, z: 0}
+  - {x: 2.0625, y: 0, z: 0}
+  - {x: 2.125, y: 0, z: 0}
+  - {x: 2.1875, y: 0, z: 0}
+  - {x: 2.25, y: 0, z: 0}
+  - {x: 2.3125, y: 0, z: 0}
+  - {x: 2.375, y: 0, z: 0}
+  - {x: 2.4375, y: 0, z: 0}
+  - {x: 2.5, y: 0, z: 0}
+  - {x: 2.5625, y: 0, z: 0}
+  - {x: 2.625, y: 0, z: 0}
+  - {x: 2.6875, y: 0, z: 0}
+  - {x: 2.75, y: 0, z: 0}
+  - {x: 2.8125, y: 0, z: 0}
+  - {x: 2.875, y: 0, z: 0}
+  - {x: 2.9375, y: 0, z: 0}
+  - {x: 3, y: 0, z: 0}
+  - {x: 3.0625, y: 0, z: 0}
+  - {x: 3.125, y: 0, z: 0}
+  - {x: 3.1875, y: 0, z: 0}
+  - {x: 3.25, y: 0, z: 0}
+  - {x: 3.3125, y: 0, z: 0}
+  - {x: 3.375, y: 0, z: 0}
+  - {x: 3.4375, y: 0, z: 0}
+  - {x: 3.5, y: 0, z: 0}
+  - {x: 3.5625, y: 0, z: 0}
+  - {x: 3.625, y: 0, z: 0}
+  - {x: 3.6875, y: 0, z: 0}
+  - {x: 3.75, y: 0, z: 0}
+  - {x: 3.8125, y: 0, z: 0}
+  - {x: 3.875, y: 0, z: 0}
+  - {x: 3.9375, y: 0, z: 0}
+  - {x: 4, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.05
@@ -7879,8 +7879,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279618810
-  m_fontColor: {r: 0.98039216, g: 0.8, b: 0.08235294, a: 1}
+    rgba: 4288892927
+  m_fontColor: {r: 1, g: 0.30980393, b: 0.6392157, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -9062,7 +9062,7 @@ Transform:
   m_GameObject: {fileID: 1098299988}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: 0, z: 0}
+  m_LocalPosition: {x: -4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9976,7 +9976,7 @@ Transform:
   m_GameObject: {fileID: 1244703540}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10285,7 +10285,7 @@ LineRenderer:
   - {x: 0, y: 40, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0
+    widthMultiplier: 0.02
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -12092,8 +12092,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282900733
-  m_fontColor: {r: 0.99215686, g: 0.8784314, b: 0.2784314, a: 1}
+    rgba: 4288892927
+  m_fontColor: {r: 1, g: 0.30980393, b: 0.6392157, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -14387,7 +14387,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
-  judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
+  judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 7538fb3fe5913944a97bbf6dc7065149, type: 3}
   judgeTextEffectParent: {fileID: 387236596}
 --- !u!1 &1792904169
 GameObject:
@@ -14906,8 +14906,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4288892927
-  m_fontColor: {r: 1, g: 0.30980393, b: 0.6392157, a: 1}
+    rgba: 4279618810
+  m_fontColor: {r: 0.98039216, g: 0.8, b: 0.08235294, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

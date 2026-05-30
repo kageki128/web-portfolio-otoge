@@ -6,6 +6,7 @@ namespace MyProject.Actor
     {
         public const int CenterLane = 2;
         public const float JudgeEffectRiseOffset = 0f;
+        public const float JudgeEffectRiseAmount = 0.5f;
         public const float MinY = -2.5f;
         public const float MaxY = 2.5f;
         public const float RoundTripBeats = 4f;

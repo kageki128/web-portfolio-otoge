@@ -9,7 +9,7 @@ namespace MyProject.Actor
 {
     public class JudgeTextEffectActor : ActorBase
     {
-        const float RiseAmount = 1.5f;
+        public const float DefaultRiseAmount = 1.5f;
         const float RiseAndFadeDuration = 0.3f;
         const float FinalFadeDuration = 0.2f;
 
@@ -45,7 +45,7 @@ namespace MyProject.Actor
             return UniTask.CompletedTask;
         }
 
-        public void Play(JudgeType judgeType, float riseOffset, RiseAxis riseAxis)
+        public void Play(JudgeType judgeType, float riseOffset, RiseAxis riseAxis, float riseAmount = DefaultRiseAmount)
         {
             SetJudgeText(judgeType);
 
@@ -64,7 +64,7 @@ namespace MyProject.Actor
             SetTextAlpha(0f);
 
             var startLocalPosition = transform.localPosition + CreateRiseOffset(riseOffset, riseAxis);
-            PlayAnimationAsync(startLocalPosition, riseAxis, this.GetCancellationTokenOnDestroy()).Forget();
+            PlayAnimationAsync(startLocalPosition, riseAxis, riseAmount, this.GetCancellationTokenOnDestroy()).Forget();
         }
 
         void SetJudgeText(JudgeType judgeType)
@@ -124,12 +124,17 @@ namespace MyProject.Actor
             }
         }
 
-        async UniTaskVoid PlayAnimationAsync(Vector3 startLocalPosition, RiseAxis riseAxis, CancellationToken ct)
+        async UniTaskVoid PlayAnimationAsync(
+            Vector3 startLocalPosition,
+            RiseAxis riseAxis,
+            float riseAmount,
+            CancellationToken ct
+        )
         {
             try
             {
                 transform.localPosition = startLocalPosition;
-                var targetLocalPosition = startLocalPosition + CreateRiseOffset(RiseAmount, riseAxis);
+                var targetLocalPosition = startLocalPosition + CreateRiseOffset(riseAmount, riseAxis);
 
                 moveHandle = LMotion.Create(startLocalPosition, targetLocalPosition, RiseAndFadeDuration)
                     .WithEase(Ease.OutCubic)
