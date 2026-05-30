@@ -97,6 +97,13 @@ namespace MyProject.Actor
             image.color = OtogeAppearance.GetHoldColor(defaultColor, state);
         }
 
+        protected override void PlayJudgeEffect(JudgeType judgeType)
+        {
+            var judgePosition = LaundryLaneLayout.GetJudgePosition(NoteCore.Property.Lane, NoteCore.Property.Width);
+            var position = (Vector3)judgePosition;
+            JudgeEffectFactory.PlayEffect(judgeType, LaundryLaneLayout.JudgeEffectRiseOffset, RiseAxis.Y, position);
+        }
+
         static float CalculateDisplayedDistance(float rawDistance, float judgeDistance)
         {
             var movementStartRawDistance = LaundryLaneLayout.InnerRadius + LaundryLaneLayout.ScaleUpDistance;

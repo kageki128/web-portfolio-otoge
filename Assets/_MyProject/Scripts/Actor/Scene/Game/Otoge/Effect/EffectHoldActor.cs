@@ -75,6 +75,13 @@ namespace MyProject.Actor
             var baseColor = EffectLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultColor;
             image.color = OtogeAppearance.GetHoldColor(baseColor, state);
         }
+
+        protected override void PlayJudgeEffect(JudgeType judgeType)
+        {
+            var x = EffectLaneLayout.GetVisualCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
+            var position = new Vector3(x, 0f, 0f);
+            JudgeEffectFactory.PlayEffect(judgeType, EffectLaneLayout.JudgeEffectRiseOffset, RiseAxis.Z, position);
+        }
     }
 }
 

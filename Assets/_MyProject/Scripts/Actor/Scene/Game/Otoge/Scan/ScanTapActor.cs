@@ -79,6 +79,14 @@ namespace MyProject.Actor
             gameObject.SetActive(true);
             image.color = ScanLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultColor;
         }
+
+        protected override void PlayJudgeEffect(JudgeType judgeType)
+        {
+            var x = ScanLaneLayout.GetLaneCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
+            var y = ScanLaneLayout.GetJudgeLineY(NoteCore.Property.TimingBegin.Beat);
+            var position = new Vector3(x, y, 0f);
+            JudgeEffectFactory.PlayEffect(judgeType, ScanLaneLayout.JudgeEffectRiseOffset, RiseAxis.Y, position);
+        }
     }
 }
 

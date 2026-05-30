@@ -73,6 +73,12 @@ namespace MyProject.Actor
                 _ => defaultSprite
             };
         }
+
+        protected override void PlayJudgeEffect(JudgeType judgeType)
+        {
+            var position = new Vector3(0f, transform.localPosition.y, 0f);
+            JudgeEffectFactory.PlayEffect(judgeType, RunLaneLayout.JudgeEffectRiseOffset, RiseAxis.Y, position);
+        }
     }
 }
 

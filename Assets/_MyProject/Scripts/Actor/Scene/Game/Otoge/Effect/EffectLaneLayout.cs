@@ -3,6 +3,7 @@ namespace MyProject.Actor
     internal static class EffectLaneLayout
     {
         public const int CenterLane = 2;
+        public const float JudgeEffectRiseOffset = 1f;
         public const float CenterLaneX = 1.5f;
         public const int CenterWidthMultiplier = 4;
 

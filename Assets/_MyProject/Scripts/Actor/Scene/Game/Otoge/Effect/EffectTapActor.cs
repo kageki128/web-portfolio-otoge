@@ -68,6 +68,13 @@ namespace MyProject.Actor
 
             image.color = EffectLaneLayout.IsCenterLane(NoteCore.Property.Lane) ? centerColor : defaultColor;
         }
+
+        protected override void PlayJudgeEffect(JudgeType judgeType)
+        {
+            var x = EffectLaneLayout.GetVisualCenterX(NoteCore.Property.Lane, NoteCore.Property.Width);
+            var position = new Vector3(x, 0f, 0f);
+            JudgeEffectFactory.PlayEffect(judgeType, EffectLaneLayout.JudgeEffectRiseOffset, RiseAxis.Z, position);
+        }
     }
 }
 

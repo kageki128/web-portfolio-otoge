@@ -84,6 +84,13 @@ namespace MyProject.Actor
             image.color = NoteCore.Property.Lane == IdolLaneLayout.CenterLane ? centerColor : defaultColor;
         }
 
+        protected override void PlayJudgeEffect(JudgeType judgeType)
+        {
+            var judgePosition = IdolLaneLayout.GetJudgePosition(NoteCore.Property.Lane, NoteCore.Property.Width);
+            var position = new Vector3(judgePosition.x, judgePosition.y, 0f);
+            JudgeEffectFactory.PlayEffect(judgeType, IdolLaneLayout.JudgeEffectRiseOffset, RiseAxis.Y, position);
+        }
+
         static float CalculateRawDistance(float scroll, float currentScroll, float scrollSpeed, float judgeDistance)
         {
             return judgeDistance - ((scroll - currentScroll) * scrollSpeed);

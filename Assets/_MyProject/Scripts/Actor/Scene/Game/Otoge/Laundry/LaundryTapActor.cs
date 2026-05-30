@@ -70,6 +70,13 @@ namespace MyProject.Actor
             }
         }
 
+        protected override void PlayJudgeEffect(JudgeType judgeType)
+        {
+            var judgePosition = LaundryLaneLayout.GetJudgePosition(NoteCore.Property.Lane, NoteCore.Property.Width);
+            var position = new Vector3(judgePosition.x, judgePosition.y, 0f);
+            JudgeEffectFactory.PlayEffect(judgeType, LaundryLaneLayout.JudgeEffectRiseOffset, RiseAxis.Y, position);
+        }
+
         static float CalculateDisplayedDistance(float rawDistance, float judgeDistance)
         {
             var movementStartRawDistance = LaundryLaneLayout.InnerRadius + LaundryLaneLayout.ScaleUpDistance;

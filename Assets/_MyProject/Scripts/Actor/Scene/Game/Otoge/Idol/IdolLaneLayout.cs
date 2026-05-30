@@ -5,6 +5,7 @@ namespace MyProject.Actor
     internal static class IdolLaneLayout
     {
         public const int CenterLane = 2;
+        public const float JudgeEffectRiseOffset = 1f;
         public const float InnerRadius = 5f;
 
         static readonly Vector2 center = new(0f, 15.914481f);
@@ -38,6 +39,11 @@ namespace MyProject.Actor
         {
             var direction = GetDirection(lane, width);
             return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        }
+
+        public static Vector2 GetJudgePosition(int lane, int width)
+        {
+            return center + (GetDirection(lane, width) * GetJudgeDistance(lane, width));
         }
 
         static Vector2 GetTargetPoint(int lane, int width)

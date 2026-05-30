@@ -7,6 +7,8 @@ namespace MyProject.Actor
 {
     public class MasterTapActor : NoteActorBase
     {
+        const float JudgeEffectRiseOffset = 0f;
+
         [SerializeField] SpriteRenderer image;
         [SerializeField] Sprite laneSprite0;
         [SerializeField] Sprite laneSprite1;
@@ -71,6 +73,12 @@ namespace MyProject.Actor
                 1 => laneSprite1 != null ? laneSprite1 : defaultSprite,
                 _ => defaultSprite
             };
+        }
+
+        protected override void PlayJudgeEffect(JudgeType judgeType)
+        {
+            var position = Vector3.zero;
+            JudgeEffectFactory.PlayEffect(judgeType, JudgeEffectRiseOffset, RiseAxis.Y, position);
         }
     }
 }

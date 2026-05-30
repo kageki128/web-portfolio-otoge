@@ -86,6 +86,12 @@ namespace MyProject.Actor
             };
             image.color = OtogeAppearance.GetHoldColor(defaultColor, state);
         }
+
+        protected override void PlayJudgeEffect(JudgeType judgeType)
+        {
+            var position = new Vector3(0f, transform.localPosition.y, 0f);
+            JudgeEffectFactory.PlayEffect(judgeType, RunLaneLayout.JudgeEffectRiseOffset, RiseAxis.Y, position);
+        }
     }
 }
 

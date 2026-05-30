@@ -4,6 +4,7 @@ namespace MyProject.Actor
 {
     internal static class LaundryLaneLayout
     {
+        public const float JudgeEffectRiseOffset = 0f;
         public const float JudgeRadius = 4.774f;
         public const float InnerRadius = 1.5f;
         public const float ScaleUpDistance = 1f;
@@ -42,6 +43,11 @@ namespace MyProject.Actor
         {
             var laneCenter = lane + ((width - 1) * 0.5f);
             return LaneStartAngleDeg + (LaneStepAngleDeg * laneCenter);
+        }
+
+        public static Vector2 GetJudgePosition(int lane, int width)
+        {
+            return GetDirection(lane, width) * JudgeRadius;
         }
     }
 }
