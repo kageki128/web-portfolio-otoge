@@ -23,6 +23,7 @@ namespace MyProject.Actor
         Action releaseAction;
         int playVersion;
         bool isReleased;
+        float targetAlpha;
 
         public void SetReleaseAction(Action value)
         {
@@ -65,10 +66,10 @@ namespace MyProject.Actor
             gameObject.SetActive(true);
             effectImage.transform.localScale = Vector3.zero;
             SetAlpha(0f);
-            PlayAnimationAsync(playVersion, this.GetCancellationTokenOnDestroy()).Forget();
+            PlayAnimationAsync(playVersion, targetAlpha, this.GetCancellationTokenOnDestroy()).Forget();
         }
 
-        async UniTaskVoid PlayAnimationAsync(int version, CancellationToken ct)
+        async UniTaskVoid PlayAnimationAsync(int version, float fadeTargetAlpha, CancellationToken ct)
         {
             try
             {
@@ -77,14 +78,14 @@ namespace MyProject.Actor
                     .Bind(scale => effectImage.transform.localScale = Vector3.one * (MaxScale * scale))
                     .AddTo(this);
 
-                fadeHandle = LMotion.Create(0f, 1f, FadeHalfDuration)
+                fadeHandle = LMotion.Create(0f, fadeTargetAlpha, FadeHalfDuration)
                     .WithEase(Ease.OutCubic)
                     .Bind(SetAlpha)
                     .AddTo(this);
 
                 await fadeHandle.ToUniTask(CancelBehavior.Cancel, false, ct);
 
-                fadeHandle = LMotion.Create(1f, 0f, FadeHalfDuration)
+                fadeHandle = LMotion.Create(fadeTargetAlpha, 0f, FadeHalfDuration)
                     .WithEase(Ease.Linear)
                     .Bind(SetAlpha)
                     .AddTo(this);
@@ -152,7 +153,7 @@ namespace MyProject.Actor
 
         void SetBaseColor(Color baseColor)
         {
-            baseColor.a = effectImage.color.a;
+            targetAlpha = baseColor.a;
             effectImage.color = baseColor;
         }
     }
