@@ -9,6 +9,7 @@ namespace MyProject.Actor
 {
     public class JudgeTextEffectActor : ActorBase
     {
+        const float RiseAmount = 1.5f;
         const float RiseAndFadeDuration = 0.3f;
         const float FinalFadeDuration = 0.2f;
 
@@ -23,6 +24,7 @@ namespace MyProject.Actor
 
         MotionHandle moveHandle;
         MotionHandle fadeHandle;
+        Transform mainCameraTransform;
 
         public override void Initialize()
         {
@@ -43,7 +45,7 @@ namespace MyProject.Actor
             return UniTask.CompletedTask;
         }
 
-        public void Play(JudgeType judgeType, float riseAmount, RiseAxis riseAxis)
+        public void Play(JudgeType judgeType, float riseOffset, RiseAxis riseAxis)
         {
             SetJudgeText(judgeType);
 
@@ -58,10 +60,11 @@ namespace MyProject.Actor
             fadeHandle.TryCancel();
 
             gameObject.SetActive(true);
+            FaceMainCamera();
             SetTextAlpha(0f);
 
-            var startLocalPosition = transform.localPosition;
-            PlayAnimationAsync(startLocalPosition, riseAmount, riseAxis, this.GetCancellationTokenOnDestroy()).Forget();
+            var startLocalPosition = transform.localPosition + CreateRiseOffset(riseOffset, riseAxis);
+            PlayAnimationAsync(startLocalPosition, riseAxis, this.GetCancellationTokenOnDestroy()).Forget();
         }
 
         void SetJudgeText(JudgeType judgeType)
@@ -121,11 +124,12 @@ namespace MyProject.Actor
             }
         }
 
-        async UniTaskVoid PlayAnimationAsync(Vector3 startLocalPosition, float riseAmount, RiseAxis riseAxis, CancellationToken ct)
+        async UniTaskVoid PlayAnimationAsync(Vector3 startLocalPosition, RiseAxis riseAxis, CancellationToken ct)
         {
             try
             {
-                var targetLocalPosition = startLocalPosition + CreateRiseOffset(riseAmount, riseAxis);
+                transform.localPosition = startLocalPosition;
+                var targetLocalPosition = startLocalPosition + CreateRiseOffset(RiseAmount, riseAxis);
 
                 moveHandle = LMotion.Create(startLocalPosition, targetLocalPosition, RiseAndFadeDuration)
                     .WithEase(Ease.OutCubic)
@@ -156,17 +160,26 @@ namespace MyProject.Actor
             }
         }
 
-        Vector3 CreateRiseOffset(float riseAmount, RiseAxis riseAxis)
+        void LateUpdate()
         {
-            var localDirection = riseAxis == RiseAxis.Y ? Vector3.up : Vector3.forward;
-            var worldDirection = transform.TransformDirection(localDirection);
-            if (transform.parent == null)
+            if (!gameObject.activeSelf)
             {
-                return worldDirection * riseAmount;
+                return;
             }
 
-            var parentLocalDirection = transform.parent.InverseTransformDirection(worldDirection);
-            return parentLocalDirection * riseAmount;
+            FaceMainCamera();
+        }
+
+        void FaceMainCamera()
+        {
+            mainCameraTransform ??= Camera.main.transform;
+            transform.rotation = mainCameraTransform.rotation;
+        }
+
+        static Vector3 CreateRiseOffset(float riseAmount, RiseAxis riseAxis)
+        {
+            var riseDirection = riseAxis == RiseAxis.Y ? Vector3.up : Vector3.back;
+            return riseDirection * riseAmount;
         }
 
         void SetTextAlpha(float alpha)

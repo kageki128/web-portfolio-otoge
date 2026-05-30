@@ -50,6 +50,12 @@ namespace MyProject.Actor
         {
             gameObject.SetActive(state is not NoteState.AfterJudge);
         }
+
+        protected override void PlayJudgeEffect(JudgeType judgeType)
+        {
+            var position = new Vector3(transform.localPosition.x, 0f, 0f);
+            JudgeEffectFactory.PlayEffect(judgeType, AirLaneLayout.JudgeEffectRiseOffset, RiseAxis.Z, position);
+        }
     }
 }
 

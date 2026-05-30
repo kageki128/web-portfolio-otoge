@@ -492,6 +492,7 @@ Transform:
   m_Children:
   - {fileID: 1333545277}
   - {fileID: 1814178761}
+  - {fileID: 506537991}
   m_Father: {fileID: 334943694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &136956590
@@ -511,7 +512,7 @@ MonoBehaviour:
   holdPrefab: {fileID: 6873140133655357821, guid: cde64c330c3d96e468e0ff552c0aeeeb, type: 3}
   measureLinePrefab: {fileID: 4031972581336497962, guid: e9a2a3795f4b25a4e83671264a68a74a, type: 3}
   laneLightActor: {fileID: 1814178762}
-  judgeEffectFactory: {fileID: 0}
+  judgeEffectFactory: {fileID: 506537992}
 --- !u!1 &153704020
 GameObject:
   m_ObjectHideFlags: 0
@@ -544,6 +545,7 @@ Transform:
   m_Children:
   - {fileID: 2036742597}
   - {fileID: 1127709017}
+  - {fileID: 335562031}
   m_Father: {fileID: 334943694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &153704022
@@ -564,7 +566,69 @@ MonoBehaviour:
   airPrefab: {fileID: 115487633063222370, guid: a25d290a61070f64594e1940d9fc8968, type: 3}
   measureLinePrefab: {fileID: 6541762607208622763, guid: b8b93a369e7c13a4b88db2c86006eb61, type: 3}
   laneLightActor: {fileID: 1127709018}
-  judgeEffectFactory: {fileID: 0}
+  judgeEffectFactory: {fileID: 335562032}
+--- !u!1 &172103307
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 172103308}
+  m_Layer: 0
+  m_Name: JudgeText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &172103308
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172103307}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 506537991}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &185200654
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 185200655}
+  m_Layer: 0
+  m_Name: JudgeText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &185200655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185200654}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 335562031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &200172397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,6 +1529,53 @@ MonoBehaviour:
   - {fileID: 457606483}
   - {fileID: 1250455054}
   - {fileID: 207311626}
+--- !u!1 &335562030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 335562031}
+  - component: {fileID: 335562032}
+  m_Layer: 0
+  m_Name: JudgeEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &335562031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335562030}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 185200655}
+  m_Father: {fileID: 153704021}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &335562032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 335562030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
+  judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
+  judgeTextEffectParent: {fileID: 185200655}
 --- !u!1 &340857535
 GameObject:
   m_ObjectHideFlags: 0
@@ -3199,6 +3310,53 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &506537990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 506537991}
+  - component: {fileID: 506537992}
+  m_Layer: 0
+  m_Name: JudgeEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &506537991
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506537990}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 172103308}
+  m_Father: {fileID: 136956589}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &506537992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 506537990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
+  judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
+  judgeTextEffectParent: {fileID: 172103308}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

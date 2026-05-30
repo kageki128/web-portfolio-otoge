@@ -71,8 +71,7 @@ namespace MyProject.Actor
         protected override void PlayJudgeEffect(JudgeType judgeType)
         {
             var position = new Vector3(transform.localPosition.x, 0f, 0f);
-            JudgeEffectFactory.PlayEffect(judgeType, TetraLaneLayout.JudgeEffectRiseAmount, RiseAxis.Y, position);
+            JudgeEffectFactory.PlayEffect(judgeType, TetraLaneLayout.JudgeEffectRiseOffset, RiseAxis.Y, position);
         }
     }
 }
-
