@@ -592,6 +592,7 @@ MonoBehaviour:
   noteParent: {fileID: 1333545276}
   tapPrefab: {fileID: 6400821142349652357, guid: cc2bf939c5ac54e4cb5018c9db546beb, type: 3}
   holdPrefab: {fileID: 6873140133655357821, guid: cde64c330c3d96e468e0ff552c0aeeeb, type: 3}
+  holdTickPrefab: {fileID: 8347704662010252265, guid: 89ec7927b8378d744a33833102128df5, type: 3}
   measureLinePrefab: {fileID: 4031972581336497962, guid: e9a2a3795f4b25a4e83671264a68a74a, type: 3}
   laneLightActor: {fileID: 1814178762}
   judgeEffectFactory: {fileID: 506537992}
@@ -645,6 +646,7 @@ MonoBehaviour:
   noteParent: {fileID: 2036742596}
   tapPrefab: {fileID: 2962801007662925066, guid: 131101b3e00fba94c87d1f9d65606e1e, type: 3}
   holdPrefab: {fileID: 5996838369663931542, guid: eb61019f722319041a7b64c0049011b6, type: 3}
+  holdTickPrefab: {fileID: 3086383527138633808, guid: baba2559ddc7d124ea9e6243ff239d80, type: 3}
   airPrefab: {fileID: 115487633063222370, guid: a25d290a61070f64594e1940d9fc8968, type: 3}
   measureLinePrefab: {fileID: 6541762607208622763, guid: b8b93a369e7c13a4b88db2c86006eb61, type: 3}
   laneLightActor: {fileID: 1127709018}
@@ -1240,6 +1242,7 @@ MonoBehaviour:
   noteParent: {fileID: 465268668}
   tapPrefab: {fileID: 4137430466009650504, guid: 3700599024c1065438b914a1533d6e35, type: 3}
   holdPrefab: {fileID: 2911079052193499454, guid: aac4a2ef09858f440b0ec334b68e57a1, type: 3}
+  holdTickPrefab: {fileID: 4662625589988192900, guid: e7b6d91e87ae68047940413603391a83, type: 3}
   measureLinePrefab: {fileID: 7733593934444563179, guid: b7b36b0e564d8b640b1c19169433b2d1, type: 3}
   laneLightActor: {fileID: 1245732350}
   judgeEffectFactory: {fileID: 472771678}
@@ -4887,6 +4890,7 @@ MonoBehaviour:
   noteParent: {fileID: 1063966395}
   tapPrefab: {fileID: 4911718431778547978, guid: e6d4b911c94b2764db73e9641a625bf6, type: 3}
   holdPrefab: {fileID: 696461098447168113, guid: 342b796572b4f1b4a889fd02fb0f8ae0, type: 3}
+  holdTickPrefab: {fileID: 8394031071790653742, guid: 8db534f941ad1b749b11775080cda80b, type: 3}
   measureLinePrefab: {fileID: 5172355137349367713, guid: 4d13baf1d2a016a49948f224f3b82d6e, type: 3}
   laneLightActor: {fileID: 78549606}
   judgeEffectFactory: {fileID: 1749511974}
@@ -10836,6 +10840,7 @@ MonoBehaviour:
   noteParent: {fileID: 808026285}
   tapPrefab: {fileID: 5767703113346120638, guid: 3413727db45fea84aa8b22316df4b2a6, type: 3}
   holdPrefab: {fileID: 3162522604057605287, guid: 0159febf50bab6744b11fda1aee7abd7, type: 3}
+  holdTickPrefab: {fileID: 7360209159507939735, guid: 590c2ec513886974881b00a344e8db4c, type: 3}
   laneLightActor: {fileID: 1029456986}
   judgeEffectFactory: {fileID: 1792730826}
   points:
@@ -11994,6 +11999,7 @@ MonoBehaviour:
   noteParent: {fileID: 1503614749}
   tapPrefab: {fileID: 8179974866322459759, guid: 8f8b930ee1bc48c4fa1f0031a25c6f2e, type: 3}
   holdPrefab: {fileID: 8206978077278460639, guid: 51bd692cc9c95924eb1431b77aa6128c, type: 3}
+  holdTickPrefab: {fileID: 7603808244348023621, guid: f735445ae233bb14ea3ca312220c5f5b, type: 3}
   laneLightActor: {fileID: 965041715}
   judgeEffectFactory: {fileID: 1096528388}
   points:
@@ -13313,6 +13319,7 @@ MonoBehaviour:
   noteParent: {fileID: 70527381}
   tapPrefab: {fileID: 2979595306996501593, guid: 3f3a8df210513d045b71391dff01059e, type: 3}
   holdPrefab: {fileID: 7433944238026522488, guid: 88099f0465edb6c49a070dcdeddce707, type: 3}
+  holdTickPrefab: {fileID: 7948351420247623625, guid: 7d2f6f75c459e024ba4d023e4413c6f2, type: 3}
   judgeLineActor: {fileID: 727595315}
   laneLightActor: {fileID: 589561949}
   judgeEffectFactory: {fileID: 54019978}
@@ -15088,6 +15095,7 @@ MonoBehaviour:
   noteParent: {fileID: 359955223}
   tapPrefab: {fileID: 5235946270570557737, guid: 06d75e5c2a66038459191b6a972b1a5d, type: 3}
   holdPrefab: {fileID: 771023781711942789, guid: df22f93c987ad9041bd8fd288445daa9, type: 3}
+  holdTickPrefab: {fileID: 8576520964508542482, guid: 72b3f5c213fca7041aabd7250139ff95, type: 3}
   measureLinePrefab: {fileID: 3096036215022423395, guid: 01d469131dd06ce488313ff2b08b57ab, type: 3}
   laneLightActor: {fileID: 1791396254}
   judgeEffectFactory: {fileID: 247978399}

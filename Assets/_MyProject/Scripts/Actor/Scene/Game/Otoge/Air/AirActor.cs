@@ -17,6 +17,7 @@ namespace MyProject.Actor
         [SerializeField] GameObject noteParent;
         [SerializeField] AirTapActor tapPrefab;
         [SerializeField] AirHoldActor holdPrefab;
+        [SerializeField] AirHoldTickActor holdTickPrefab;
         [SerializeField] AirAirActor airPrefab;
         [SerializeField] AirMeasureLineActor measureLinePrefab;
         [SerializeField] LaneLightActor laneLightActor;
@@ -93,6 +94,7 @@ namespace MyProject.Actor
                 {
                     NoteType.Tap => Instantiate(tapPrefab, noteParent.transform),
                     NoteType.Hold => Instantiate(holdPrefab, noteParent.transform),
+                    NoteType.HoldTick => Instantiate(holdTickPrefab, noteParent.transform),
                     NoteType.Air => Instantiate(airPrefab, noteParent.transform),
                     NoteType.MeasureLine => Instantiate(measureLinePrefab, noteParent.transform),
                     _ => null
