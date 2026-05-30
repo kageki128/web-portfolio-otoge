@@ -54,6 +54,7 @@ namespace MyProject.Actor
             CancelEvent(restoreCamera: true);
             DestroyNotes();
             laneLightActor.Initialize();
+            judgeEffectFactory.Initialize();
 
             effectActionsObserver.LanePressed.Subscribe(lane => laneLightActor.LightUp(lane)).AddTo(this);
             effectActionsObserver.LaneReleased.Subscribe(lane => laneLightActor.LightDown(lane)).AddTo(this);

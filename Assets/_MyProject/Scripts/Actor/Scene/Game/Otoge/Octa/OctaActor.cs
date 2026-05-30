@@ -36,6 +36,7 @@ namespace MyProject.Actor
         {
             DestroyNotes();
             laneLightActor.Initialize();
+            judgeEffectFactory.Initialize();
 
             octaActionsObserver.LanePressed.Subscribe(lane => laneLightActor.LightUp(lane)).AddTo(this);
             octaActionsObserver.LaneReleased.Subscribe(lane => laneLightActor.LightDown(lane)).AddTo(this);

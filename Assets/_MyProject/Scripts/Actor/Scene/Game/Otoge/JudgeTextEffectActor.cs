@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using LitMotion;
@@ -25,6 +26,14 @@ namespace MyProject.Actor
         MotionHandle moveHandle;
         MotionHandle fadeHandle;
         Transform mainCameraTransform;
+        Action releaseAction;
+        int playVersion;
+        bool isReleased;
+
+        public void SetReleaseAction(Action value)
+        {
+            releaseAction = value;
+        }
 
         public override void Initialize()
         {
@@ -47,12 +56,15 @@ namespace MyProject.Actor
 
         public void Play(JudgeType judgeType, float riseOffset, RiseAxis riseAxis, float riseAmount = DefaultRiseAmount)
         {
+            playVersion++;
+            isReleased = false;
+
             SetJudgeText(judgeType);
 
             var shouldShow = mainText.gameObject.activeSelf || subText.gameObject.activeSelf;
             if (!shouldShow)
             {
-                gameObject.SetActive(false);
+                ReleaseToPool();
                 return;
             }
 
@@ -64,7 +76,7 @@ namespace MyProject.Actor
             SetTextAlpha(0f);
 
             var startLocalPosition = transform.localPosition + CreateRiseOffset(riseOffset, riseAxis);
-            PlayAnimationAsync(startLocalPosition, riseAxis, riseAmount, this.GetCancellationTokenOnDestroy()).Forget();
+            PlayAnimationAsync(startLocalPosition, riseAxis, riseAmount, playVersion, this.GetCancellationTokenOnDestroy()).Forget();
         }
 
         void SetJudgeText(JudgeType judgeType)
@@ -128,6 +140,7 @@ namespace MyProject.Actor
             Vector3 startLocalPosition,
             RiseAxis riseAxis,
             float riseAmount,
+            int version,
             CancellationToken ct
         )
         {
@@ -157,12 +170,17 @@ namespace MyProject.Actor
                     .AddTo(this);
 
                 await fadeHandle.ToUniTask(CancelBehavior.Cancel, false, ct);
-
-                Destroy(gameObject);
             }
             catch (System.OperationCanceledException)
             {
             }
+
+            if (playVersion != version)
+            {
+                return;
+            }
+
+            ReleaseToPool();
         }
 
         void LateUpdate()
@@ -198,6 +216,20 @@ namespace MyProject.Actor
             var color = text.color;
             color.a = alpha;
             text.color = color;
+        }
+
+        void ReleaseToPool()
+        {
+            if (isReleased)
+            {
+                return;
+            }
+
+            isReleased = true;
+            moveHandle.TryCancel();
+            fadeHandle.TryCancel();
+            gameObject.SetActive(false);
+            releaseAction?.Invoke();
         }
     }
 

@@ -39,6 +39,7 @@ namespace MyProject.Actor
         {
             DestroyNotes();
             laneLightActor.Initialize();
+            judgeEffectFactory.Initialize();
             pointBaseColors = new Color[points.Length];
             pointHandles = new MotionHandle[points.Length];
             for (var i = 0; i < points.Length; i++)

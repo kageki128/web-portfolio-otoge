@@ -412,6 +412,7 @@ MonoBehaviour:
   judgeLaneEffectParent: {fileID: 363408556}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 632861017}
+  defaultCapacity: 16
 --- !u!1 &65769659
 GameObject:
   m_ObjectHideFlags: 0
@@ -1097,6 +1098,7 @@ MonoBehaviour:
   judgeLaneEffectParent: {fileID: 48881616}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 1798108829}
+  defaultCapacity: 16
 --- !u!1 &275911294
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,6 +1712,7 @@ MonoBehaviour:
   judgeLaneEffectParent: {fileID: 1401537057}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 185200655}
+  defaultCapacity: 16
 --- !u!1 &340857535
 GameObject:
   m_ObjectHideFlags: 0
@@ -2514,6 +2517,7 @@ MonoBehaviour:
   judgeLaneEffectParent: {fileID: 1943437731}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 1361384424}
+  defaultCapacity: 16
 --- !u!1 &387236595
 GameObject:
   m_ObjectHideFlags: 0
@@ -3182,6 +3186,7 @@ MonoBehaviour:
   judgeLaneEffectParent: {fileID: 549422293}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 1569850674}
+  defaultCapacity: 16
 --- !u!1 &474357825
 GameObject:
   m_ObjectHideFlags: 0
@@ -3671,6 +3676,7 @@ MonoBehaviour:
   judgeLaneEffectParent: {fileID: 2102543012}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 172103308}
+  defaultCapacity: 16
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -9211,6 +9217,7 @@ MonoBehaviour:
   judgeLaneEffectParent: {fileID: 400131510}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 362660299}
+  defaultCapacity: 16
 --- !u!1 &1098299988
 GameObject:
   m_ObjectHideFlags: 0
@@ -14437,6 +14444,7 @@ MonoBehaviour:
   judgeLaneEffectParent: {fileID: 560626801}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 712136558}
+  defaultCapacity: 16
 --- !u!1 &1781975671
 GameObject:
   m_ObjectHideFlags: 0
@@ -14633,6 +14641,7 @@ MonoBehaviour:
   judgeLaneEffectParent: {fileID: 1593407310}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 7538fb3fe5913944a97bbf6dc7065149, type: 3}
   judgeTextEffectParent: {fileID: 387236596}
+  defaultCapacity: 16
 --- !u!1 &1792904169
 GameObject:
   m_ObjectHideFlags: 0

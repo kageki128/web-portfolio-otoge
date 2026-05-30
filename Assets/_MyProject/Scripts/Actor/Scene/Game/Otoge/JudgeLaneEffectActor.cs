@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using LitMotion;
@@ -19,6 +20,14 @@ namespace MyProject.Actor
 
         MotionHandle scaleHandle;
         MotionHandle fadeHandle;
+        Action releaseAction;
+        int playVersion;
+        bool isReleased;
+
+        public void SetReleaseAction(Action value)
+        {
+            releaseAction = value;
+        }
 
         public override void Initialize()
         {
@@ -41,9 +50,12 @@ namespace MyProject.Actor
 
         public void Play(JudgeType judgeType)
         {
+            playVersion++;
+            isReleased = false;
+
             if (!TrySetJudgeColor(judgeType))
             {
-                gameObject.SetActive(false);
+                ReleaseToPool();
                 return;
             }
 
@@ -53,10 +65,10 @@ namespace MyProject.Actor
             gameObject.SetActive(true);
             effectImage.transform.localScale = Vector3.zero;
             SetAlpha(0f);
-            PlayAnimationAsync(this.GetCancellationTokenOnDestroy()).Forget();
+            PlayAnimationAsync(playVersion, this.GetCancellationTokenOnDestroy()).Forget();
         }
 
-        async UniTaskVoid PlayAnimationAsync(CancellationToken ct)
+        async UniTaskVoid PlayAnimationAsync(int version, CancellationToken ct)
         {
             try
             {
@@ -81,12 +93,31 @@ namespace MyProject.Actor
                     scaleHandle.ToUniTask(CancelBehavior.Cancel, false, ct),
                     fadeHandle.ToUniTask(CancelBehavior.Cancel, false, ct)
                 );
-
-                Destroy(gameObject);
             }
             catch (System.OperationCanceledException)
             {
             }
+
+            if (playVersion != version)
+            {
+                return;
+            }
+
+            ReleaseToPool();
+        }
+
+        void ReleaseToPool()
+        {
+            if (isReleased)
+            {
+                return;
+            }
+
+            isReleased = true;
+            scaleHandle.TryCancel();
+            fadeHandle.TryCancel();
+            gameObject.SetActive(false);
+            releaseAction?.Invoke();
         }
 
         void SetAlpha(float alpha)

@@ -34,6 +34,7 @@ namespace MyProject.Actor
             DestroyNotes();
             laneLightActor.Initialize();
             judgeLineActor.Initialize();
+            judgeEffectFactory.Initialize();
 
             scanActionsObserver.LanePressed.Subscribe(lane => laneLightActor.LightUp(lane)).AddTo(this);
             scanActionsObserver.LaneReleased.Subscribe(lane => laneLightActor.LightDown(lane)).AddTo(this);
