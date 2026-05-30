@@ -155,6 +155,37 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &48881615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 48881616}
+  m_Layer: 0
+  m_Name: JudgeLane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &48881616
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48881615}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 247978398}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &50779143
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,6 +393,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 632861017}
+  - {fileID: 363408556}
   m_Father: {fileID: 1642606647}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &54019978
@@ -376,6 +408,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
+  judgeLaneEffectActorPrefab: {fileID: 2641659985139940362, guid: 5a613d7f2e0532644a2b0171954f60ef, type: 3}
+  judgeLaneEffectParent: {fileID: 363408556}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 632861017}
 --- !u!1 &65769659
@@ -1044,6 +1078,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1798108829}
+  - {fileID: 48881616}
   m_Father: {fileID: 1852555635}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &247978399
@@ -1058,6 +1093,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
+  judgeLaneEffectActorPrefab: {fileID: 2641659985139940362, guid: 5a613d7f2e0532644a2b0171954f60ef, type: 3}
+  judgeLaneEffectParent: {fileID: 48881616}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 1798108829}
 --- !u!1 &275911294
@@ -1654,6 +1691,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 185200655}
+  - {fileID: 1401537057}
   m_Father: {fileID: 153704021}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &335562032
@@ -1668,6 +1706,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
+  judgeLaneEffectActorPrefab: {fileID: 2641659985139940362, guid: 5a613d7f2e0532644a2b0171954f60ef, type: 3}
+  judgeLaneEffectParent: {fileID: 1401537057}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 185200655}
 --- !u!1 &340857535
@@ -2361,6 +2401,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1096528387}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &363408555
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 363408556}
+  m_Layer: 0
+  m_Name: JudgeLane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &363408556
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 363408555}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 54019977}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &374891163
 GameObject:
   m_ObjectHideFlags: 0
@@ -2424,6 +2495,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1361384424}
+  - {fileID: 1943437731}
   m_Father: {fileID: 2052178762}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &376434876
@@ -2438,6 +2510,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
+  judgeLaneEffectActorPrefab: {fileID: 2641659985139940362, guid: 5a613d7f2e0532644a2b0171954f60ef, type: 3}
+  judgeLaneEffectParent: {fileID: 1943437731}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 1361384424}
 --- !u!1 &387236595
@@ -2546,6 +2620,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 400058396}
   m_CullTransparentMesh: 1
+--- !u!1 &400131509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 400131510}
+  m_Layer: 0
+  m_Name: JudgeLane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &400131510
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400131509}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1096528387}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &453113571
 GameObject:
   m_ObjectHideFlags: 0
@@ -3058,6 +3163,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1569850674}
+  - {fileID: 549422293}
   m_Father: {fileID: 280336071}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &472771678
@@ -3072,6 +3178,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
+  judgeLaneEffectActorPrefab: {fileID: 2641659985139940362, guid: 5a613d7f2e0532644a2b0171954f60ef, type: 3}
+  judgeLaneEffectParent: {fileID: 549422293}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 1569850674}
 --- !u!1 &474357825
@@ -3544,6 +3652,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 172103308}
+  - {fileID: 2102543012}
   m_Father: {fileID: 136956589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &506537992
@@ -3558,6 +3667,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
+  judgeLaneEffectActorPrefab: {fileID: 2641659985139940362, guid: 5a613d7f2e0532644a2b0171954f60ef, type: 3}
+  judgeLaneEffectParent: {fileID: 2102543012}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 172103308}
 --- !u!1 &519420028
@@ -3809,6 +3920,68 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ComboTextActor
   text: {fileID: 1485615073}
+--- !u!1 &549422292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 549422293}
+  m_Layer: 0
+  m_Name: JudgeLane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &549422293
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549422292}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 472771677}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &560626800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 560626801}
+  m_Layer: 0
+  m_Name: JudgeLane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &560626801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560626800}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1749511973}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &573871736
 GameObject:
   m_ObjectHideFlags: 0
@@ -9019,6 +9192,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 362660299}
+  - {fileID: 400131510}
   m_Father: {fileID: 1420038406}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1096528388
@@ -9033,6 +9207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
+  judgeLaneEffectActorPrefab: {fileID: 2641659985139940362, guid: 5a613d7f2e0532644a2b0171954f60ef, type: 3}
+  judgeLaneEffectParent: {fileID: 400131510}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 362660299}
 --- !u!1 &1098299988
@@ -11638,6 +11814,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1401537056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1401537057}
+  m_Layer: 0
+  m_Name: JudgeLane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1401537057
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1401537056}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 335562031}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1405145921
 GameObject:
   m_ObjectHideFlags: 0
@@ -12699,6 +12906,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 472771677}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1593407309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1593407310}
+  m_Layer: 0
+  m_Name: JudgeLane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1593407310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593407309}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1792730825}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1595219603
 GameObject:
@@ -14180,6 +14418,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 712136558}
+  - {fileID: 560626801}
   m_Father: {fileID: 634906986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1749511974
@@ -14194,6 +14433,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
+  judgeLaneEffectActorPrefab: {fileID: 2641659985139940362, guid: 5a613d7f2e0532644a2b0171954f60ef, type: 3}
+  judgeLaneEffectParent: {fileID: 560626801}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
   judgeTextEffectParent: {fileID: 712136558}
 --- !u!1 &1781975671
@@ -14373,6 +14614,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 387236596}
+  - {fileID: 1593407310}
   m_Father: {fileID: 1310864650}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1792730826
@@ -14387,6 +14629,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
+  judgeLaneEffectActorPrefab: {fileID: 2641659985139940362, guid: 2c2874523494332428e1c1e35e14dd20, type: 3}
+  judgeLaneEffectParent: {fileID: 1593407310}
   judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 7538fb3fe5913944a97bbf6dc7065149, type: 3}
   judgeTextEffectParent: {fileID: 387236596}
 --- !u!1 &1792904169
@@ -15308,6 +15552,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1942427537}
   m_CullTransparentMesh: 1
+--- !u!1 &1943437730
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1943437731}
+  m_Layer: 0
+  m_Name: JudgeLane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1943437731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943437730}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 376434875}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1976873102
 GameObject:
   m_ObjectHideFlags: 0
@@ -15537,6 +15812,37 @@ MonoBehaviour:
   measureLinePrefab: {fileID: 6972040059810557467, guid: de38f11cad5870542b981ff1f85c0078, type: 3}
   laneLightActor: {fileID: 65769661}
   judgeEffectFactory: {fileID: 376434876}
+--- !u!1 &2102543011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2102543012}
+  m_Layer: 0
+  m_Name: JudgeLane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2102543012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102543011}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 506537991}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2142052733
 GameObject:
   m_ObjectHideFlags: 0

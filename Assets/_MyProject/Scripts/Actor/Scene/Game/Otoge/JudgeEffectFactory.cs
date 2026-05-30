@@ -5,6 +5,8 @@ namespace MyProject.Actor
 {
     public class JudgeEffectFactory : MonoBehaviour
     {
+        [SerializeField] JudgeLaneEffectActor judgeLaneEffectActorPrefab;
+        [SerializeField] Transform judgeLaneEffectParent;
         [SerializeField] JudgeTextEffectActor judgeTextEffectActorPrefab;
         [SerializeField] Transform judgeTextEffectParent;
 
@@ -16,9 +18,13 @@ namespace MyProject.Actor
             float riseAmount = JudgeTextEffectActor.DefaultRiseAmount
         )
         {
-            var effectActor = Instantiate(judgeTextEffectActorPrefab, judgeTextEffectParent);
-            effectActor.transform.localPosition = position;
-            effectActor.Play(judgeType, riseOffset, riseAxis, riseAmount);
+            var laneEffectActor = Instantiate(judgeLaneEffectActorPrefab, judgeLaneEffectParent);
+            laneEffectActor.transform.localPosition = position;
+            laneEffectActor.Play(judgeType);
+
+            var textEffectActor = Instantiate(judgeTextEffectActorPrefab, judgeTextEffectParent);
+            textEffectActor.transform.localPosition = position;
+            textEffectActor.Play(judgeType, riseOffset, riseAxis, riseAmount);
         }
     }
 }
