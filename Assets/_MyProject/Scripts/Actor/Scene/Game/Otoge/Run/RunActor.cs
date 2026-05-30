@@ -99,7 +99,7 @@ namespace MyProject.Actor
                     continue;
                 }
 
-                noteActor.InstallCore(noteCore);
+                noteActor.Install(noteCore);
                 NoteActors.Add(noteActor);
             }
         }

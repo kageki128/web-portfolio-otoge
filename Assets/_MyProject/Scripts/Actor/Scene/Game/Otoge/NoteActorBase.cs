@@ -15,7 +15,7 @@ namespace MyProject.Actor
 
         public NoteCoreBase NoteCore { get; private set; }
 
-        public void InstallCore(NoteCoreBase noteCore)
+        public void Install(NoteCoreBase noteCore)
         {
             NoteCore = noteCore;
             SetWidth(noteCore.Property.Width);

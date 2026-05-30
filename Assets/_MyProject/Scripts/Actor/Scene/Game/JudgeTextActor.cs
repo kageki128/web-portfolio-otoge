@@ -40,11 +40,24 @@ namespace MyProject.Actor
             var fastCount = judgeCounts[JudgeType.PerfectFast] + judgeCounts[JudgeType.GoodFast];
             var lateCount = judgeCounts[JudgeType.PerfectLate] + judgeCounts[JudgeType.GoodLate];
 
-            perfectText.text = $"{perfectCount}";
-            goodText.text = $"{goodCount}";
-            missText.text = $"{missCount}";
-            fastText.text = $"{fastCount}";
-            lateText.text = $"{lateCount}";
+            SetJudgeCountText(perfectText, perfectCount);
+            SetJudgeCountText(goodText, goodCount);
+            SetJudgeCountText(missText, missCount);
+            SetJudgeCountText(fastText, fastCount);
+            SetJudgeCountText(lateText, lateCount);
+        }
+
+        void SetJudgeCountText(TMP_Text valueText, int count)
+        {
+            var isShow = count != 0;
+            valueText.gameObject.SetActive(isShow);
+
+            if (!isShow)
+            {
+                return;
+            }
+
+            valueText.text = $"{count}";
         }
     }
 }
