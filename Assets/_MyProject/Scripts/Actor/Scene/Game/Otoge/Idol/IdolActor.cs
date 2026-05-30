@@ -19,6 +19,7 @@ namespace MyProject.Actor
         [SerializeField] IdolTapActor tapPrefab;
         [SerializeField] IdolHoldActor holdPrefab;
         [SerializeField] LaneLightActor laneLightActor;
+        [SerializeField] JudgeEffectFactory judgeEffectFactory;
         [SerializeField] SpriteRenderer[] points;
 
         IdolActionsObserver idolActionsObserver;
@@ -110,7 +111,7 @@ namespace MyProject.Actor
                     continue;
                 }
 
-                noteActor.Install(noteCore);
+                noteActor.Install(noteCore, judgeEffectFactory);
                 NoteActors.Add(noteActor);
             }
         }

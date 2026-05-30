@@ -23,6 +23,7 @@ namespace MyProject.Actor
         [SerializeField] EffectHoldActor holdPrefab;
         [SerializeField] EffectMeasureLineActor measureLinePrefab;
         [SerializeField] LaneLightActor laneLightActor;
+        [SerializeField] JudgeEffectFactory judgeEffectFactory;
         [SerializeField] Vector3 eventCameraLocalPosition;
         [SerializeField] float eventCameraLocalEulerX;
 
@@ -119,7 +120,7 @@ namespace MyProject.Actor
                     continue;
                 }
 
-                noteActor.Install(noteCore);
+                noteActor.Install(noteCore, judgeEffectFactory);
                 NoteActors.Add(noteActor);
             }
         }

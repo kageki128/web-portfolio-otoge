@@ -19,6 +19,7 @@ namespace MyProject.Actor
         [SerializeField] TetraHoldActor holdPrefab;
         [SerializeField] TetraMeasureLineActor measureLinePrefab;
         [SerializeField] LaneLightActor laneLightActor;
+        [SerializeField] JudgeEffectFactory judgeEffectFactory;
 
         TetraActionsObserver tetraActionsObserver;
 
@@ -98,7 +99,7 @@ namespace MyProject.Actor
                 {
                     continue;
                 }
-                noteActor.Install(noteCore);
+                noteActor.Install(noteCore, judgeEffectFactory);
                 NoteActors.Add(noteActor);
             }
         }

@@ -20,6 +20,7 @@ namespace MyProject.Actor
         [SerializeField] AirAirActor airPrefab;
         [SerializeField] AirMeasureLineActor measureLinePrefab;
         [SerializeField] LaneLightActor laneLightActor;
+        [SerializeField] JudgeEffectFactory judgeEffectFactory;
 
         AirActionsObserver airActionsObserver;
 
@@ -100,7 +101,7 @@ namespace MyProject.Actor
                 {
                     continue;
                 }
-                noteActor.Install(noteCore);
+                noteActor.Install(noteCore, judgeEffectFactory);
                 NoteActors.Add(noteActor);
             }
         }

@@ -56,7 +56,10 @@ TagManager:
   - name: Tap
     uniqueID: 356029137
     locked: 0
-  - name: Text
+  - name: JudgeLaneEffect
+    uniqueID: 3346522639
+    locked: 0
+  - name: JudgeTextEffect
     uniqueID: 736728647
     locked: 0
   m_RenderingLayers:

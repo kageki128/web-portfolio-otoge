@@ -18,6 +18,7 @@ namespace MyProject.Actor
         [SerializeField] MasterTapActor tapPrefab;
         [SerializeField] MasterMeasureLineActor measureLinePrefab;
         [SerializeField] LaneLightActor laneLightActor;
+        [SerializeField] JudgeEffectFactory judgeEffectFactory;
 
         MasterActionsObserver masterActionsObserver;
 
@@ -95,7 +96,7 @@ namespace MyProject.Actor
                 {
                     continue;
                 }
-                noteActor.Install(noteCore);
+                noteActor.Install(noteCore, judgeEffectFactory);
                 NoteActors.Add(noteActor);
             }
         }

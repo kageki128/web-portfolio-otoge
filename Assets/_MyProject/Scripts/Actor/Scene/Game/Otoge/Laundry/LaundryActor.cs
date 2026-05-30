@@ -19,6 +19,7 @@ namespace MyProject.Actor
         [SerializeField] LaundryTapActor tapPrefab;
         [SerializeField] LaundryHoldActor holdPrefab;
         [SerializeField] LaneLightActor laneLightActor;
+        [SerializeField] JudgeEffectFactory judgeEffectFactory;
         [SerializeField] SpriteRenderer[] points;
 
         LaundryActionsObserver laundryActionsObserver;
@@ -109,7 +110,7 @@ namespace MyProject.Actor
                 {
                     continue;
                 }
-                noteActor.Install(noteCore);
+                noteActor.Install(noteCore, judgeEffectFactory);
                 NoteActors.Add(noteActor);
             }
         }

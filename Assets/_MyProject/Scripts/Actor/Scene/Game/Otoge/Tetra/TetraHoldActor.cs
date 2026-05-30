@@ -67,6 +67,12 @@ namespace MyProject.Actor
             gameObject.SetActive(true);
             image.color = OtogeAppearance.GetHoldColor(defaultColor, state);
         }
+
+        protected override void PlayJudgeEffect(JudgeType judgeType)
+        {
+            var position = new Vector3(transform.localPosition.x, 0f, 0f);
+            JudgeEffectFactory.PlayEffect(judgeType, TetraLaneLayout.JudgeEffectRiseAmount, RiseAxis.Y, position);
+        }
     }
 }
 

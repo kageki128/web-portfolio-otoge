@@ -15,13 +15,20 @@ namespace MyProject.Actor
 
         public NoteCoreBase NoteCore { get; private set; }
 
-        public void Install(NoteCoreBase noteCore)
+        protected JudgeEffectFactory JudgeEffectFactory;
+
+        public void Install(NoteCoreBase noteCore, JudgeEffectFactory judgeEffectFactory)
         {
             NoteCore = noteCore;
+            JudgeEffectFactory = judgeEffectFactory;
             SetWidth(noteCore.Property.Width);
             SetLayer(noteCore.Property.Layer);
 
             noteCore.State.Subscribe(state => SetAppearance(state)).AddTo(this);
+            noteCore.Judge
+                .Skip(1)
+                .Subscribe(PlayJudgeEffect)
+                .AddTo(this);
         }
 
         public abstract void SetPosition(float currentBeat, float currentScroll, float scrollSpeed);
@@ -34,6 +41,9 @@ namespace MyProject.Actor
         protected abstract void SetWidth(int width);
         protected abstract void SetLayer(int layer);
         protected abstract void SetAppearance(NoteState state);
+        protected virtual void PlayJudgeEffect(JudgeType judgeType)
+        {
+        }
 
         protected static float CalculateCenterX(int lane, int width)
         {

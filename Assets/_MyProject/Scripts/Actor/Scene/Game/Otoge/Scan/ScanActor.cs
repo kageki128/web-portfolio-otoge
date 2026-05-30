@@ -16,6 +16,7 @@ namespace MyProject.Actor
         [SerializeField] ScanHoldActor holdPrefab;
         [SerializeField] ScanJudgeLineActor judgeLineActor;
         [SerializeField] LaneLightActor laneLightActor;
+        [SerializeField] JudgeEffectFactory judgeEffectFactory;
 
         ScanActionsObserver scanActionsObserver;
 
@@ -98,7 +99,7 @@ namespace MyProject.Actor
                     continue;
                 }
 
-                noteActor.Install(noteCore);
+                noteActor.Install(noteCore, judgeEffectFactory);
                 NoteActors.Add(noteActor);
             }
         }

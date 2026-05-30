@@ -19,6 +19,7 @@ namespace MyProject.Actor
         [SerializeField] OctaHoldActor holdPrefab;
         [SerializeField] OctaMeasureLineActor measureLinePrefab;
         [SerializeField] LaneLightActor laneLightActor;
+        [SerializeField] JudgeEffectFactory judgeEffectFactory;
 
         OctaActionsObserver octaActionsObserver;
 
@@ -98,7 +99,7 @@ namespace MyProject.Actor
                 {
                     continue;
                 }
-                noteActor.Install(noteCore);
+                noteActor.Install(noteCore, judgeEffectFactory);
                 NoteActors.Add(noteActor);
             }
         }

@@ -1,0 +1,191 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using LitMotion;
+using MyProject.Core;
+using TMPro;
+using UnityEngine;
+
+namespace MyProject.Actor
+{
+    public class JudgeTextEffectActor : ActorBase
+    {
+        const float RiseAndFadeDuration = 0.3f;
+        const float FinalFadeDuration = 0.2f;
+
+        [SerializeField] TMP_Text mainText;
+        [SerializeField] TMP_Text subText;
+
+        [SerializeField] Color perfectColor;
+        [SerializeField] Color goodColor;
+        [SerializeField] Color missColor;
+        [SerializeField] Color fastColor;
+        [SerializeField] Color lateColor;
+
+        MotionHandle moveHandle;
+        MotionHandle fadeHandle;
+
+        public override void Initialize()
+        {
+            gameObject.SetActive(false);
+        }
+
+        public override UniTask ShowAsync(CancellationToken ct)
+        {
+            gameObject.SetActive(true);
+            return UniTask.CompletedTask;
+        }
+
+        public override UniTask HideAsync(CancellationToken ct)
+        {
+            moveHandle.TryCancel();
+            fadeHandle.TryCancel();
+            gameObject.SetActive(false);
+            return UniTask.CompletedTask;
+        }
+
+        public void Play(JudgeType judgeType, float riseAmount, RiseAxis riseAxis)
+        {
+            SetJudgeText(judgeType);
+
+            var shouldShow = mainText.gameObject.activeSelf || subText.gameObject.activeSelf;
+            if (!shouldShow)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
+            moveHandle.TryCancel();
+            fadeHandle.TryCancel();
+
+            gameObject.SetActive(true);
+            SetTextAlpha(0f);
+
+            var startLocalPosition = transform.localPosition;
+            PlayAnimationAsync(startLocalPosition, riseAmount, riseAxis, this.GetCancellationTokenOnDestroy()).Forget();
+        }
+
+        void SetJudgeText(JudgeType judgeType)
+        {
+            switch (judgeType)
+            {
+                case JudgeType.PerfectCriticalFast:
+                case JudgeType.PerfectCriticalLate:
+                    mainText.text = "PERFECT";
+                    mainText.color = perfectColor;
+                    mainText.gameObject.SetActive(true);
+                    subText.gameObject.SetActive(false);
+                    return;
+                case JudgeType.PerfectFast:
+                    mainText.text = "PERFECT";
+                    mainText.color = perfectColor;
+                    mainText.gameObject.SetActive(true);
+                    subText.text = "FAST";
+                    subText.color = fastColor;
+                    subText.gameObject.SetActive(true);
+                    return;
+                case JudgeType.PerfectLate:
+                    mainText.text = "PERFECT";
+                    mainText.color = perfectColor;
+                    mainText.gameObject.SetActive(true);
+                    subText.text = "LATE";
+                    subText.color = lateColor;
+                    subText.gameObject.SetActive(true);
+                    return;
+                case JudgeType.GoodFast:
+                    mainText.text = "GOOD";
+                    mainText.color = goodColor;
+                    mainText.gameObject.SetActive(true);
+                    subText.text = "FAST";
+                    subText.color = fastColor;
+                    subText.gameObject.SetActive(true);
+                    return;
+                case JudgeType.GoodLate:
+                    mainText.text = "GOOD";
+                    mainText.color = goodColor;
+                    mainText.gameObject.SetActive(true);
+                    subText.text = "LATE";
+                    subText.color = lateColor;
+                    subText.gameObject.SetActive(true);
+                    return;
+                case JudgeType.MissFast:
+                case JudgeType.MissLate:
+                    mainText.text = "MISS";
+                    mainText.color = missColor;
+                    mainText.gameObject.SetActive(true);
+                    subText.gameObject.SetActive(false);
+                    return;
+                default:
+                    mainText.gameObject.SetActive(false);
+                    subText.gameObject.SetActive(false);
+                    return;
+            }
+        }
+
+        async UniTaskVoid PlayAnimationAsync(Vector3 startLocalPosition, float riseAmount, RiseAxis riseAxis, CancellationToken ct)
+        {
+            try
+            {
+                var targetLocalPosition = startLocalPosition + CreateRiseOffset(riseAmount, riseAxis);
+
+                moveHandle = LMotion.Create(startLocalPosition, targetLocalPosition, RiseAndFadeDuration)
+                    .WithEase(Ease.OutCubic)
+                    .Bind(value => transform.localPosition = value)
+                    .AddTo(this);
+
+                fadeHandle = LMotion.Create(0f, 1f, RiseAndFadeDuration)
+                    .WithEase(Ease.OutCubic)
+                    .Bind(SetTextAlpha)
+                    .AddTo(this);
+
+                await UniTask.WhenAll(
+                    moveHandle.ToUniTask(CancelBehavior.Cancel, false, ct),
+                    fadeHandle.ToUniTask(CancelBehavior.Cancel, false, ct)
+                );
+
+                fadeHandle = LMotion.Create(1f, 0f, FinalFadeDuration)
+                    .WithEase(Ease.Linear)
+                    .Bind(SetTextAlpha)
+                    .AddTo(this);
+
+                await fadeHandle.ToUniTask(CancelBehavior.Cancel, false, ct);
+
+                Destroy(gameObject);
+            }
+            catch (System.OperationCanceledException)
+            {
+            }
+        }
+
+        Vector3 CreateRiseOffset(float riseAmount, RiseAxis riseAxis)
+        {
+            var localDirection = riseAxis == RiseAxis.Y ? Vector3.up : Vector3.forward;
+            var worldDirection = transform.TransformDirection(localDirection);
+            if (transform.parent == null)
+            {
+                return worldDirection * riseAmount;
+            }
+
+            var parentLocalDirection = transform.parent.InverseTransformDirection(worldDirection);
+            return parentLocalDirection * riseAmount;
+        }
+
+        void SetTextAlpha(float alpha)
+        {
+            SetAlpha(mainText, alpha);
+            SetAlpha(subText, alpha);
+        }
+
+        static void SetAlpha(TMP_Text text, float alpha)
+        {
+            var color = text.color;
+            color.a = alpha;
+            text.color = color;
+        }
+    }
+
+    public enum RiseAxis
+    {
+        Y,
+        Z
+    }
+}

@@ -511,6 +511,7 @@ MonoBehaviour:
   holdPrefab: {fileID: 6873140133655357821, guid: cde64c330c3d96e468e0ff552c0aeeeb, type: 3}
   measureLinePrefab: {fileID: 4031972581336497962, guid: e9a2a3795f4b25a4e83671264a68a74a, type: 3}
   laneLightActor: {fileID: 1814178762}
+  judgeEffectFactory: {fileID: 0}
 --- !u!1 &153704020
 GameObject:
   m_ObjectHideFlags: 0
@@ -563,6 +564,7 @@ MonoBehaviour:
   airPrefab: {fileID: 115487633063222370, guid: a25d290a61070f64594e1940d9fc8968, type: 3}
   measureLinePrefab: {fileID: 6541762607208622763, guid: b8b93a369e7c13a4b88db2c86006eb61, type: 3}
   laneLightActor: {fileID: 1127709018}
+  judgeEffectFactory: {fileID: 0}
 --- !u!1 &200172397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,6 +1025,7 @@ Transform:
   m_Children:
   - {fileID: 465268669}
   - {fileID: 1245732349}
+  - {fileID: 472771677}
   m_Father: {fileID: 334943694}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &280336072
@@ -1042,6 +1045,7 @@ MonoBehaviour:
   holdPrefab: {fileID: 2911079052193499454, guid: aac4a2ef09858f440b0ec334b68e57a1, type: 3}
   measureLinePrefab: {fileID: 7733593934444563179, guid: b7b36b0e564d8b640b1c19169433b2d1, type: 3}
   laneLightActor: {fileID: 1245732350}
+  judgeEffectFactory: {fileID: 472771678}
 --- !u!1 &308665593
 GameObject:
   m_ObjectHideFlags: 0
@@ -2709,6 +2713,53 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &472771676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 472771677}
+  - component: {fileID: 472771678}
+  m_Layer: 0
+  m_Name: JudgeEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &472771677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472771676}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.5, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1569850674}
+  m_Father: {fileID: 280336071}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &472771678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 472771676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82c5d80e64b98d40bc8608faa6ec329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.JudgeEffectFactory
+  judgeTextEffectActorPrefab: {fileID: 5123169781834985164, guid: 29378efb0e20f9846b79a2b088d6007d, type: 3}
+  judgeTextEffectParent: {fileID: 1569850674}
 --- !u!1 &474357825
 GameObject:
   m_ObjectHideFlags: 0
@@ -3895,7 +3946,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
-  m_ApplyToSortingLayers: 00000000d1923815b5312ffd2743513a4796e92b6131f62ac5aaf058
+  m_ApplyToSortingLayers: 00000000d1923815b5312ffd2743513a4796e92b6131f62ac5aaf0580fe277c7
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -4266,6 +4317,7 @@ MonoBehaviour:
   holdPrefab: {fileID: 696461098447168113, guid: 342b796572b4f1b4a889fd02fb0f8ae0, type: 3}
   measureLinePrefab: {fileID: 5172355137349367713, guid: 4d13baf1d2a016a49948f224f3b82d6e, type: 3}
   laneLightActor: {fileID: 78549606}
+  judgeEffectFactory: {fileID: 0}
 --- !u!1 &642574500
 GameObject:
   m_ObjectHideFlags: 0
@@ -10130,6 +10182,7 @@ MonoBehaviour:
   tapPrefab: {fileID: 5767703113346120638, guid: 3413727db45fea84aa8b22316df4b2a6, type: 3}
   holdPrefab: {fileID: 3162522604057605287, guid: 0159febf50bab6744b11fda1aee7abd7, type: 3}
   laneLightActor: {fileID: 1029456986}
+  judgeEffectFactory: {fileID: 0}
   points:
   - {fileID: 1364048514}
   - {fileID: 703088225}
@@ -11224,6 +11277,7 @@ MonoBehaviour:
   tapPrefab: {fileID: 8179974866322459759, guid: 8f8b930ee1bc48c4fa1f0031a25c6f2e, type: 3}
   holdPrefab: {fileID: 8206978077278460639, guid: 51bd692cc9c95924eb1431b77aa6128c, type: 3}
   laneLightActor: {fileID: 965041715}
+  judgeEffectFactory: {fileID: 0}
   points:
   - {fileID: 622906285}
   - {fileID: 1430750215}
@@ -12111,6 +12165,37 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1 &1569850673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1569850674}
+  m_Layer: 0
+  m_Name: JudgeText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1569850674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1569850673}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 472771677}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1595219603
 GameObject:
   m_ObjectHideFlags: 0
@@ -12480,6 +12565,7 @@ MonoBehaviour:
   holdPrefab: {fileID: 7433944238026522488, guid: 88099f0465edb6c49a070dcdeddce707, type: 3}
   judgeLineActor: {fileID: 727595315}
   laneLightActor: {fileID: 589561949}
+  judgeEffectFactory: {fileID: 0}
 --- !u!1 &1656776576
 GameObject:
   m_ObjectHideFlags: 0
@@ -14120,6 +14206,7 @@ MonoBehaviour:
   holdPrefab: {fileID: 771023781711942789, guid: df22f93c987ad9041bd8fd288445daa9, type: 3}
   measureLinePrefab: {fileID: 3096036215022423395, guid: 01d469131dd06ce488313ff2b08b57ab, type: 3}
   laneLightActor: {fileID: 1791396254}
+  judgeEffectFactory: {fileID: 0}
   eventCameraLocalPosition: {x: 0, y: -5, z: -2.5}
   eventCameraLocalEulerX: -75
 --- !u!1 &1903267189
@@ -14817,6 +14904,7 @@ MonoBehaviour:
   tapPrefab: {fileID: 5816619997580466947, guid: 1b5ae75e79386ad4d8a42ab1f728288b, type: 3}
   measureLinePrefab: {fileID: 6972040059810557467, guid: de38f11cad5870542b981ff1f85c0078, type: 3}
   laneLightActor: {fileID: 65769661}
+  judgeEffectFactory: {fileID: 0}
 --- !u!1 &2142052733
 GameObject:
   m_ObjectHideFlags: 0
