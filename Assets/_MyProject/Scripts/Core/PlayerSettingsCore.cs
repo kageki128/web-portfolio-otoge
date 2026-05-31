@@ -7,9 +7,11 @@ namespace MyProject.Core
     {
         const float MinScrollSpeed = 1f;
         const float MaxScrollSpeed = 20f;
+        const float ScrollSpeedStep = 0.1f;
 
-        const float MinSecOffset = -1f;
-        const float MaxSecOffset = 1f;
+        const float MinNoteOffset = -0.2f;
+        const float MaxNoteOffset = 0.2f;
+        const float NoteOffsetStep = 0.01f;
 
         public ReadOnlyReactiveProperty<float> ScrollSpeed => scrollSpeed;
         readonly ReactiveProperty<float> scrollSpeed = new(10f);
@@ -17,14 +19,18 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<float> ScrollSpeedNormalized => scrollSpeedNormalized;
         readonly ReactiveProperty<float> scrollSpeedNormalized = new(Mathf.InverseLerp(MinScrollSpeed, MaxScrollSpeed, 10f));
 
-        public ReadOnlyReactiveProperty<float> SecOffset => secOffset;
-        readonly ReactiveProperty<float> secOffset = new(-0.05f);
+        public ReadOnlyReactiveProperty<float> NoteOffset => noteOffset;
+        readonly ReactiveProperty<float> noteOffset = new(-0.05f);
+
+        public ReadOnlyReactiveProperty<float> NoteOffsetNormalized => noteOffsetNormalized;
+        readonly ReactiveProperty<float> noteOffsetNormalized = new(Mathf.InverseLerp(MinNoteOffset, MaxNoteOffset, -0.05f));
 
         public void SetScrollSpeed(float newScrollSpeed)
         {
             var clamped = Mathf.Clamp(newScrollSpeed, MinScrollSpeed, MaxScrollSpeed);
-            scrollSpeed.Value = clamped;
-            scrollSpeedNormalized.Value = NormalizeScrollSpeed(clamped);
+            var stepped = Mathf.Round(clamped / ScrollSpeedStep) * ScrollSpeedStep;
+            scrollSpeed.Value = stepped;
+            scrollSpeedNormalized.Value = NormalizeScrollSpeed(stepped);
         }
 
         public void SetScrollSpeedNormalized(float normalizedScrollSpeed)
@@ -33,9 +39,18 @@ namespace MyProject.Core
             SetScrollSpeed(DenormalizeScrollSpeed(normalized));
         }
 
-        public void SetSecOffset(float newSecOffset)
+        public void SetNoteOffset(float newNoteOffset)
         {
-            secOffset.Value = Mathf.Clamp(newSecOffset, MinSecOffset, MaxSecOffset);
+            var clamped = Mathf.Clamp(newNoteOffset, MinNoteOffset, MaxNoteOffset);
+            var stepped = Mathf.Round(clamped / NoteOffsetStep) * NoteOffsetStep;
+            noteOffset.Value = stepped;
+            noteOffsetNormalized.Value = NormalizeNoteOffset(stepped);
+        }
+
+        public void SetNoteOffsetNormalized(float normalizedNoteOffset)
+        {
+            var normalized = Mathf.Clamp01(normalizedNoteOffset);
+            SetNoteOffset(DenormalizeNoteOffset(normalized));
         }
 
         float NormalizeScrollSpeed(float scrollSpeedValue)
@@ -46,6 +61,16 @@ namespace MyProject.Core
         float DenormalizeScrollSpeed(float normalizedScrollSpeed)
         {
             return Mathf.Lerp(MinScrollSpeed, MaxScrollSpeed, normalizedScrollSpeed);
+        }
+
+        float NormalizeNoteOffset(float noteOffsetValue)
+        {
+            return Mathf.InverseLerp(MinNoteOffset, MaxNoteOffset, noteOffsetValue);
+        }
+
+        float DenormalizeNoteOffset(float normalizedNoteOffset)
+        {
+            return Mathf.Lerp(MinNoteOffset, MaxNoteOffset, normalizedNoteOffset);
         }
     }
 }

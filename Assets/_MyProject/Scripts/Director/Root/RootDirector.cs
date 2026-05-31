@@ -30,6 +30,19 @@ namespace MyProject.Director
             playerSettingsCore.ScrollSpeedNormalized
                 .Subscribe(value => rootActorHub.SetScrollSpeedNormalized(value))
                 .AddTo(disposables);
+            playerSettingsCore.ScrollSpeed
+                .Subscribe(value => rootActorHub.SetScrollSpeed(value))
+                .AddTo(disposables);
+
+            rootActorHub.NoteOffsetNormalizedChanged
+                .Subscribe(value => playerSettingsCore.SetNoteOffsetNormalized(value))
+                .AddTo(disposables);
+            playerSettingsCore.NoteOffsetNormalized
+                .Subscribe(value => rootActorHub.SetNoteOffsetNormalized(value))
+                .AddTo(disposables);
+            playerSettingsCore.NoteOffset
+                .Subscribe(value => rootActorHub.SetNoteOffset(value))
+                .AddTo(disposables);
         }
 
         public void Tick()

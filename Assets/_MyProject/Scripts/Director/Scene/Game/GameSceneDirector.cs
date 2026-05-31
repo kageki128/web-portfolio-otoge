@@ -55,7 +55,7 @@ namespace MyProject.Director
 
         public void Tick()
         {
-            gameSessionCore.ProceedGame(playerSettingsCore.SecOffset.CurrentValue);
+            gameSessionCore.ProceedGame(playerSettingsCore.NoteOffset.CurrentValue);
         }
 
         public async UniTask BeforeExitAsync(CancellationToken ct)
