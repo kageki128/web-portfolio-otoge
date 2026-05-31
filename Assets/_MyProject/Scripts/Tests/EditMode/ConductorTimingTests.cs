@@ -107,6 +107,23 @@ namespace MyProject.Tests.EditMode
             Assert.That(transition.RemainingSec, Is.EqualTo(0f));
         }
 
+        [Test]
+        public void CalculateOtogeTypeFromBeat_切り替えBeatちょうどは新タイプを返す()
+        {
+            var otogeChanges = new List<OtogeChange>
+            {
+                new(0f, OtogeType.Tetra),
+                new(4f, OtogeType.Octa),
+                new(8f, OtogeType.Air),
+            };
+
+            var typeAt4Beat = TimingCalculator.CalculateOtogeTypeFromBeat(4f, otogeChanges);
+            var typeAt8Beat = TimingCalculator.CalculateOtogeTypeFromBeat(8f, otogeChanges);
+
+            Assert.That(typeAt4Beat, Is.EqualTo(OtogeType.Octa));
+            Assert.That(typeAt8Beat, Is.EqualTo(OtogeType.Air));
+        }
+
         static ConductorTiming CreateTiming(IReadOnlyList<float> otogeEventBeats, IReadOnlyList<OtogeChange> otogeChanges = null)
         {
             return new ConductorTiming(BpmChanges, TimelineToHighSpeedChanges, MeasureLengthChanges, otogeChanges ?? OtogeChanges, otogeEventBeats);

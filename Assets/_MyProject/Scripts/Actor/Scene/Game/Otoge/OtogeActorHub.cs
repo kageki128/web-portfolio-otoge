@@ -10,6 +10,8 @@ namespace MyProject.Actor
 {
     public class OtogeActorHub : ActorBase
     {
+        const float SwitchToNextTypeRemainingBeatThreshold = 1f;
+
         public Observable<int> LanePressed;
         public Observable<int> LaneReleased;
         public Observable<Unit> AirPressed;
@@ -109,13 +111,21 @@ namespace MyProject.Actor
         {
             otogeTypeTextActor.ApplyTransition(transition);
 
-            if (hasAppliedOtogeTypeTransition && transition.CurrentType == currentOtogeType)
+            var switchTargetType = GetSwitchTargetType(transition);
+            if (hasAppliedOtogeTypeTransition && switchTargetType == currentOtogeType)
             {
                 return;
             }
 
             hasAppliedOtogeTypeTransition = true;
-            SwitchOtogeType(transition.CurrentType);
+            SwitchOtogeType(switchTargetType);
+        }
+
+        static OtogeType GetSwitchTargetType(OtogeTypeTransition transition)
+        {
+            return transition.RemainingBeat <= SwitchToNextTypeRemainingBeatThreshold
+                ? transition.NextType
+                : transition.CurrentType;
         }
 
         void SwitchOtogeType(OtogeType newType)

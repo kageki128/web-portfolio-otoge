@@ -170,7 +170,7 @@ namespace MyProject.Core
             var type = OtogeType.Tetra;
             foreach (var change in otogeChanges)
             {
-                if (change.Beat >= beat)
+                if (change.Beat > beat)
                 {
                     break;
                 }
