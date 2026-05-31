@@ -38,7 +38,7 @@ namespace MyProject.Actor
 
         public void SetNoteOffset(float noteOffset)
         {
-            valueText.text = $"{noteOffset:F2}";
+            valueText.text = Mathf.RoundToInt(noteOffset * 1000f).ToString();
         }
     }
 }

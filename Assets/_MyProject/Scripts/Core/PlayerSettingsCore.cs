@@ -11,7 +11,7 @@ namespace MyProject.Core
 
         const float MinNoteOffset = -0.2f;
         const float MaxNoteOffset = 0.2f;
-        const float NoteOffsetStep = 0.01f;
+        const float NoteOffsetStep = 0.001f;
 
         public ReadOnlyReactiveProperty<float> ScrollSpeed => scrollSpeed;
         readonly ReactiveProperty<float> scrollSpeed = new(10f);
@@ -20,10 +20,10 @@ namespace MyProject.Core
         readonly ReactiveProperty<float> scrollSpeedNormalized = new(Mathf.InverseLerp(MinScrollSpeed, MaxScrollSpeed, 10f));
 
         public ReadOnlyReactiveProperty<float> NoteOffset => noteOffset;
-        readonly ReactiveProperty<float> noteOffset = new(-0.05f);
+        readonly ReactiveProperty<float> noteOffset = new(-0.04f);
 
         public ReadOnlyReactiveProperty<float> NoteOffsetNormalized => noteOffsetNormalized;
-        readonly ReactiveProperty<float> noteOffsetNormalized = new(Mathf.InverseLerp(MinNoteOffset, MaxNoteOffset, -0.05f));
+        readonly ReactiveProperty<float> noteOffsetNormalized = new(Mathf.InverseLerp(MinNoteOffset, MaxNoteOffset, -0.04f));
 
         public void SetScrollSpeed(float newScrollSpeed)
         {
