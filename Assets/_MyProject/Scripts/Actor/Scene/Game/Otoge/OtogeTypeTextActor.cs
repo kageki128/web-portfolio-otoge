@@ -55,7 +55,7 @@ namespace MyProject.Actor
         {
             return type switch
             {
-                OtogeType.Tetra => "TETORA",
+                OtogeType.Tetra => "TETRA",
                 OtogeType.Octa => "OCTA",
                 OtogeType.Air => "AIR",
                 OtogeType.Laundry => "LAUNDRY",
