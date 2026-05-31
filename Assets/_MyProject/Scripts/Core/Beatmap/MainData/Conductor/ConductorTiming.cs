@@ -19,8 +19,8 @@ namespace MyProject.Core
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll { get; }
         readonly Dictionary<int, ReactiveProperty<float>> timelineToCurrentScroll = new();
 
-        public ReadOnlyReactiveProperty<OtogeType> CurrentOtogeType => currentOtogeType;
-        readonly ReactiveProperty<OtogeType> currentOtogeType = new(OtogeType.Tetra);
+        public ReadOnlyReactiveProperty<OtogeTypeTransition> CurrentOtogeTypeTransition => currentOtogeTypeTransition;
+        readonly ReactiveProperty<OtogeTypeTransition> currentOtogeTypeTransition = new(new OtogeTypeTransition(OtogeType.Tetra, OtogeType.Tetra, 0f));
 
         public Observable<Unit> OtogeEvent => otogeEvent;
         readonly Subject<Unit> otogeEvent = new();
@@ -56,7 +56,7 @@ namespace MyProject.Core
                 readOnlyTimelineToCurrentScroll[timelineToHighSpeedChange.Key] = currentScroll;
             }
             TimelineToCurrentScroll = readOnlyTimelineToCurrentScroll;
-            currentOtogeType.Value = CalculateOtogeTypeFromBeat(0f, otogeChanges);
+            currentOtogeTypeTransition.Value = CalculateOtogeTypeTransitionFromBeat(0f, 0f);
         }
 
         public void SetTimeBySec(float sec)
@@ -69,7 +69,7 @@ namespace MyProject.Core
             currentSec.Value = newSec;
             currentBeat.Value = newBeat;
             currentMeasure.Value = newMeasure;
-            currentOtogeType.Value = CalculateOtogeTypeFromBeat(newBeat, otogeChanges);
+            currentOtogeTypeTransition.Value = CalculateOtogeTypeTransitionFromBeat(newBeat, newSec);
             TryTriggerOtogeEvent(previousBeat, newBeat);
 
             foreach (var timelineToHighSpeedChange in timelineToHighSpeedChanges)
@@ -91,6 +91,30 @@ namespace MyProject.Core
                 nextOtogeEventIndex++;
                 otogeEvent.OnNext(Unit.Default);
             }
+        }
+
+        OtogeTypeTransition CalculateOtogeTypeTransitionFromBeat(float beat, float sec)
+        {
+            var currentType = OtogeType.Tetra;
+            for (var i = 0; i < otogeChanges.Count; i++)
+            {
+                var change = otogeChanges[i];
+                if (change.Beat >= beat)
+                {
+                    var nextSec = CalculateSecFromBeat(change.Beat, bpmChanges);
+                    var remainingSec = nextSec - sec;
+                    if (remainingSec < 0f)
+                    {
+                        remainingSec = 0f;
+                    }
+
+                    return new OtogeTypeTransition(currentType, change.Type, remainingSec);
+                }
+
+                currentType = change.Type;
+            }
+
+            return new OtogeTypeTransition(currentType, currentType, 0f);
         }
     }
 }

@@ -31,6 +31,7 @@ namespace MyProject.Actor
 
         readonly HashSet<OtogeType> updatedOtogeTypes = new();
         OtogeType currentOtogeType = OtogeType.Tetra;
+        bool hasAppliedOtogeTypeTransition;
         OtogeActions otogeActions;
         Dictionary<OtogeType, OtogeActorBase> otogeTypeToActor = new();
         CancellationTokenSource switchOtogeTypeCts;
@@ -65,6 +66,7 @@ namespace MyProject.Actor
 
             updatedOtogeTypes.Clear();
             updatedOtogeTypes.Add(currentOtogeType);
+            hasAppliedOtogeTypeTransition = false;
 
             gameObject.SetActive(false);
         }
@@ -100,7 +102,18 @@ namespace MyProject.Actor
             }
         }
 
-        public void SwitchOtogeType(OtogeType newType)
+        public void ApplyOtogeTypeTransition(OtogeTypeTransition transition)
+        {
+            if (hasAppliedOtogeTypeTransition && transition.CurrentType == currentOtogeType)
+            {
+                return;
+            }
+
+            hasAppliedOtogeTypeTransition = true;
+            SwitchOtogeType(transition.CurrentType);
+        }
+
+        void SwitchOtogeType(OtogeType newType)
         {
             switchOtogeTypeCts?.Cancel();
             switchOtogeTypeCts?.Dispose();

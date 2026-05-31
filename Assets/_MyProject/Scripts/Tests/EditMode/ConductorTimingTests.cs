@@ -55,9 +55,58 @@ namespace MyProject.Tests.EditMode
             Assert.That(emitCount, Is.EqualTo(1));
         }
 
-        static ConductorTiming CreateTiming(IReadOnlyList<float> otogeEventBeats)
+        [Test]
+        public void SetTimeBySec_OtogeTypeTransitionを更新する()
         {
-            return new ConductorTiming(BpmChanges, TimelineToHighSpeedChanges, MeasureLengthChanges, OtogeChanges, otogeEventBeats);
+            var timing = CreateTiming
+            (
+                new[] { 2f },
+                new List<OtogeChange>
+                {
+                    new(0f, OtogeType.Tetra),
+                    new(4f, OtogeType.Octa),
+                    new(8f, OtogeType.Air),
+                }
+            );
+
+            timing.SetTimeBySec(3f);
+            var transitionAt3Sec = timing.CurrentOtogeTypeTransition.CurrentValue;
+            Assert.That(transitionAt3Sec.CurrentType, Is.EqualTo(OtogeType.Tetra));
+            Assert.That(transitionAt3Sec.NextType, Is.EqualTo(OtogeType.Octa));
+            Assert.That(transitionAt3Sec.RemainingSecToNextChange, Is.EqualTo(1f).Within(0.0001f));
+
+            timing.SetTimeBySec(4.2f);
+            var transitionAt4_2Sec = timing.CurrentOtogeTypeTransition.CurrentValue;
+            Assert.That(transitionAt4_2Sec.CurrentType, Is.EqualTo(OtogeType.Octa));
+            Assert.That(transitionAt4_2Sec.NextType, Is.EqualTo(OtogeType.Air));
+            Assert.That(transitionAt4_2Sec.RemainingSecToNextChange, Is.EqualTo(3.8f).Within(0.0001f));
+        }
+
+        [Test]
+        public void SetTimeBySec_最終タイプ到達後は次タイプが同じで残り秒は0()
+        {
+            var timing = CreateTiming
+            (
+                new[] { 2f },
+                new List<OtogeChange>
+                {
+                    new(0f, OtogeType.Tetra),
+                    new(4f, OtogeType.Octa),
+                    new(8f, OtogeType.Air),
+                }
+            );
+
+            timing.SetTimeBySec(9f);
+
+            var transition = timing.CurrentOtogeTypeTransition.CurrentValue;
+            Assert.That(transition.CurrentType, Is.EqualTo(OtogeType.Air));
+            Assert.That(transition.NextType, Is.EqualTo(OtogeType.Air));
+            Assert.That(transition.RemainingSecToNextChange, Is.EqualTo(0f));
+        }
+
+        static ConductorTiming CreateTiming(IReadOnlyList<float> otogeEventBeats, IReadOnlyList<OtogeChange> otogeChanges = null)
+        {
+            return new ConductorTiming(BpmChanges, TimelineToHighSpeedChanges, MeasureLengthChanges, otogeChanges ?? OtogeChanges, otogeEventBeats);
         }
     }
 }

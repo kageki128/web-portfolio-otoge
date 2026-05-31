@@ -101,8 +101,8 @@ namespace MyProject.Director
             gameSessionCore.Combo
                 .Subscribe(combo => gameActorHub.SetCombo(combo))
                 .AddTo(disposables);
-            gameSessionCore.CurrentOtogeType
-                .Subscribe(otogeType => gameActorHub.SwitchOtogeType(otogeType))
+            gameSessionCore.CurrentOtogeTypeTransition
+                .Subscribe(transition => gameActorHub.ApplyOtogeTypeTransition(transition))
                 .AddTo(disposables);
             gameSessionCore.OtogeEventTriggered
                 .Subscribe(_ => gameActorHub.ExecuteOtogeEvent())
