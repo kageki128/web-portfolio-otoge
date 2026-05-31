@@ -73,17 +73,19 @@ namespace MyProject.Tests.EditMode
             var transitionAt3Sec = timing.CurrentOtogeTypeTransition.CurrentValue;
             Assert.That(transitionAt3Sec.CurrentType, Is.EqualTo(OtogeType.Tetra));
             Assert.That(transitionAt3Sec.NextType, Is.EqualTo(OtogeType.Octa));
-            Assert.That(transitionAt3Sec.RemainingSecToNextChange, Is.EqualTo(1f).Within(0.0001f));
+            Assert.That(transitionAt3Sec.RemainingBeat, Is.EqualTo(1f).Within(0.0001f));
+            Assert.That(transitionAt3Sec.RemainingSec, Is.EqualTo(1f).Within(0.0001f));
 
             timing.SetTimeBySec(4.2f);
             var transitionAt4_2Sec = timing.CurrentOtogeTypeTransition.CurrentValue;
             Assert.That(transitionAt4_2Sec.CurrentType, Is.EqualTo(OtogeType.Octa));
             Assert.That(transitionAt4_2Sec.NextType, Is.EqualTo(OtogeType.Air));
-            Assert.That(transitionAt4_2Sec.RemainingSecToNextChange, Is.EqualTo(3.8f).Within(0.0001f));
+            Assert.That(transitionAt4_2Sec.RemainingBeat, Is.EqualTo(3.8f).Within(0.0001f));
+            Assert.That(transitionAt4_2Sec.RemainingSec, Is.EqualTo(3.8f).Within(0.0001f));
         }
 
         [Test]
-        public void SetTimeBySec_最終タイプ到達後は次タイプが同じで残り秒は0()
+        public void SetTimeBySec_最終タイプ到達後は次タイプが同じで残りBeatと残り秒は0()
         {
             var timing = CreateTiming
             (
@@ -101,7 +103,8 @@ namespace MyProject.Tests.EditMode
             var transition = timing.CurrentOtogeTypeTransition.CurrentValue;
             Assert.That(transition.CurrentType, Is.EqualTo(OtogeType.Air));
             Assert.That(transition.NextType, Is.EqualTo(OtogeType.Air));
-            Assert.That(transition.RemainingSecToNextChange, Is.EqualTo(0f));
+            Assert.That(transition.RemainingBeat, Is.EqualTo(0f));
+            Assert.That(transition.RemainingSec, Is.EqualTo(0f));
         }
 
         static ConductorTiming CreateTiming(IReadOnlyList<float> otogeEventBeats, IReadOnlyList<OtogeChange> otogeChanges = null)

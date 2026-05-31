@@ -25,6 +25,7 @@ namespace MyProject.Actor
         [SerializeField] MasterActor masterActor;
         [SerializeField] RunActor runActor;
         [SerializeField] ScanActor scanActor;
+        [SerializeField] OtogeTypeTextActor otogeTypeTextActor;
 
         [Header("Shared Actors")]
         [SerializeField] OtogeSharedActorBase[] sharedActors;
@@ -56,6 +57,7 @@ namespace MyProject.Actor
                 actor.InstallActions(otogeActions);
                 actor.Initialize();
             }
+            otogeTypeTextActor.Initialize();
 
             LanePressed = Observable.Merge(otogeTypeToActor.Values.Select(actor => actor.LanePressed));
             LaneReleased = Observable.Merge(otogeTypeToActor.Values.Select(actor => actor.LaneReleased));
@@ -80,6 +82,7 @@ namespace MyProject.Actor
         public override async UniTask HideAsync(CancellationToken ct)
         {
             await otogeTypeToActor[currentOtogeType].HideAsync(ct);
+            await otogeTypeTextActor.HideAsync(ct);
 
             DestroyNotes();
 
@@ -104,6 +107,8 @@ namespace MyProject.Actor
 
         public void ApplyOtogeTypeTransition(OtogeTypeTransition transition)
         {
+            otogeTypeTextActor.ApplyTransition(transition);
+
             if (hasAppliedOtogeTypeTransition && transition.CurrentType == currentOtogeType)
             {
                 return;

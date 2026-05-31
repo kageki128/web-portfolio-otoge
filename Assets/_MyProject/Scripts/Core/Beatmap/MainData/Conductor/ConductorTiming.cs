@@ -20,7 +20,7 @@ namespace MyProject.Core
         readonly Dictionary<int, ReactiveProperty<float>> timelineToCurrentScroll = new();
 
         public ReadOnlyReactiveProperty<OtogeTypeTransition> CurrentOtogeTypeTransition => currentOtogeTypeTransition;
-        readonly ReactiveProperty<OtogeTypeTransition> currentOtogeTypeTransition = new(new OtogeTypeTransition(OtogeType.Tetra, OtogeType.Tetra, 0f));
+        readonly ReactiveProperty<OtogeTypeTransition> currentOtogeTypeTransition = new(new OtogeTypeTransition(OtogeType.Tetra, OtogeType.Tetra, 0f, 0f));
 
         public Observable<Unit> OtogeEvent => otogeEvent;
         readonly Subject<Unit> otogeEvent = new();
@@ -101,6 +101,7 @@ namespace MyProject.Core
                 var change = otogeChanges[i];
                 if (change.Beat >= beat)
                 {
+                    var remainingBeat = change.Beat - beat;
                     var nextSec = CalculateSecFromBeat(change.Beat, bpmChanges);
                     var remainingSec = nextSec - sec;
                     if (remainingSec < 0f)
@@ -108,13 +109,13 @@ namespace MyProject.Core
                         remainingSec = 0f;
                     }
 
-                    return new OtogeTypeTransition(currentType, change.Type, remainingSec);
+                    return new OtogeTypeTransition(currentType, change.Type, remainingBeat, remainingSec);
                 }
 
                 currentType = change.Type;
             }
 
-            return new OtogeTypeTransition(currentType, currentType, 0f);
+            return new OtogeTypeTransition(currentType, currentType, 0f, 0f);
         }
     }
 }
