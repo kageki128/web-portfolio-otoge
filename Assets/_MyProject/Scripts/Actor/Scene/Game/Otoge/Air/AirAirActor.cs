@@ -8,7 +8,7 @@ namespace MyProject.Actor
     public class AirAirActor : NoteActorBase
     {
         const float FloatPeriodSeconds = 1.5f;
-        const float FloatAmplitude = 0.1f;
+        const float FloatAmplitude = 0.3f;
 
         [SerializeField] SpriteRenderer image;
 
@@ -33,7 +33,10 @@ namespace MyProject.Actor
 
         void Update()
         {
-            image.transform.localPosition = baseImageLocalPosition + Vector3.forward * CalculateFloatOffsetY();
+            image.transform.localPosition = new Vector3(
+                baseImageLocalPosition.x,
+                baseImageLocalPosition.y,
+                baseImageLocalPosition.z + CalculateFloatOffsetZ());
         }
 
         public override void SetPosition(float currentBeat, float currentScroll, float scrollSpeed)
@@ -68,7 +71,7 @@ namespace MyProject.Actor
             JudgeEffectFactory.PlayEffect(judgeType, AirLaneLayout.JudgeEffectRiseOffset, RiseAxis.Z, position);
         }
 
-        float CalculateFloatOffsetY()
+        float CalculateFloatOffsetZ()
         {
             var phase = Time.time / FloatPeriodSeconds;
             return Mathf.Sin(phase * Mathf.PI * 2f) * FloatAmplitude;

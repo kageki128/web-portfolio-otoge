@@ -123,6 +123,7 @@ namespace MyProject.Actor
                     continue;
                 }
 
+                noteActor.Initialize();
                 noteActor.Install(noteCore, judgeEffectFactory);
                 NoteActors.Add(noteActor);
             }
