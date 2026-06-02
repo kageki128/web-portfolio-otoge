@@ -20,6 +20,7 @@ namespace MyProject.Actor
         [SerializeField] LaundryHoldActor holdPrefab;
         [SerializeField] LaundryHoldTickActor holdTickPrefab;
         [SerializeField] LaneLightActor laneLightActor;
+        [SerializeField] LaneKeysActor laneKeysActor;
         [SerializeField] JudgeEffectFactory judgeEffectFactory;
         [SerializeField] SpriteRenderer[] points;
 
@@ -40,6 +41,7 @@ namespace MyProject.Actor
         {
             DestroyNotes();
             laneLightActor.Initialize();
+            laneKeysActor.Initialize();
             judgeEffectFactory.Initialize();
             pointBaseColors = new Color[points.Length];
             pointHandles = new MotionHandle[points.Length];
@@ -50,7 +52,9 @@ namespace MyProject.Actor
             }
 
             laundryActionsObserver.LanePressed.Subscribe(lane => laneLightActor.LightUp(lane)).AddTo(this);
+            laundryActionsObserver.LanePressed.Subscribe(lane => laneKeysActor.LightUpLane(lane)).AddTo(this);
             laundryActionsObserver.LaneReleased.Subscribe(lane => laneLightActor.LightDown(lane)).AddTo(this);
+            laundryActionsObserver.LaneReleased.Subscribe(lane => laneKeysActor.LightDownLane(lane)).AddTo(this);
 
             gameObject.SetActive(false);
             laundryActionsObserver.Disable();
@@ -63,7 +67,8 @@ namespace MyProject.Actor
             var showTasks = new List<UniTask>
             {
                 SwitchActionsAfterDelayAsync(laundryActionsObserver.Enable, ct),
-                laneLightActor.ShowAsync(ct)
+                laneLightActor.ShowAsync(ct),
+                laneKeysActor.ShowAsync(ct)
             };
             foreach (var noteActor in NoteActors)
             {
@@ -78,7 +83,8 @@ namespace MyProject.Actor
             var hideTasks = new List<UniTask>
             {
                 SwitchActionsAfterDelayAsync(laundryActionsObserver.Disable, ct),
-                laneLightActor.HideAsync(ct)
+                laneLightActor.HideAsync(ct),
+                laneKeysActor.HideAsync(ct)
             };
             foreach (var noteActor in NoteActors)
             {

@@ -24,6 +24,7 @@ namespace MyProject.Actor
         [SerializeField] EffectHoldTickActor holdTickPrefab;
         [SerializeField] EffectMeasureLineActor measureLinePrefab;
         [SerializeField] LaneLightActor laneLightActor;
+        [SerializeField] LaneKeysActor laneKeysActor;
         [SerializeField] JudgeEffectFactory judgeEffectFactory;
         [SerializeField] Vector3 eventCameraLocalPosition;
         [SerializeField] float eventCameraLocalEulerX;
@@ -55,10 +56,13 @@ namespace MyProject.Actor
             CancelEvent(restoreCamera: true);
             DestroyNotes();
             laneLightActor.Initialize();
+            laneKeysActor.Initialize();
             judgeEffectFactory.Initialize();
 
             effectActionsObserver.LanePressed.Subscribe(lane => laneLightActor.LightUp(lane)).AddTo(this);
+            effectActionsObserver.LanePressed.Subscribe(lane => laneKeysActor.LightUpLane(lane)).AddTo(this);
             effectActionsObserver.LaneReleased.Subscribe(lane => laneLightActor.LightDown(lane)).AddTo(this);
+            effectActionsObserver.LaneReleased.Subscribe(lane => laneKeysActor.LightDownLane(lane)).AddTo(this);
 
             gameObject.SetActive(false);
             effectActionsObserver.Disable();
@@ -71,7 +75,8 @@ namespace MyProject.Actor
             var showTasks = new List<UniTask>
             {
                 SwitchActionsAfterDelayAsync(effectActionsObserver.Enable, ct),
-                laneLightActor.ShowAsync(ct)
+                laneLightActor.ShowAsync(ct),
+                laneKeysActor.ShowAsync(ct)
             };
             foreach (var noteActor in NoteActors)
             {
@@ -87,7 +92,8 @@ namespace MyProject.Actor
             var hideTasks = new List<UniTask>
             {
                 SwitchActionsAfterDelayAsync(effectActionsObserver.Disable, ct),
-                laneLightActor.HideAsync(ct)
+                laneLightActor.HideAsync(ct),
+                laneKeysActor.HideAsync(ct)
             };
             foreach (var noteActor in NoteActors)
             {

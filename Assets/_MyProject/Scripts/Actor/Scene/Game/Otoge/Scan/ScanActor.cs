@@ -17,6 +17,7 @@ namespace MyProject.Actor
         [SerializeField] ScanHoldTickActor holdTickPrefab;
         [SerializeField] ScanJudgeLineActor judgeLineActor;
         [SerializeField] LaneLightActor laneLightActor;
+        [SerializeField] LaneKeysActor laneKeysActor;
         [SerializeField] JudgeEffectFactory judgeEffectFactory;
 
         ScanActionsObserver scanActionsObserver;
@@ -34,11 +35,14 @@ namespace MyProject.Actor
         {
             DestroyNotes();
             laneLightActor.Initialize();
+            laneKeysActor.Initialize();
             judgeLineActor.Initialize();
             judgeEffectFactory.Initialize();
 
             scanActionsObserver.LanePressed.Subscribe(lane => laneLightActor.LightUp(lane)).AddTo(this);
+            scanActionsObserver.LanePressed.Subscribe(lane => laneKeysActor.LightUpLane(lane)).AddTo(this);
             scanActionsObserver.LaneReleased.Subscribe(lane => laneLightActor.LightDown(lane)).AddTo(this);
+            scanActionsObserver.LaneReleased.Subscribe(lane => laneKeysActor.LightDownLane(lane)).AddTo(this);
 
             gameObject.SetActive(false);
             scanActionsObserver.Disable();
@@ -51,7 +55,8 @@ namespace MyProject.Actor
             var showTasks = new List<UniTask>
             {
                 SwitchActionsAfterDelayAsync(scanActionsObserver.Enable, ct),
-                laneLightActor.ShowAsync(ct)
+                laneLightActor.ShowAsync(ct),
+                laneKeysActor.ShowAsync(ct)
             };
             foreach (var noteActor in NoteActors)
             {
@@ -66,7 +71,8 @@ namespace MyProject.Actor
             var hideTasks = new List<UniTask>
             {
                 SwitchActionsAfterDelayAsync(scanActionsObserver.Disable, ct),
-                laneLightActor.HideAsync(ct)
+                laneLightActor.HideAsync(ct),
+                laneKeysActor.HideAsync(ct)
             };
             foreach (var noteActor in NoteActors)
             {

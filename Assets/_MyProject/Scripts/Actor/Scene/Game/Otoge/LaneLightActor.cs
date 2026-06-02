@@ -10,7 +10,7 @@ namespace MyProject.Actor
     {
         [SerializeField] List<SpriteRenderer> laneLightRenderers;
 
-        readonly float fadeDuration = 0.033f;
+        const float FadeDuration = 0.033f;
 
         MotionHandle[] laneHandles;
         Color[] baseLaneColors;
@@ -73,7 +73,7 @@ namespace MyProject.Actor
             }
 
             var targetColor = WithAlpha(baseLaneColors[lane], 0f);
-            var newHandle = LMotion.Create(renderer.color, targetColor, fadeDuration)
+            var newHandle = LMotion.Create(renderer.color, targetColor, FadeDuration)
                 .Bind(value => renderer.color = value)
                 .AddTo(this);
 
