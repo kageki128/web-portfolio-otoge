@@ -5115,9 +5115,9 @@ Transform:
   m_GameObject: {fileID: 408218664}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1, y: 0, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 738330537}
   - {fileID: 1234832539}
@@ -6687,6 +6687,7 @@ MonoBehaviour:
   - {fileID: 1751649495}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
+  airKeyParent: {fileID: 0}
 --- !u!1 &506537990
 GameObject:
   m_ObjectHideFlags: 0
@@ -7496,6 +7497,7 @@ MonoBehaviour:
   - {fileID: 116959937}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
+  airKeyParent: {fileID: 0}
 --- !u!1 &551863459
 GameObject:
   m_ObjectHideFlags: 0
@@ -9764,6 +9766,7 @@ MonoBehaviour:
   - {fileID: 1006032296}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
+  airKeyParent: {fileID: 0}
 --- !u!1 &703831024
 GameObject:
   m_ObjectHideFlags: 0
@@ -10400,16 +10403,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 738330536}
-  m_LocalRotation: {x: -0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: 0, y: 0, z: -1.5}
+  m_LocalRotation: {x: -0.5735764, y: -0, z: -0, w: 0.8191521}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 408218665}
   m_LocalEulerAnglesHint: {x: -70, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.8, y: 0}
+  m_AnchoredPosition: {x: 0.35, y: 0}
   m_SizeDelta: {x: 2, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &738330538
@@ -10432,7 +10435,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u3000SPACE"
+  m_text: SPACE
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4fd47e0a2bec95d4bab9ac7da9b0061f, type: 2}
   m_sharedMaterial: {fileID: -998688681235760694, guid: 4fd47e0a2bec95d4bab9ac7da9b0061f, type: 2}
@@ -10441,7 +10444,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293841698
+    rgba: 1089393442
   m_fontColor: {r: 0.13333334, g: 0.827451, b: 0.93333334, a: 0.2509804}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -10883,6 +10886,7 @@ MonoBehaviour:
   - {fileID: 4195762}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
+  airKeyParent: {fileID: 0}
 --- !u!1 &770815720
 GameObject:
   m_ObjectHideFlags: 0
@@ -11880,6 +11884,7 @@ MonoBehaviour:
   - {fileID: 1559378389}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
+  airKeyParent: {fileID: 0}
 --- !u!1 &845474250
 GameObject:
   m_ObjectHideFlags: 0
@@ -11931,6 +11936,7 @@ MonoBehaviour:
   - {fileID: 1273269287}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
+  airKeyParent: {fileID: 0}
 --- !u!1 &846106773
 GameObject:
   m_ObjectHideFlags: 0
@@ -17161,7 +17167,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 45, y: 17}
+  m_AnchoredPosition: {x: 50, y: 17}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1187505399
@@ -17647,6 +17653,7 @@ MonoBehaviour:
   - {fileID: 408475456}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
+  airKeyParent: {fileID: 0}
 --- !u!1 &1225150285
 GameObject:
   m_ObjectHideFlags: 0
@@ -17990,9 +17997,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1234832538}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.5735764, y: 0, z: 0, w: 0.8191521}
-  m_LocalPosition: {x: -1.35, y: 0, z: -1.29}
-  m_LocalScale: {x: 0.4, y: 0.5, z: 0.4}
+  m_LocalRotation: {x: -0.5735764, y: -0, z: -0, w: 0.8191521}
+  m_LocalPosition: {x: -0.3, y: -0.061, z: 0.168}
+  m_LocalScale: {x: 0.4, y: 0.5, z: 0.4000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 408218665}
@@ -25798,6 +25805,7 @@ MonoBehaviour:
   - {fileID: 1828897296}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
+  airKeyParent: {fileID: 0}
 --- !u!1 &2019937738
 GameObject:
   m_ObjectHideFlags: 0
@@ -26181,6 +26189,7 @@ MonoBehaviour:
   - {fileID: 121944954}
   airKeyText: {fileID: 738330538}
   airKeyRenderer: {fileID: 1234832540}
+  airKeyParent: {fileID: 408218665}
 --- !u!1 &2102543011
 GameObject:
   m_ObjectHideFlags: 0
