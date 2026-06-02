@@ -6687,7 +6687,6 @@ MonoBehaviour:
   - {fileID: 1751649495}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
-  airKeyParent: {fileID: 0}
 --- !u!1 &506537990
 GameObject:
   m_ObjectHideFlags: 0
@@ -7497,7 +7496,6 @@ MonoBehaviour:
   - {fileID: 116959937}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
-  airKeyParent: {fileID: 0}
 --- !u!1 &551863459
 GameObject:
   m_ObjectHideFlags: 0
@@ -9766,7 +9764,6 @@ MonoBehaviour:
   - {fileID: 1006032296}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
-  airKeyParent: {fileID: 0}
 --- !u!1 &703831024
 GameObject:
   m_ObjectHideFlags: 0
@@ -10886,7 +10883,6 @@ MonoBehaviour:
   - {fileID: 4195762}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
-  airKeyParent: {fileID: 0}
 --- !u!1 &770815720
 GameObject:
   m_ObjectHideFlags: 0
@@ -11884,7 +11880,6 @@ MonoBehaviour:
   - {fileID: 1559378389}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
-  airKeyParent: {fileID: 0}
 --- !u!1 &845474250
 GameObject:
   m_ObjectHideFlags: 0
@@ -11936,7 +11931,6 @@ MonoBehaviour:
   - {fileID: 1273269287}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
-  airKeyParent: {fileID: 0}
 --- !u!1 &846106773
 GameObject:
   m_ObjectHideFlags: 0
@@ -17653,7 +17647,6 @@ MonoBehaviour:
   - {fileID: 408475456}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
-  airKeyParent: {fileID: 0}
 --- !u!1 &1225150285
 GameObject:
   m_ObjectHideFlags: 0
@@ -25805,7 +25798,6 @@ MonoBehaviour:
   - {fileID: 1828897296}
   airKeyText: {fileID: 0}
   airKeyRenderer: {fileID: 0}
-  airKeyParent: {fileID: 0}
 --- !u!1 &2019937738
 GameObject:
   m_ObjectHideFlags: 0
@@ -26189,7 +26181,6 @@ MonoBehaviour:
   - {fileID: 121944954}
   airKeyText: {fileID: 738330538}
   airKeyRenderer: {fileID: 1234832540}
-  airKeyParent: {fileID: 408218665}
 --- !u!1 &2102543011
 GameObject:
   m_ObjectHideFlags: 0
