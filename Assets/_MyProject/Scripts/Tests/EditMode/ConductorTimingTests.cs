@@ -75,6 +75,7 @@ namespace MyProject.Tests.EditMode
             Assert.That(transitionAt3Sec.NextType, Is.EqualTo(OtogeType.Octa));
             Assert.That(transitionAt3Sec.RemainingBeat, Is.EqualTo(1f).Within(0.0001f));
             Assert.That(transitionAt3Sec.RemainingSec, Is.EqualTo(1f).Within(0.0001f));
+            Assert.That(transitionAt3Sec.DurationSec, Is.EqualTo(4f).Within(0.0001f));
 
             timing.SetTimeBySec(4.2f);
             var transitionAt4_2Sec = timing.CurrentOtogeTypeTransition.CurrentValue;
@@ -82,6 +83,7 @@ namespace MyProject.Tests.EditMode
             Assert.That(transitionAt4_2Sec.NextType, Is.EqualTo(OtogeType.Air));
             Assert.That(transitionAt4_2Sec.RemainingBeat, Is.EqualTo(3.8f).Within(0.0001f));
             Assert.That(transitionAt4_2Sec.RemainingSec, Is.EqualTo(3.8f).Within(0.0001f));
+            Assert.That(transitionAt4_2Sec.DurationSec, Is.EqualTo(4f).Within(0.0001f));
         }
 
         [Test]
