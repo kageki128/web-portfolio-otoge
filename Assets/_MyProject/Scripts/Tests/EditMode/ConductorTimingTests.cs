@@ -87,7 +87,7 @@ namespace MyProject.Tests.EditMode
         }
 
         [Test]
-        public void SetTimeBySec_最終タイプ到達後は次タイプが同じで残りBeatと残り秒は0()
+        public void SetTimeBySec_最終タイプ到達後は次タイプがnullで残りBeatと残り秒は0()
         {
             var timing = CreateTiming
             (
@@ -104,7 +104,7 @@ namespace MyProject.Tests.EditMode
 
             var transition = timing.CurrentOtogeTypeTransition.CurrentValue;
             Assert.That(transition.CurrentType, Is.EqualTo(OtogeType.Air));
-            Assert.That(transition.NextType, Is.EqualTo(OtogeType.Air));
+            Assert.That(transition.NextType, Is.Null);
             Assert.That(transition.RemainingBeat, Is.EqualTo(0f));
             Assert.That(transition.RemainingSec, Is.EqualTo(0f));
         }

@@ -48,6 +48,11 @@ namespace MyProject.Actor
 
         static float GetFillAmount(OtogeTypeTransition transition)
         {
+            if (!transition.HasNextType)
+            {
+                return 1f;
+            }
+
             return transition.DurationSec <= 0f
                 ? 0f
                 : Mathf.Clamp01(1f - transition.RemainingSec / transition.DurationSec);

@@ -130,7 +130,7 @@ namespace MyProject.Actor
         static OtogeType GetSwitchTargetType(OtogeTypeTransition transition)
         {
             return transition.RemainingBeat <= SwitchToNextTypeRemainingBeatThreshold
-                ? transition.NextType
+                ? transition.NextType ?? transition.CurrentType
                 : transition.CurrentType;
         }
 
