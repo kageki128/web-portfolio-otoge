@@ -7,6 +7,8 @@ namespace MyProject.Actor
 {
     public class RunHoldActor : NoteActorBase
     {
+        const int SortingOrderBeatScale = 100;
+
         [SerializeField] SpriteRenderer image;
         [SerializeField] Sprite laneSprite0;
         [SerializeField] Sprite laneSprite1;
@@ -57,9 +59,9 @@ namespace MyProject.Actor
             image.size = new Vector2(image.size.x, width);
         }
 
-        protected override void SetLayer(int layer)
+        protected override void SetLayer(int _)
         {
-            image.sortingOrder = -layer;
+            image.sortingOrder = Mathf.RoundToInt(-NoteCore.Property.TimingBegin.Beat * SortingOrderBeatScale);
         }
 
         protected override void SetAppearance(NoteState state)

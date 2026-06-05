@@ -11,7 +11,7 @@ namespace MyProject.Actor
 {
     public class EffectActor : OtogeActorBase
     {
-        const float ScrollSpeedMultiplierValue = 5.5f;
+        const float ScrollSpeedMultiplierValue = 7f;
         const float EventMoveDuration = 1.6f;
         const float EventRotateZ = 360f;
 

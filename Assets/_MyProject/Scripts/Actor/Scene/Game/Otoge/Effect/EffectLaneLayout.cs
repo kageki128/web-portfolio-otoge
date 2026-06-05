@@ -6,6 +6,7 @@ namespace MyProject.Actor
         public const float JudgeEffectRiseOffset = 1.6f;
         public const float CenterLaneX = 1.5f;
         public const int CenterWidthMultiplier = 4;
+        const int SortingOrderStride = 10;
 
         public static bool IsCenterLane(int lane)
         {
@@ -28,5 +29,9 @@ namespace MyProject.Actor
             return visualLane + ((width - 1) * 0.5f);
         }
 
+        public static int GetSortingOrder(int layer, int lane)
+        {
+            return layer * SortingOrderStride + (IsCenterLane(lane) ? 0 : 1);
+        }
     }
 }

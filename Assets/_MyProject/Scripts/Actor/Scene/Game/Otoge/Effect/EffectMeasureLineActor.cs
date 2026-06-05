@@ -41,7 +41,7 @@ namespace MyProject.Actor
 
         protected override void SetLayer(int layer)
         {
-            image.sortingOrder = layer;
+            image.sortingOrder = EffectLaneLayout.GetSortingOrder(layer, NoteCore.Property.Lane);
         }
 
         protected override void SetAppearance(NoteState state)

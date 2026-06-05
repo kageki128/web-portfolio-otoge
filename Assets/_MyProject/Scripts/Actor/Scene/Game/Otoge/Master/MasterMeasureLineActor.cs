@@ -8,6 +8,7 @@ namespace MyProject.Actor
     public class MasterMeasureLineActor : NoteActorBase
     {
         const int MeasureLineWidth = 2;
+        const int SortingOrderBeatScale = 100;
 
         [SerializeField] SpriteRenderer image;
 
@@ -38,9 +39,9 @@ namespace MyProject.Actor
             image.size = new Vector2(image.size.x, MeasureLineWidth);
         }
 
-        protected override void SetLayer(int layer)
+        protected override void SetLayer(int _)
         {
-            image.sortingOrder = -layer;
+            image.sortingOrder = Mathf.RoundToInt(-NoteCore.Property.TimingBegin.Beat * SortingOrderBeatScale);
         }
 
         protected override void SetAppearance(NoteState state)
