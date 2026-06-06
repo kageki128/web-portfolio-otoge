@@ -7,7 +7,7 @@ namespace MyProject.Actor
 {
     public class AirAirActor : NoteActorBase
     {
-        const float FloatPeriodSeconds = 1.5f;
+        const float FloatPeriodSeconds = 1.6f;
         const float FloatAmplitude = 0.3f;
 
         [SerializeField] SpriteRenderer image;
