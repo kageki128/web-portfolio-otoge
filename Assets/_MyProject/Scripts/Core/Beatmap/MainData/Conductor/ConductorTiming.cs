@@ -96,6 +96,7 @@ namespace MyProject.Core
         OtogeTypeTransition CalculateOtogeTypeTransitionFromBeat(float beat, float sec)
         {
             var currentType = OtogeType.Tetra;
+            var currentTypeStartBeat = 0f;
             var currentTypeStartSec = 0f;
             for (var i = 0; i < otogeChanges.Count; i++)
             {
@@ -110,11 +111,13 @@ namespace MyProject.Core
                         remainingSec = 0f;
                     }
 
+                    var durationBeat = change.Beat - currentTypeStartBeat;
                     var durationSec = nextSec - currentTypeStartSec;
-                    return new OtogeTypeTransition(currentType, change.Type, remainingBeat, remainingSec, durationSec);
+                    return new OtogeTypeTransition(currentType, change.Type, remainingBeat, remainingSec, durationBeat, durationSec);
                 }
 
                 currentType = change.Type;
+                currentTypeStartBeat = change.Beat;
                 currentTypeStartSec = CalculateSecFromBeat(change.Beat, bpmChanges);
             }
 

@@ -48,14 +48,12 @@ namespace MyProject.Actor
 
         static float GetFillAmount(OtogeTypeTransition transition)
         {
-            if (!transition.HasNextType)
+            if (!transition.HasNextType || transition.DurationBeat <= 1f || transition.RemainingBeat < 1f)
             {
-                return 1f;
+                return 0f;
             }
 
-            return transition.DurationSec <= 0f
-                ? 0f
-                : Mathf.Clamp01(1f - transition.RemainingSec / transition.DurationSec);
+            return Mathf.Clamp01((transition.DurationBeat - transition.RemainingBeat) / (transition.DurationBeat - 1f));
         }
 
         void SetFillAmount(float fillAmount)

@@ -6,14 +6,16 @@ namespace MyProject.Core
         public OtogeType? NextType { get; }
         public bool HasNextType => NextType.HasValue;
         public float RemainingBeat { get; }
+        public float DurationBeat { get; }
         public float RemainingSec { get; }
         public float DurationSec { get; }
 
-        public OtogeTypeTransition(OtogeType currentType, OtogeType? nextType, float remainingBeat, float remainingSec, float durationSec = 0f)
+        public OtogeTypeTransition(OtogeType currentType, OtogeType? nextType, float remainingBeat, float remainingSec, float durationBeat = 0f, float durationSec = 0f)
         {
             CurrentType = currentType;
             NextType = nextType;
             RemainingBeat = remainingBeat;
+            DurationBeat = durationBeat;
             RemainingSec = remainingSec;
             DurationSec = durationSec;
         }
