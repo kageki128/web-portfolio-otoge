@@ -3905,7 +3905,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334943693}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3929,7 +3929,7 @@ Transform:
   - {fileID: 457606481}
   - {fileID: 1250455052}
   - {fileID: 207311624}
-  m_Father: {fileID: 706006539}
+  m_Father: {fileID: 1487580002}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &334943695
 MonoBehaviour:
@@ -3952,7 +3952,6 @@ MonoBehaviour:
   masterActor: {fileID: 2052178763}
   runActor: {fileID: 634906987}
   scanActor: {fileID: 1642606648}
-  otogeTypeGaugeActor: {fileID: 1802433210}
   sharedActors:
   - {fileID: 519420034}
   - {fileID: 966040151}
@@ -9955,7 +9954,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 334943694}
   - {fileID: 1546771705}
   - {fileID: 470011393}
   m_Father: {fileID: 1356142521}
@@ -9973,6 +9971,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.GameActorHub
   otogeActorHub: {fileID: 334943695}
+  otogeTypeGaugeActor: {fileID: 1802433210}
   scoreTextActor: {fileID: 1734687650}
   comboTextActor: {fileID: 542893343}
   judgeTextActor: {fileID: 1501936868}
@@ -20892,6 +20891,7 @@ Transform:
   - {fileID: 519420032}
   - {fileID: 1906196648}
   - {fileID: 1200051142}
+  - {fileID: 334943694}
   m_Father: {fileID: 1356142521}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1487580003
