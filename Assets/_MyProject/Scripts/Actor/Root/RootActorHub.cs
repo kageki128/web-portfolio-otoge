@@ -1,24 +1,34 @@
+using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MyProject.Core;
 using R3;
 using UnityEngine;
 
 namespace MyProject.Actor
 {
-    public class RootActorHub : MonoBehaviour
+    public class RootActorHub : RootActorBase
     {
         [SerializeField] ScrollSpeedSliderActor scrollSpeedSliderActor;
         [SerializeField] NoteOffsetSliderActor noteOffsetSliderActor;
+
         public Observable<float> ScrollSpeedNormalizedChanged => scrollSpeedSliderActor.ScrollSpeedNormalizedChanged;
         public Observable<float> NoteOffsetNormalizedChanged => noteOffsetSliderActor.NoteOffsetNormalizedChanged;
 
-        public async UniTask InitializeAsync(CancellationToken ct)
+        readonly List<RootActorBase> rootActors = new();
+
+        public override void Initialize()
         {
             gameObject.SetActive(true);
-            scrollSpeedSliderActor.Initialize();
-            noteOffsetSliderActor.Initialize();
-            await scrollSpeedSliderActor.InitialShowAsync(ct);
-            await noteOffsetSliderActor.InitialShowAsync(ct);
+
+            rootActors.Clear();
+            rootActors.Add(scrollSpeedSliderActor);
+            rootActors.Add(noteOffsetSliderActor);
+        }
+
+        public override UniTask TransitSceneAsync(SceneType sceneType, CancellationToken ct)
+        {
+            return UniTask.WhenAll(rootActors.Select(actor => actor.TransitSceneAsync(sceneType, ct)));
         }
 
         public void SetScrollSpeedNormalized(float normalizedValue) => scrollSpeedSliderActor.SetScrollSpeedNormalized(normalizedValue);

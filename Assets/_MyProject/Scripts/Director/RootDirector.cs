@@ -18,12 +18,12 @@ namespace MyProject.Director
             this.playerSettingsCore = playerSettingsCore;
         }
 
-        public async UniTask InitializeAsync(CancellationToken cancellationToken)
+        public async UniTask InitializeAsync(CancellationToken ct)
         {
-            await rootActorHub.InitializeAsync(cancellationToken);
+            rootActorHub.Initialize();
 
             disposables.Clear();
-            
+
             rootActorHub.ScrollSpeedNormalizedChanged
                 .Subscribe(value => playerSettingsCore.SetScrollSpeedNormalized(value))
                 .AddTo(disposables);
@@ -43,11 +43,18 @@ namespace MyProject.Director
             playerSettingsCore.NoteOffset
                 .Subscribe(value => rootActorHub.SetNoteOffset(value))
                 .AddTo(disposables);
+
+            await UniTask.CompletedTask;
         }
 
         public void Tick()
         {
 
+        }
+
+        public async UniTask TransitSceneAsync(SceneType sceneType, CancellationToken ct)
+        {
+            await rootActorHub.TransitSceneAsync(sceneType, ct);
         }
 
         public void Dispose()

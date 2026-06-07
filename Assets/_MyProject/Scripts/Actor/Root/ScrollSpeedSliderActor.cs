@@ -1,12 +1,13 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MyProject.Core;
 using R3;
 using TMPro;
 using UnityEngine;
 
 namespace MyProject.Actor
 {
-    public class ScrollSpeedSliderActor : ActorBase
+    public class ScrollSpeedSliderActor : RootActorBase
     {
         public Observable<float> ScrollSpeedNormalizedChanged => sliderActor.ValueChanged;
 
@@ -15,20 +16,13 @@ namespace MyProject.Actor
 
         public override void Initialize()
         {
-            sliderActor.Initialize();
-            gameObject.SetActive(false);
+            gameObject.SetActive(true);
         }
 
-        public override async UniTask ShowAsync(CancellationToken ct)
+        public override UniTask TransitSceneAsync(SceneType sceneType, CancellationToken ct)
         {
             gameObject.SetActive(true);
-            await sliderActor.InitialShowAsync(ct);
-        }
-
-        public override async UniTask HideAsync(CancellationToken ct)
-        {
-            await sliderActor.HideAsync(ct);
-            gameObject.SetActive(false);
+            return UniTask.CompletedTask;
         }
 
         public void SetScrollSpeedNormalized(float normalizedValue)
