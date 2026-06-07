@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using MyProject.Core;
 using MyProject.Infrastructure;
 using MyProject.Shared;
@@ -15,7 +16,7 @@ namespace MyProject.Tests.EditMode
         const BindingFlags InstanceNonPublic = BindingFlags.Instance | BindingFlags.NonPublic;
 
         [Test]
-        public void GetAsync_正常UGCをBeatmapへ変換できる()
+        public async Task GetAsync_正常UGCをBeatmapへ変換できる()
         {
             var ugc = string.Join("\n",
                 "@SONGID test-song-id",
@@ -37,7 +38,7 @@ namespace MyProject.Tests.EditMode
             );
 
             using var fixture = CreateFixture(ugc);
-            var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
+            var beatmap = await fixture.Repository.GetAsync(CancellationToken.None);
 
             Assert.That(beatmap.MetaData.Id, Is.EqualTo("test-song-id"));
             Assert.That(beatmap.MetaData.Title, Is.EqualTo("Test Song"));
@@ -66,7 +67,7 @@ namespace MyProject.Tests.EditMode
         }
 
         [Test]
-        public void GetAsync_MeasureLine幅はOtogeTypeに関係なく8固定()
+        public async Task GetAsync_MeasureLine幅はOtogeTypeに関係なく8固定()
         {
             var ugc = string.Join("\n",
                 "@SONGID test-song-id",
@@ -93,7 +94,7 @@ namespace MyProject.Tests.EditMode
                 (12.1f, OtogeType.Master),
                 (16.1f, OtogeType.Run)
             );
-            var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
+            var beatmap = await fixture.Repository.GetAsync(CancellationToken.None);
 
             Assert.That(beatmap.MeasureLineCores.Count, Is.GreaterThanOrEqualTo(6));
             Assert.That(beatmap.MeasureLineCores[0].Property.Width, Is.EqualTo(8));
@@ -105,7 +106,7 @@ namespace MyProject.Tests.EditMode
         }
 
         [Test]
-        public void GetAsync_未対応ノーツ種別はスキップしてMessageを返す()
+        public async Task GetAsync_未対応ノーツ種別はスキップしてMessageを返す()
         {
             var ugc = string.Join("\n",
                 "@TITLE Test Song",
@@ -123,7 +124,7 @@ namespace MyProject.Tests.EditMode
             );
 
             using var fixture = CreateFixture(ugc);
-            var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
+            var beatmap = await fixture.Repository.GetAsync(CancellationToken.None);
 
             Assert.That(beatmap.NoteCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.MeasureLineCores.Count, Is.EqualTo(0));
@@ -131,7 +132,7 @@ namespace MyProject.Tests.EditMode
         }
 
         [Test]
-        public void GetAsync_lane不正ノーツはスキップしてMessageを返す()
+        public async Task GetAsync_lane不正ノーツはスキップしてMessageを返す()
         {
             var ugc = string.Join("\n",
                 "@TITLE Test Song",
@@ -149,7 +150,7 @@ namespace MyProject.Tests.EditMode
             );
 
             using var fixture = CreateFixture(ugc);
-            var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
+            var beatmap = await fixture.Repository.GetAsync(CancellationToken.None);
 
             Assert.That(beatmap.NoteCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.MeasureLineCores.Count, Is.EqualTo(0));
@@ -157,7 +158,7 @@ namespace MyProject.Tests.EditMode
         }
 
         [Test]
-        public void GetAsync_TICKS欠落時はFatalMessage付き空譜面を返す()
+        public async Task GetAsync_TICKS欠落時はFatalMessage付き空譜面を返す()
         {
             var ugc = string.Join("\n",
                 "@TITLE Test Song",
@@ -174,7 +175,7 @@ namespace MyProject.Tests.EditMode
             );
 
             using var fixture = CreateFixture(ugc);
-            var beatmap = fixture.Repository.GetAsync(CancellationToken.None).GetAwaiter().GetResult();
+            var beatmap = await fixture.Repository.GetAsync(CancellationToken.None);
 
             Assert.That(beatmap.NoteCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.MeasureLineCores.Count, Is.EqualTo(0));

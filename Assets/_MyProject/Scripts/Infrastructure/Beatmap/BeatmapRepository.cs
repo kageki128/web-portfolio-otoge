@@ -1,10 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using MyProject.Core;
 using MyProject.Shared;
-using System;
 using UnityEngine;
 
 namespace MyProject.Infrastructure
@@ -26,7 +26,7 @@ namespace MyProject.Infrastructure
         /// <summary>
         /// ScriptableObjectから譜面テキストと音源を取得し、Beatmapへ変換する。
         /// </summary>
-        public UniTask<BeatmapCore> GetAsync(CancellationToken ct)
+        public async UniTask<BeatmapCore> GetAsync(CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
 
@@ -50,20 +50,26 @@ namespace MyProject.Infrastructure
                 throw new InvalidOperationException("BeatmapFilesSO.OtogeEvents is not assigned.");
             }
 
-            // 1) テキストを中間データにパース
-            var parsedData = parser.Parse(beatmapFiles.Beatmap.text, ct);
-            // 2) 中間データから最終Beatmapを組み立て
-            var beatmap = composer.Compose
+            var wave = beatmapFiles.Wave;
+            var beatmapText = beatmapFiles.Beatmap.text;
+            var otogeChanges = beatmapFiles.OtogeChanges.OtogeChanges;
+            var otogeEventBeats = beatmapFiles.OtogeEvents.OtogeEventBeats.ToArray();
+
+            var beatmap = await UniTask.RunOnThreadPool
             (
-                beatmapFiles.Wave,
-                parsedData,
-                beatmapFiles.OtogeChanges.OtogeChanges,
-                beatmapFiles.OtogeEvents.OtogeEventBeats,
-                ct
+                () =>
+                {
+                    // 1) テキストを中間データにパース
+                    var parsedData = parser.Parse(beatmapText, ct);
+                    // 2) 中間データから最終Beatmapを組み立て
+                    return composer.Compose(wave, parsedData, otogeChanges, otogeEventBeats, ct);
+                },
+                configureAwait: true,
+                cancellationToken: ct
             );
             DebugBeatmap(beatmap);
 
-            return UniTask.FromResult(beatmap);
+            return beatmap;
         }
 
         void DebugBeatmap(BeatmapCore beatmap)
@@ -93,8 +99,6 @@ namespace MyProject.Infrastructure
             LogMeta(meta);
             LogAudio(meta);
             LogSummary(notes, messages, timelines, noteTypeSummary, timelineSummary, laneSummary, messageTypeSummary);
-            LogAllNotes(notes);
-            LogMessages(messages);
         }
 
         void LogMeta(BeatmapMetaData meta)
@@ -147,34 +151,5 @@ namespace MyProject.Infrastructure
             );
         }
 
-        void LogAllNotes(IReadOnlyList<NoteCoreBase> notes)
-        {
-            for (var i = 0; i < notes.Count; i++)
-            {
-                var property = notes[i].Property;
-                Debug.Log
-                (
-                    $"[BeatmapRepository] Note[{i}] " +
-                    $"type={property.NoteType}, " +
-                    $"timeline={property.Timeline}, " +
-                    $"lane={property.Lane}, " +
-                    $"width={property.Width}, " +
-                    $"layer={property.Layer}, " +
-                    $"beat={property.TimingBegin.Beat:F3}->{property.TimingEnd.Beat:F3}, " +
-                    $"sec={property.TimingBegin.Sec:F3}->{property.TimingEnd.Sec:F3}, " +
-                    $"measure={property.TimingBegin.Measure}->{property.TimingEnd.Measure}, " +
-                    $"scroll={property.ScrollBegin:F3}->{property.ScrollEnd:F3}"
-                );
-            }
-        }
-
-        void LogMessages(IReadOnlyList<Message> messages)
-        {
-            for (var i = 0; i < messages.Count; i++)
-            {
-                var message = messages[i];
-                Debug.Log($"[BeatmapRepository] Message[{i}] type={message.Type}, content={message.Content}");
-            }
-        }
     }
 }

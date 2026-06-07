@@ -84,6 +84,7 @@ namespace MyProject.Director
             // 初期シーンを起動
             var initialSceneDirector = GetSceneDirector(currentScene);
             await initialSceneDirector.BeforeEnterAsync(ct);
+            await UniTask.NextFrame(cancellationToken: ct);
             await UniTask.WhenAll
             (
                 rootDirector.TransitSceneAsync(currentScene, ct),
@@ -112,6 +113,7 @@ namespace MyProject.Director
             {
                 await fromDirector.BeforeExitAsync(cts.Token);
                 await toDirector.BeforeEnterAsync(cts.Token);
+                await UniTask.NextFrame(cancellationToken: cts.Token);
                 await UniTask.WhenAll
                 (
                     rootDirector.TransitSceneAsync(to, cts.Token),

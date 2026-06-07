@@ -40,11 +40,6 @@ namespace MyProject.Actor
             gameActionsObserver.Disable();
             animationTimeline.Initialize();
             otogeActorHub.Initialize();
-            otogeTypeGaugeActor.Initialize();
-            scoreTextActor.Initialize();
-            comboTextActor.Initialize();
-            judgeTextActor.Initialize();
-            musicTextActor.Initialize();
             gameObject.SetActive(false);
         }
 
