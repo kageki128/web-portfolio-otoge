@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
-    [RequireComponent(typeof(StandardTransitionAnimator))]
+    [RequireComponent(typeof(FadeAnimator))]
     public class StandardActor : ActorBase
     {
-        StandardTransitionAnimator animator;
+        FadeAnimator animator;
 
         public override void Initialize()
         {
-            animator = GetComponent<StandardTransitionAnimator>();
+            animator = GetComponent<FadeAnimator>();
             animator.Initialize();
 
             gameObject.SetActive(false);
