@@ -1,5 +1,6 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using R3;
 using UnityEngine;
 using VContainer;
 
@@ -8,6 +9,8 @@ namespace MyProject.Actor
     [RequireComponent(typeof(ActorAnimationTimeline))]
     public class SelectActorHub : SceneActorHubBase
     {
+        public Observable<Unit> StartGame => selectActionsObserver.StartGame;
+
         ActorAnimationTimeline animationTimeline;
         SelectActionsObserver selectActionsObserver;
 

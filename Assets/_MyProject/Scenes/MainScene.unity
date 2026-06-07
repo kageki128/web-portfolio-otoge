@@ -26302,10 +26302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38b6f7fde9c557343b45b21972f80b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ActorAnimationTimeline
-  actorAnimations:
-  - <Actor>k__BackingField: {fileID: 0}
-    <ShowStartSeconds>k__BackingField: 0
-    <HideStartSeconds>k__BackingField: 0
+  actorAnimations: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
