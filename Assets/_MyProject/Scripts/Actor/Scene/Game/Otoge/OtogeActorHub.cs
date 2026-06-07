@@ -5,7 +5,6 @@ using Cysharp.Threading.Tasks;
 using MyProject.Core;
 using R3;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace MyProject.Actor
 {
@@ -28,8 +27,6 @@ namespace MyProject.Actor
         [SerializeField] MasterActor masterActor;
         [SerializeField] RunActor runActor;
         [SerializeField] ScanActor scanActor;
-        [FormerlySerializedAs("otogeTypeTextActor")]
-        [SerializeField] OtogeTypeGaugeActor otogeTypeGaugeActor;
 
         [Header("Shared Actors")]
         [SerializeField] OtogeSharedActorBase[] sharedActors;
@@ -61,7 +58,6 @@ namespace MyProject.Actor
                 actor.InstallActions(otogeActions);
                 actor.Initialize();
             }
-            otogeTypeGaugeActor.Initialize();
 
             LanePressed = Observable.Merge(otogeTypeToActor.Values.Select(actor => actor.LanePressed));
             LaneReleased = Observable.Merge(otogeTypeToActor.Values.Select(actor => actor.LaneReleased));
@@ -80,17 +76,12 @@ namespace MyProject.Actor
         public override async UniTask ShowAsync(CancellationToken ct)
         {
             gameObject.SetActive(true);
-            await UniTask.WhenAll
-            (
-                otogeTypeToActor[currentOtogeType].ShowAsync(ct),
-                otogeTypeGaugeActor.ShowAsync(ct)
-            );
+            await otogeTypeToActor[currentOtogeType].ShowAsync(ct);
         }
 
         public override async UniTask HideAsync(CancellationToken ct)
         {
             await otogeTypeToActor[currentOtogeType].HideAsync(ct);
-            await otogeTypeGaugeActor.HideAsync(ct);
 
             DestroyNotes();
 
@@ -115,8 +106,6 @@ namespace MyProject.Actor
 
         public void ApplyOtogeTypeTransition(OtogeTypeTransition transition)
         {
-            otogeTypeGaugeActor.ApplyTransition(transition);
-
             var switchTargetType = GetSwitchTargetType(transition);
             if (hasAppliedOtogeTypeTransition && switchTargetType == currentOtogeType)
             {
