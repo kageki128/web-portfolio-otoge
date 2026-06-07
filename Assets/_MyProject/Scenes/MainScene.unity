@@ -2911,6 +2911,8 @@ GameObject:
   - component: {fileID: 213387732}
   - component: {fileID: 213387734}
   - component: {fileID: 213387733}
+  - component: {fileID: 213387736}
+  - component: {fileID: 213387735}
   m_Layer: 0
   m_Name: HeaderBackground
   m_TagString: Untagged
@@ -2975,6 +2977,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 213387731}
   m_CullTransparentMesh: 1
+--- !u!114 &213387735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213387731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac598068da2fef64c9787dad0f2f39d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardActor
+--- !u!114 &213387736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213387731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
 --- !u!1 &240271407
 GameObject:
   m_ObjectHideFlags: 0
@@ -5353,6 +5379,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 435023449}
+  - component: {fileID: 435023451}
+  - component: {fileID: 435023450}
   m_Layer: 0
   m_Name: Back
   m_TagString: Untagged
@@ -5381,6 +5409,30 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &435023450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435023448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac598068da2fef64c9787dad0f2f39d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardActor
+--- !u!114 &435023451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435023448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
 --- !u!1 &453113571
 GameObject:
   m_ObjectHideFlags: 0
@@ -7401,6 +7453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 542893342}
   - component: {fileID: 542893343}
+  - component: {fileID: 542893344}
   m_Layer: 0
   m_Name: ComboText
   m_TagString: Untagged
@@ -7442,6 +7495,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ComboTextActor
   text: {fileID: 1485615073}
+--- !u!114 &542893344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 542893341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
 --- !u!1 &549422292
 GameObject:
   m_ObjectHideFlags: 0
@@ -10019,7 +10084,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38b6f7fde9c557343b45b21972f80b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ActorAnimationTimeline
-  actorAnimations: []
+  actorAnimations:
+  - <Actor>k__BackingField: {fileID: 213387735}
+    <ShowStartSeconds>k__BackingField: 0
+    <HideStartSeconds>k__BackingField: 0
+  - <Actor>k__BackingField: {fileID: 1135851412}
+    <ShowStartSeconds>k__BackingField: 0
+    <HideStartSeconds>k__BackingField: 0
+  - <Actor>k__BackingField: {fileID: 1501936868}
+    <ShowStartSeconds>k__BackingField: 0
+    <HideStartSeconds>k__BackingField: 0
+  - <Actor>k__BackingField: {fileID: 1734687650}
+    <ShowStartSeconds>k__BackingField: 0
+    <HideStartSeconds>k__BackingField: 0
+  - <Actor>k__BackingField: {fileID: 1802433210}
+    <ShowStartSeconds>k__BackingField: 0
+    <HideStartSeconds>k__BackingField: 0
+  - <Actor>k__BackingField: {fileID: 435023450}
+    <ShowStartSeconds>k__BackingField: 0
+    <HideStartSeconds>k__BackingField: 0
+  - <Actor>k__BackingField: {fileID: 542893343}
+    <ShowStartSeconds>k__BackingField: 0
+    <HideStartSeconds>k__BackingField: 0
 --- !u!1 &712136557
 GameObject:
   m_ObjectHideFlags: 0
@@ -16629,6 +16715,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1135851411}
   - component: {fileID: 1135851412}
+  - component: {fileID: 1135851413}
   m_Layer: 0
   m_Name: MusicText
   m_TagString: Untagged
@@ -16671,6 +16758,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.MusicTextActor
   titleText: {fileID: 348475366}
   artistText: {fileID: 780884687}
+--- !u!114 &1135851413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135851410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
 --- !u!1 &1151987265
 GameObject:
   m_ObjectHideFlags: 0
@@ -20860,6 +20959,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1501936867}
   - component: {fileID: 1501936868}
+  - component: {fileID: 1501936869}
   m_Layer: 0
   m_Name: JudgeText
   m_TagString: Untagged
@@ -20905,6 +21005,18 @@ MonoBehaviour:
   missText: {fileID: 1942427539}
   fastText: {fileID: 1728900881}
   lateText: {fileID: 821242878}
+--- !u!114 &1501936869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501936866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
 --- !u!1 &1503614749
 GameObject:
   m_ObjectHideFlags: 0
@@ -22797,6 +22909,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1734687649}
   - component: {fileID: 1734687650}
+  - component: {fileID: 1734687651}
   m_Layer: 0
   m_Name: ScoreText
   m_TagString: Untagged
@@ -22838,6 +22951,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ScoreTextActor
   text: {fileID: 1376778901}
+--- !u!114 &1734687651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734687648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
 --- !u!1 &1738955997
 GameObject:
   m_ObjectHideFlags: 0
@@ -23611,6 +23736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1802433209}
   - component: {fileID: 1802433210}
+  - component: {fileID: 1802433211}
   m_Layer: 0
   m_Name: OtogeTypeGauge
   m_TagString: Untagged
@@ -23651,6 +23777,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.OtogeTypeGaugeActor
   gaugeImage: {fileID: 1844315410}
+--- !u!114 &1802433211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802433208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
 --- !u!1 &1811908614
 GameObject:
   m_ObjectHideFlags: 0
@@ -26068,6 +26206,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2038311321}
+  - component: {fileID: 2038311323}
+  - component: {fileID: 2038311322}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -26095,6 +26235,30 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2038311322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038311320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac598068da2fef64c9787dad0f2f39d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardActor
+--- !u!114 &2038311323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2038311320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
 --- !u!1 &2052178761
 GameObject:
   m_ObjectHideFlags: 0
@@ -26302,7 +26466,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38b6f7fde9c557343b45b21972f80b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ActorAnimationTimeline
-  actorAnimations: []
+  actorAnimations:
+  - <Actor>k__BackingField: {fileID: 2038311322}
+    <ShowStartSeconds>k__BackingField: 0
+    <HideStartSeconds>k__BackingField: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

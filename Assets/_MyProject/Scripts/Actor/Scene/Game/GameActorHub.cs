@@ -51,15 +51,7 @@ namespace MyProject.Actor
         public override async UniTask ShowAsync(CancellationToken ct)
         {
             gameObject.SetActive(true);
-            await UniTask.WhenAll
-            (
-                animationTimeline.ShowAsync(ct),
-                otogeTypeGaugeActor.ShowAsync(ct),
-                scoreTextActor.ShowAsync(ct),
-                comboTextActor.ShowAsync(ct),
-                judgeTextActor.ShowAsync(ct),
-                musicTextActor.ShowAsync(ct)
-            );
+            await animationTimeline.ShowAsync(ct);
             gameActionsObserver.Enable();
         }
 
@@ -67,15 +59,7 @@ namespace MyProject.Actor
         {
             gameActionsObserver.Disable();
             AudioPlayer.Instance.StopBgm();
-            await UniTask.WhenAll
-            (
-                animationTimeline.HideAsync(ct),
-                otogeTypeGaugeActor.HideAsync(ct),
-                scoreTextActor.HideAsync(ct),
-                comboTextActor.HideAsync(ct),
-                judgeTextActor.HideAsync(ct),
-                musicTextActor.HideAsync(ct)
-            );
+            await animationTimeline.HideAsync(ct);
 
             otogeActorHub.DestroyNotes();
             gameObject.SetActive(false);

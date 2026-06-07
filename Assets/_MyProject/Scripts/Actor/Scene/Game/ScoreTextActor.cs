@@ -6,32 +6,37 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
+    [RequireComponent(typeof(FadeAnimator))]
     public class ScoreTextActor : ActorBase
     {
         const float ScoreAnimationDuration = 0.3f;
 
         [SerializeField] TMP_Text text;
 
+        FadeAnimator animator;
         MotionHandle scoreHandle;
         float displayedScore;
 
         public override void Initialize()
         {
+            animator = GetComponent<FadeAnimator>();
+            animator.Initialize();
+
             displayedScore = 0f;
             SetScoreText(0);
             gameObject.SetActive(false);
         }
 
-        public override UniTask ShowAsync(CancellationToken ct)
+        public override async UniTask ShowAsync(CancellationToken ct)
         {
             gameObject.SetActive(true);
-            return UniTask.CompletedTask;
+            await animator.ShowAsync(ct);
         }
 
-        public override UniTask HideAsync(CancellationToken ct)
+        public override async UniTask HideAsync(CancellationToken ct)
         {
+            await animator.HideAsync(ct);
             gameObject.SetActive(false);
-            return UniTask.CompletedTask;
         }
 
         public void SetScore(int score)

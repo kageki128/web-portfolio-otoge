@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
+    [RequireComponent(typeof(FadeAnimator))]
     public class ComboTextActor : ActorBase
     {
         const float ComboPopScaleMultiplier = 1.01f;
@@ -13,30 +14,45 @@ namespace MyProject.Actor
 
         [SerializeField] TMP_Text text;
 
+        FadeAnimator animator;
         int currentCombo;
         Vector3 baseScale;
         MotionHandle comboPopHandle;
 
         public override void Initialize()
         {
+            animator = GetComponent<FadeAnimator>();
+            animator.Initialize();
+
             baseScale = transform.localScale;
             SetCombo(0);
             transform.localScale = baseScale;
             gameObject.SetActive(false);
         }
 
-        public override UniTask ShowAsync(CancellationToken ct)
+        public override async UniTask ShowAsync(CancellationToken ct)
         {
-            SetCombo(currentCombo);
-            return UniTask.CompletedTask;
+            if (!IsShow())
+            {
+                return;
+            }
+
+            gameObject.SetActive(true);
+            await animator.ShowAsync(ct);
         }
 
-        public override UniTask HideAsync(CancellationToken ct)
+        public override async UniTask HideAsync(CancellationToken ct)
         {
             comboPopHandle.TryCancel();
             transform.localScale = baseScale;
+
+            if (!gameObject.activeSelf)
+            {
+                return;
+            }
+
+            await animator.HideAsync(ct);
             gameObject.SetActive(false);
-            return UniTask.CompletedTask;
         }
 
         public void SetCombo(int combo)

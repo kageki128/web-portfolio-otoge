@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
+    [RequireComponent(typeof(FadeAnimator))]
     public class JudgeTextActor : ActorBase
     {
         [SerializeField] TMP_Text perfectText;
@@ -15,21 +16,26 @@ namespace MyProject.Actor
         [SerializeField] TMP_Text fastText;
         [SerializeField] TMP_Text lateText;
 
+        FadeAnimator animator;
+
         public override void Initialize()
         {
+            animator = GetComponent<FadeAnimator>();
+            animator.Initialize();
+
             gameObject.SetActive(false);
         }
 
-        public override UniTask ShowAsync(CancellationToken ct)
+        public override async UniTask ShowAsync(CancellationToken ct)
         {
             gameObject.SetActive(true);
-            return UniTask.CompletedTask;
+            await animator.ShowAsync(ct);
         }
 
-        public override UniTask HideAsync(CancellationToken ct)
+        public override async UniTask HideAsync(CancellationToken ct)
         {
+            await animator.HideAsync(ct);
             gameObject.SetActive(false);
-            return UniTask.CompletedTask;
         }
 
         public void SetJudgeCounts(IReadOnlyDictionary<JudgeType, int> judgeCounts)

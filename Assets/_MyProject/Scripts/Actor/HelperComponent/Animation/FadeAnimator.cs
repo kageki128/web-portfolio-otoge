@@ -11,7 +11,7 @@ namespace MyProject.Actor
     [DisallowMultipleComponent]
     public class FadeAnimator : MonoBehaviour
     {
-        const float DurationSeconds = 0.5f;
+        const float DurationSeconds = 0.3f;
         const Ease FadeEase = Ease.OutCubic;
 
         readonly List<FadeTarget> fadeTargets = new();

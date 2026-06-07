@@ -84,7 +84,11 @@ namespace MyProject.Director
             // 初期シーンを起動
             var initialSceneDirector = GetSceneDirector(currentScene);
             await initialSceneDirector.BeforeEnterAsync(ct);
-            await initialSceneDirector.EnterAsync(ct);
+            await UniTask.WhenAll
+            (
+                rootDirector.TransitSceneAsync(currentScene, ct),
+                initialSceneDirector.EnterAsync(ct)
+            );
         }
 
         void HandleSceneChangeRequest(SceneType to)
@@ -110,6 +114,7 @@ namespace MyProject.Director
                 await toDirector.BeforeEnterAsync(cts.Token);
                 await UniTask.WhenAll
                 (
+                    rootDirector.TransitSceneAsync(to, cts.Token),
                     fromDirector.ExitAsync(cts.Token),
                     toDirector.EnterAsync(cts.Token)
                 );
