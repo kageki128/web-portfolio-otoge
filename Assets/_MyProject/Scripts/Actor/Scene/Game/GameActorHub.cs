@@ -54,7 +54,6 @@ namespace MyProject.Actor
             await UniTask.WhenAll
             (
                 animationTimeline.ShowAsync(ct),
-                otogeActorHub.ShowAsync(ct),
                 otogeTypeGaugeActor.ShowAsync(ct),
                 scoreTextActor.ShowAsync(ct),
                 comboTextActor.ShowAsync(ct),
@@ -71,13 +70,14 @@ namespace MyProject.Actor
             await UniTask.WhenAll
             (
                 animationTimeline.HideAsync(ct),
-                otogeActorHub.HideAsync(ct),
                 otogeTypeGaugeActor.HideAsync(ct),
                 scoreTextActor.HideAsync(ct),
                 comboTextActor.HideAsync(ct),
                 judgeTextActor.HideAsync(ct),
                 musicTextActor.HideAsync(ct)
             );
+
+            otogeActorHub.DestroyNotes();
             gameObject.SetActive(false);
         }
 
@@ -87,6 +87,7 @@ namespace MyProject.Actor
         }
 
         public void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores) => otogeActorHub.CreateNotes(noteCores);
+
         public void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed) => otogeActorHub.UpdateNotesByTimeline(timeline, currentBeat, currentScroll, scrollSpeed);
         public void ApplyOtogeTypeTransition(OtogeTypeTransition transition)
         {

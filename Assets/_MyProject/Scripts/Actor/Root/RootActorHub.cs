@@ -9,6 +9,7 @@ namespace MyProject.Actor
 {
     public class RootActorHub : RootActorBase
     {
+        [SerializeField] OtogeActorHub otogeActorHub;
         [SerializeField] ScrollSpeedSliderActor scrollSpeedSliderActor;
         [SerializeField] NoteOffsetSliderActor noteOffsetSliderActor;
 
@@ -24,6 +25,12 @@ namespace MyProject.Actor
             rootActors.Clear();
             rootActors.Add(scrollSpeedSliderActor);
             rootActors.Add(noteOffsetSliderActor);
+            rootActors.Add(otogeActorHub);
+
+            foreach (var rootActor in rootActors)
+            {
+                rootActor.Initialize();
+            }
         }
 
         public override UniTask TransitSceneAsync(SceneType sceneType, CancellationToken ct)

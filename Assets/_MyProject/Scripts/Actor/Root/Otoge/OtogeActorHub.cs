@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
-    public class OtogeActorHub : ActorBase
+    public class OtogeActorHub : RootActorBase
     {
         const float SwitchToNextTypeRemainingBeatThreshold = 1f;
 
@@ -33,7 +33,7 @@ namespace MyProject.Actor
 
         readonly HashSet<OtogeType> updatedOtogeTypes = new();
         OtogeType currentOtogeType = OtogeType.Tetra;
-        bool hasAppliedOtogeTypeTransition;
+        bool hasAppliedOtogeTypeTransition = false;
         OtogeActions otogeActions;
         Dictionary<OtogeType, OtogeActorBase> otogeTypeToActor = new();
         CancellationTokenSource switchOtogeTypeCts;
@@ -70,26 +70,18 @@ namespace MyProject.Actor
             updatedOtogeTypes.Add(currentOtogeType);
             hasAppliedOtogeTypeTransition = false;
 
-            gameObject.SetActive(false);
+            gameObject.SetActive(true);
         }
 
-        public override async UniTask ShowAsync(CancellationToken ct)
+        public override UniTask TransitSceneAsync(SceneType sceneType, CancellationToken ct)
         {
             gameObject.SetActive(true);
-            await otogeTypeToActor[currentOtogeType].ShowAsync(ct);
-        }
-
-        public override async UniTask HideAsync(CancellationToken ct)
-        {
-            await otogeTypeToActor[currentOtogeType].HideAsync(ct);
-
-            DestroyNotes();
-
-            gameObject.SetActive(false);
+            return UniTask.CompletedTask;
         }
 
         public void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores)
         {
+            // ノーツを作成
             foreach (var actor in otogeTypeToActor.Values)
             {
                 actor.CreateNotes(noteCores);
@@ -114,6 +106,14 @@ namespace MyProject.Actor
 
             hasAppliedOtogeTypeTransition = true;
             SwitchOtogeType(switchTargetType);
+        }
+
+        public void DestroyNotes()
+        {
+            foreach (var actor in otogeTypeToActor.Values)
+            {
+                actor.DestroyNotes();
+            }
         }
 
         static OtogeType GetSwitchTargetType(OtogeTypeTransition transition)
@@ -142,14 +142,6 @@ namespace MyProject.Actor
             {
                 if (sharedActor == null) continue;
                 sharedActor.SetState(otogeType);
-            }
-        }
-
-        void DestroyNotes()
-        {
-            foreach (var actor in otogeTypeToActor.Values)
-            {
-                actor.DestroyNotes();
             }
         }
 

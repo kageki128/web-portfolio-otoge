@@ -95,7 +95,7 @@ namespace MyProject.Actor
             ""id"": ""e6bd01fb-e252-4777-81d9-013b9b10f319"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""StartGame"",
                     ""type"": ""Button"",
                     ""id"": ""126aa79d-0f91-4f68-84fc-c9a602bb0049"",
                     ""expectedControlType"": """",
@@ -108,11 +108,11 @@ namespace MyProject.Actor
                 {
                     ""name"": """",
                     ""id"": ""81fccdca-caf7-4166-a7a9-aed01554eb54"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""StartGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -123,7 +123,7 @@ namespace MyProject.Actor
 }");
             // Main
             m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
-            m_Main_Newaction = m_Main.FindAction("New action", throwIfNotFound: true);
+            m_Main_StartGame = m_Main.FindAction("StartGame", throwIfNotFound: true);
         }
 
         ~@SelectActions()
@@ -204,7 +204,7 @@ namespace MyProject.Actor
         // Main
         private readonly InputActionMap m_Main;
         private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
-        private readonly InputAction m_Main_Newaction;
+        private readonly InputAction m_Main_StartGame;
         /// <summary>
         /// Provides access to input actions defined in input action map "Main".
         /// </summary>
@@ -217,9 +217,9 @@ namespace MyProject.Actor
             /// </summary>
             public MainActions(@SelectActions wrapper) { m_Wrapper = wrapper; }
             /// <summary>
-            /// Provides access to the underlying input action "Main/Newaction".
+            /// Provides access to the underlying input action "Main/StartGame".
             /// </summary>
-            public InputAction @Newaction => m_Wrapper.m_Main_Newaction;
+            public InputAction @StartGame => m_Wrapper.m_Main_StartGame;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -246,9 +246,9 @@ namespace MyProject.Actor
             {
                 if (instance == null || m_Wrapper.m_MainActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_MainActionsCallbackInterfaces.Add(instance);
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                @StartGame.started += instance.OnStartGame;
+                @StartGame.performed += instance.OnStartGame;
+                @StartGame.canceled += instance.OnStartGame;
             }
 
             /// <summary>
@@ -260,9 +260,9 @@ namespace MyProject.Actor
             /// <seealso cref="MainActions" />
             private void UnregisterCallbacks(IMainActions instance)
             {
-                @Newaction.started -= instance.OnNewaction;
-                @Newaction.performed -= instance.OnNewaction;
-                @Newaction.canceled -= instance.OnNewaction;
+                @StartGame.started -= instance.OnStartGame;
+                @StartGame.performed -= instance.OnStartGame;
+                @StartGame.canceled -= instance.OnStartGame;
             }
 
             /// <summary>
@@ -304,12 +304,12 @@ namespace MyProject.Actor
         public interface IMainActions
         {
             /// <summary>
-            /// Method invoked when associated input action "New action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "StartGame" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnNewaction(InputAction.CallbackContext context);
+            void OnStartGame(InputAction.CallbackContext context);
         }
     }
 }
