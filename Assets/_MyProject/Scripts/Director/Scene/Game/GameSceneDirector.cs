@@ -41,12 +41,6 @@ namespace MyProject.Director
             await gameSessionCore.InitializeAsync(ct);
         }
 
-        public async UniTask InitialEnterAsync(CancellationToken ct)
-        {
-            await gameActorHub.InitialShowAsync(ct);
-            HandleEnter();
-        }
-
         public async UniTask EnterAsync(CancellationToken ct)
         {
             await gameActorHub.ShowAsync(ct);

@@ -16,13 +16,6 @@ namespace MyProject.Actor
         public abstract void Initialize();
 
         /// <summary>
-        /// ゲームの最初のシーンとして表示されるときの表示処理。
-        /// OverrideしなければShowAsyncと同じ処理を行う。
-        /// 多くの場合、すぐに表示されることが望ましいだろう。
-        /// </summary>
-        public virtual UniTask InitialShowAsync(CancellationToken ct) => ShowAsync(ct);
-
-        /// <summary>
         /// 表示処理。
         /// </summary>
         public abstract UniTask ShowAsync(CancellationToken ct);

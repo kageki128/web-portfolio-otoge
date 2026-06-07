@@ -84,7 +84,7 @@ namespace MyProject.Director
             // 初期シーンを起動
             var initialSceneDirector = GetSceneDirector(currentScene);
             await initialSceneDirector.BeforeEnterAsync(ct);
-            await initialSceneDirector.InitialEnterAsync(ct);
+            await initialSceneDirector.EnterAsync(ct);
         }
 
         void HandleSceneChangeRequest(SceneType to)

@@ -26,13 +26,6 @@ namespace MyProject.Actor
             gameObject.SetActive(false);
         }
 
-        public override async UniTask InitialShowAsync(CancellationToken ct)
-        {
-            gameObject.SetActive(true);
-            await animationTimeline.InitialShowAsync(ct);
-            resultActionsObserver.Enable();
-        }
-
         public override async UniTask ShowAsync(CancellationToken ct)
         {
             gameObject.SetActive(true);

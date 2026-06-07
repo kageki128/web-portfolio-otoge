@@ -77,9 +77,6 @@ namespace MyProject.Actor
             public FadeSettings Fade { get; private set; } = new();
         }
 
-        [Header("Initial Show")]
-        [SerializeField] PhaseSettings initialShowSettings = new();
-
         [Header("Show")]
         [SerializeField] PhaseSettings showSettings = new();
 
@@ -114,9 +111,6 @@ namespace MyProject.Actor
             CacheChildFadeTargets();
             CancelRunningMotions();
         }
-
-        public UniTask InitialShowAsync(CancellationToken ct) =>
-             PlayPhaseAsync(initialShowSettings, PhaseType.Show, ct);
 
         public UniTask ShowAsync(CancellationToken ct) =>
              PlayPhaseAsync(showSettings, PhaseType.Show, ct);

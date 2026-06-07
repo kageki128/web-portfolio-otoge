@@ -18,21 +18,15 @@ namespace MyProject.Actor
             public ActorBase Actor { get; private set; }
 
             [field: SerializeField, Min(0f)]
-            public float InitialShowStartSeconds { get; private set; }
-
-            [field: SerializeField, Min(0f)]
             public float ShowStartSeconds { get; private set; }
 
             [field: SerializeField, Min(0f)]
             public float HideStartSeconds { get; private set; }
         }
 
-        [SerializeField] bool useInitialShow = false;
-
         [Header("Actor Timelines")]
         [SerializeField] List<TimedActorAnimation> actorAnimations = new();
 
-        Func<CancellationToken, UniTask> playInitialShowTimelineAsync = _ => UniTask.CompletedTask;
         Func<CancellationToken, UniTask> playShowTimelineAsync = _ => UniTask.CompletedTask;
         Func<CancellationToken, UniTask> playHideTimelineAsync = _ => UniTask.CompletedTask;
 
@@ -58,19 +52,8 @@ namespace MyProject.Actor
                 validAnimations.Add(timedAnimation);
             }
 
-            playInitialShowTimelineAsync = BuildTimelineTask(validAnimations, timed => timed.InitialShowStartSeconds, PlayInitialShowAsync);
             playShowTimelineAsync = BuildTimelineTask(validAnimations, timed => timed.ShowStartSeconds, PlayShowAsync);
             playHideTimelineAsync = BuildTimelineTask(validAnimations, timed => timed.HideStartSeconds, PlayHideAsync);
-        }
-
-        /// <summary>
-        /// Initial Show Timelineを再生する。
-        /// </summary>
-        public override UniTask InitialShowAsync(CancellationToken ct)
-        {
-            return useInitialShow
-                ? playInitialShowTimelineAsync(ct)
-                : playShowTimelineAsync(ct);
         }
 
         /// <summary>
@@ -139,11 +122,6 @@ namespace MyProject.Actor
             }
 
             await playAsync(actor, ct);
-        }
-
-        static UniTask PlayInitialShowAsync(ActorBase actor, CancellationToken ct)
-        {
-            return actor.InitialShowAsync(ct);
         }
 
         static UniTask PlayShowAsync(ActorBase actor, CancellationToken ct)

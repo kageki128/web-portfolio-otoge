@@ -22,12 +22,6 @@ namespace MyProject.Director
         /// </summary>
         UniTask InitializeAsync(CancellationToken ct);
         /// <summary>
-        /// 全シーン初期化後、最初のシーンに遷移するときに呼び出される処理。
-        /// アニメーションはせず、
-        /// すぐにこのシーンが始まるようにする。
-        /// </summary>
-        UniTask InitialEnterAsync(CancellationToken ct);
-        /// <summary>
         /// シーンチェンジでこのシーンに遷移する前に呼び出される処理。
         /// 遷移元のBeforeExitAsyncの後に呼び出される。
         /// </summary>

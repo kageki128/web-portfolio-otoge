@@ -46,21 +46,6 @@ namespace MyProject.Actor
             gameObject.SetActive(false);
         }
 
-        public override async UniTask InitialShowAsync(CancellationToken ct)
-        {
-            gameObject.SetActive(true);
-            await UniTask.WhenAll
-            (
-                animationTimeline.InitialShowAsync(ct),
-                otogeActorHub.InitialShowAsync(ct),
-                scoreTextActor.InitialShowAsync(ct),
-                comboTextActor.InitialShowAsync(ct),
-                judgeTextActor.InitialShowAsync(ct),
-                musicTextActor.InitialShowAsync(ct)
-            );
-            gameActionsObserver.Enable();
-        }
-
         public override async UniTask ShowAsync(CancellationToken ct)
         {
             gameObject.SetActive(true);
