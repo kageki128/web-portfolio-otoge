@@ -108,7 +108,18 @@ namespace MyProject.Actor
             SwitchOtogeType(switchTargetType);
         }
 
-        public void DestroyNotes()
+        public UniTask HideAndDestroyNotesAsync(CancellationToken ct)
+        {
+            var tasks = new List<UniTask>();
+            foreach (var actor in otogeTypeToActor.Values)
+            {
+                tasks.Add(actor.HideAndDestroyNotesAsync(ct));
+            }
+
+            return UniTask.WhenAll(tasks);
+        }
+
+        void DestroyNotes()
         {
             foreach (var actor in otogeTypeToActor.Values)
             {

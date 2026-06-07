@@ -30,8 +30,7 @@ namespace MyProject.Actor
 
         public override UniTask HideAsync(CancellationToken ct)
         {
-            gameObject.SetActive(false);
-            return UniTask.CompletedTask;
+            return HideWithFadeAsync(ct, image);
         }
 
         public override void SetPosition(float currentBeat, float currentScroll, float scrollSpeed)

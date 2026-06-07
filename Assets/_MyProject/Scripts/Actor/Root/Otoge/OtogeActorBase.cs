@@ -53,6 +53,18 @@ namespace MyProject.Actor
             NoteActors.Clear();
         }
 
+        public async UniTask HideAndDestroyNotesAsync(CancellationToken ct)
+        {
+            var tasks = new List<UniTask>();
+            foreach (var noteActor in NoteActors)
+            {
+                tasks.Add(noteActor.HideAsync(ct));
+            }
+
+            await UniTask.WhenAll(tasks);
+            DestroyNotes();
+        }
+
         protected static async UniTask SwitchActionsAfterDelayAsync(Action switchActions, CancellationToken ct)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.SwitchActionsDelay), cancellationToken: ct);

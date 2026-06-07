@@ -54,9 +54,10 @@ namespace MyProject.Actor
         {
             gameActionsObserver.Disable();
             AudioPlayer.Instance.StopBgm();
-            await animationTimeline.HideAsync(ct);
-
-            otogeActorHub.DestroyNotes();
+            await UniTask.WhenAll(
+                animationTimeline.HideAsync(ct),
+                otogeActorHub.HideAndDestroyNotesAsync(ct)
+            );
             gameObject.SetActive(false);
         }
 

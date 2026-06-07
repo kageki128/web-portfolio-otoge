@@ -27,8 +27,7 @@ namespace MyProject.Actor
 
         public override UniTask HideAsync(CancellationToken ct)
         {
-            gameObject.SetActive(false);
-            return UniTask.CompletedTask;
+            return HideWithFadeAsync(ct, image);
         }
 
         void Update()

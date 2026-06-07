@@ -77,6 +77,17 @@ namespace MyProject.Actor
         {
             gameObject.SetActive(true);
             SetAppearance(NoteCore.State.CurrentValue);
+            await FadeAsync(true, false, ct, targets);
+        }
+
+        protected async UniTask HideWithFadeAsync(CancellationToken ct, params SpriteRenderer[] targets)
+        {
+            await FadeAsync(false, true, ct, targets);
+            gameObject.SetActive(false);
+        }
+
+        async UniTask FadeAsync(bool fadeIn, bool restoreVisibleColor, CancellationToken ct, params SpriteRenderer[] targets)
+        {
             if (!gameObject.activeSelf || targets.Length == 0)
             {
                 return;
@@ -85,6 +96,7 @@ namespace MyProject.Actor
             var duration = OtogeAppearance.StateTransitionDuration;
             var ease = OtogeAppearance.StateTransitionEase;
             var fadeTasks = new List<UniTask>(targets.Length);
+            var colors = new Dictionary<SpriteRenderer, Color>(targets.Length);
 
             for (var i = 0; i < targets.Length; i++)
             {
@@ -94,10 +106,13 @@ namespace MyProject.Actor
                     currentHandle.TryCancel();
                 }
 
-                var to = target.color;
-                var from = WithAlpha(to, 0f);
-                target.color = from;
+                var visibleColor = target.color;
+                var hiddenColor = WithAlpha(visibleColor, 0f);
+                var from = fadeIn ? hiddenColor : visibleColor;
+                var to = fadeIn ? visibleColor : hiddenColor;
+                colors[target] = visibleColor;
                 lastFadeColors[target] = from;
+                target.color = from;
 
                 MotionHandle handle = default;
                 handle = LMotion.Create(from, to, duration)
@@ -119,6 +134,15 @@ namespace MyProject.Actor
             }
 
             await UniTask.WhenAll(fadeTasks);
+            if (!restoreVisibleColor)
+            {
+                return;
+            }
+
+            foreach (var (target, color) in colors)
+            {
+                target.color = color;
+            }
         }
 
         async UniTask AwaitFadeTaskAsync(SpriteRenderer target, MotionHandle handle, CancellationToken ct)
