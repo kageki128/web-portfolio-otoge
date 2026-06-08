@@ -2911,8 +2911,8 @@ GameObject:
   - component: {fileID: 213387732}
   - component: {fileID: 213387734}
   - component: {fileID: 213387733}
-  - component: {fileID: 213387736}
   - component: {fileID: 213387735}
+  - component: {fileID: 213387736}
   m_Layer: 0
   m_Name: HeaderBackground
   m_TagString: Untagged
@@ -2998,9 +2998,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 213387731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Script: {fileID: 11500000, guid: ab03d9e120ecff84eac713575f14ef13, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardTransitionAnimator
+  showSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 100
+      <AngleDegrees>k__BackingField: 90
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
+  hideSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 100
+      <AngleDegrees>k__BackingField: 90
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
 --- !u!1 &240271407
 GameObject:
   m_ObjectHideFlags: 0
@@ -5820,8 +5852,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 435023449}
-  - component: {fileID: 435023451}
   - component: {fileID: 435023450}
+  - component: {fileID: 435023451}
   m_Layer: 0
   m_Name: Back
   m_TagString: Untagged
@@ -5871,9 +5903,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 435023448}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Script: {fileID: 11500000, guid: ab03d9e120ecff84eac713575f14ef13, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardTransitionAnimator
+  showSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 100
+      <AngleDegrees>k__BackingField: 180
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
+  hideSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 100
+      <AngleDegrees>k__BackingField: 180
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
 --- !u!1 &453113571
 GameObject:
   m_ObjectHideFlags: 0
@@ -8082,9 +8146,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 542893341}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Script: {fileID: 11500000, guid: ab03d9e120ecff84eac713575f14ef13, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardTransitionAnimator
+  showSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 0
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
+  hideSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 0
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
 --- !u!1 &549422292
 GameObject:
   m_ObjectHideFlags: 0
@@ -13204,8 +13300,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 842255142}
-  - component: {fileID: 842255144}
-  - component: {fileID: 842255143}
   m_Layer: 0
   m_Name: SliderInfo
   m_TagString: Untagged
@@ -13234,30 +13328,6 @@ RectTransform:
   m_AnchoredPosition: {x: -510, y: 40}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &842255143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 842255141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac598068da2fef64c9787dad0f2f39d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardActor
---- !u!114 &842255144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 842255141}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
 --- !u!1 &845474250
 GameObject:
   m_ObjectHideFlags: 0
@@ -18496,14 +18566,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1135851410}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 348475365}
   - {fileID: 780884686}
-  m_Father: {fileID: 1546771705}
+  m_Father: {fileID: 1501936867}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -18533,9 +18603,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 1135851410}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Script: {fileID: 11500000, guid: ab03d9e120ecff84eac713575f14ef13, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardTransitionAnimator
+  showSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 3
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
+  hideSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 3
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
 --- !u!1 &1151987265
 GameObject:
   m_ObjectHideFlags: 0
@@ -23218,6 +23320,7 @@ RectTransform:
   m_Children:
   - {fileID: 613144052}
   - {fileID: 1354409930}
+  - {fileID: 1135851411}
   m_Father: {fileID: 1546771705}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -23251,9 +23354,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 1501936866}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Script: {fileID: 11500000, guid: ab03d9e120ecff84eac713575f14ef13, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardTransitionAnimator
+  showSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 100
+      <AngleDegrees>k__BackingField: 90
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
+  hideSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 100
+      <AngleDegrees>k__BackingField: 90
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
 --- !u!1 &1503614749
 GameObject:
   m_ObjectHideFlags: 0
@@ -23458,7 +23593,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 213387732}
-  - {fileID: 1135851411}
   - {fileID: 1501936867}
   - {fileID: 1734687649}
   - {fileID: 1802433209}
@@ -24673,6 +24807,9 @@ GameObject:
   - component: {fileID: 1643320339}
   - component: {fileID: 1643320338}
   - component: {fileID: 1643320337}
+  - component: {fileID: 1643320340}
+  - component: {fileID: 1643320342}
+  - component: {fileID: 1643320341}
   m_Layer: 0
   m_Name: ForegroundCanvas
   m_TagString: Untagged
@@ -24767,6 +24904,74 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!225 &1643320340
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643320335}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &1643320341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643320335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac598068da2fef64c9787dad0f2f39d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardActor
+--- !u!114 &1643320342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643320335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab03d9e120ecff84eac713575f14ef13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardTransitionAnimator
+  showSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 0
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
+  hideSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 0
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
 --- !u!1 &1656776576
 GameObject:
   m_ObjectHideFlags: 0
@@ -25649,9 +25854,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 1734687648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Script: {fileID: 11500000, guid: ab03d9e120ecff84eac713575f14ef13, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardTransitionAnimator
+  showSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 100
+      <AngleDegrees>k__BackingField: 90
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
+  hideSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 100
+      <AngleDegrees>k__BackingField: 90
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
 --- !u!1 &1738955997
 GameObject:
   m_ObjectHideFlags: 0
@@ -26475,9 +26712,41 @@ MonoBehaviour:
   m_GameObject: {fileID: 1802433208}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
+  m_Script: {fileID: 11500000, guid: ab03d9e120ecff84eac713575f14ef13, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardTransitionAnimator
+  showSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 100
+      <AngleDegrees>k__BackingField: 90
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
+  hideSettings:
+    <DurationSeconds>k__BackingField: 0.3
+    <UseCanvasGroupForFade>k__BackingField: 1
+    <Move>k__BackingField:
+      <Distance>k__BackingField: 100
+      <AngleDegrees>k__BackingField: 90
+      <Ease>k__BackingField: 8
+    <Rotation>k__BackingField:
+      <AngleDegrees>k__BackingField: 0
+      <Ease>k__BackingField: 8
+    <Scale>k__BackingField:
+      <Multiplier>k__BackingField: 1
+      <Ease>k__BackingField: 8
+    <Fade>k__BackingField:
+      <IsFade>k__BackingField: 1
+      <Ease>k__BackingField: 8
 --- !u!1 &1811908614
 GameObject:
   m_ObjectHideFlags: 0
@@ -29108,8 +29377,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2038311321}
-  - component: {fileID: 2038311323}
-  - component: {fileID: 2038311322}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -29137,30 +29404,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2038311322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2038311320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac598068da2fef64c9787dad0f2f39d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.StandardActor
---- !u!114 &2038311323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2038311320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64deb545514ed5841a10df488c863275, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.FadeAnimator
 --- !u!1 &2052178761
 GameObject:
   m_ObjectHideFlags: 0
@@ -29506,10 +29749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ActorAnimationTimeline
   actorAnimations:
-  - <Actor>k__BackingField: {fileID: 2038311322}
-    <ShowStartSeconds>k__BackingField: 0
-    <HideStartSeconds>k__BackingField: 0
-  - <Actor>k__BackingField: {fileID: 842255143}
+  - <Actor>k__BackingField: {fileID: 1643320341}
     <ShowStartSeconds>k__BackingField: 0
     <HideStartSeconds>k__BackingField: 0
 --- !u!1660057539 &9223372036854775807

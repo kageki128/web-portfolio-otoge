@@ -7,21 +7,21 @@ using UnityEngine.UI;
 
 namespace MyProject.Actor
 {
-    [RequireComponent(typeof(FadeAnimator))]
+    [RequireComponent(typeof(StandardTransitionAnimator))]
     public class OtogeTypeGaugeActor : ActorBase
     {
         const float GaugeAnimationDuration = 0.1f;
 
         [SerializeField] Image gaugeImage;
 
-        FadeAnimator animator;
+        StandardTransitionAnimator transitionAnimator;
         MotionHandle gaugeHandle;
         float displayedFillAmount;
 
         public override void Initialize()
         {
-            animator = GetComponent<FadeAnimator>();
-            animator.Initialize();
+            transitionAnimator = GetComponent<StandardTransitionAnimator>();
+            transitionAnimator.Initialize();
 
             gaugeImage.type = Image.Type.Filled;
             SetFillAmount(0f);
@@ -31,13 +31,13 @@ namespace MyProject.Actor
         public override async UniTask ShowAsync(CancellationToken ct)
         {
             gameObject.SetActive(true);
-            await animator.ShowAsync(ct);
+            await transitionAnimator.ShowAsync(ct);
         }
 
         public override async UniTask HideAsync(CancellationToken ct)
         {
             gaugeHandle.TryCancel();
-            await animator.HideAsync(ct);
+            await transitionAnimator.HideAsync(ct);
             gameObject.SetActive(false);
         }
 

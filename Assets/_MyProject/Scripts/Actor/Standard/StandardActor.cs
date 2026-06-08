@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
-    [RequireComponent(typeof(FadeAnimator))]
+    [RequireComponent(typeof(StandardTransitionAnimator))]
     public class StandardActor : ActorBase
     {
-        FadeAnimator animator;
+        StandardTransitionAnimator transitionAnimator;
 
         public override void Initialize()
         {
-            animator = GetComponent<FadeAnimator>();
-            animator.Initialize();
+            transitionAnimator = GetComponent<StandardTransitionAnimator>();
+            transitionAnimator.Initialize();
 
             gameObject.SetActive(false);
         }
@@ -20,14 +20,13 @@ namespace MyProject.Actor
         public override async UniTask ShowAsync(CancellationToken ct)
         {
             gameObject.SetActive(true);
-            await animator.ShowAsync(ct);
+            await transitionAnimator.ShowAsync(ct);
         }
 
         public override async UniTask HideAsync(CancellationToken ct)
         {
-            await animator.HideAsync(ct);
+            await transitionAnimator.HideAsync(ct);
             gameObject.SetActive(false);
         }
     }
 }
-

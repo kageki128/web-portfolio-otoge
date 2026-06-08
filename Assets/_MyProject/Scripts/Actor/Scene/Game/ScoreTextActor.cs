@@ -6,21 +6,21 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
-    [RequireComponent(typeof(FadeAnimator))]
+    [RequireComponent(typeof(StandardTransitionAnimator))]
     public class ScoreTextActor : ActorBase
     {
         const float ScoreAnimationDuration = 0.3f;
 
         [SerializeField] TMP_Text text;
 
-        FadeAnimator animator;
+        StandardTransitionAnimator transitionAnimator;
         MotionHandle scoreHandle;
         float displayedScore;
 
         public override void Initialize()
         {
-            animator = GetComponent<FadeAnimator>();
-            animator.Initialize();
+            transitionAnimator = GetComponent<StandardTransitionAnimator>();
+            transitionAnimator.Initialize();
 
             displayedScore = 0f;
             SetScoreText(0);
@@ -30,12 +30,12 @@ namespace MyProject.Actor
         public override async UniTask ShowAsync(CancellationToken ct)
         {
             gameObject.SetActive(true);
-            await animator.ShowAsync(ct);
+            await transitionAnimator.ShowAsync(ct);
         }
 
         public override async UniTask HideAsync(CancellationToken ct)
         {
-            await animator.HideAsync(ct);
+            await transitionAnimator.HideAsync(ct);
             gameObject.SetActive(false);
         }
 
