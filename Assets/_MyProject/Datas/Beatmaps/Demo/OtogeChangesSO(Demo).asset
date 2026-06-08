@@ -15,19 +15,21 @@ MonoBehaviour:
   otogeChanges:
   - beat: 0
     type: 0
-  - beat: 20
+  - beat: 7
     type: 1
-  - beat: 36
+  - beat: 15
     type: 2
-  - beat: 52
+  - beat: 23
     type: 3
-  - beat: 68
+  - beat: 31
     type: 4
-  - beat: 84
+  - beat: 39
     type: 5
-  - beat: 100
+  - beat: 47
     type: 6
-  - beat: 116
+  - beat: 55
     type: 7
-  - beat: 132
+  - beat: 63
     type: 8
+  - beat: 71
+    type: 0

@@ -40,7 +40,7 @@ namespace MyProject.Director
 
         public async UniTask BeforeEnterAsync(CancellationToken ct)
         {
-            await gameSessionCore.InitializeAsync(ct);
+            await gameSessionCore.InitializeAsync(BeatmapType.Normal, ct);
 
             disposables.Clear();
             SubscribeCoreForActor();
@@ -61,6 +61,7 @@ namespace MyProject.Director
         public async UniTask BeforeExitAsync(CancellationToken ct)
         {
             disposables.Clear();
+            gameSessionCore.PauseGame();
             await rootActorHub.HideAndDestroyNotesAsync(ct);
         }
 

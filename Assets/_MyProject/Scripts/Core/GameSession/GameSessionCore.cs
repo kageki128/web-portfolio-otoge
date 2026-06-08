@@ -22,6 +22,7 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<float> CurrentBeat => beatmapCore.CurrentBeat;
         public ReadOnlyReactiveProperty<OtogeTypeTransition> CurrentOtogeTypeTransition => beatmapCore.CurrentOtogeTypeTransition;
         public Observable<Unit> OtogeEventTriggered => beatmapCore.OtogeEvent;
+        public Observable<Unit> EndReached => beatmapCore.EndReached;
 
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll => beatmapCore.TimelineToCurrentScroll;
 
@@ -36,11 +37,11 @@ namespace MyProject.Core
             this.beatmapRepository = beatmapRepository;
         }
 
-        public async UniTask InitializeAsync(CancellationToken ct)
+        public async UniTask InitializeAsync(BeatmapType beatmapType, CancellationToken ct)
         {
             state.Value = GameState.Preparing;
 
-            beatmapCore = await beatmapRepository.GetAsync(BeatmapType.Normal, ct);
+            beatmapCore = await beatmapRepository.GetAsync(beatmapType, ct);
             scoreCore.Initialize(beatmapCore.NoteCores);
 
             state.Value = GameState.Ready;
@@ -57,6 +58,11 @@ namespace MyProject.Core
             state.Value = GameState.Playing;
 
             return startDspTime;
+        }
+
+        public void PauseGame()
+        {
+            state.Value = GameState.Paused;
         }
 
         public void JudgePressLane(int lane)
