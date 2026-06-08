@@ -13,8 +13,10 @@ namespace MyProject.Actor
         const float ComboPopDuration = 0.15f;
 
         [SerializeField] TMP_Text text;
+        [SerializeField] TMP_Text labelText;
 
         StandardTransitionAnimator transitionAnimator;
+        string baseLabelText;
         int currentCombo;
         Vector3 baseScale;
         MotionHandle comboPopHandle;
@@ -25,18 +27,13 @@ namespace MyProject.Actor
             transitionAnimator.Initialize();
 
             baseScale = transform.localScale;
+            baseLabelText = labelText.text;
             SetCombo(0);
             transform.localScale = baseScale;
-            gameObject.SetActive(false);
         }
 
         public override async UniTask ShowAsync(CancellationToken ct)
         {
-            if (!IsShow())
-            {
-                return;
-            }
-
             gameObject.SetActive(true);
             await transitionAnimator.ShowAsync(ct);
         }
@@ -59,10 +56,10 @@ namespace MyProject.Actor
         {
             var previousCombo = currentCombo;
             currentCombo = combo;
-            text.text = $"{combo}";
 
             var show = IsShow();
-            gameObject.SetActive(show);
+            text.text = show ? $"{combo}" : "";
+            labelText.text = show ? baseLabelText : "";
 
             if (!show)
             {

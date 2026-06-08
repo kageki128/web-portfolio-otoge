@@ -8137,6 +8137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ComboTextActor
   text: {fileID: 1485615073}
+  labelText: {fileID: 1289137486}
 --- !u!114 &542893344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10923,7 +10924,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &706006539
 Transform:
   m_ObjectHideFlags: 0
@@ -18568,12 +18569,12 @@ RectTransform:
   m_GameObject: {fileID: 1135851410}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 348475365}
   - {fileID: 780884686}
-  m_Father: {fileID: 1501936867}
+  m_Father: {fileID: 1546771705}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -18610,8 +18611,8 @@ MonoBehaviour:
     <DurationSeconds>k__BackingField: 0.3
     <UseCanvasGroupForFade>k__BackingField: 1
     <Move>k__BackingField:
-      <Distance>k__BackingField: 3
-      <AngleDegrees>k__BackingField: 0
+      <Distance>k__BackingField: 100
+      <AngleDegrees>k__BackingField: 90
       <Ease>k__BackingField: 8
     <Rotation>k__BackingField:
       <AngleDegrees>k__BackingField: 0
@@ -18626,8 +18627,8 @@ MonoBehaviour:
     <DurationSeconds>k__BackingField: 0.3
     <UseCanvasGroupForFade>k__BackingField: 1
     <Move>k__BackingField:
-      <Distance>k__BackingField: 3
-      <AngleDegrees>k__BackingField: 0
+      <Distance>k__BackingField: 100
+      <AngleDegrees>k__BackingField: 90
       <Ease>k__BackingField: 8
     <Rotation>k__BackingField:
       <AngleDegrees>k__BackingField: 0
@@ -23320,7 +23321,6 @@ RectTransform:
   m_Children:
   - {fileID: 613144052}
   - {fileID: 1354409930}
-  - {fileID: 1135851411}
   m_Father: {fileID: 1546771705}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -23594,6 +23594,7 @@ RectTransform:
   m_Children:
   - {fileID: 213387732}
   - {fileID: 1501936867}
+  - {fileID: 1135851411}
   - {fileID: 1734687649}
   - {fileID: 1802433209}
   - {fileID: 435023449}
@@ -29707,7 +29708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2142052734
 Transform:
   m_ObjectHideFlags: 0
