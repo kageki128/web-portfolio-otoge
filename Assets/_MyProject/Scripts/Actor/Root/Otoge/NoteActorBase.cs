@@ -12,6 +12,7 @@ namespace MyProject.Actor
     {
         readonly Dictionary<SpriteRenderer, MotionHandle> fadeHandles = new();
         readonly Dictionary<SpriteRenderer, Color> lastFadeColors = new();
+        readonly Dictionary<SpriteRenderer, Color> visibleColors = new();
 
         public NoteCoreBase NoteCore { get; private set; }
 
@@ -23,6 +24,7 @@ namespace MyProject.Actor
             JudgeEffectFactory = judgeEffectFactory;
             SetWidth(noteCore.Property.Width);
             SetLayer(noteCore.Property.Layer);
+            CacheVisibleColors();
 
             noteCore.State.Subscribe(state => SetAppearance(state)).AddTo(this);
             noteCore.Judge
@@ -106,7 +108,7 @@ namespace MyProject.Actor
                     currentHandle.TryCancel();
                 }
 
-                var visibleColor = target.color;
+                var visibleColor = GetVisibleColor(target);
                 var hiddenColor = WithAlpha(visibleColor, 0f);
                 var from = fadeIn ? hiddenColor : visibleColor;
                 var to = fadeIn ? visibleColor : hiddenColor;
@@ -133,15 +135,19 @@ namespace MyProject.Actor
                 fadeTasks.Add(AwaitFadeTaskAsync(target, handle, ct));
             }
 
-            await UniTask.WhenAll(fadeTasks);
-            if (!restoreVisibleColor)
+            try
             {
-                return;
+                await UniTask.WhenAll(fadeTasks);
             }
-
-            foreach (var (target, color) in colors)
+            finally
             {
-                target.color = color;
+                if (restoreVisibleColor)
+                {
+                    foreach (var (target, color) in colors)
+                    {
+                        SetVisibleColor(target, color);
+                    }
+                }
             }
         }
 
@@ -156,8 +162,11 @@ namespace MyProject.Actor
             }
             finally
             {
-                fadeHandles.Remove(target);
-                lastFadeColors.Remove(target);
+                if (fadeHandles.TryGetValue(target, out var currentHandle) && currentHandle == handle)
+                {
+                    fadeHandles.Remove(target);
+                    lastFadeColors.Remove(target);
+                }
             }
         }
 
@@ -169,6 +178,32 @@ namespace MyProject.Actor
             }
 
             return target.color != lastColor;
+        }
+
+        void CacheVisibleColors()
+        {
+            foreach (var spriteRenderer in GetComponentsInChildren<SpriteRenderer>(true))
+            {
+                visibleColors[spriteRenderer] = spriteRenderer.color;
+            }
+        }
+
+        Color GetVisibleColor(SpriteRenderer target)
+        {
+            var color = target.color;
+            if (color.a > 0f || !visibleColors.TryGetValue(target, out var visibleColor))
+            {
+                visibleColors[target] = color;
+                return color;
+            }
+
+            return visibleColor;
+        }
+
+        void SetVisibleColor(SpriteRenderer target, Color color)
+        {
+            target.color = color;
+            visibleColors[target] = color;
         }
 
         static Color WithAlpha(Color color, float alpha)
