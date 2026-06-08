@@ -17,10 +17,27 @@ namespace MyProject.Actor
         protected readonly List<NoteActorBase> NoteActors = new();
         protected abstract OtogeType ActorOtogeType { get; }
         protected virtual float ScrollSpeedMultiplier => 1f;
+        protected ActionsObserverBase ActionsObserver { get; set; }
+
+        bool acceptsInput;
 
         public abstract void InstallActions(OtogeActions otogeActions);
 
         public abstract void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores);
+
+        public void SetAcceptsInput(bool acceptsInput)
+        {
+            this.acceptsInput = acceptsInput;
+            if (!acceptsInput)
+            {
+                DisableActions();
+            }
+        }
+
+        public void EnableAcceptedActions()
+        {
+            EnableActionsIfAccepted();
+        }
 
         protected bool IsOwnedNote(NoteCoreBase noteCore)
         {
@@ -69,6 +86,19 @@ namespace MyProject.Actor
         {
             await UniTask.Delay(TimeSpan.FromSeconds(OtogeAppearance.SwitchActionsDelay), cancellationToken: ct);
             switchActions();
+        }
+
+        protected void EnableActionsIfAccepted()
+        {
+            if (acceptsInput)
+            {
+                ActionsObserver.Enable();
+            }
+        }
+
+        protected void DisableActions()
+        {
+            ActionsObserver.Disable();
         }
     }
 }

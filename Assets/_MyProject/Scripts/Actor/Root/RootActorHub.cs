@@ -49,6 +49,7 @@ namespace MyProject.Actor
         public void SetScrollSpeed(float scrollSpeed) => scrollSpeedSliderActor.SetScrollSpeed(scrollSpeed);
         public void SetNoteOffset(float noteOffset) => noteOffsetSliderActor.SetNoteOffset(noteOffset);
 
+        public void SetOtogeInputEnabled(bool enabled) => otogeActorHub.SetAcceptsInput(enabled);
         public void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores) => otogeActorHub.CreateNotes(noteCores);
         public void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed) => otogeActorHub.UpdateNotesByTimeline(timeline, currentBeat, currentScroll, scrollSpeed);
         public void ApplyOtogeTypeTransition(OtogeTypeTransition transition) => otogeActorHub.ApplyOtogeTypeTransition(transition);

@@ -28,6 +28,7 @@ namespace MyProject.Actor
         public override void InstallActions(OtogeActions otogeActions)
         {
             tetraActionsObserver = new TetraActionsObserver(otogeActions);
+            ActionsObserver = tetraActionsObserver;
             LanePressed = tetraActionsObserver.LanePressed;
             LaneReleased = tetraActionsObserver.LaneReleased;
             AirPressed = Observable.Empty<Unit>();
@@ -47,7 +48,7 @@ namespace MyProject.Actor
             tetraActionsObserver.LaneReleased.Subscribe(lane => laneKeysActor.LightDownLane(lane)).AddTo(this);
 
             gameObject.SetActive(false);
-            tetraActionsObserver.Disable();
+            DisableActions();
         }
 
         public override async UniTask ShowAsync(CancellationToken ct)
@@ -56,7 +57,7 @@ namespace MyProject.Actor
 
             var showTasks = new List<UniTask>
             {
-                SwitchActionsAfterDelayAsync(tetraActionsObserver.Enable, ct),
+                SwitchActionsAfterDelayAsync(EnableActionsIfAccepted, ct),
                 laneLightActor.ShowAsync(ct),
                 laneKeysActor.ShowAsync(ct)
             };
@@ -71,7 +72,7 @@ namespace MyProject.Actor
         {
             var hideTasks = new List<UniTask>
             {
-                SwitchActionsAfterDelayAsync(tetraActionsObserver.Disable, ct),
+                SwitchActionsAfterDelayAsync(DisableActions, ct),
                 laneLightActor.HideAsync(ct),
                 laneKeysActor.HideAsync(ct)
             };

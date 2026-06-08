@@ -48,6 +48,7 @@ namespace MyProject.Director
 
         public async UniTask EnterAsync(CancellationToken ct)
         {
+            rootActorHub.SetOtogeInputEnabled(true);
             await gameActorHub.ShowAsync(ct);
             SubscribeActorForCore();
             StartGame();
@@ -60,6 +61,7 @@ namespace MyProject.Director
 
         public async UniTask BeforeExitAsync(CancellationToken ct)
         {
+            rootActorHub.SetOtogeInputEnabled(false);
             disposables.Clear();
             gameSessionCore.PauseGame();
             await rootActorHub.HideAndDestroyNotesAsync(ct);

@@ -79,6 +79,19 @@ namespace MyProject.Actor
             return UniTask.CompletedTask;
         }
 
+        public void SetAcceptsInput(bool acceptsInput)
+        {
+            foreach (var actor in otogeTypeToActor.Values)
+            {
+                actor.SetAcceptsInput(acceptsInput);
+            }
+
+            if (acceptsInput)
+            {
+                otogeTypeToActor[currentOtogeType].EnableAcceptedActions();
+            }
+        }
+
         public void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores)
         {
             // ノーツを作成

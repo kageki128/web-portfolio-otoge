@@ -49,6 +49,7 @@ namespace MyProject.Director
 
         public async UniTask BeforeEnterAsync(CancellationToken ct)
         {
+            rootActorHub.SetOtogeInputEnabled(false);
             ResetDemoCancellationToken(ct);
             await InitializeDemoAsync(demoCts.Token);
         }
