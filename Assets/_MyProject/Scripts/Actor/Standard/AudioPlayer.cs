@@ -60,6 +60,12 @@ namespace MyProject.Actor
 
         public void PlayBgm(AudioClip clip, double scheduledDspTime = 0, bool loop = true)
         {
+            if (clip == null)
+            {
+                StopBgm();
+                return;
+            }
+
             if (!CanPlayClip(clip))
             {
                 return;
@@ -121,6 +127,11 @@ namespace MyProject.Actor
 
         bool CanPlayClip(AudioClip clip)
         {
+            if (clip == null)
+            {
+                return false;
+            }
+
             var now = Time.unscaledTime;
 
             if (clipToPlaybackTime.TryGetValue(clip, out var nextPlayableTime) && now < nextPlayableTime)

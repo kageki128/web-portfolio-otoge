@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22d1c58006abb674a8b5ceb3539037aa, type: 3}
-  m_Name: Psyched Fevereiro
+  m_Name: Hard
   m_EditorClassIdentifier: MyProject.Core::MyProject.Core.MusicInfoSO
   <Wave>k__BackingField: {fileID: 8300000, guid: 7d2cdd300f057204e8924df468a6b9c3, type: 3}
   <Beatmap>k__BackingField: {fileID: 2811297602134710623, guid: f3a71db847828254d9bc0a60a3882907, type: 3}

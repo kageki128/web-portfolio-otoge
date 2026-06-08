@@ -17,7 +17,7 @@ namespace MyProject.CompositionRoot
         [SerializeField] ResultActorHub resultActorHub;
         [Header("Config")]
         [SerializeField] GameConfigSO gameConfig;
-        [SerializeField] BeatmapFilesSO beatmapFiles;
+        [SerializeField] BeatmapListSO beatmapList;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -65,7 +65,7 @@ namespace MyProject.CompositionRoot
                 .As<IRankingRegisterer>();
             builder.Register<BeatmapRepository>(Lifetime.Singleton)
                 .As<IBeatmapRepository>();
-            builder.RegisterInstance(beatmapFiles);
+            builder.RegisterInstance(beatmapList);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<float> CurrentSec => mainData.ConductorCore.CurrentSec;
         public ReadOnlyReactiveProperty<OtogeTypeTransition> CurrentOtogeTypeTransition => mainData.ConductorCore.CurrentOtogeTypeTransition;
         public Observable<Unit> OtogeEvent => mainData.ConductorCore.OtogeEvent;
+        public Observable<Unit> EndReached => mainData.ConductorCore.EndReached;
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll => mainData.ConductorCore.TimelineToCurrentScroll;
         public IReadOnlyList<Message> Messages => messages;
 

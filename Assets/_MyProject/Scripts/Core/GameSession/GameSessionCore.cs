@@ -40,7 +40,7 @@ namespace MyProject.Core
         {
             state.Value = GameState.Preparing;
 
-            beatmapCore = await beatmapRepository.GetAsync(ct);
+            beatmapCore = await beatmapRepository.GetAsync(BeatmapType.Normal, ct);
             scoreCore.Initialize(beatmapCore.NoteCores);
 
             state.Value = GameState.Ready;

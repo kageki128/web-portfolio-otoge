@@ -38,7 +38,7 @@ namespace MyProject.Tests.EditMode
             );
 
             using var fixture = CreateFixture(ugc);
-            var beatmap = await fixture.Repository.GetAsync(CancellationToken.None);
+            var beatmap = await fixture.Repository.GetAsync(BeatmapType.Normal, CancellationToken.None);
 
             Assert.That(beatmap.MetaData.Id, Is.EqualTo("test-song-id"));
             Assert.That(beatmap.MetaData.Title, Is.EqualTo("Test Song"));
@@ -94,7 +94,7 @@ namespace MyProject.Tests.EditMode
                 (12.1f, OtogeType.Master),
                 (16.1f, OtogeType.Run)
             );
-            var beatmap = await fixture.Repository.GetAsync(CancellationToken.None);
+            var beatmap = await fixture.Repository.GetAsync(BeatmapType.Normal, CancellationToken.None);
 
             Assert.That(beatmap.MeasureLineCores.Count, Is.GreaterThanOrEqualTo(6));
             Assert.That(beatmap.MeasureLineCores[0].Property.Width, Is.EqualTo(8));
@@ -124,7 +124,7 @@ namespace MyProject.Tests.EditMode
             );
 
             using var fixture = CreateFixture(ugc);
-            var beatmap = await fixture.Repository.GetAsync(CancellationToken.None);
+            var beatmap = await fixture.Repository.GetAsync(BeatmapType.Normal, CancellationToken.None);
 
             Assert.That(beatmap.NoteCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.MeasureLineCores.Count, Is.EqualTo(0));
@@ -150,7 +150,7 @@ namespace MyProject.Tests.EditMode
             );
 
             using var fixture = CreateFixture(ugc);
-            var beatmap = await fixture.Repository.GetAsync(CancellationToken.None);
+            var beatmap = await fixture.Repository.GetAsync(BeatmapType.Normal, CancellationToken.None);
 
             Assert.That(beatmap.NoteCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.MeasureLineCores.Count, Is.EqualTo(0));
@@ -175,19 +175,50 @@ namespace MyProject.Tests.EditMode
             );
 
             using var fixture = CreateFixture(ugc);
-            var beatmap = await fixture.Repository.GetAsync(CancellationToken.None);
+            var beatmap = await fixture.Repository.GetAsync(BeatmapType.Normal, CancellationToken.None);
 
             Assert.That(beatmap.NoteCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.MeasureLineCores.Count, Is.EqualTo(0));
             Assert.That(beatmap.Messages.Any(message => message.Type == MessageType.Fatal), Is.True);
         }
 
+        [Test]
+        public async Task GetAsync_Wave未指定でもBeatmapへ変換できる()
+        {
+            var ugc = string.Join("\n",
+                "@TITLE Test Song",
+                "@ARTIST Test Artist",
+                "@DESIGN Tester",
+                "@DIFF 0",
+                "@BGMOFS 0",
+                "@TICKS 480",
+                "@BEAT 0 4 4",
+                "@BPM 0'0 120",
+                "@TIL 0 0'0 1.0",
+                "@MAINTIL 0",
+                "@ENDHEAD",
+                "#0'0:t02"
+            );
+
+            using var fixture = CreateFixture(ugc, waveAssigned: false);
+            var beatmap = await fixture.Repository.GetAsync(BeatmapType.Normal, CancellationToken.None);
+
+            Assert.That(beatmap.MetaData.Wave, Is.Null);
+            Assert.That(beatmap.NoteCores.Count, Is.EqualTo(1));
+        }
+
         static TestFixture CreateFixture(string ugc, params (float beat, OtogeType type)[] otogeChangeValues)
         {
+            return CreateFixture(ugc, true, otogeChangeValues);
+        }
+
+        static TestFixture CreateFixture(string ugc, bool waveAssigned, params (float beat, OtogeType type)[] otogeChangeValues)
+        {
+            var beatmapList = ScriptableObject.CreateInstance<BeatmapListSO>();
             var beatmapFiles = ScriptableObject.CreateInstance<BeatmapFilesSO>();
             var otogeChanges = ScriptableObject.CreateInstance<OtogeChangesSO>();
             var otogeEvents = ScriptableObject.CreateInstance<OtogeEventsSO>();
-            var wave = AudioClip.Create("test", 44100, 1, 44100, false);
+            var wave = waveAssigned ? AudioClip.Create("test", 44100, 1, 44100, false) : null;
             var text = new TextAsset(ugc);
 
             SetOtogeChanges(otogeChanges, otogeChangeValues);
@@ -196,9 +227,10 @@ namespace MyProject.Tests.EditMode
             SetBackingField(beatmapFiles, "<Beatmap>k__BackingField", text);
             SetBackingField(beatmapFiles, "<OtogeChanges>k__BackingField", otogeChanges);
             SetBackingField(beatmapFiles, "<OtogeEvents>k__BackingField", otogeEvents);
+            SetBackingField(beatmapList, "normal", beatmapFiles);
 
-            var repository = new BeatmapRepository(beatmapFiles);
-            return new TestFixture(beatmapFiles, otogeChanges, otogeEvents, wave, text, repository);
+            var repository = new BeatmapRepository(beatmapList);
+            return new TestFixture(beatmapList, beatmapFiles, otogeChanges, otogeEvents, wave, text, repository);
         }
 
         static void SetBackingField<T>(object target, string fieldName, T value)
@@ -255,6 +287,7 @@ namespace MyProject.Tests.EditMode
 
         sealed class TestFixture : System.IDisposable
         {
+            public BeatmapListSO BeatmapList { get; }
             public BeatmapFilesSO BeatmapFiles { get; }
             public OtogeChangesSO OtogeChanges { get; }
             public OtogeEventsSO OtogeEvents { get; }
@@ -262,8 +295,9 @@ namespace MyProject.Tests.EditMode
             public TextAsset Text { get; }
             public BeatmapRepository Repository { get; }
 
-            public TestFixture(BeatmapFilesSO beatmapFiles, OtogeChangesSO otogeChanges, OtogeEventsSO otogeEvents, AudioClip wave, TextAsset text, BeatmapRepository repository)
+            public TestFixture(BeatmapListSO beatmapList, BeatmapFilesSO beatmapFiles, OtogeChangesSO otogeChanges, OtogeEventsSO otogeEvents, AudioClip wave, TextAsset text, BeatmapRepository repository)
             {
+                BeatmapList = beatmapList;
                 BeatmapFiles = beatmapFiles;
                 OtogeChanges = otogeChanges;
                 OtogeEvents = otogeEvents;
@@ -275,10 +309,14 @@ namespace MyProject.Tests.EditMode
             public void Dispose()
             {
                 Object.DestroyImmediate(Text);
-                Object.DestroyImmediate(Wave);
+                if (Wave != null)
+                {
+                    Object.DestroyImmediate(Wave);
+                }
                 Object.DestroyImmediate(OtogeChanges);
                 Object.DestroyImmediate(OtogeEvents);
                 Object.DestroyImmediate(BeatmapFiles);
+                Object.DestroyImmediate(BeatmapList);
             }
         }
     }

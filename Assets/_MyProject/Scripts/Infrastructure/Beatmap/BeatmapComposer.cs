@@ -202,6 +202,8 @@ namespace MyProject.Infrastructure
                 measureLengthChanges,
                 sortedOtogeChanges
             );
+            var endBeat = CalculateEndBeat(noteCores, measureEntries);
+            var endSec = TimingCalculator.CalculateSecFromBeat(endBeat, bpmChanges);
 
             // 再生中の時間進行を扱うConductorを構築する。
             var conductorCore = new ConductorCore(new ConductorTiming
@@ -211,7 +213,7 @@ namespace MyProject.Infrastructure
                 measureLengthChanges,
                 sortedOtogeChanges,
                 otogeEventBeats
-            ));
+            ), endSec);
 
             var mainData = new BeatmapMainData(conductorCore, noteCores, measureLineCores);
             return new BeatmapCore(metaData, mainData, messages);
@@ -343,6 +345,17 @@ namespace MyProject.Infrastructure
             }
 
             return measureLineCores;
+        }
+
+        static float CalculateEndBeat(IReadOnlyList<NoteCoreBase> noteCores, IReadOnlyList<MeasureEntry> measureEntries)
+        {
+            if (noteCores.Count == 0)
+            {
+                return float.PositiveInfinity;
+            }
+
+            var lastNoteEndMeasure = noteCores.Max(noteCore => noteCore.Property.TimingEnd.Measure);
+            return ToBeatFromMeasure(lastNoteEndMeasure + 1, measureEntries);
         }
 
         /// <summary>

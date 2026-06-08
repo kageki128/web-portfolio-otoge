@@ -5,6 +5,6 @@ namespace MyProject.Core
 {
     public interface IBeatmapRepository
     {
-        UniTask<BeatmapCore> GetAsync(CancellationToken ct);
+        UniTask<BeatmapCore> GetAsync(BeatmapType type, CancellationToken ct);
     }
 }

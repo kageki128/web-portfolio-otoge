@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6437b81f055ae044805e83ab0171781, type: 3}
+  m_Name: BeatmapListSO
+  m_EditorClassIdentifier: MyProject.Infrastructure::MyProject.Infrastructure.BeatmapListSO
+  demo: {fileID: 11400000, guid: 83d426f039af5f64bae6590c90b4278d, type: 2}
+  normal: {fileID: 11400000, guid: c8946af00477bf044b8224ee2111af47, type: 2}
+  hard: {fileID: 11400000, guid: af3c859f748fd8644aa03c54980fabec, type: 2}

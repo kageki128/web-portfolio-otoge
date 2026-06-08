@@ -14,25 +14,31 @@ namespace MyProject.Infrastructure
     /// </summary>
     public class BeatmapRepository : IBeatmapRepository
     {
-        readonly BeatmapFilesSO beatmapFiles;
+        readonly BeatmapListSO beatmapList;
         readonly BeatmapParser parser = new();
         readonly BeatmapComposer composer = new();
 
-        public BeatmapRepository(BeatmapFilesSO beatmapFiles)
+        public BeatmapRepository(BeatmapListSO beatmapList)
         {
-            this.beatmapFiles = beatmapFiles;
+            this.beatmapList = beatmapList;
         }
 
         /// <summary>
         /// ScriptableObjectから譜面テキストと音源を取得し、Beatmapへ変換する。
         /// </summary>
-        public async UniTask<BeatmapCore> GetAsync(CancellationToken ct)
+        public async UniTask<BeatmapCore> GetAsync(BeatmapType type, CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
 
-            if (beatmapFiles.Wave == null)
+            if (beatmapList == null)
             {
-                throw new InvalidOperationException("BeatmapFilesSO.Wave is not assigned.");
+                throw new InvalidOperationException("BeatmapListSO is not assigned.");
+            }
+
+            var beatmapFiles = beatmapList.Get(type);
+            if (beatmapFiles == null)
+            {
+                throw new InvalidOperationException($"BeatmapListSO.{type} is not assigned.");
             }
 
             if (beatmapFiles.Beatmap == null)
@@ -120,11 +126,13 @@ namespace MyProject.Infrastructure
             Debug.Log
             (
                 "[BeatmapRepository] Beatmap Audio\n" +
-                $"  clip={meta.Wave.name}\n" +
-                $"  length={meta.Wave.length:F3}s\n" +
-                $"  samples={meta.Wave.samples}\n" +
-                $"  frequency={meta.Wave.frequency}\n" +
-                $"  channels={meta.Wave.channels}"
+                (meta.Wave == null
+                    ? "  clip=(none)"
+                    : $"  clip={meta.Wave.name}\n" +
+                      $"  length={meta.Wave.length:F3}s\n" +
+                      $"  samples={meta.Wave.samples}\n" +
+                      $"  frequency={meta.Wave.frequency}\n" +
+                      $"  channels={meta.Wave.channels}")
             );
         }
 

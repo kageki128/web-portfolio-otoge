@@ -70,11 +70,27 @@ namespace MyProject.Core
             currentBeat.Value = newBeat;
             currentMeasure.Value = newMeasure;
             currentOtogeTypeTransition.Value = CalculateOtogeTypeTransitionFromBeat(newBeat, newSec);
-            TryTriggerOtogeEvent(previousBeat, newBeat);
+            if (newBeat < previousBeat)
+            {
+                ResetOtogeEventIndex(newBeat);
+            }
+            else
+            {
+                TryTriggerOtogeEvent(previousBeat, newBeat);
+            }
 
             foreach (var timelineToHighSpeedChange in timelineToHighSpeedChanges)
             {
                 timelineToCurrentScroll[timelineToHighSpeedChange.Key].Value = CalculateScrollFromBeat(newBeat, bpmChanges, timelineToHighSpeedChange.Value);
+            }
+        }
+
+        void ResetOtogeEventIndex(float beat)
+        {
+            nextOtogeEventIndex = 0;
+            while (nextOtogeEventIndex < sortedOtogeEventBeats.Length && sortedOtogeEventBeats[nextOtogeEventIndex] <= beat)
+            {
+                nextOtogeEventIndex++;
             }
         }
 

@@ -10827,7 +10827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &706006539
 Transform:
   m_ObjectHideFlags: 0
@@ -24821,7 +24821,7 @@ MonoBehaviour:
   gameActorHub: {fileID: 706006540}
   resultActorHub: {fileID: 1316483772}
   gameConfig: {fileID: 11400000, guid: 9415f96bd8527e641b288f2147ddd50b, type: 2}
-  beatmapFiles: {fileID: 11400000, guid: af3c859f748fd8644aa03c54980fabec, type: 2}
+  beatmapList: {fileID: 11400000, guid: 235bddfdb2f921c47ab1798870231727, type: 2}
 --- !u!1 &1671128307
 GameObject:
   m_ObjectHideFlags: 0
@@ -29494,6 +29494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e968e5f7244502897f982ad8f41fc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.SelectActorHub
+  otogeActorHub: {fileID: 334943695}
 --- !u!114 &2142052736
 MonoBehaviour:
   m_ObjectHideFlags: 0
