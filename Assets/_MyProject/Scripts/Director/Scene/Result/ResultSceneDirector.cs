@@ -39,7 +39,13 @@ namespace MyProject.Director
         public async UniTask EnterAsync(CancellationToken ct)
         {
             await resultActorHub.ShowAsync(ct);
+        }
+
+        public async UniTask AfterEnterAsync(CancellationToken ct)
+        {
+            ct.ThrowIfCancellationRequested();
             HandleEnter();
+            await UniTask.CompletedTask;
         }
 
         public void Tick()

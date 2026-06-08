@@ -48,10 +48,17 @@ namespace MyProject.Director
 
         public async UniTask EnterAsync(CancellationToken ct)
         {
-            rootActorHub.SetOtogeInputEnabled(true);
             await gameActorHub.ShowAsync(ct);
+        }
+
+        public async UniTask AfterEnterAsync(CancellationToken ct)
+        {
+            ct.ThrowIfCancellationRequested();
+            SubscribeNotes();
             SubscribeActorForCore();
+            rootActorHub.SetOtogeInputEnabled(true);
             StartGame();
+            await UniTask.CompletedTask;
         }
 
         public void Tick()
@@ -64,12 +71,15 @@ namespace MyProject.Director
             rootActorHub.SetOtogeInputEnabled(false);
             disposables.Clear();
             gameSessionCore.PauseGame();
-            await rootActorHub.HideAndDestroyNotesAsync(ct);
+            await UniTask.CompletedTask;
         }
 
         public async UniTask ExitAsync(CancellationToken ct)
         {
-            await gameActorHub.HideAsync(ct);
+            await UniTask.WhenAll(
+                gameActorHub.HideAsync(ct),
+                rootActorHub.HideAndDestroyNotesAsync(ct)
+            );
         }
 
         public void Dispose()
@@ -102,7 +112,10 @@ namespace MyProject.Director
                 .Subscribe(_ => gameActorHub.SetJudgeCounts(gameSessionCore.JudgeCounts))
                 .AddTo(disposables);
 
-            // ノーツを生成してスクロールを購読
+        }
+
+        void SubscribeNotes()
+        {
             var noteCores = new List<NoteCoreBase>();
             noteCores.AddRange(gameSessionCore.NoteCores);
             noteCores.AddRange(gameSessionCore.MeasureLineCores);

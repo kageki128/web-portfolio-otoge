@@ -52,14 +52,21 @@ namespace MyProject.Director
             rootActorHub.SetOtogeInputEnabled(false);
             ResetDemoCancellationToken(ct);
             await InitializeDemoAsync(demoCts.Token);
+            SubscribeCoreForActor();
         }
 
         public async UniTask EnterAsync(CancellationToken ct)
         {
             await selectActorHub.ShowAsync(ct);
+        }
+
+        public async UniTask AfterEnterAsync(CancellationToken ct)
+        {
+            ct.ThrowIfCancellationRequested();
             SubscribeDemoSession();
             StartDemo();
             HandleEnter();
+            await UniTask.CompletedTask;
         }
 
         public void Tick()
@@ -75,12 +82,16 @@ namespace MyProject.Director
             demoCts?.Cancel();
             demoCts?.Dispose();
             demoCts = null;
-            await rootActorHub.HideAndDestroyNotesAsync(ct);
+
+            await UniTask.CompletedTask;
         }
 
         public async UniTask ExitAsync(CancellationToken ct)
         {
-            await selectActorHub.HideAsync(ct);
+            await UniTask.WhenAll(
+                 selectActorHub.HideAsync(ct),
+                 rootActorHub.HideAndDestroyNotesAsync(ct)
+             );
         }
 
         public void Dispose()
@@ -101,14 +112,9 @@ namespace MyProject.Director
                 .AddTo(disposables);
         }
 
-        void SubscribeDemoSession()
+        void SubscribeCoreForActor()
         {
             demoDisposables.Clear();
-
-            var noteCores = new List<NoteCoreBase>();
-            noteCores.AddRange(gameSessionCore.NoteCores);
-            noteCores.AddRange(gameSessionCore.MeasureLineCores);
-            rootActorHub.CreateNotes(noteCores);
 
             gameSessionCore.CurrentOtogeTypeTransition
                 .Subscribe(transition => rootActorHub.ApplyOtogeTypeTransition(transition))
@@ -116,6 +122,15 @@ namespace MyProject.Director
             gameSessionCore.OtogeEventTriggered
                 .Subscribe(_ => rootActorHub.ExecuteOtogeEvent())
                 .AddTo(demoDisposables);
+        }
+
+        void SubscribeDemoSession()
+        {
+            var noteCores = new List<NoteCoreBase>();
+            noteCores.AddRange(gameSessionCore.NoteCores);
+            noteCores.AddRange(gameSessionCore.MeasureLineCores);
+            rootActorHub.CreateNotes(noteCores);
+
             gameSessionCore.EndReached
                 .Subscribe(_ => RestartDemoAsync().Forget())
                 .AddTo(demoDisposables);
@@ -150,6 +165,7 @@ namespace MyProject.Director
                 gameSessionCore.PauseGame();
                 await rootActorHub.HideAndDestroyNotesAsync(ct);
                 await InitializeDemoAsync(ct);
+                SubscribeCoreForActor();
                 SubscribeDemoSession();
                 StartDemo();
             }
