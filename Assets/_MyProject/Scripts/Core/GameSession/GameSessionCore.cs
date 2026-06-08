@@ -105,7 +105,7 @@ namespace MyProject.Core
             scoreCore.JudgeReleaseAir(beatmapCore.CurrentSec.CurrentValue);
         }
 
-        public void ProceedGame(float secOffset)
+        public void ProceedGame(float secOffset, bool isAutoPlay)
         {
             if (state.Value is not GameState.Playing)
             {
@@ -113,7 +113,7 @@ namespace MyProject.Core
             }
 
             beatmapCore.AdvanceTime(secOffset);
-            scoreCore.Update(beatmapCore.CurrentSec.CurrentValue);
+            scoreCore.Update(beatmapCore.CurrentSec.CurrentValue, isAutoPlay);
         }
     }
 }

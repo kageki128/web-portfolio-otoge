@@ -63,7 +63,7 @@ namespace MyProject.Director
 
         public void Tick()
         {
-            gameSessionCore.ProceedGame(playerSettingsCore.NoteOffset.CurrentValue);
+            gameSessionCore.ProceedGame(playerSettingsCore.NoteOffset.CurrentValue, true);
         }
 
         public async UniTask BeforeExitAsync(CancellationToken ct)
@@ -127,18 +127,6 @@ namespace MyProject.Director
                     .AddTo(demoDisposables);
             }
 
-            rootActorHub.LanePressed
-                .Subscribe(lane => gameSessionCore.JudgePressLane(lane))
-                .AddTo(demoDisposables);
-            rootActorHub.LaneReleased
-                .Subscribe(lane => gameSessionCore.JudgeReleaseLane(lane))
-                .AddTo(demoDisposables);
-            rootActorHub.AirPressed
-                .Subscribe(_ => gameSessionCore.JudgePressAir())
-                .AddTo(demoDisposables);
-            rootActorHub.AirReleased
-                .Subscribe(_ => gameSessionCore.JudgeReleaseAir())
-                .AddTo(demoDisposables);
         }
 
         void StartDemo()

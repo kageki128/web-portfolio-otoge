@@ -383,6 +383,33 @@ namespace MyProject.Tests.EditMode
         }
 
         [Test]
+        public void AutoPlay_Tapは未入力でもPerfectCriticalになる()
+        {
+            var tap = CreateTap(lane: 0, beat: 1f);
+            var scoreCore = CreateScoreCore(tap);
+
+            scoreCore.Update(1.05f, true);
+
+            Assert.That(tap.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(tap.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
+        }
+
+        [Test]
+        public void AutoPlay_HoldTickは親Holdを押下扱いでPerfectCriticalになる()
+        {
+            var hold = CreateHold(lane: 0, beginBeat: 1f, endBeat: 2f);
+            var holdTick = CreateHoldTick(hold, beat: 1.5f);
+            var scoreCore = CreateScoreCore(hold, holdTick);
+
+            scoreCore.Update(1.55f, true);
+
+            Assert.That(hold.State.CurrentValue, Is.EqualTo(NoteState.Holding));
+            Assert.That(hold.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
+            Assert.That(holdTick.State.CurrentValue, Is.EqualTo(NoteState.AfterJudge));
+            Assert.That(holdTick.Judge.CurrentValue, Is.EqualTo(JudgeType.PerfectCriticalLate));
+        }
+
+        [Test]
         public void 初期状態でないノーツをInitializeすると例外になる()
         {
             var tap = CreateTap(lane: 0, beat: 1f);

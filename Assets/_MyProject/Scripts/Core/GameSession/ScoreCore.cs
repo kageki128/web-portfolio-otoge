@@ -19,6 +19,7 @@ namespace MyProject.Core
         readonly Dictionary<int, List<NoteCoreBase>> remainingLaneNoteCores = new();
         readonly Dictionary<int, int> lanePressCounts = new();
         readonly List<NoteCoreBase> remainingAirNoteCores = new();
+        readonly List<NoteCoreBase> autoPlayNoteCores = new();
         readonly List<NoteCoreBase> afterJudgeNoteCores = new();
         readonly HashSet<NoteCoreBase> countedNoteCores = new();
 
@@ -45,6 +46,7 @@ namespace MyProject.Core
             remainingLaneNoteCores.Clear();
             lanePressCounts.Clear();
             remainingAirNoteCores.Clear();
+            autoPlayNoteCores.Clear();
             afterJudgeNoteCores.Clear();
             countedNoteCores.Clear();
 
@@ -54,6 +56,8 @@ namespace MyProject.Core
                 {
                     throw new InvalidOperationException("All NoteCores must be in the initial state");
                 }
+
+                autoPlayNoteCores.Add(noteCore);
 
                 // Airノーツは専用のリストで管理する
                 if (noteCore.Property.NoteType == NoteType.Air)
@@ -78,6 +82,7 @@ namespace MyProject.Core
                 kvp.Value.Sort((x, y) => x.Property.TimingBegin.Beat.CompareTo(y.Property.TimingBegin.Beat));
             }
             remainingAirNoteCores.Sort((x, y) => x.Property.TimingBegin.Beat.CompareTo(y.Property.TimingBegin.Beat));
+            autoPlayNoteCores.Sort(CompareAutoPlayOrder);
 
             // ジャッジカウントを初期化
             JudgeCounts[JudgeType.PerfectCriticalFast] = 0;
@@ -173,10 +178,54 @@ namespace MyProject.Core
             HandleAfterJudges(noteCores);
         }
 
-        public void Update(float currentSec)
+        public void Update(float currentSec, bool isAutoPlay = false)
         {
+            if (isAutoPlay)
+            {
+                JudgeAutoPlay(currentSec);
+            }
+
             JudgePass(currentSec);
             JudgeMiss(currentSec);
+        }
+
+        void JudgeAutoPlay(float currentSec)
+        {
+            foreach (var noteCore in autoPlayNoteCores)
+            {
+                if (!noteCore.IsBeginPass(currentSec))
+                {
+                    break;
+                }
+                if (noteCore.State.CurrentValue is not NoteState.BeforeJudge)
+                {
+                    continue;
+                }
+
+                var judgeSec = noteCore.Property.TimingBegin.Sec;
+                var beforeState = noteCore.State.CurrentValue;
+                if (noteCore is HoldTickCore)
+                {
+                    noteCore.JudgeBeginPass(judgeSec);
+                }
+                else
+                {
+                    noteCore.JudgePress(judgeSec);
+                }
+                HandleJudgeCount(noteCore, beforeState);
+                HandleAfterJudge(noteCore);
+            }
+        }
+
+        static int CompareAutoPlayOrder(NoteCoreBase x, NoteCoreBase y)
+        {
+            var secCompare = x.Property.TimingBegin.Sec.CompareTo(y.Property.TimingBegin.Sec);
+            return secCompare != 0 ? secCompare : GetAutoPlayPriority(x).CompareTo(GetAutoPlayPriority(y));
+        }
+
+        static int GetAutoPlayPriority(NoteCoreBase noteCore)
+        {
+            return noteCore is HoldTickCore ? 1 : 0;
         }
 
         void JudgePass(float currentSec)
