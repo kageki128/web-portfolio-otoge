@@ -19,14 +19,16 @@ namespace MyProject.Director
 
         readonly PlayerSettingsCore playerSettingsCore;
         readonly GameSessionCore gameSessionCore;
+        readonly RootActorHub rootActorHub;
         readonly GameActorHub gameActorHub;
 
         readonly CompositeDisposable disposables = new();
 
-        public GameSceneDirector(PlayerSettingsCore playerSettingsCore, GameSessionCore gameSessionCore, GameActorHub gameActorHub)
+        public GameSceneDirector(PlayerSettingsCore playerSettingsCore, GameSessionCore gameSessionCore, RootActorHub rootActorHub, GameActorHub gameActorHub)
         {
             this.playerSettingsCore = playerSettingsCore;
             this.gameSessionCore = gameSessionCore;
+            this.rootActorHub = rootActorHub;
             this.gameActorHub = gameActorHub;
         }
 
@@ -59,7 +61,7 @@ namespace MyProject.Director
         public async UniTask BeforeExitAsync(CancellationToken ct)
         {
             disposables.Clear();
-            await UniTask.CompletedTask;
+            await rootActorHub.HideAndDestroyNotesAsync(ct);
         }
 
         public async UniTask ExitAsync(CancellationToken ct)
@@ -86,10 +88,10 @@ namespace MyProject.Director
                 .Subscribe(combo => gameActorHub.SetCombo(combo))
                 .AddTo(disposables);
             gameSessionCore.CurrentOtogeTypeTransition
-                .Subscribe(transition => gameActorHub.ApplyOtogeTypeTransition(transition))
+                .Subscribe(ApplyOtogeTypeTransition)
                 .AddTo(disposables);
             gameSessionCore.OtogeEventTriggered
-                .Subscribe(_ => gameActorHub.ExecuteOtogeEvent())
+                .Subscribe(_ => rootActorHub.ExecuteOtogeEvent())
                 .AddTo(disposables);
             gameActorHub.SetJudgeCounts(gameSessionCore.JudgeCounts);
             gameSessionCore.JudgeCounts
@@ -102,12 +104,14 @@ namespace MyProject.Director
             noteCores.AddRange(gameSessionCore.NoteCores);
             noteCores.AddRange(gameSessionCore.MeasureLineCores);
             var timelineToCurrentScroll = gameSessionCore.TimelineToCurrentScroll;
-            gameActorHub.CreateNotes(noteCores);
+            rootActorHub.CreateNotes(noteCores);
             foreach (var kvp in timelineToCurrentScroll)
             {
                 int timeline = kvp.Key;
                 var currentScroll = kvp.Value;
-                currentScroll.Subscribe(scroll => gameActorHub.UpdateNotesByTimeline(timeline, gameSessionCore.CurrentBeat.CurrentValue, scroll, playerSettingsCore.ScrollSpeed.CurrentValue)).AddTo(disposables);
+                currentScroll
+                    .Subscribe(scroll => rootActorHub.UpdateNotesByTimeline(timeline, gameSessionCore.CurrentBeat.CurrentValue, scroll, playerSettingsCore.ScrollSpeed.CurrentValue))
+                    .AddTo(disposables);
             }
         }
 
@@ -117,18 +121,24 @@ namespace MyProject.Director
                 .Take(1)
                 .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Select))
                 .AddTo(disposables);
-            gameActorHub.LanePressed
+            rootActorHub.LanePressed
                 .Subscribe(lane => gameSessionCore.JudgePressLane(lane))
                 .AddTo(disposables);
-            gameActorHub.LaneReleased
+            rootActorHub.LaneReleased
                 .Subscribe(lane => gameSessionCore.JudgeReleaseLane(lane))
                 .AddTo(disposables);
-            gameActorHub.AirPressed
+            rootActorHub.AirPressed
                 .Subscribe(_ => gameSessionCore.JudgePressAir())
                 .AddTo(disposables);
-            gameActorHub.AirReleased
+            rootActorHub.AirReleased
                 .Subscribe(_ => gameSessionCore.JudgeReleaseAir())
                 .AddTo(disposables);
+        }
+
+        void ApplyOtogeTypeTransition(OtogeTypeTransition transition)
+        {
+            gameActorHub.ApplyOtogeTypeGaugeTransition(transition);
+            rootActorHub.ApplyOtogeTypeTransition(transition);
         }
 
         void StartGame()

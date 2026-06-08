@@ -10857,7 +10857,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd91423626e678240bc141f41d5e1050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.GameActorHub
-  otogeActorHub: {fileID: 334943695}
   otogeTypeGaugeActor: {fileID: 1802433210}
   scoreTextActor: {fileID: 1734687650}
   comboTextActor: {fileID: 542893343}
@@ -29494,7 +29493,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06e968e5f7244502897f982ad8f41fc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.SelectActorHub
-  otogeActorHub: {fileID: 334943695}
 --- !u!114 &2142052736
 MonoBehaviour:
   m_ObjectHideFlags: 0

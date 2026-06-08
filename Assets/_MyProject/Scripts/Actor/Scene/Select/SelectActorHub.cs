@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using MyProject.Core;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -12,8 +10,6 @@ namespace MyProject.Actor
     public class SelectActorHub : SceneActorHubBase
     {
         public Observable<Unit> StartGame => selectActionsObserver.StartGame;
-
-        [SerializeField] OtogeActorHub otogeActorHub;
 
         ActorAnimationTimeline animationTimeline;
         SelectActionsObserver selectActionsObserver;
@@ -46,11 +42,5 @@ namespace MyProject.Actor
             await animationTimeline.HideAsync(ct);
             gameObject.SetActive(false);
         }
-
-        public void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores) => otogeActorHub.CreateNotes(noteCores);
-        public void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed) => otogeActorHub.UpdateNotesByTimeline(timeline, currentBeat, currentScroll, scrollSpeed);
-        public void ApplyOtogeTypeTransition(OtogeTypeTransition transition) => otogeActorHub.ApplyOtogeTypeTransition(transition);
-        public void ExecuteOtogeEvent() => otogeActorHub.ExecuteEvent();
-        public UniTask HideAndDestroyNotesAsync(CancellationToken ct) => otogeActorHub.HideAndDestroyNotesAsync(ct);
     }
 }

@@ -12,12 +12,7 @@ namespace MyProject.Actor
     public class GameActorHub : SceneActorHubBase
     {
         public Observable<Unit> Quit => gameActionsObserver.Quit;
-        public Observable<int> LanePressed => otogeActorHub.LanePressed;
-        public Observable<int> LaneReleased => otogeActorHub.LaneReleased;
-        public Observable<Unit> AirPressed => otogeActorHub.AirPressed;
-        public Observable<Unit> AirReleased => otogeActorHub.AirReleased;
 
-        [SerializeField] OtogeActorHub otogeActorHub;
         [SerializeField] OtogeTypeGaugeActor otogeTypeGaugeActor;
         [SerializeField] ScoreTextActor scoreTextActor;
         [SerializeField] ComboTextActor comboTextActor;
@@ -39,7 +34,6 @@ namespace MyProject.Actor
 
             gameActionsObserver.Disable();
             animationTimeline.Initialize();
-            otogeActorHub.Initialize();
             gameObject.SetActive(false);
         }
 
@@ -54,10 +48,7 @@ namespace MyProject.Actor
         {
             gameActionsObserver.Disable();
             AudioPlayer.Instance.StopBgm();
-            await UniTask.WhenAll(
-                animationTimeline.HideAsync(ct),
-                otogeActorHub.HideAndDestroyNotesAsync(ct)
-            );
+            await animationTimeline.HideAsync(ct);
             gameObject.SetActive(false);
         }
 
@@ -66,15 +57,7 @@ namespace MyProject.Actor
             AudioPlayer.Instance.PlayBgm(clip, scheduledDspTime, false);
         }
 
-        public void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores) => otogeActorHub.CreateNotes(noteCores);
-
-        public void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed) => otogeActorHub.UpdateNotesByTimeline(timeline, currentBeat, currentScroll, scrollSpeed);
-        public void ApplyOtogeTypeTransition(OtogeTypeTransition transition)
-        {
-            otogeTypeGaugeActor.ApplyTransition(transition);
-            otogeActorHub.ApplyOtogeTypeTransition(transition);
-        }
-        public void ExecuteOtogeEvent() => otogeActorHub.ExecuteEvent();
+        public void ApplyOtogeTypeGaugeTransition(OtogeTypeTransition transition) => otogeTypeGaugeActor.ApplyTransition(transition);
 
         public void SetScore(int score) => scoreTextActor.SetScore(score);
         public void SetCombo(int combo) => comboTextActor.SetCombo(combo);

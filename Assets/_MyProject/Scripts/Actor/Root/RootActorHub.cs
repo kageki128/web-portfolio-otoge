@@ -16,6 +16,10 @@ namespace MyProject.Actor
 
         public Observable<float> ScrollSpeedNormalizedChanged => scrollSpeedSliderActor.ScrollSpeedNormalizedChanged;
         public Observable<float> NoteOffsetNormalizedChanged => noteOffsetSliderActor.NoteOffsetNormalizedChanged;
+        public Observable<int> LanePressed => otogeActorHub.LanePressed;
+        public Observable<int> LaneReleased => otogeActorHub.LaneReleased;
+        public Observable<Unit> AirPressed => otogeActorHub.AirPressed;
+        public Observable<Unit> AirReleased => otogeActorHub.AirReleased;
 
         readonly List<RootActorBase> rootActors = new();
 
@@ -44,5 +48,11 @@ namespace MyProject.Actor
 
         public void SetScrollSpeed(float scrollSpeed) => scrollSpeedSliderActor.SetScrollSpeed(scrollSpeed);
         public void SetNoteOffset(float noteOffset) => noteOffsetSliderActor.SetNoteOffset(noteOffset);
+
+        public void CreateNotes(IReadOnlyList<NoteCoreBase> noteCores) => otogeActorHub.CreateNotes(noteCores);
+        public void UpdateNotesByTimeline(int timeline, float currentBeat, float currentScroll, float scrollSpeed) => otogeActorHub.UpdateNotesByTimeline(timeline, currentBeat, currentScroll, scrollSpeed);
+        public void ApplyOtogeTypeTransition(OtogeTypeTransition transition) => otogeActorHub.ApplyOtogeTypeTransition(transition);
+        public void ExecuteOtogeEvent() => otogeActorHub.ExecuteEvent();
+        public UniTask HideAndDestroyNotesAsync(CancellationToken ct) => otogeActorHub.HideAndDestroyNotesAsync(ct);
     }
 }

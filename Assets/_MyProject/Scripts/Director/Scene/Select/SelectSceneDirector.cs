@@ -17,6 +17,7 @@ namespace MyProject.Director
         readonly Subject<Unit> sceneReloadRequest = new();
 
         readonly SelectActorHub selectActorHub;
+        readonly RootActorHub rootActorHub;
         readonly PlayerSettingsCore playerSettingsCore;
         readonly IBeatmapRepository beatmapRepository;
 
@@ -26,11 +27,13 @@ namespace MyProject.Director
         public SelectSceneDirector
         (
             SelectActorHub selectActorHub,
+            RootActorHub rootActorHub,
             PlayerSettingsCore playerSettingsCore,
             IBeatmapRepository beatmapRepository
         )
         {
             this.selectActorHub = selectActorHub;
+            this.rootActorHub = rootActorHub;
             this.playerSettingsCore = playerSettingsCore;
             this.beatmapRepository = beatmapRepository;
         }
@@ -57,14 +60,14 @@ namespace MyProject.Director
 
         public void Tick()
         {
-            demoBeatmapCore?.AdvanceTime(0f);
+            demoBeatmapCore?.AdvanceTime(playerSettingsCore.NoteOffset.CurrentValue);
         }
 
         public async UniTask BeforeExitAsync(CancellationToken ct)
         {
             disposables.Clear();
             demoBeatmapCore = null;
-            await selectActorHub.HideAndDestroyNotesAsync(ct);
+            await rootActorHub.HideAndDestroyNotesAsync(ct);
         }
 
         public async UniTask ExitAsync(CancellationToken ct)
@@ -94,13 +97,13 @@ namespace MyProject.Director
             var noteCores = new List<NoteCoreBase>();
             noteCores.AddRange(demoBeatmapCore.NoteCores);
             noteCores.AddRange(demoBeatmapCore.MeasureLineCores);
-            selectActorHub.CreateNotes(noteCores);
+            rootActorHub.CreateNotes(noteCores);
 
             demoBeatmapCore.CurrentOtogeTypeTransition
-                .Subscribe(transition => selectActorHub.ApplyOtogeTypeTransition(transition))
+                .Subscribe(transition => rootActorHub.ApplyOtogeTypeTransition(transition))
                 .AddTo(disposables);
             demoBeatmapCore.OtogeEvent
-                .Subscribe(_ => selectActorHub.ExecuteOtogeEvent())
+                .Subscribe(_ => rootActorHub.ExecuteOtogeEvent())
                 .AddTo(disposables);
             demoBeatmapCore.EndReached
                 .Subscribe(_ => StartDemo())
@@ -110,7 +113,7 @@ namespace MyProject.Director
             {
                 var timeline = kvp.Key;
                 kvp.Value
-                    .Subscribe(scroll => selectActorHub.UpdateNotesByTimeline(timeline, demoBeatmapCore.CurrentBeat.CurrentValue, scroll, playerSettingsCore.ScrollSpeed.CurrentValue))
+                    .Subscribe(scroll => rootActorHub.UpdateNotesByTimeline(timeline, demoBeatmapCore.CurrentBeat.CurrentValue, scroll, playerSettingsCore.ScrollSpeed.CurrentValue))
                     .AddTo(disposables);
             }
         }

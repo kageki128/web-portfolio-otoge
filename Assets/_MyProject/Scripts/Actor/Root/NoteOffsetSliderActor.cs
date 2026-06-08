@@ -17,11 +17,14 @@ namespace MyProject.Actor
         public override void Initialize()
         {
             gameObject.SetActive(true);
+            sliderActor.Initialize();
+            sliderActor.gameObject.SetActive(true);
         }
 
         public override UniTask TransitSceneAsync(SceneType sceneType, CancellationToken ct)
         {
             gameObject.SetActive(true);
+            sliderActor.gameObject.SetActive(true);
             return UniTask.CompletedTask;
         }
 
