@@ -16,6 +16,8 @@ namespace MyProject.Actor
 
         public Observable<float> ScrollSpeedNormalizedChanged => scrollSpeedSliderActor.ScrollSpeedNormalizedChanged;
         public Observable<float> NoteOffsetNormalizedChanged => noteOffsetSliderActor.NoteOffsetNormalizedChanged;
+        public Observable<Unit> ScrollSpeedResetRequested => scrollSpeedSliderActor.ScrollSpeedResetRequested;
+        public Observable<Unit> NoteOffsetResetRequested => noteOffsetSliderActor.NoteOffsetResetRequested;
         public Observable<int> LanePressed => otogeActorHub.LanePressed;
         public Observable<int> LaneReleased => otogeActorHub.LaneReleased;
         public Observable<Unit> AirPressed => otogeActorHub.AirPressed;

@@ -27,6 +27,9 @@ namespace MyProject.Director
             rootActorHub.ScrollSpeedNormalizedChanged
                 .Subscribe(value => playerSettingsCore.SetScrollSpeedNormalized(value))
                 .AddTo(disposables);
+            rootActorHub.ScrollSpeedResetRequested
+                .Subscribe(_ => playerSettingsCore.ResetScrollSpeed())
+                .AddTo(disposables);
             playerSettingsCore.ScrollSpeedNormalized
                 .Subscribe(value => rootActorHub.SetScrollSpeedNormalized(value))
                 .AddTo(disposables);
@@ -36,6 +39,9 @@ namespace MyProject.Director
 
             rootActorHub.NoteOffsetNormalizedChanged
                 .Subscribe(value => playerSettingsCore.SetNoteOffsetNormalized(value))
+                .AddTo(disposables);
+            rootActorHub.NoteOffsetResetRequested
+                .Subscribe(_ => playerSettingsCore.ResetNoteOffset())
                 .AddTo(disposables);
             playerSettingsCore.NoteOffsetNormalized
                 .Subscribe(value => rootActorHub.SetNoteOffsetNormalized(value))

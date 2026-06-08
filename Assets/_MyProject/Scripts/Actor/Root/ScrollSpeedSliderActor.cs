@@ -10,6 +10,7 @@ namespace MyProject.Actor
     public class ScrollSpeedSliderActor : RootActorBase
     {
         public Observable<float> ScrollSpeedNormalizedChanged => sliderActor.ValueChanged;
+        public Observable<Unit> ScrollSpeedResetRequested => sliderActor.HandleDoubleClicked;
 
         [SerializeField] StandardSliderActor sliderActor;
         [SerializeField] TMP_Text valueText;

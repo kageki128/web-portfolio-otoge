@@ -10,6 +10,7 @@ namespace MyProject.Actor
     public class NoteOffsetSliderActor : RootActorBase
     {
         public Observable<float> NoteOffsetNormalizedChanged => sliderActor.ValueChanged;
+        public Observable<Unit> NoteOffsetResetRequested => sliderActor.HandleDoubleClicked;
 
         [SerializeField] StandardSliderActor sliderActor;
         [SerializeField] TMP_Text valueText;
