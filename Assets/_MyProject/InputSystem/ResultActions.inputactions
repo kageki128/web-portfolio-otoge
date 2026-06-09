@@ -23,15 +23,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Post",
-                    "type": "Button",
-                    "id": "d7128906-3f95-4657-8a64-4403af3552f9",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -54,17 +45,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Retry",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5a4d954a-f740-4663-b8b8-1f829d8975c0",
-                    "path": "<Keyboard>/x",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Post",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MyProject.Actor
 {
-    public class InputKeysActor : ActorBase
+    public class SelectInputKeysActor : ActorBase
     {
         [SerializeField] KeyIconActor keyIcon0;
         [SerializeField] KeyIconActor keyIcon1;

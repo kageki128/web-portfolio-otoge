@@ -14,7 +14,7 @@ namespace MyProject.Actor
         public Observable<int> DifficultyScrolled => selectActionsObserver.DifficultyScrolled;
 
         [SerializeField] DifficultySelectActor difficultySelectActor;
-        [SerializeField] InputKeysActor inputKeysActor;
+        [SerializeField] SelectInputKeysActor inputKeysActor;
         ActorAnimationTimeline animationTimeline;
         SelectActionsObserver selectActionsObserver;
         readonly CompositeDisposable disposables = new();
