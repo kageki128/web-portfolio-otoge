@@ -15,10 +15,11 @@ namespace MyProject.Actor
         [SerializeField] KeyIconActor downKey;
         [SerializeField] KeyIconActor upKey;
         [SerializeField] TMP_Text valueText;
+        [SerializeField] Color normalValueTextColor = Color.white;
+        [SerializeField] Color hardValueTextColor = Color.red;
 
         RectTransform valueTextRect;
         Vector2 baseValueTextPosition;
-        Color baseValueTextColor;
         MotionHandle valueMoveHandle;
         MotionHandle valueFadeHandle;
         int valueAnimationVersion;
@@ -29,7 +30,6 @@ namespace MyProject.Actor
         {
             valueTextRect = valueText.rectTransform;
             baseValueTextPosition = valueTextRect.anchoredPosition;
-            baseValueTextColor = valueText.color;
             hasBeatmapType = false;
 
             downKey.Initialize();
@@ -120,14 +120,14 @@ namespace MyProject.Actor
 
                 valueText.text = ToDisplayText(beatmapType);
                 valueTextRect.anchoredPosition = baseValueTextPosition + changeDirection * ValueSlideDistance;
-                SetValueTextAlpha(0f);
+                SetValueTextColor(beatmapType, 0f);
 
                 valueMoveHandle = LMotion.Create(valueTextRect.anchoredPosition, baseValueTextPosition, ValueAnimationDuration)
                     .WithEase(Ease.OutCubic)
                     .Bind(position => valueTextRect.anchoredPosition = position)
                     .AddTo(this);
 
-                valueFadeHandle = LMotion.Create(0f, baseValueTextColor.a, ValueAnimationDuration)
+                valueFadeHandle = LMotion.Create(0f, ToTextColor(beatmapType).a, ValueAnimationDuration)
                     .WithEase(Ease.OutCubic)
                     .Bind(SetValueTextAlpha)
                     .AddTo(this);
@@ -156,7 +156,14 @@ namespace MyProject.Actor
         void ResetValueText()
         {
             valueTextRect.anchoredPosition = baseValueTextPosition;
-            valueText.color = baseValueTextColor;
+            valueText.color = hasBeatmapType ? ToTextColor(currentBeatmapType) : normalValueTextColor;
+        }
+
+        void SetValueTextColor(BeatmapType beatmapType, float alpha)
+        {
+            var color = ToTextColor(beatmapType);
+            color.a = alpha;
+            valueText.color = color;
         }
 
         void SetValueTextAlpha(float alpha)
@@ -174,6 +181,11 @@ namespace MyProject.Actor
             CancelValueAnimation();
             valueText.text = ToDisplayText(beatmapType);
             ResetValueText();
+        }
+
+        Color ToTextColor(BeatmapType beatmapType)
+        {
+            return beatmapType == BeatmapType.Hard ? hardValueTextColor : normalValueTextColor;
         }
 
         static string ToDisplayText(BeatmapType beatmapType)
