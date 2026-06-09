@@ -68,7 +68,7 @@ namespace MyProject.Infrastructure
                     // 1) テキストを中間データにパース
                     var parsedData = parser.Parse(beatmapText, ct);
                     // 2) 中間データから最終Beatmapを組み立て
-                    return composer.Compose(wave, parsedData, otogeChanges, otogeEventBeats, ct);
+                    return composer.Compose(type, wave, parsedData, otogeChanges, otogeEventBeats, ct);
                 },
                 configureAwait: true,
                 cancellationToken: ct

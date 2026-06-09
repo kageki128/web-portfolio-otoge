@@ -15,12 +15,14 @@ namespace MyProject.Director
         public Observable<Unit> SceneReloadRequest => sceneReloadRequest;
         readonly Subject<Unit> sceneReloadRequest = new();
 
+        readonly GameSessionCore gameSessionCore;
         readonly ResultActorHub resultActorHub;
 
         readonly CompositeDisposable disposables = new();
 
-        public ResultSceneDirector(ResultActorHub resultActorHub)
+        public ResultSceneDirector(GameSessionCore gameSessionCore, ResultActorHub resultActorHub)
         {
+            this.gameSessionCore = gameSessionCore;
             this.resultActorHub = resultActorHub;
         }
 
@@ -33,6 +35,12 @@ namespace MyProject.Director
 
         public async UniTask BeforeEnterAsync(CancellationToken ct)
         {
+            resultActorHub.SetResult(
+                gameSessionCore.BeatmapType,
+                gameSessionCore.Score.CurrentValue,
+                gameSessionCore.JudgeCounts,
+                gameSessionCore.MaxCombo
+            );
             await UniTask.CompletedTask;
         }
 

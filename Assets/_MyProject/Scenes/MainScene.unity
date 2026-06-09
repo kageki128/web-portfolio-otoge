@@ -24758,6 +24758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7565e8f123724f3ebb97b5b4daa8f832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ResultActorHub
+  resultTextActor: {fileID: 0}
 --- !u!114 &1316483773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34990,6 +34991,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2008796915}
+  - component: {fileID: 2008796916}
   m_Layer: 0
   m_Name: Result
   m_TagString: Untagged
@@ -35021,6 +35023,33 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2008796916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008796914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2429c2451c81369409f7991307b611b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ResultTextActor
+  difficulty: {fileID: 318016883}
+  newRecord: {fileID: 268340772}
+  score: {fileID: 1257620939}
+  bestScore: {fileID: 144727811}
+  rank: {fileID: 899554510}
+  perfect: {fileID: 1334664820}
+  good: {fileID: 1459583340}
+  miss: {fileID: 565858798}
+  perfectFast: {fileID: 589924368}
+  perfectLate: {fileID: 1031413798}
+  goodFast: {fileID: 906395009}
+  goodLate: {fileID: 928294851}
+  maxCombo: {fileID: 1884022214}
+  normalDifficultyColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
+  hardDifficultyColor: {r: 0.13333334, g: 0.827451, b: 0.93333334, a: 1}
 --- !u!1 &2019937738
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ namespace MyProject.Core
 {
     public class BeatmapCore
     {
+        public BeatmapType BeatmapType { get; }
         public BeatmapMetaData MetaData => metaData;
         public IReadOnlyList<NoteCoreBase> NoteCores => mainData.NoteCores;
         public IReadOnlyList<MeasureLineCore> MeasureLineCores => mainData.MeasureLineCores;
@@ -23,11 +24,13 @@ namespace MyProject.Core
 
         public BeatmapCore
         (
+            BeatmapType beatmapType,
             BeatmapMetaData metaData,
             BeatmapMainData mainData,
             IReadOnlyList<Message> messages
         )
         {
+            BeatmapType = beatmapType;
             this.metaData = metaData;
             this.mainData = mainData;
             this.messages = messages;

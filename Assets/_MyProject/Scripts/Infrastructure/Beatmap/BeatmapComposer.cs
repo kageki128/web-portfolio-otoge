@@ -45,6 +45,7 @@ namespace MyProject.Infrastructure
         /// </summary>
         public BeatmapCore Compose
         (
+            BeatmapType beatmapType,
             AudioClip wave,
             BeatmapParsedData parsedData,
             IReadOnlyList<OtogeChange> otogeChanges,
@@ -109,7 +110,7 @@ namespace MyProject.Infrastructure
             // 致命エラー時は空譜面で返却する。
             if (hasFatal)
             {
-                return new BeatmapCore(metaData, CreateEmptyMainData(sortedOtogeChanges, otogeEventBeats), messages);
+                return new BeatmapCore(beatmapType, metaData, CreateEmptyMainData(sortedOtogeChanges, otogeEventBeats), messages);
             }
 
             // 各タイムラインのハイスピ変化をbeat基準に変換する。
@@ -216,7 +217,7 @@ namespace MyProject.Infrastructure
             ), endSec);
 
             var mainData = new BeatmapMainData(conductorCore, noteCores, measureLineCores);
-            return new BeatmapCore(metaData, mainData, messages);
+            return new BeatmapCore(beatmapType, metaData, mainData, messages);
         }
 
         /// <summary>

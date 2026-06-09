@@ -14,8 +14,10 @@ namespace MyProject.Core
 
         public ReadOnlyReactiveProperty<int> Score => scoreCore.Score;
         public ReadOnlyReactiveProperty<int> Combo => scoreCore.Combo;
+        public int MaxCombo => scoreCore.MaxCombo;
         public ObservableDictionary<JudgeType, int> JudgeCounts => scoreCore.JudgeCounts;
 
+        public BeatmapType BeatmapType => beatmapCore.BeatmapType;
         public BeatmapMetaData MetaData => beatmapCore.MetaData;
         public IReadOnlyList<NoteCoreBase> NoteCores => beatmapCore.NoteCores;
         public IReadOnlyList<MeasureLineCore> MeasureLineCores => beatmapCore.MeasureLineCores;

@@ -16,6 +16,8 @@ namespace MyProject.Core
 
         public ObservableDictionary<JudgeType, int> JudgeCounts { get; } = new();
 
+        public int MaxCombo => maxCombo;
+
         readonly Dictionary<int, List<NoteCoreBase>> remainingLaneNoteCores = new();
         readonly Dictionary<int, int> lanePressCounts = new();
         readonly List<NoteCoreBase> remainingAirNoteCores = new();
@@ -36,6 +38,7 @@ namespace MyProject.Core
         };
 
         const int BaseMaxScore = 1000000;
+        int noteCount;
         int maxCombo;
         // スコア最大値 = ベース最大値 + コンボ数 (PerfectCriticalだと追加で1点入るため)
         int maxScore;
@@ -96,8 +99,9 @@ namespace MyProject.Core
 
             score.Value = 0;
             combo.Value = 0;
-            maxCombo = noteCores.Count;
-            maxScore = BaseMaxScore + maxCombo;
+            noteCount = noteCores.Count;
+            maxCombo = 0;
+            maxScore = BaseMaxScore + noteCount;
         }
 
         public void JudgePressLane(int lane, float currentSec)
@@ -538,14 +542,14 @@ namespace MyProject.Core
             }
 
             // 小数点以下切り捨て
-            int baseScore = (int)(baseScoreRate * BaseMaxScore / maxCombo);
+            int baseScore = (int)(baseScoreRate * BaseMaxScore / noteCount);
             int bonusScore = judge is JudgeType.PerfectCriticalFast or JudgeType.PerfectCriticalLate ? 1 : 0;
             int totalScore = baseScore + bonusScore;
             score.Value = Math.Min(score.Value + totalScore, maxScore);
 
             int perfectCriticalCount = JudgeCounts[JudgeType.PerfectCriticalFast] + JudgeCounts[JudgeType.PerfectCriticalLate];
             int perfectCount = perfectCriticalCount + JudgeCounts[JudgeType.PerfectFast] + JudgeCounts[JudgeType.PerfectLate];
-            if (perfectCount == maxCombo)
+            if (perfectCount == noteCount)
             {
                 score.Value = BaseMaxScore + perfectCriticalCount;
             }
@@ -560,6 +564,7 @@ namespace MyProject.Core
             else
             {
                 combo.Value++;
+                maxCombo = Math.Max(maxCombo, combo.Value);
             }
         }
     }
