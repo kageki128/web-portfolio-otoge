@@ -65,6 +65,16 @@ namespace MyProject.Core
             state.Value = GameState.Paused;
         }
 
+        public void FinishGame()
+        {
+            if (state.Value is not GameState.Playing)
+            {
+                throw new InvalidOperationException($"Cannot finish game from state {state.Value}");
+            }
+
+            state.Value = GameState.Finished;
+        }
+
         public void JudgePressLane(int lane)
         {
             if (state.Value is not GameState.Playing)

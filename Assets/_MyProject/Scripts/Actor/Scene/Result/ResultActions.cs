@@ -95,9 +95,27 @@ namespace MyProject.Actor
             ""id"": ""1330a462-fb3b-4824-a680-63531279cafd"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Quit"",
                     ""type"": ""Button"",
                     ""id"": ""f5c6e75b-6291-413a-be2b-d437b6cb3f76"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Retry"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f8e2607-c2bb-4460-9817-6afcbe01cc7c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Post"",
+                    ""type"": ""Button"",
+                    ""id"": ""d7128906-3f95-4657-8a64-4403af3552f9"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -108,11 +126,33 @@ namespace MyProject.Actor
                 {
                     ""name"": """",
                     ""id"": ""d310ffc9-5dae-4f1c-a80d-cae5ae3b8227"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Quit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ad3140fa-f568-4231-962d-09f448b0d0a5"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Retry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a4d954a-f740-4663-b8b8-1f829d8975c0"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Post"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -123,7 +163,9 @@ namespace MyProject.Actor
 }");
             // Main
             m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
-            m_Main_Newaction = m_Main.FindAction("New action", throwIfNotFound: true);
+            m_Main_Quit = m_Main.FindAction("Quit", throwIfNotFound: true);
+            m_Main_Retry = m_Main.FindAction("Retry", throwIfNotFound: true);
+            m_Main_Post = m_Main.FindAction("Post", throwIfNotFound: true);
         }
 
         ~@ResultActions()
@@ -204,7 +246,9 @@ namespace MyProject.Actor
         // Main
         private readonly InputActionMap m_Main;
         private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
-        private readonly InputAction m_Main_Newaction;
+        private readonly InputAction m_Main_Quit;
+        private readonly InputAction m_Main_Retry;
+        private readonly InputAction m_Main_Post;
         /// <summary>
         /// Provides access to input actions defined in input action map "Main".
         /// </summary>
@@ -217,9 +261,17 @@ namespace MyProject.Actor
             /// </summary>
             public MainActions(@ResultActions wrapper) { m_Wrapper = wrapper; }
             /// <summary>
-            /// Provides access to the underlying input action "Main/Newaction".
+            /// Provides access to the underlying input action "Main/Quit".
             /// </summary>
-            public InputAction @Newaction => m_Wrapper.m_Main_Newaction;
+            public InputAction @Quit => m_Wrapper.m_Main_Quit;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/Retry".
+            /// </summary>
+            public InputAction @Retry => m_Wrapper.m_Main_Retry;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/Post".
+            /// </summary>
+            public InputAction @Post => m_Wrapper.m_Main_Post;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -246,9 +298,15 @@ namespace MyProject.Actor
             {
                 if (instance == null || m_Wrapper.m_MainActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_MainActionsCallbackInterfaces.Add(instance);
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                @Quit.started += instance.OnQuit;
+                @Quit.performed += instance.OnQuit;
+                @Quit.canceled += instance.OnQuit;
+                @Retry.started += instance.OnRetry;
+                @Retry.performed += instance.OnRetry;
+                @Retry.canceled += instance.OnRetry;
+                @Post.started += instance.OnPost;
+                @Post.performed += instance.OnPost;
+                @Post.canceled += instance.OnPost;
             }
 
             /// <summary>
@@ -260,9 +318,15 @@ namespace MyProject.Actor
             /// <seealso cref="MainActions" />
             private void UnregisterCallbacks(IMainActions instance)
             {
-                @Newaction.started -= instance.OnNewaction;
-                @Newaction.performed -= instance.OnNewaction;
-                @Newaction.canceled -= instance.OnNewaction;
+                @Quit.started -= instance.OnQuit;
+                @Quit.performed -= instance.OnQuit;
+                @Quit.canceled -= instance.OnQuit;
+                @Retry.started -= instance.OnRetry;
+                @Retry.performed -= instance.OnRetry;
+                @Retry.canceled -= instance.OnRetry;
+                @Post.started -= instance.OnPost;
+                @Post.performed -= instance.OnPost;
+                @Post.canceled -= instance.OnPost;
             }
 
             /// <summary>
@@ -304,12 +368,26 @@ namespace MyProject.Actor
         public interface IMainActions
         {
             /// <summary>
-            /// Method invoked when associated input action "New action" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// Method invoked when associated input action "Quit" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnNewaction(InputAction.CallbackContext context);
+            void OnQuit(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Retry" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnRetry(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Post" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnPost(InputAction.CallbackContext context);
         }
     }
 }

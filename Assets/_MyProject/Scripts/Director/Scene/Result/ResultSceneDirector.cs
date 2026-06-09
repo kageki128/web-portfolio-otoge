@@ -73,6 +73,14 @@ namespace MyProject.Director
         void HandleEnter()
         {
             disposables.Clear();
+            resultActorHub.Quit
+                .Take(1)
+                .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Select))
+                .AddTo(disposables);
+            resultActorHub.Retry
+                .Take(1)
+                .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Game))
+                .AddTo(disposables);
         }
     }
 }

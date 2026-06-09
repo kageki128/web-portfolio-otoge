@@ -70,7 +70,10 @@ namespace MyProject.Director
         {
             rootActorHub.SetOtogeInputEnabled(false);
             disposables.Clear();
-            gameSessionCore.PauseGame();
+            if (gameSessionCore.State.CurrentValue is not GameState.Finished)
+            {
+                gameSessionCore.PauseGame();
+            }
             await UniTask.CompletedTask;
         }
 
@@ -133,6 +136,14 @@ namespace MyProject.Director
 
         void SubscribeActorForCore()
         {
+            gameSessionCore.EndReached
+                .Take(1)
+                .Subscribe(_ =>
+                {
+                    gameSessionCore.FinishGame();
+                    sceneChangeRequest.OnNext(SceneType.Result);
+                })
+                .AddTo(disposables);
             gameActorHub.Quit
                 .Take(1)
                 .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Select))
