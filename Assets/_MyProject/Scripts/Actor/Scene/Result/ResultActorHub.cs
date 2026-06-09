@@ -15,9 +15,11 @@ namespace MyProject.Actor
         public Observable<Unit> Retry => resultActionsObserver.Retry;
 
         [SerializeField] ResultTextActor resultTextActor;
+        [SerializeField] ResultInputKeysActor inputKeysActor;
 
         ActorAnimationTimeline animationTimeline;
         ResultActionsObserver resultActionsObserver;
+        readonly CompositeDisposable disposables = new();
 
         [Inject]
         public void Construct(ResultActionsObserver resultActionsObserver)
@@ -29,8 +31,22 @@ namespace MyProject.Actor
         {
             animationTimeline = GetComponent<ActorAnimationTimeline>();
 
+            disposables.Clear();
             resultActionsObserver.Disable();
             animationTimeline.Initialize();
+            resultActionsObserver.QuitKeyPressed
+                .Subscribe(_ => inputKeysActor.LightUpQuitKey())
+                .AddTo(disposables);
+            resultActionsObserver.QuitKeyReleased
+                .Subscribe(_ => inputKeysActor.LightDownQuitKey())
+                .AddTo(disposables);
+            resultActionsObserver.RetryKeyPressed
+                .Subscribe(_ => inputKeysActor.LightUpRetryKey())
+                .AddTo(disposables);
+            resultActionsObserver.RetryKeyReleased
+                .Subscribe(_ => inputKeysActor.LightDownRetryKey())
+                .AddTo(disposables);
+
             gameObject.SetActive(false);
         }
 
@@ -51,6 +67,11 @@ namespace MyProject.Actor
         public void SetResult(BeatmapType beatmapType, int score, IReadOnlyDictionary<JudgeType, int> judgeCounts, int maxCombo)
         {
             resultTextActor.SetResult(beatmapType, score, judgeCounts, maxCombo);
+        }
+
+        void OnDestroy()
+        {
+            disposables.Dispose();
         }
     }
 }

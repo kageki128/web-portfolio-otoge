@@ -2589,7 +2589,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 0.13333334, g: 0.827451, b: 0.93333334, a: 1}
   textNormalColor: {r: 0.13333334, g: 0.827451, b: 0.93333334, a: 1}
   textLightUpColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
-  breathingEnabled: 0
+  breathingEnabled: 1
 --- !u!1 &168546607
 GameObject:
   m_ObjectHideFlags: 0
@@ -24325,6 +24325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1302847968}
+  - component: {fileID: 1302847969}
   m_Layer: 0
   m_Name: Keys
   m_TagString: Untagged
@@ -24355,6 +24356,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -440}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1302847969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1302847967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c1b4ac08088d1e429606b75d59992c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ResultInputKeysActor
+  quitKey: {fileID: 1157440006}
+  retryKey: {fileID: 166358329}
 --- !u!1 &1308557491
 GameObject:
   m_ObjectHideFlags: 0
@@ -24758,7 +24773,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7565e8f123724f3ebb97b5b4daa8f832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ResultActorHub
-  resultTextActor: {fileID: 0}
+  resultTextActor: {fileID: 2008796916}
+  inputKeysActor: {fileID: 1302847969}
 --- !u!114 &1316483773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24773,6 +24789,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.ActorAnimationTimeline
   actorAnimations:
   - <Actor>k__BackingField: {fileID: 1628319857}
+    <ShowStartSeconds>k__BackingField: 0
+    <HideStartSeconds>k__BackingField: 0
+  - <Actor>k__BackingField: {fileID: 1302847969}
+    <ShowStartSeconds>k__BackingField: 0
+    <HideStartSeconds>k__BackingField: 0
+  - <Actor>k__BackingField: {fileID: 2008796916}
     <ShowStartSeconds>k__BackingField: 0
     <HideStartSeconds>k__BackingField: 0
 --- !u!1 &1333545276
