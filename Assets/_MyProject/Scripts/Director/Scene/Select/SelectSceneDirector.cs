@@ -109,7 +109,7 @@ namespace MyProject.Director
             SubscribeDemoCoreForActor();
 
             playerSettingsCore.SelectedBeatmapType
-                .Subscribe(beatmapType => selectActorHub.SetDifficultyText(beatmapType.ToString()))
+                .Subscribe(selectActorHub.SetDifficulty)
                 .AddTo(disposables);
         }
 
@@ -120,7 +120,7 @@ namespace MyProject.Director
                 .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Game))
                 .AddTo(disposables);
             selectActorHub.DifficultyScrolled
-                .Subscribe(direction => playerSettingsCore.ChangeBeatmapType(direction))
+                .Subscribe(playerSettingsCore.ChangeBeatmapType)
                 .AddTo(disposables);
         }
 

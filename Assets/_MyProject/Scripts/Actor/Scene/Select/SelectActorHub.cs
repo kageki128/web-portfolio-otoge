@@ -1,5 +1,6 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using MyProject.Core;
 using R3;
 using UnityEngine;
 using VContainer;
@@ -55,9 +56,9 @@ namespace MyProject.Actor
             gameObject.SetActive(false);
         }
 
-        public void SetDifficultyText(string text)
+        public void SetDifficulty(BeatmapType beatmapType)
         {
-            difficultySelectActor.SetValue(text);
+            difficultySelectActor.SetBeatmapType(beatmapType);
         }
 
         void LightUpDifficultyKey(int direction)
