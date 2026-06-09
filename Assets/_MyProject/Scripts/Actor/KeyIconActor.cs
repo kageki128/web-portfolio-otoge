@@ -17,26 +17,31 @@ namespace MyProject.Actor
         [SerializeField] Color textLightUpColor = Color.white;
 
         const float LightDownDuration = 0.033f;
+        const float PressedScaleMultiplier = 1.2f;
+        const float ScaleDuration = 0.033f;
 
         MotionHandle backgroundHandle;
         MotionHandle textHandle;
+        MotionHandle scaleHandle;
+        Vector3 baseScale;
 
         public override void Initialize()
         {
-            SetNormalColor();
+            baseScale = transform.localScale;
+            SetNormalState();
             gameObject.SetActive(false);
         }
 
         public override UniTask ShowAsync(CancellationToken ct)
         {
-            SetNormalColor();
+            SetNormalState();
             gameObject.SetActive(true);
             return UniTask.CompletedTask;
         }
 
         public override UniTask HideAsync(CancellationToken ct)
         {
-            Cancel();
+            SetNormalState();
             gameObject.SetActive(false);
             return UniTask.CompletedTask;
         }
@@ -46,6 +51,7 @@ namespace MyProject.Actor
             Cancel();
             background.color = backgroundLightUpColor;
             text.color = textLightUpColor;
+            scaleHandle = Scale(baseScale * PressedScaleMultiplier);
         }
 
         public void LightDown()
@@ -53,25 +59,36 @@ namespace MyProject.Actor
             Cancel();
             backgroundHandle = Fade(background, backgroundNormalColor);
             textHandle = Fade(text, textNormalColor);
+            scaleHandle = Scale(baseScale);
         }
 
-        void SetNormalColor()
+        void SetNormalState()
         {
             Cancel();
             background.color = backgroundNormalColor;
             text.color = textNormalColor;
+            transform.localScale = baseScale;
         }
 
         void Cancel()
         {
             backgroundHandle.TryCancel();
             textHandle.TryCancel();
+            scaleHandle.TryCancel();
         }
 
         MotionHandle Fade(Graphic graphic, Color color)
         {
             return LMotion.Create(graphic.color, color, LightDownDuration)
                 .Bind(value => graphic.color = value)
+                .AddTo(this);
+        }
+
+        MotionHandle Scale(Vector3 scale)
+        {
+            return LMotion.Create(transform.localScale, scale, ScaleDuration)
+                .WithEase(Ease.OutCubic)
+                .Bind(value => transform.localScale = value)
                 .AddTo(this);
         }
     }

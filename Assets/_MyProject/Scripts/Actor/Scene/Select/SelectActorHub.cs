@@ -14,6 +14,7 @@ namespace MyProject.Actor
         public Observable<int> DifficultyScrolled => selectActionsObserver.DifficultyScrolled;
 
         [SerializeField] DifficultySelectActor difficultySelectActor;
+        [SerializeField] InputKeysActor inputKeysActor;
         ActorAnimationTimeline animationTimeline;
         SelectActionsObserver selectActionsObserver;
         readonly CompositeDisposable disposables = new();
@@ -37,6 +38,12 @@ namespace MyProject.Actor
                 .AddTo(disposables);
             selectActionsObserver.DifficultyScrollCanceled
                 .Subscribe(_ => LightDownDifficultyKeys())
+                .AddTo(disposables);
+            selectActionsObserver.InputKeyPressed
+                .Subscribe(inputKeysActor.LightUpKey)
+                .AddTo(disposables);
+            selectActionsObserver.InputKeyReleased
+                .Subscribe(inputKeysActor.LightDownKey)
                 .AddTo(disposables);
 
             gameObject.SetActive(false);

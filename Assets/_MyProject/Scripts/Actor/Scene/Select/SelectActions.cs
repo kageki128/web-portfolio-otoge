@@ -111,6 +111,87 @@ namespace MyProject.Actor
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""key0"",
+                    ""type"": ""Button"",
+                    ""id"": ""19c944de-37b8-4ee8-9f1b-ce84462b2c4a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""key1"",
+                    ""type"": ""Button"",
+                    ""id"": ""14745a3b-812b-42ab-b70a-cf63da43bfb0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""key2"",
+                    ""type"": ""Button"",
+                    ""id"": ""362f4267-1d5c-482b-afb5-47b8f6202369"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""key3"",
+                    ""type"": ""Button"",
+                    ""id"": ""237a90f9-bf4b-4b15-8663-a1c6ccfa186b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""key4"",
+                    ""type"": ""Button"",
+                    ""id"": ""760f0c76-1c01-4021-83d0-1def7842cd83"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""key5"",
+                    ""type"": ""Button"",
+                    ""id"": ""b86f0cc0-6d96-4ab8-aa1e-f8c0775c8da7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""key6"",
+                    ""type"": ""Button"",
+                    ""id"": ""860c38ae-4019-4340-aea6-9c5496af3700"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""key7"",
+                    ""type"": ""Button"",
+                    ""id"": ""390e8b07-4ac2-4c6b-ac36-b1a6224e760c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""key8"",
+                    ""type"": ""Button"",
+                    ""id"": ""cda750bb-e3f6-4fac-a452-9ecab5448b1a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -157,6 +238,105 @@ namespace MyProject.Actor
                     ""action"": ""ScrollDifficulty"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""995426c8-3499-4c60-baa5-a4f3642c440a"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""key0"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bfc3bb49-1974-4fbe-9eda-b3f42f263df3"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""key1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4aeb9000-3acf-45aa-850e-a2b72b498643"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""key2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f63bbb1b-a4fe-4312-b9b3-58b0348e4536"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""key3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c1cb0d6-4595-4e2f-b0b3-a66d47aa6e28"",
+                    ""path"": ""<Keyboard>/h"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""key4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ffd7225b-75a4-450a-ae4d-c50809d8d63b"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""key5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""346bf180-da6d-4b2e-8f75-09a991674777"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""key6"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f10dcdfe-7d7d-46cf-99e3-e69e4a10d5a9"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""key7"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eaf6e0ca-872a-4c84-9c62-ba0bbf1de0a9"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""key8"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -167,6 +347,15 @@ namespace MyProject.Actor
             m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
             m_Main_StartGame = m_Main.FindAction("StartGame", throwIfNotFound: true);
             m_Main_ScrollDifficulty = m_Main.FindAction("ScrollDifficulty", throwIfNotFound: true);
+            m_Main_key0 = m_Main.FindAction("key0", throwIfNotFound: true);
+            m_Main_key1 = m_Main.FindAction("key1", throwIfNotFound: true);
+            m_Main_key2 = m_Main.FindAction("key2", throwIfNotFound: true);
+            m_Main_key3 = m_Main.FindAction("key3", throwIfNotFound: true);
+            m_Main_key4 = m_Main.FindAction("key4", throwIfNotFound: true);
+            m_Main_key5 = m_Main.FindAction("key5", throwIfNotFound: true);
+            m_Main_key6 = m_Main.FindAction("key6", throwIfNotFound: true);
+            m_Main_key7 = m_Main.FindAction("key7", throwIfNotFound: true);
+            m_Main_key8 = m_Main.FindAction("key8", throwIfNotFound: true);
         }
 
         ~@SelectActions()
@@ -249,6 +438,15 @@ namespace MyProject.Actor
         private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
         private readonly InputAction m_Main_StartGame;
         private readonly InputAction m_Main_ScrollDifficulty;
+        private readonly InputAction m_Main_key0;
+        private readonly InputAction m_Main_key1;
+        private readonly InputAction m_Main_key2;
+        private readonly InputAction m_Main_key3;
+        private readonly InputAction m_Main_key4;
+        private readonly InputAction m_Main_key5;
+        private readonly InputAction m_Main_key6;
+        private readonly InputAction m_Main_key7;
+        private readonly InputAction m_Main_key8;
         /// <summary>
         /// Provides access to input actions defined in input action map "Main".
         /// </summary>
@@ -268,6 +466,42 @@ namespace MyProject.Actor
             /// Provides access to the underlying input action "Main/ScrollDifficulty".
             /// </summary>
             public InputAction @ScrollDifficulty => m_Wrapper.m_Main_ScrollDifficulty;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/key0".
+            /// </summary>
+            public InputAction @key0 => m_Wrapper.m_Main_key0;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/key1".
+            /// </summary>
+            public InputAction @key1 => m_Wrapper.m_Main_key1;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/key2".
+            /// </summary>
+            public InputAction @key2 => m_Wrapper.m_Main_key2;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/key3".
+            /// </summary>
+            public InputAction @key3 => m_Wrapper.m_Main_key3;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/key4".
+            /// </summary>
+            public InputAction @key4 => m_Wrapper.m_Main_key4;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/key5".
+            /// </summary>
+            public InputAction @key5 => m_Wrapper.m_Main_key5;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/key6".
+            /// </summary>
+            public InputAction @key6 => m_Wrapper.m_Main_key6;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/key7".
+            /// </summary>
+            public InputAction @key7 => m_Wrapper.m_Main_key7;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/key8".
+            /// </summary>
+            public InputAction @key8 => m_Wrapper.m_Main_key8;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -300,6 +534,33 @@ namespace MyProject.Actor
                 @ScrollDifficulty.started += instance.OnScrollDifficulty;
                 @ScrollDifficulty.performed += instance.OnScrollDifficulty;
                 @ScrollDifficulty.canceled += instance.OnScrollDifficulty;
+                @key0.started += instance.OnKey0;
+                @key0.performed += instance.OnKey0;
+                @key0.canceled += instance.OnKey0;
+                @key1.started += instance.OnKey1;
+                @key1.performed += instance.OnKey1;
+                @key1.canceled += instance.OnKey1;
+                @key2.started += instance.OnKey2;
+                @key2.performed += instance.OnKey2;
+                @key2.canceled += instance.OnKey2;
+                @key3.started += instance.OnKey3;
+                @key3.performed += instance.OnKey3;
+                @key3.canceled += instance.OnKey3;
+                @key4.started += instance.OnKey4;
+                @key4.performed += instance.OnKey4;
+                @key4.canceled += instance.OnKey4;
+                @key5.started += instance.OnKey5;
+                @key5.performed += instance.OnKey5;
+                @key5.canceled += instance.OnKey5;
+                @key6.started += instance.OnKey6;
+                @key6.performed += instance.OnKey6;
+                @key6.canceled += instance.OnKey6;
+                @key7.started += instance.OnKey7;
+                @key7.performed += instance.OnKey7;
+                @key7.canceled += instance.OnKey7;
+                @key8.started += instance.OnKey8;
+                @key8.performed += instance.OnKey8;
+                @key8.canceled += instance.OnKey8;
             }
 
             /// <summary>
@@ -317,6 +578,33 @@ namespace MyProject.Actor
                 @ScrollDifficulty.started -= instance.OnScrollDifficulty;
                 @ScrollDifficulty.performed -= instance.OnScrollDifficulty;
                 @ScrollDifficulty.canceled -= instance.OnScrollDifficulty;
+                @key0.started -= instance.OnKey0;
+                @key0.performed -= instance.OnKey0;
+                @key0.canceled -= instance.OnKey0;
+                @key1.started -= instance.OnKey1;
+                @key1.performed -= instance.OnKey1;
+                @key1.canceled -= instance.OnKey1;
+                @key2.started -= instance.OnKey2;
+                @key2.performed -= instance.OnKey2;
+                @key2.canceled -= instance.OnKey2;
+                @key3.started -= instance.OnKey3;
+                @key3.performed -= instance.OnKey3;
+                @key3.canceled -= instance.OnKey3;
+                @key4.started -= instance.OnKey4;
+                @key4.performed -= instance.OnKey4;
+                @key4.canceled -= instance.OnKey4;
+                @key5.started -= instance.OnKey5;
+                @key5.performed -= instance.OnKey5;
+                @key5.canceled -= instance.OnKey5;
+                @key6.started -= instance.OnKey6;
+                @key6.performed -= instance.OnKey6;
+                @key6.canceled -= instance.OnKey6;
+                @key7.started -= instance.OnKey7;
+                @key7.performed -= instance.OnKey7;
+                @key7.canceled -= instance.OnKey7;
+                @key8.started -= instance.OnKey8;
+                @key8.performed -= instance.OnKey8;
+                @key8.canceled -= instance.OnKey8;
             }
 
             /// <summary>
@@ -371,6 +659,69 @@ namespace MyProject.Actor
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnScrollDifficulty(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "key0" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnKey0(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "key1" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnKey1(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "key2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnKey2(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "key3" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnKey3(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "key4" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnKey4(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "key5" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnKey5(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "key6" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnKey6(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "key7" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnKey7(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "key8" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnKey8(InputAction.CallbackContext context);
         }
     }
 }
