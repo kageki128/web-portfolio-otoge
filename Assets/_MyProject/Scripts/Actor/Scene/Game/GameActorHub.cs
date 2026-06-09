@@ -18,9 +18,11 @@ namespace MyProject.Actor
         [SerializeField] ComboTextActor comboTextActor;
         [SerializeField] JudgeTextActor judgeTextActor;
         [SerializeField] MusicTextActor musicTextActor;
+        [SerializeField] KeyIconActor quitKey;
 
         ActorAnimationTimeline animationTimeline;
         GameActionsObserver gameActionsObserver;
+        readonly CompositeDisposable disposables = new();
 
         [Inject]
         public void Construct(GameActionsObserver gameActionsObserver)
@@ -32,8 +34,16 @@ namespace MyProject.Actor
         {
             animationTimeline = GetComponent<ActorAnimationTimeline>();
 
+            disposables.Clear();
             gameActionsObserver.Disable();
             animationTimeline.Initialize();
+            gameActionsObserver.BackKeyPressed
+                .Subscribe(_ => quitKey.LightUp())
+                .AddTo(disposables);
+            gameActionsObserver.BackKeyReleased
+                .Subscribe(_ => quitKey.LightDown())
+                .AddTo(disposables);
+
             gameObject.SetActive(false);
         }
 
@@ -63,5 +73,10 @@ namespace MyProject.Actor
         public void SetCombo(int combo) => comboTextActor.SetCombo(combo);
         public void SetJudgeCounts(IReadOnlyDictionary<JudgeType, int> judgeCounts) => judgeTextActor.SetJudgeCounts(judgeCounts);
         public void SetMetaData(BeatmapMetaData metaData) => musicTextActor.SetMetaData(metaData);
+
+        void OnDestroy()
+        {
+            disposables.Dispose();
+        }
     }
 }
