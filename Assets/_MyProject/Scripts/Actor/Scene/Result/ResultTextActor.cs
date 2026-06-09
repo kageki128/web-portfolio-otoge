@@ -56,11 +56,11 @@ namespace MyProject.Actor
             perfect.text = $"{GetPerfectCount(judgeCounts)}";
             good.text = $"{judgeCounts[JudgeType.GoodFast] + judgeCounts[JudgeType.GoodLate]}";
             miss.text = $"{judgeCounts[JudgeType.MissFast] + judgeCounts[JudgeType.MissLate]}";
-            perfectFast.text = $"{judgeCounts[JudgeType.PerfectCriticalFast] + judgeCounts[JudgeType.PerfectFast]}";
-            perfectLate.text = $"{judgeCounts[JudgeType.PerfectCriticalLate] + judgeCounts[JudgeType.PerfectLate]}";
-            goodFast.text = $"{judgeCounts[JudgeType.GoodFast]}";
-            goodLate.text = $"{judgeCounts[JudgeType.GoodLate]}";
-            maxCombo.text = $"{maxComboValue}";
+            perfectFast.text = $"F({judgeCounts[JudgeType.PerfectCriticalFast] + judgeCounts[JudgeType.PerfectFast]})";
+            perfectLate.text = $"L({judgeCounts[JudgeType.PerfectCriticalLate] + judgeCounts[JudgeType.PerfectLate]})";
+            goodFast.text = $"F({judgeCounts[JudgeType.GoodFast]})";
+            goodLate.text = $"L({judgeCounts[JudgeType.GoodLate]})";
+            maxCombo.text = $"MAX COMBO: {maxComboValue}";
         }
 
         static int GetPerfectCount(IReadOnlyDictionary<JudgeType, int> judgeCounts)

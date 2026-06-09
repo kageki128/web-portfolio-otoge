@@ -57,7 +57,6 @@ namespace MyProject.Actor
         public override async UniTask HideAsync(CancellationToken ct)
         {
             gameActionsObserver.Disable();
-            AudioPlayer.Instance.StopBgm();
             await animationTimeline.HideAsync(ct);
             gameObject.SetActive(false);
         }

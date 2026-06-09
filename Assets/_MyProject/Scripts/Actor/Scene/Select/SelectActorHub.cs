@@ -51,6 +51,7 @@ namespace MyProject.Actor
 
         public override async UniTask ShowAsync(CancellationToken ct)
         {
+            AudioPlayer.Instance.StopBgm();
             gameObject.SetActive(true);
             await animationTimeline.ShowAsync(ct);
             selectActionsObserver.Enable();
