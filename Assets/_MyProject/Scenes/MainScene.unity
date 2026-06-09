@@ -5109,8 +5109,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 72
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -12087,7 +12087,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -275, y: -150}
+  m_AnchoredPosition: {x: -275, y: -120}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &750725158
@@ -12108,6 +12108,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  breathingEnabled: 0
 --- !u!1 &756707524
 GameObject:
   m_ObjectHideFlags: 0
@@ -12515,7 +12516,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -150}
+  m_AnchoredPosition: {x: 0, y: -120}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &775819579
@@ -17839,7 +17840,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 275, y: -150}
+  m_AnchoredPosition: {x: 275, y: -120}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1051676770
@@ -17860,6 +17861,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  breathingEnabled: 0
 --- !u!1 &1053406342
 GameObject:
   m_ObjectHideFlags: 0
@@ -23181,8 +23183,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
-  m_fontSizeBase: 72
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -29564,6 +29566,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  breathingEnabled: 0
 --- !u!1 &2000000001
 GameObject:
   m_ObjectHideFlags: 0
@@ -29600,7 +29603,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: -160}
+  m_AnchoredPosition: {x: -350, y: -130}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000000003
@@ -29621,6 +29624,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  breathingEnabled: 0
 --- !u!1 &2000000004
 GameObject:
   m_ObjectHideFlags: 0
@@ -29732,7 +29736,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -250, y: -160}
+  m_AnchoredPosition: {x: -250, y: -130}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000000013
@@ -29753,6 +29757,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  breathingEnabled: 0
 --- !u!1 &2000000014
 GameObject:
   m_ObjectHideFlags: 0
@@ -29864,7 +29869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: -160}
+  m_AnchoredPosition: {x: -150, y: -130}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000000023
@@ -29885,6 +29890,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  breathingEnabled: 0
 --- !u!1 &2000000024
 GameObject:
   m_ObjectHideFlags: 0
@@ -29996,7 +30002,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -50, y: -160}
+  m_AnchoredPosition: {x: -50, y: -130}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000000033
@@ -30017,6 +30023,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  breathingEnabled: 0
 --- !u!1 &2000000034
 GameObject:
   m_ObjectHideFlags: 0
@@ -30128,7 +30135,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 50, y: -160}
+  m_AnchoredPosition: {x: 50, y: -130}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000000043
@@ -30149,6 +30156,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  breathingEnabled: 0
 --- !u!1 &2000000044
 GameObject:
   m_ObjectHideFlags: 0
@@ -30260,7 +30268,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: -160}
+  m_AnchoredPosition: {x: 150, y: -130}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000000053
@@ -30281,6 +30289,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  breathingEnabled: 0
 --- !u!1 &2000000054
 GameObject:
   m_ObjectHideFlags: 0
@@ -30392,7 +30401,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 250, y: -160}
+  m_AnchoredPosition: {x: 250, y: -130}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000000063
@@ -30413,6 +30422,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  breathingEnabled: 0
 --- !u!1 &2000000064
 GameObject:
   m_ObjectHideFlags: 0
@@ -30524,7 +30534,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 350, y: -160}
+  m_AnchoredPosition: {x: 350, y: -130}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000000073
@@ -30545,6 +30555,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  breathingEnabled: 0
 --- !u!1 &2000000074
 GameObject:
   m_ObjectHideFlags: 0
@@ -30656,7 +30667,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -270}
+  m_AnchoredPosition: {x: 0, y: -240}
   m_SizeDelta: {x: 380, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2000000083
@@ -30677,6 +30688,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 0.13333334, g: 0.827451, b: 0.93333334, a: 1}
   textNormalColor: {r: 0.13333334, g: 0.827451, b: 0.93333334, a: 1}
   textLightUpColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
+  breathingEnabled: 1
 --- !u!1 &2000000084
 GameObject:
   m_ObjectHideFlags: 0
