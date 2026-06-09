@@ -102,6 +102,15 @@ namespace MyProject.Actor
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ScrollDifficulty"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5a24fb7-3f6b-4b1b-b8e5-fdace3d8179a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -115,6 +124,39 @@ namespace MyProject.Actor
                     ""action"": ""StartGame"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""d483cfca-c515-4175-97e7-b41586c2a6f4"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ScrollDifficulty"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""8a27ff9e-1da4-4501-b2e8-75e474381c8b"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ScrollDifficulty"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""ab2da4f2-e914-4239-ab0e-cd9e6dd28311"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ScrollDifficulty"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -124,6 +166,7 @@ namespace MyProject.Actor
             // Main
             m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
             m_Main_StartGame = m_Main.FindAction("StartGame", throwIfNotFound: true);
+            m_Main_ScrollDifficulty = m_Main.FindAction("ScrollDifficulty", throwIfNotFound: true);
         }
 
         ~@SelectActions()
@@ -205,6 +248,7 @@ namespace MyProject.Actor
         private readonly InputActionMap m_Main;
         private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
         private readonly InputAction m_Main_StartGame;
+        private readonly InputAction m_Main_ScrollDifficulty;
         /// <summary>
         /// Provides access to input actions defined in input action map "Main".
         /// </summary>
@@ -220,6 +264,10 @@ namespace MyProject.Actor
             /// Provides access to the underlying input action "Main/StartGame".
             /// </summary>
             public InputAction @StartGame => m_Wrapper.m_Main_StartGame;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/ScrollDifficulty".
+            /// </summary>
+            public InputAction @ScrollDifficulty => m_Wrapper.m_Main_ScrollDifficulty;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -249,6 +297,9 @@ namespace MyProject.Actor
                 @StartGame.started += instance.OnStartGame;
                 @StartGame.performed += instance.OnStartGame;
                 @StartGame.canceled += instance.OnStartGame;
+                @ScrollDifficulty.started += instance.OnScrollDifficulty;
+                @ScrollDifficulty.performed += instance.OnScrollDifficulty;
+                @ScrollDifficulty.canceled += instance.OnScrollDifficulty;
             }
 
             /// <summary>
@@ -263,6 +314,9 @@ namespace MyProject.Actor
                 @StartGame.started -= instance.OnStartGame;
                 @StartGame.performed -= instance.OnStartGame;
                 @StartGame.canceled -= instance.OnStartGame;
+                @ScrollDifficulty.started -= instance.OnScrollDifficulty;
+                @ScrollDifficulty.performed -= instance.OnScrollDifficulty;
+                @ScrollDifficulty.canceled -= instance.OnScrollDifficulty;
             }
 
             /// <summary>
@@ -310,6 +364,13 @@ namespace MyProject.Actor
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnStartGame(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "ScrollDifficulty" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnScrollDifficulty(InputAction.CallbackContext context);
         }
     }
 }

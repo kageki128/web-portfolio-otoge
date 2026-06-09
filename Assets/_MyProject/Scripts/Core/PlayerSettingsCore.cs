@@ -1,3 +1,4 @@
+using System;
 using R3;
 using UnityEngine;
 
@@ -5,10 +6,17 @@ namespace MyProject.Core
 {
     public class PlayerSettingsCore
     {
+        static readonly BeatmapType[] selectableBeatmapTypes =
+        {
+            BeatmapType.Normal,
+            BeatmapType.Hard,
+        };
+
         const float MinScrollSpeed = 1f;
         const float MaxScrollSpeed = 20f;
         const float ScrollSpeedStep = 0.1f;
         const float DefaultScrollSpeed = 10f;
+        const BeatmapType DefaultBeatmapType = BeatmapType.Normal;
 
         const float MinNoteOffset = -0.2f;
         const float MaxNoteOffset = 0.2f;
@@ -26,6 +34,32 @@ namespace MyProject.Core
 
         public ReadOnlyReactiveProperty<float> NoteOffsetNormalized => noteOffsetNormalized;
         readonly ReactiveProperty<float> noteOffsetNormalized = new(Mathf.InverseLerp(MinNoteOffset, MaxNoteOffset, DefaultNoteOffset));
+
+        public ReadOnlyReactiveProperty<BeatmapType> SelectedBeatmapType => selectedBeatmapType;
+        readonly ReactiveProperty<BeatmapType> selectedBeatmapType = new(DefaultBeatmapType);
+
+        public void SetBeatmapType(BeatmapType newBeatmapType)
+        {
+            if (Array.IndexOf(selectableBeatmapTypes, newBeatmapType) < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(newBeatmapType), newBeatmapType, "This beatmap type is not selectable.");
+            }
+
+            selectedBeatmapType.Value = newBeatmapType;
+        }
+
+        public void ChangeBeatmapType(int direction)
+        {
+            var step = Math.Sign(direction);
+            if (step == 0)
+            {
+                return;
+            }
+
+            var currentIndex = Array.IndexOf(selectableBeatmapTypes, selectedBeatmapType.Value);
+            var nextIndex = Mathf.Clamp(currentIndex + step, 0, selectableBeatmapTypes.Length - 1);
+            SetBeatmapType(selectableBeatmapTypes[nextIndex]);
+        }
 
         public void SetScrollSpeed(float newScrollSpeed)
         {

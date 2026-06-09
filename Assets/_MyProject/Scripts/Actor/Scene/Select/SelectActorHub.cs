@@ -10,9 +10,12 @@ namespace MyProject.Actor
     public class SelectActorHub : SceneActorHubBase
     {
         public Observable<Unit> StartGame => selectActionsObserver.StartGame;
+        public Observable<int> DifficultyScrolled => selectActionsObserver.DifficultyScrolled;
 
+        [SerializeField] DifficultySelectActor difficultySelectActor;
         ActorAnimationTimeline animationTimeline;
         SelectActionsObserver selectActionsObserver;
+        readonly CompositeDisposable disposables = new();
 
         [Inject]
         public void Construct(SelectActionsObserver selectActionsObserver)
@@ -24,8 +27,17 @@ namespace MyProject.Actor
         {
             animationTimeline = GetComponent<ActorAnimationTimeline>();
 
+            disposables.Clear();
             selectActionsObserver.Disable();
             animationTimeline.Initialize();
+
+            selectActionsObserver.DifficultyScrollStarted
+                .Subscribe(LightUpDifficultyKey)
+                .AddTo(disposables);
+            selectActionsObserver.DifficultyScrollCanceled
+                .Subscribe(_ => LightDownDifficultyKeys())
+                .AddTo(disposables);
+
             gameObject.SetActive(false);
         }
 
@@ -41,6 +53,33 @@ namespace MyProject.Actor
             selectActionsObserver.Disable();
             await animationTimeline.HideAsync(ct);
             gameObject.SetActive(false);
+        }
+
+        public void SetDifficultyText(string text)
+        {
+            difficultySelectActor.SetValue(text);
+        }
+
+        void LightUpDifficultyKey(int direction)
+        {
+            if (direction > 0)
+            {
+                difficultySelectActor.LightUpUpKey();
+                return;
+            }
+
+            difficultySelectActor.LightUpDownKey();
+        }
+
+        void LightDownDifficultyKeys()
+        {
+            difficultySelectActor.LightDownUpKey();
+            difficultySelectActor.LightDownDownKey();
+        }
+
+        void OnDestroy()
+        {
+            disposables.Dispose();
         }
     }
 }

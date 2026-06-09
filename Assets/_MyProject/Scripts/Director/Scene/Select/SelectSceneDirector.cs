@@ -65,7 +65,7 @@ namespace MyProject.Director
             ct.ThrowIfCancellationRequested();
             SubscribeDemoSession();
             StartDemo();
-            HandleEnter();
+            SubscribeActorForCore();
             await UniTask.CompletedTask;
         }
 
@@ -104,15 +104,27 @@ namespace MyProject.Director
             sceneReloadRequest.Dispose();
         }
 
-        void HandleEnter()
+        void SubscribeCoreForActor()
+        {
+            SubscribeDemoCoreForActor();
+
+            playerSettingsCore.SelectedBeatmapType
+                .Subscribe(beatmapType => selectActorHub.SetDifficultyText(beatmapType.ToString()))
+                .AddTo(disposables);
+        }
+
+        void SubscribeActorForCore()
         {
             selectActorHub.StartGame
                 .Take(1)
                 .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Game))
                 .AddTo(disposables);
+            selectActorHub.DifficultyScrolled
+                .Subscribe(direction => playerSettingsCore.ChangeBeatmapType(direction))
+                .AddTo(disposables);
         }
 
-        void SubscribeCoreForActor()
+        void SubscribeDemoCoreForActor()
         {
             demoDisposables.Clear();
 
@@ -165,7 +177,7 @@ namespace MyProject.Director
                 gameSessionCore.PauseGame();
                 await rootActorHub.HideAndDestroyNotesAsync(ct);
                 await InitializeDemoAsync(ct);
-                SubscribeCoreForActor();
+                SubscribeDemoCoreForActor();
                 SubscribeDemoSession();
                 StartDemo();
             }

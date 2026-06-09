@@ -40,7 +40,7 @@ namespace MyProject.Director
 
         public async UniTask BeforeEnterAsync(CancellationToken ct)
         {
-            await gameSessionCore.InitializeAsync(BeatmapType.Normal, ct);
+            await gameSessionCore.InitializeAsync(playerSettingsCore.SelectedBeatmapType.CurrentValue, ct);
 
             disposables.Clear();
             SubscribeCoreForActor();
