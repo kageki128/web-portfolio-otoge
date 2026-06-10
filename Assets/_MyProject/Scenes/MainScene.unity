@@ -2589,6 +2589,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 0.13333334, g: 0.827451, b: 0.93333334, a: 1}
   textNormalColor: {r: 0.13333334, g: 0.827451, b: 0.93333334, a: 1}
   textLightUpColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: eb4c3b68a2d3dbb48aac22ff7daf3725, type: 3}
   breathingEnabled: 1
 --- !u!1 &168546607
 GameObject:
@@ -13561,6 +13562,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: eb5e7766d2e601e4f94c4df45b5495e9, type: 3}
   breathingEnabled: 0
 --- !u!1 &756707524
 GameObject:
@@ -20273,6 +20275,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: eb5e7766d2e601e4f94c4df45b5495e9, type: 3}
   breathingEnabled: 0
 --- !u!1 &1053406342
 GameObject:
@@ -20617,7 +20620,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -21981,6 +21984,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: cf4dcf456d3216b4b87fa1434e7d6b81, type: 3}
   breathingEnabled: 0
 --- !u!1 &1172981721
 GameObject:
@@ -25019,7 +25023,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1316483771
 Transform:
   m_ObjectHideFlags: 0
@@ -26043,8 +26047,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcbae03c731faea4bba055adc514d93b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: MyProject.Actor::MyProject.Actor.AudioPlayer
-  seAudioSource: {fileID: 1091782873}
-  bgmAudioSource: {fileID: 341459405}
+  bgmAudioSource: {fileID: 1091782873}
+  seAudioSource: {fileID: 341459405}
   audioMixer: {fileID: 24100000, guid: 8c41a9b04d5628a4d89801de06ba4650, type: 2}
   bgmVolumeParameter: BGMVolume
   seVolumeParameter: SEVolume
@@ -34104,6 +34108,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  lightUpSeClip: {fileID: 0}
   breathingEnabled: 0
 --- !u!1 &2000000001
 GameObject:
@@ -34162,6 +34167,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: 2cbaa167ee490474d9d018585b610b23, type: 3}
   breathingEnabled: 0
 --- !u!1 &2000000004
 GameObject:
@@ -34295,6 +34301,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: 2cbaa167ee490474d9d018585b610b23, type: 3}
   breathingEnabled: 0
 --- !u!1 &2000000014
 GameObject:
@@ -34428,6 +34435,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: 2cbaa167ee490474d9d018585b610b23, type: 3}
   breathingEnabled: 0
 --- !u!1 &2000000024
 GameObject:
@@ -34561,6 +34569,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: 2cbaa167ee490474d9d018585b610b23, type: 3}
   breathingEnabled: 0
 --- !u!1 &2000000034
 GameObject:
@@ -34694,6 +34703,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: 2cbaa167ee490474d9d018585b610b23, type: 3}
   breathingEnabled: 0
 --- !u!1 &2000000044
 GameObject:
@@ -34827,6 +34837,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: 2cbaa167ee490474d9d018585b610b23, type: 3}
   breathingEnabled: 0
 --- !u!1 &2000000054
 GameObject:
@@ -34960,6 +34971,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: 2cbaa167ee490474d9d018585b610b23, type: 3}
   breathingEnabled: 0
 --- !u!1 &2000000064
 GameObject:
@@ -35093,6 +35105,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 1, g: 1, b: 1, a: 1}
   textNormalColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
   textLightUpColor: {r: 0.07450981, g: 0.07450981, b: 0.07450981, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: 2cbaa167ee490474d9d018585b610b23, type: 3}
   breathingEnabled: 0
 --- !u!1 &2000000074
 GameObject:
@@ -35226,6 +35239,7 @@ MonoBehaviour:
   backgroundLightUpColor: {r: 0.13333334, g: 0.827451, b: 0.93333334, a: 1}
   textNormalColor: {r: 0.13333334, g: 0.827451, b: 0.93333334, a: 1}
   textLightUpColor: {r: 0.89411765, g: 0.89411765, b: 0.89411765, a: 1}
+  lightUpSeClip: {fileID: 8300000, guid: eb4c3b68a2d3dbb48aac22ff7daf3725, type: 3}
   breathingEnabled: 1
 --- !u!1 &2000000084
 GameObject:
@@ -36070,7 +36084,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2142052734
 Transform:
   m_ObjectHideFlags: 0

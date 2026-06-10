@@ -16,6 +16,7 @@ namespace MyProject.Actor
         [SerializeField] Color backgroundLightUpColor = Color.white;
         [SerializeField] Color textNormalColor = Color.white;
         [SerializeField] Color textLightUpColor = Color.white;
+        [SerializeField] AudioClip lightUpSeClip;
         [SerializeField] bool breathingEnabled;
 
         const float LightDownDuration = 0.033f;
@@ -59,6 +60,7 @@ namespace MyProject.Actor
         {
             Cancel();
             isPressed = true;
+            AudioPlayer.Instance.PlaySe(lightUpSeClip);
             background.color = backgroundLightUpColor;
             text.color = textLightUpColor;
             scaleHandle = Scale(baseScale * PressedScaleMultiplier);
