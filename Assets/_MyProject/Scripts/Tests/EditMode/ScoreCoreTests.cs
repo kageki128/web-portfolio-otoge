@@ -451,7 +451,7 @@ namespace MyProject.Tests.EditMode
 
             Assert.That(repository.SavedScoreData.NormalHighScore, Is.EqualTo(scoreCore.Score.CurrentValue));
             Assert.That(repository.SavedScoreData.HardHighScore, Is.EqualTo(20));
-            Assert.That(scoreCore.HighScore, Is.EqualTo(scoreCore.Score.CurrentValue));
+            Assert.That(scoreCore.HighScore, Is.EqualTo(10));
         }
 
         [Test]

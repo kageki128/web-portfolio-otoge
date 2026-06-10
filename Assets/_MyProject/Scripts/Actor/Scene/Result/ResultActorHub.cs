@@ -64,9 +64,9 @@ namespace MyProject.Actor
             gameObject.SetActive(false);
         }
 
-        public void SetResult(BeatmapType beatmapType, int score, IReadOnlyDictionary<JudgeType, int> judgeCounts, int maxCombo)
+        public void SetResult(BeatmapType beatmapType, int score, int highScore, IReadOnlyDictionary<JudgeType, int> judgeCounts, int maxCombo, int noteCount)
         {
-            resultTextActor.SetResult(beatmapType, score, judgeCounts, maxCombo);
+            resultTextActor.SetResult(beatmapType, score, highScore, judgeCounts, maxCombo, noteCount);
         }
 
         void OnDestroy()

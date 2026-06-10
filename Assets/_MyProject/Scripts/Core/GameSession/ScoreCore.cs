@@ -19,6 +19,7 @@ namespace MyProject.Core
         public ObservableDictionary<JudgeType, int> JudgeCounts { get; } = new();
 
         public int MaxCombo => maxCombo;
+        public int NoteCount => noteCount;
         public int HighScore => highScore;
 
         readonly Dictionary<int, List<NoteCoreBase>> remainingLaneNoteCores = new();
@@ -132,7 +133,6 @@ namespace MyProject.Core
             };
 
             saveData = nextSaveData;
-            highScore = GetHighScore(saveData, beatmapType);
             await saveDataRepository.SaveScoreAsync(nextSaveData, ct);
         }
 

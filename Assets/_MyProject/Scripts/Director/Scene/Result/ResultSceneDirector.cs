@@ -38,8 +38,10 @@ namespace MyProject.Director
             resultActorHub.SetResult(
                 gameSessionCore.BeatmapType,
                 gameSessionCore.Score.CurrentValue,
+                gameSessionCore.HighScore,
                 gameSessionCore.JudgeCounts,
-                gameSessionCore.MaxCombo
+                gameSessionCore.MaxCombo,
+                gameSessionCore.NoteCount
             );
             await UniTask.CompletedTask;
         }

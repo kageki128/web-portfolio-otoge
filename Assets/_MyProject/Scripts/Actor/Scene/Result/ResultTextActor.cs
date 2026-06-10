@@ -45,22 +45,24 @@ namespace MyProject.Actor
             await UniTask.CompletedTask;
         }
 
-        public void SetResult(BeatmapType beatmapType, int scoreValue, IReadOnlyDictionary<JudgeType, int> judgeCounts, int maxComboValue)
+        public void SetResult(BeatmapType beatmapType, int scoreValue, int highScoreValue, IReadOnlyDictionary<JudgeType, int> judgeCounts, int maxComboValue, int noteCount)
         {
             difficulty.text = ToDifficultyText(beatmapType);
             difficulty.color = beatmapType is BeatmapType.Hard ? hardDifficultyColor : normalDifficultyColor;
 
+            newRecord.gameObject.SetActive(scoreValue > highScoreValue);
             score.text = $"{scoreValue:D7}";
+            bestScore.text = $"BEST: {highScoreValue:D7}";
             rank.text = ToRankText(scoreValue);
 
             perfect.text = $"{GetPerfectCount(judgeCounts)}";
             good.text = $"{judgeCounts[JudgeType.GoodFast] + judgeCounts[JudgeType.GoodLate]}";
             miss.text = $"{judgeCounts[JudgeType.MissFast] + judgeCounts[JudgeType.MissLate]}";
-            perfectFast.text = $"F({judgeCounts[JudgeType.PerfectCriticalFast] + judgeCounts[JudgeType.PerfectFast]})";
-            perfectLate.text = $"L({judgeCounts[JudgeType.PerfectCriticalLate] + judgeCounts[JudgeType.PerfectLate]})";
+            perfectFast.text = $"F({judgeCounts[JudgeType.PerfectFast]})";
+            perfectLate.text = $"L({judgeCounts[JudgeType.PerfectLate]})";
             goodFast.text = $"F({judgeCounts[JudgeType.GoodFast]})";
             goodLate.text = $"L({judgeCounts[JudgeType.GoodLate]})";
-            maxCombo.text = $"MAX COMBO: {maxComboValue}";
+            maxCombo.text = $"MAX COMBO: {maxComboValue} / {noteCount}";
         }
 
         static int GetPerfectCount(IReadOnlyDictionary<JudgeType, int> judgeCounts)

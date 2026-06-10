@@ -15,6 +15,7 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<int> Score => scoreCore.Score;
         public ReadOnlyReactiveProperty<int> Combo => scoreCore.Combo;
         public int MaxCombo => scoreCore.MaxCombo;
+        public int NoteCount => scoreCore.NoteCount;
         public int HighScore => scoreCore.HighScore;
         public ObservableDictionary<JudgeType, int> JudgeCounts => scoreCore.JudgeCounts;
 
