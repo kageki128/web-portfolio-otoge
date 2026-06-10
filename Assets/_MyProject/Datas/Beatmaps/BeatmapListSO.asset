@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BeatmapListSO
   m_EditorClassIdentifier: MyProject.Infrastructure::MyProject.Infrastructure.BeatmapListSO
   demo: {fileID: 11400000, guid: 83d426f039af5f64bae6590c90b4278d, type: 2}
-  normal: {fileID: 11400000, guid: 2163adeb059d66a448c86550786cd9ad, type: 2}
+  normal: {fileID: 11400000, guid: c8946af00477bf044b8224ee2111af47, type: 2}
   hard: {fileID: 11400000, guid: af3c859f748fd8644aa03c54980fabec, type: 2}
