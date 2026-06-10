@@ -71,7 +71,11 @@ namespace MyProject.Director
             rootActorHub.SetOtogeInputEnabled(false);
             await playerSettingsCore.SaveCurrentSettingsAsync(ct);
             disposables.Clear();
-            if (gameSessionCore.State.CurrentValue is not GameState.Finished)
+            if (gameSessionCore.State.CurrentValue is GameState.Finished)
+            {
+                await gameSessionCore.SaveCurrentScoreAsync(ct);
+            }
+            else
             {
                 gameSessionCore.PauseGame();
             }

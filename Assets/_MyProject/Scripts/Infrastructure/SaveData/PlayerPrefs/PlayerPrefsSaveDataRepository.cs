@@ -9,38 +9,59 @@ namespace MyProject.Infrastructure
 {
     public class PlayerPrefsSaveDataRepository : ISaveDataRepository
     {
-        const string SaveDataKey = "player_settings";
+        const string PlayerSettingsSaveDataKey = "player_settings";
+        const string ScoreSaveDataKey = "score";
 
         public UniTask SavePlayerSettingsAsync(PlayerSettingsSaveDataCore saveData, CancellationToken ct)
         {
-            ct.ThrowIfCancellationRequested();
-
-            var json = JsonConvert.SerializeObject(saveData);
-            PlayerPrefs.SetString(SaveDataKey, json);
-            PlayerPrefs.Save();
-
-            Debug.Log($"[PlayerPrefsSaveDataRepository] Saved data. key={SaveDataKey}, length={json.Length}");
-
-            return UniTask.CompletedTask;
+            return SaveAsync(PlayerSettingsSaveDataKey, saveData, ct);
         }
 
         public UniTask<PlayerSettingsSaveDataCore> LoadPlayerSettingsAsync(CancellationToken ct)
         {
+            return LoadAsync<PlayerSettingsSaveDataCore>(PlayerSettingsSaveDataKey, ct);
+        }
+
+        public UniTask SaveScoreAsync(ScoreSaveDataCore saveData, CancellationToken ct)
+        {
+            return SaveAsync(ScoreSaveDataKey, saveData, ct);
+        }
+
+        public UniTask<ScoreSaveDataCore> LoadScoreAsync(CancellationToken ct)
+        {
+            return LoadAsync<ScoreSaveDataCore>(ScoreSaveDataKey, ct);
+        }
+
+        static UniTask SaveAsync<T>(string key, T saveData, CancellationToken ct) where T : class
+        {
             ct.ThrowIfCancellationRequested();
 
-            if (!PlayerPrefs.HasKey(SaveDataKey))
+            var json = JsonConvert.SerializeObject(saveData);
+            PlayerPrefs.SetString(key, json);
+            PlayerPrefs.Save();
+
+            Debug.Log($"[PlayerPrefsSaveDataRepository] Saved data. key={key}, length={json.Length}");
+
+            return UniTask.CompletedTask;
+        }
+
+        static UniTask<T> LoadAsync<T>(string key, CancellationToken ct) where T : class
+        {
+            ct.ThrowIfCancellationRequested();
+
+            if (!PlayerPrefs.HasKey(key))
             {
-                return UniTask.FromResult<PlayerSettingsSaveDataCore>(null);
+                return UniTask.FromResult<T>(null);
             }
 
-            var json = PlayerPrefs.GetString(SaveDataKey);
-            var saveData = JsonConvert.DeserializeObject<PlayerSettingsSaveDataCore>(json);
+            var json = PlayerPrefs.GetString(key);
+            var saveData = JsonConvert.DeserializeObject<T>(json);
             if (saveData == null)
             {
-                throw new InvalidOperationException($"Failed to deserialize save data. key={SaveDataKey}");
+                throw new InvalidOperationException($"Failed to deserialize save data. key={key}");
             }
 
-            Debug.Log($"[PlayerPrefsSaveDataRepository] Loaded data. key={SaveDataKey}, length={json.Length}");
+            Debug.Log($"[PlayerPrefsSaveDataRepository] Loaded data. key={key}, length={json.Length}");
 
             return UniTask.FromResult(saveData);
         }

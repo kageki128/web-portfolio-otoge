@@ -56,7 +56,7 @@ namespace MyProject.Tests.EditMode
 
             playerSettingsCore.LoadSavedSettingsAsync(CancellationToken.None).GetAwaiter().GetResult();
 
-            Assert.That(playerSettingsCore.ScrollSpeed.CurrentValue, Is.EqualTo(10f).Within(0.0001f));
+            Assert.That(playerSettingsCore.ScrollSpeed.CurrentValue, Is.EqualTo(6f).Within(0.0001f));
             Assert.That(playerSettingsCore.NoteOffset.CurrentValue, Is.EqualTo(-0.045f).Within(0.0001f));
         }
 
@@ -108,6 +108,16 @@ namespace MyProject.Tests.EditMode
             public UniTask<PlayerSettingsSaveDataCore> LoadPlayerSettingsAsync(CancellationToken ct)
             {
                 return UniTask.FromResult(LoadResult);
+            }
+
+            public UniTask SaveScoreAsync(ScoreSaveDataCore saveData, CancellationToken ct)
+            {
+                return UniTask.CompletedTask;
+            }
+
+            public UniTask<ScoreSaveDataCore> LoadScoreAsync(CancellationToken ct)
+            {
+                return UniTask.FromResult<ScoreSaveDataCore>(null);
             }
         }
     }

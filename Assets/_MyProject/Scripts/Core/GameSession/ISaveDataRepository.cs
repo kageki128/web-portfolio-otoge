@@ -7,5 +7,7 @@ namespace MyProject.Core
     {
         UniTask SavePlayerSettingsAsync(PlayerSettingsSaveDataCore saveData, CancellationToken ct);
         UniTask<PlayerSettingsSaveDataCore> LoadPlayerSettingsAsync(CancellationToken ct);
+        UniTask SaveScoreAsync(ScoreSaveDataCore saveData, CancellationToken ct);
+        UniTask<ScoreSaveDataCore> LoadScoreAsync(CancellationToken ct);
     }
 }

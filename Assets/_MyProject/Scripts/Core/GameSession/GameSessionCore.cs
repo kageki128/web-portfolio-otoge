@@ -15,6 +15,7 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<int> Score => scoreCore.Score;
         public ReadOnlyReactiveProperty<int> Combo => scoreCore.Combo;
         public int MaxCombo => scoreCore.MaxCombo;
+        public int HighScore => scoreCore.HighScore;
         public ObservableDictionary<JudgeType, int> JudgeCounts => scoreCore.JudgeCounts;
 
         public BeatmapType BeatmapType => beatmapCore.BeatmapType;
@@ -28,15 +29,16 @@ namespace MyProject.Core
 
         public IReadOnlyDictionary<int, ReadOnlyReactiveProperty<float>> TimelineToCurrentScroll => beatmapCore.TimelineToCurrentScroll;
 
-        readonly ScoreCore scoreCore = new();
+        readonly ScoreCore scoreCore;
         readonly IBeatmapRepository beatmapRepository;
 
         // 初期化忘れに注意～(今は許容)
         BeatmapCore beatmapCore;
 
-        public GameSessionCore(IBeatmapRepository beatmapRepository)
+        public GameSessionCore(IBeatmapRepository beatmapRepository, ISaveDataRepository saveDataRepository)
         {
             this.beatmapRepository = beatmapRepository;
+            scoreCore = new ScoreCore(saveDataRepository);
         }
 
         public async UniTask InitializeAsync(BeatmapType beatmapType, CancellationToken ct)
@@ -44,7 +46,7 @@ namespace MyProject.Core
             state.Value = GameState.Preparing;
 
             beatmapCore = await beatmapRepository.GetAsync(beatmapType, ct);
-            scoreCore.Initialize(beatmapCore.NoteCores);
+            await scoreCore.InitializeAsync(beatmapCore.NoteCores, beatmapType, ct);
 
             state.Value = GameState.Ready;
         }
@@ -75,6 +77,11 @@ namespace MyProject.Core
             }
 
             state.Value = GameState.Finished;
+        }
+
+        public UniTask SaveCurrentScoreAsync(CancellationToken ct)
+        {
+            return scoreCore.SaveHighScoreAsync(ct);
         }
 
         public void JudgePressLane(int lane)

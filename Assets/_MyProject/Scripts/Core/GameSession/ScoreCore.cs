@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using ObservableCollections;
 using R3;
 using UnityEngine;
@@ -17,6 +19,7 @@ namespace MyProject.Core
         public ObservableDictionary<JudgeType, int> JudgeCounts { get; } = new();
 
         public int MaxCombo => maxCombo;
+        public int HighScore => highScore;
 
         readonly Dictionary<int, List<NoteCoreBase>> remainingLaneNoteCores = new();
         readonly Dictionary<int, int> lanePressCounts = new();
@@ -24,6 +27,7 @@ namespace MyProject.Core
         readonly List<NoteCoreBase> autoPlayNoteCores = new();
         readonly List<NoteCoreBase> afterJudgeNoteCores = new();
         readonly HashSet<NoteCoreBase> countedNoteCores = new();
+        readonly ISaveDataRepository saveDataRepository;
 
         readonly Dictionary<JudgeType, float> judgeTypeToBaseScoreRate = new()
         {
@@ -42,9 +46,22 @@ namespace MyProject.Core
         int maxCombo;
         // スコア最大値 = ベース最大値 + コンボ数 (PerfectCriticalだと追加で1点入るため)
         int maxScore;
+        int highScore;
+        BeatmapType beatmapType;
+        ScoreSaveDataCore saveData;
 
-        public void Initialize(IReadOnlyList<NoteCoreBase> noteCores)
+        public ScoreCore(ISaveDataRepository saveDataRepository)
         {
+            this.saveDataRepository = saveDataRepository;
+        }
+
+        public async UniTask InitializeAsync(IReadOnlyList<NoteCoreBase> noteCores, BeatmapType newBeatmapType, CancellationToken ct)
+        {
+            ct.ThrowIfCancellationRequested();
+            beatmapType = newBeatmapType;
+            saveData = await saveDataRepository.LoadScoreAsync(ct) ?? new ScoreSaveDataCore(0, 0);
+            highScore = GetHighScore(saveData, beatmapType);
+
             JudgeCounts.Clear();
             remainingLaneNoteCores.Clear();
             lanePressCounts.Clear();
@@ -102,6 +119,32 @@ namespace MyProject.Core
             noteCount = noteCores.Count;
             maxCombo = 0;
             maxScore = BaseMaxScore + noteCount;
+        }
+
+        public async UniTask SaveHighScoreAsync(CancellationToken ct)
+        {
+            var currentScore = score.CurrentValue;
+            var nextSaveData = beatmapType switch
+            {
+                BeatmapType.Normal => new ScoreSaveDataCore(Math.Max(saveData.NormalHighScore, currentScore), saveData.HardHighScore),
+                BeatmapType.Hard => new ScoreSaveDataCore(saveData.NormalHighScore, Math.Max(saveData.HardHighScore, currentScore)),
+                _ => throw new ArgumentOutOfRangeException(nameof(beatmapType), beatmapType, "This beatmap type is not saved as score data."),
+            };
+
+            saveData = nextSaveData;
+            highScore = GetHighScore(saveData, beatmapType);
+            await saveDataRepository.SaveScoreAsync(nextSaveData, ct);
+        }
+
+        static int GetHighScore(ScoreSaveDataCore scoreSaveData, BeatmapType beatmapType)
+        {
+            return beatmapType switch
+            {
+                BeatmapType.Normal => scoreSaveData.NormalHighScore,
+                BeatmapType.Hard => scoreSaveData.HardHighScore,
+                BeatmapType.Demo => 0,
+                _ => throw new ArgumentOutOfRangeException(nameof(beatmapType), beatmapType, "Unknown beatmap type."),
+            };
         }
 
         public void JudgePressLane(int lane, float currentSec)

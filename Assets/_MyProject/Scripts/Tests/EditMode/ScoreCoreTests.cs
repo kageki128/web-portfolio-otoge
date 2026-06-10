@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using MyProject.Core;
 using NUnit.Framework;
 
@@ -414,9 +416,9 @@ namespace MyProject.Tests.EditMode
         {
             var tap = CreateTap(lane: 0, beat: 1f);
             tap.JudgePress(1f);
-            var scoreCore = new ScoreCore();
+            var scoreCore = new ScoreCore(new FakeSaveDataRepository());
 
-            Assert.Throws<System.InvalidOperationException>(() => scoreCore.Initialize(new List<NoteCoreBase> { tap }));
+            Assert.Throws<System.InvalidOperationException>(() => scoreCore.InitializeAsync(new List<NoteCoreBase> { tap }, BeatmapType.Normal, CancellationToken.None).GetAwaiter().GetResult());
         }
 
         [Test]
@@ -434,10 +436,67 @@ namespace MyProject.Tests.EditMode
             Assert.That(scoreCore.Score.CurrentValue, Is.EqualTo(1000000));
         }
 
+        [Test]
+        public void SaveHighScoreAsync_NormalならNormalHighScoreだけ更新する()
+        {
+            var repository = new FakeSaveDataRepository
+            {
+                LoadedScoreData = new ScoreSaveDataCore(10, 20),
+            };
+            var tap = CreateTap(lane: 0, beat: 1f);
+            var scoreCore = CreateScoreCore(repository, tap);
+            scoreCore.JudgePressLane(0, 1.05f);
+
+            scoreCore.SaveHighScoreAsync(CancellationToken.None).GetAwaiter().GetResult();
+
+            Assert.That(repository.SavedScoreData.NormalHighScore, Is.EqualTo(scoreCore.Score.CurrentValue));
+            Assert.That(repository.SavedScoreData.HardHighScore, Is.EqualTo(20));
+            Assert.That(scoreCore.HighScore, Is.EqualTo(scoreCore.Score.CurrentValue));
+        }
+
+        [Test]
+        public void SaveHighScoreAsync_既存ハイスコア以下なら更新しない()
+        {
+            var repository = new FakeSaveDataRepository
+            {
+                LoadedScoreData = new ScoreSaveDataCore(10, 20),
+            };
+            var scoreCore = CreateScoreCore(repository, BeatmapType.Hard, CreateTap(lane: 0, beat: 1f));
+
+            scoreCore.SaveHighScoreAsync(CancellationToken.None).GetAwaiter().GetResult();
+
+            Assert.That(repository.SavedScoreData.NormalHighScore, Is.EqualTo(10));
+            Assert.That(repository.SavedScoreData.HardHighScore, Is.EqualTo(20));
+            Assert.That(scoreCore.HighScore, Is.EqualTo(20));
+        }
+
+        [Test]
+        public void InitializeAsync_現在の難易度のハイスコアを保持する()
+        {
+            var repository = new FakeSaveDataRepository
+            {
+                LoadedScoreData = new ScoreSaveDataCore(10, 20),
+            };
+
+            var scoreCore = CreateScoreCore(repository, BeatmapType.Hard, CreateTap(lane: 0, beat: 1f));
+
+            Assert.That(scoreCore.HighScore, Is.EqualTo(20));
+        }
+
         static ScoreCore CreateScoreCore(params NoteCoreBase[] notes)
         {
-            var scoreCore = new ScoreCore();
-            scoreCore.Initialize(notes);
+            return CreateScoreCore(new FakeSaveDataRepository(), BeatmapType.Normal, notes);
+        }
+
+        static ScoreCore CreateScoreCore(FakeSaveDataRepository repository, params NoteCoreBase[] notes)
+        {
+            return CreateScoreCore(repository, BeatmapType.Normal, notes);
+        }
+
+        static ScoreCore CreateScoreCore(FakeSaveDataRepository repository, BeatmapType beatmapType, params NoteCoreBase[] notes)
+        {
+            var scoreCore = new ScoreCore(repository);
+            scoreCore.InitializeAsync(notes, beatmapType, CancellationToken.None).GetAwaiter().GetResult();
             return scoreCore;
         }
 
@@ -474,6 +533,33 @@ namespace MyProject.Tests.EditMode
         static NoteTiming CreateTiming(float beat)
         {
             return new NoteTiming(beat, BpmChanges, TimelineToHighSpeedChanges, MeasureLengthChanges);
+        }
+
+        class FakeSaveDataRepository : ISaveDataRepository
+        {
+            public ScoreSaveDataCore LoadedScoreData { get; set; }
+            public ScoreSaveDataCore SavedScoreData { get; private set; }
+
+            public UniTask SavePlayerSettingsAsync(PlayerSettingsSaveDataCore saveData, CancellationToken ct)
+            {
+                return UniTask.CompletedTask;
+            }
+
+            public UniTask<PlayerSettingsSaveDataCore> LoadPlayerSettingsAsync(CancellationToken ct)
+            {
+                return UniTask.FromResult<PlayerSettingsSaveDataCore>(null);
+            }
+
+            public UniTask SaveScoreAsync(ScoreSaveDataCore saveData, CancellationToken ct)
+            {
+                SavedScoreData = saveData;
+                return UniTask.CompletedTask;
+            }
+
+            public UniTask<ScoreSaveDataCore> LoadScoreAsync(CancellationToken ct)
+            {
+                return UniTask.FromResult(LoadedScoreData);
+            }
         }
     }
 }
