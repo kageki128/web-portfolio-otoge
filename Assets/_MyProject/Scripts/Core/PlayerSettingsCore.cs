@@ -23,7 +23,7 @@ namespace MyProject.Core
         const float MinNoteOffset = -0.2f;
         const float MaxNoteOffset = 0.2f;
         const float NoteOffsetStep = 0.001f;
-        const float DefaultNoteOffset = -0.045f;
+        const float DefaultNoteOffset = 0f;
 
         readonly ISaveDataRepository saveDataRepository;
 

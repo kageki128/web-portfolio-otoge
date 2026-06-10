@@ -61,7 +61,13 @@ namespace MyProject.Infrastructure
             var otogeChanges = beatmapFiles.OtogeChanges.OtogeChanges;
             var otogeEventBeats = beatmapFiles.OtogeEvents.OtogeEventBeats.ToArray();
 
-            var beatmap = await UniTask.RunOnThreadPool
+            BeatmapCore beatmap;
+#if UNITY_WEBGL && !UNITY_EDITOR
+            var parsedData = parser.Parse(beatmapText, ct);
+            beatmap = composer.Compose(type, wave, parsedData, otogeChanges, otogeEventBeats, ct);
+            await UniTask.CompletedTask;
+#else
+            beatmap = await UniTask.RunOnThreadPool
             (
                 () =>
                 {
@@ -73,6 +79,7 @@ namespace MyProject.Infrastructure
                 configureAwait: true,
                 cancellationToken: ct
             );
+#endif
             DebugBeatmap(beatmap);
 
             return beatmap;
