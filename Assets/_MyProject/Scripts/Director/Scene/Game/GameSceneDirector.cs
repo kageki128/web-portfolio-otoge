@@ -63,7 +63,7 @@ namespace MyProject.Director
 
         public void Tick()
         {
-            gameSessionCore.ProceedGame(playerSettingsCore.NoteOffset.CurrentValue, false);
+            gameSessionCore.ProceedGame(playerSettingsCore.NoteOffset.CurrentValue, playerSettingsCore.IsAutoPlay.CurrentValue);
         }
 
         public async UniTask BeforeExitAsync(CancellationToken ct)
@@ -152,6 +152,9 @@ namespace MyProject.Director
             gameActorHub.Quit
                 .Take(1)
                 .Subscribe(_ => sceneChangeRequest.OnNext(SceneType.Select))
+                .AddTo(disposables);
+            gameActorHub.ChangeAuto
+                .Subscribe(_ => playerSettingsCore.ChangeAutoPlay())
                 .AddTo(disposables);
             rootActorHub.LanePressed
                 .Subscribe(lane => gameSessionCore.JudgePressLane(lane))

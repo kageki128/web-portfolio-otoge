@@ -6,6 +6,7 @@ namespace MyProject.Actor
     public class GameActionsObserver : ActionsObserverBase, IDisposable
     {
         public Observable<Unit> Quit;
+        public Observable<Unit> ChangeAuto;
         public Observable<Unit> BackKeyPressed;
         public Observable<Unit> BackKeyReleased;
 
@@ -16,6 +17,11 @@ namespace MyProject.Actor
             mainActions = gameActions.Main;
 
             Quit = ObservePerformed(mainActions.Quit).Select(_ => Unit.Default);
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            ChangeAuto = ObservePerformed(mainActions.ChangeAuto).Select(_ => Unit.Default);
+#else
+            ChangeAuto = Observable.Empty<Unit>();
+#endif
             BackKeyPressed = ObserveStarted(mainActions.Quit).Select(_ => Unit.Default);
             BackKeyReleased = ObserveCanceled(mainActions.Quit).Select(_ => Unit.Default);
         }
@@ -23,6 +29,9 @@ namespace MyProject.Actor
         public override void Enable()
         {
             mainActions.Enable();
+#if !UNITY_EDITOR && !DEVELOPMENT_BUILD
+            mainActions.ChangeAuto.Disable();
+#endif
         }
 
         public override void Disable()

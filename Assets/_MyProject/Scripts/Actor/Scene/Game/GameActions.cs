@@ -102,6 +102,15 @@ namespace MyProject.Actor
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeAuto"",
+                    ""type"": ""Button"",
+                    ""id"": ""881e170a-141a-4176-a9cf-b572c2b8f070"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -115,6 +124,17 @@ namespace MyProject.Actor
                     ""action"": ""Quit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d80f58b2-bf6f-480a-bf4a-c533574dfd80"",
+                    ""path"": ""<Keyboard>/f1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeAuto"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -124,6 +144,7 @@ namespace MyProject.Actor
             // Main
             m_Main = asset.FindActionMap("Main", throwIfNotFound: true);
             m_Main_Quit = m_Main.FindAction("Quit", throwIfNotFound: true);
+            m_Main_ChangeAuto = m_Main.FindAction("ChangeAuto", throwIfNotFound: true);
         }
 
         ~@GameActions()
@@ -205,6 +226,7 @@ namespace MyProject.Actor
         private readonly InputActionMap m_Main;
         private List<IMainActions> m_MainActionsCallbackInterfaces = new List<IMainActions>();
         private readonly InputAction m_Main_Quit;
+        private readonly InputAction m_Main_ChangeAuto;
         /// <summary>
         /// Provides access to input actions defined in input action map "Main".
         /// </summary>
@@ -220,6 +242,10 @@ namespace MyProject.Actor
             /// Provides access to the underlying input action "Main/Quit".
             /// </summary>
             public InputAction @Quit => m_Wrapper.m_Main_Quit;
+            /// <summary>
+            /// Provides access to the underlying input action "Main/ChangeAuto".
+            /// </summary>
+            public InputAction @ChangeAuto => m_Wrapper.m_Main_ChangeAuto;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -249,6 +275,9 @@ namespace MyProject.Actor
                 @Quit.started += instance.OnQuit;
                 @Quit.performed += instance.OnQuit;
                 @Quit.canceled += instance.OnQuit;
+                @ChangeAuto.started += instance.OnChangeAuto;
+                @ChangeAuto.performed += instance.OnChangeAuto;
+                @ChangeAuto.canceled += instance.OnChangeAuto;
             }
 
             /// <summary>
@@ -263,6 +292,9 @@ namespace MyProject.Actor
                 @Quit.started -= instance.OnQuit;
                 @Quit.performed -= instance.OnQuit;
                 @Quit.canceled -= instance.OnQuit;
+                @ChangeAuto.started -= instance.OnChangeAuto;
+                @ChangeAuto.performed -= instance.OnChangeAuto;
+                @ChangeAuto.canceled -= instance.OnChangeAuto;
             }
 
             /// <summary>
@@ -310,6 +342,13 @@ namespace MyProject.Actor
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnQuit(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "ChangeAuto" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnChangeAuto(InputAction.CallbackContext context);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace MyProject.Actor
     public class GameActorHub : SceneActorHubBase
     {
         public Observable<Unit> Quit => gameActionsObserver.Quit;
+        public Observable<Unit> ChangeAuto => gameActionsObserver.ChangeAuto;
 
         [SerializeField] OtogeTypeGaugeActor otogeTypeGaugeActor;
         [SerializeField] ScoreTextActor scoreTextActor;

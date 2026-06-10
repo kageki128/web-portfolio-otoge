@@ -42,6 +42,9 @@ namespace MyProject.Core
         public ReadOnlyReactiveProperty<BeatmapType> SelectedBeatmapType => selectedBeatmapType;
         readonly ReactiveProperty<BeatmapType> selectedBeatmapType = new(DefaultBeatmapType);
 
+        public ReadOnlyReactiveProperty<bool> IsAutoPlay => isAutoPlay;
+        readonly ReactiveProperty<bool> isAutoPlay = new(false);
+
         public PlayerSettingsCore(ISaveDataRepository saveDataRepository)
         {
             this.saveDataRepository = saveDataRepository;
@@ -86,6 +89,11 @@ namespace MyProject.Core
             var currentIndex = Array.IndexOf(selectableBeatmapTypes, selectedBeatmapType.Value);
             var nextIndex = Mathf.Clamp(currentIndex + step, 0, selectableBeatmapTypes.Length - 1);
             SetBeatmapType(selectableBeatmapTypes[nextIndex]);
+        }
+
+        public void ChangeAutoPlay()
+        {
+            isAutoPlay.Value = !isAutoPlay.CurrentValue;
         }
 
         public void SetScrollSpeed(float newScrollSpeed)

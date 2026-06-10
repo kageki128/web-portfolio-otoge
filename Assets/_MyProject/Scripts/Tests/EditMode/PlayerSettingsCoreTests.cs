@@ -17,6 +17,26 @@ namespace MyProject.Tests.EditMode
         }
 
         [Test]
+        public void IsAutoPlay_初期値はFalse()
+        {
+            var playerSettingsCore = CreatePlayerSettingsCore();
+
+            Assert.That(playerSettingsCore.IsAutoPlay.CurrentValue, Is.False);
+        }
+
+        [Test]
+        public void ChangeAutoPlay_呼ぶたびに有効無効が切り替わる()
+        {
+            var playerSettingsCore = CreatePlayerSettingsCore();
+
+            playerSettingsCore.ChangeAutoPlay();
+            Assert.That(playerSettingsCore.IsAutoPlay.CurrentValue, Is.True);
+
+            playerSettingsCore.ChangeAutoPlay();
+            Assert.That(playerSettingsCore.IsAutoPlay.CurrentValue, Is.False);
+        }
+
+        [Test]
         public void ChangeBeatmapType_正方向でHard_負方向でNormalへ変わる()
         {
             var playerSettingsCore = CreatePlayerSettingsCore();
