@@ -36,10 +36,10 @@ namespace MyProject.Core
         // 初期化忘れに注意～(今は許容)
         BeatmapCore beatmapCore;
 
-        public GameSessionCore(IBeatmapRepository beatmapRepository, ISaveDataRepository saveDataRepository)
+        public GameSessionCore(IBeatmapRepository beatmapRepository, ISaveDataRepository saveDataRepository, IRankingRegisterer rankingRegisterer)
         {
             this.beatmapRepository = beatmapRepository;
-            scoreCore = new ScoreCore(saveDataRepository);
+            scoreCore = new ScoreCore(saveDataRepository, rankingRegisterer);
         }
 
         public async UniTask InitializeAsync(BeatmapType beatmapType, CancellationToken ct)

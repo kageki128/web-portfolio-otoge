@@ -29,6 +29,7 @@ namespace MyProject.Core
         readonly List<NoteCoreBase> afterJudgeNoteCores = new();
         readonly HashSet<NoteCoreBase> countedNoteCores = new();
         readonly ISaveDataRepository saveDataRepository;
+        readonly IRankingRegisterer rankingRegisterer;
 
         readonly Dictionary<JudgeType, float> judgeTypeToBaseScoreRate = new()
         {
@@ -51,9 +52,10 @@ namespace MyProject.Core
         BeatmapType beatmapType;
         ScoreSaveDataCore saveData;
 
-        public ScoreCore(ISaveDataRepository saveDataRepository)
+        public ScoreCore(ISaveDataRepository saveDataRepository, IRankingRegisterer rankingRegisterer)
         {
             this.saveDataRepository = saveDataRepository;
+            this.rankingRegisterer = rankingRegisterer;
         }
 
         public async UniTask InitializeAsync(IReadOnlyList<NoteCoreBase> noteCores, BeatmapType newBeatmapType, CancellationToken ct)
@@ -134,6 +136,7 @@ namespace MyProject.Core
 
             saveData = nextSaveData;
             await saveDataRepository.SaveScoreAsync(nextSaveData, ct);
+            await rankingRegisterer.RegisterAsync(new ResultCore(beatmapType, currentScore), ct);
         }
 
         static int GetHighScore(ScoreSaveDataCore scoreSaveData, BeatmapType beatmapType)

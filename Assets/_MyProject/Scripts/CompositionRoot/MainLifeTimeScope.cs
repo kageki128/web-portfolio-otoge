@@ -3,6 +3,7 @@ using MyProject.Core;
 using MyProject.Director;
 using MyProject.Infrastructure;
 using UnityEngine;
+using unityroom.Api;
 using VContainer;
 using VContainer.Unity;
 
@@ -18,6 +19,8 @@ namespace MyProject.CompositionRoot
         [Header("Config")]
         [SerializeField] GameConfigSO gameConfig;
         [SerializeField] BeatmapListSO beatmapList;
+        [Header("Infra")]
+        [SerializeField] UnityroomApiClient unityroomApiClient;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -59,9 +62,10 @@ namespace MyProject.CompositionRoot
 
         void RegisterInfrastructure(IContainerBuilder builder)
         {
+            builder.RegisterComponent<IUnityroomApiClient>(unityroomApiClient);
             builder.Register<PlayerPrefsSaveDataRepository>(Lifetime.Singleton)
                 .As<ISaveDataRepository>();
-            builder.Register<ServerRankingRegisterer>(Lifetime.Singleton)
+            builder.Register<UnityroomRankingRegisterer>(Lifetime.Singleton)
                 .As<IRankingRegisterer>();
             builder.Register<BeatmapRepository>(Lifetime.Singleton)
                 .As<IBeatmapRepository>();

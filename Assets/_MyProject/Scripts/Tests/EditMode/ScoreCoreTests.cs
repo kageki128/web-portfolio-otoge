@@ -416,7 +416,7 @@ namespace MyProject.Tests.EditMode
         {
             var tap = CreateTap(lane: 0, beat: 1f);
             tap.JudgePress(1f);
-            var scoreCore = new ScoreCore(new FakeSaveDataRepository());
+            var scoreCore = new ScoreCore(new FakeSaveDataRepository(), new FakeRankingRegisterer());
 
             Assert.Throws<System.InvalidOperationException>(() => scoreCore.InitializeAsync(new List<NoteCoreBase> { tap }, BeatmapType.Normal, CancellationToken.None).GetAwaiter().GetResult());
         }
@@ -452,6 +452,19 @@ namespace MyProject.Tests.EditMode
             Assert.That(repository.SavedScoreData.NormalHighScore, Is.EqualTo(scoreCore.Score.CurrentValue));
             Assert.That(repository.SavedScoreData.HardHighScore, Is.EqualTo(20));
             Assert.That(scoreCore.HighScore, Is.EqualTo(10));
+        }
+
+        [Test]
+        public void SaveHighScoreAsync_ランキングに現在スコアを登録する()
+        {
+            var rankingRegisterer = new FakeRankingRegisterer();
+            var scoreCore = CreateScoreCore(new FakeSaveDataRepository(), rankingRegisterer, BeatmapType.Normal, CreateTap(lane: 0, beat: 1f));
+            scoreCore.JudgePressLane(0, 1.05f);
+
+            scoreCore.SaveHighScoreAsync(CancellationToken.None).GetAwaiter().GetResult();
+
+            Assert.That(rankingRegisterer.RegisteredResult.BeatmapType, Is.EqualTo(BeatmapType.Normal));
+            Assert.That(rankingRegisterer.RegisteredResult.Score, Is.EqualTo(scoreCore.Score.CurrentValue));
         }
 
         [Test]
@@ -495,7 +508,12 @@ namespace MyProject.Tests.EditMode
 
         static ScoreCore CreateScoreCore(FakeSaveDataRepository repository, BeatmapType beatmapType, params NoteCoreBase[] notes)
         {
-            var scoreCore = new ScoreCore(repository);
+            return CreateScoreCore(repository, new FakeRankingRegisterer(), beatmapType, notes);
+        }
+
+        static ScoreCore CreateScoreCore(FakeSaveDataRepository repository, FakeRankingRegisterer rankingRegisterer, BeatmapType beatmapType, params NoteCoreBase[] notes)
+        {
+            var scoreCore = new ScoreCore(repository, rankingRegisterer);
             scoreCore.InitializeAsync(notes, beatmapType, CancellationToken.None).GetAwaiter().GetResult();
             return scoreCore;
         }
@@ -559,6 +577,17 @@ namespace MyProject.Tests.EditMode
             public UniTask<ScoreSaveDataCore> LoadScoreAsync(CancellationToken ct)
             {
                 return UniTask.FromResult(LoadedScoreData);
+            }
+        }
+
+        class FakeRankingRegisterer : IRankingRegisterer
+        {
+            public ResultCore RegisteredResult { get; private set; }
+
+            public UniTask RegisterAsync(ResultCore result, CancellationToken ct)
+            {
+                RegisteredResult = result;
+                return UniTask.CompletedTask;
             }
         }
     }
