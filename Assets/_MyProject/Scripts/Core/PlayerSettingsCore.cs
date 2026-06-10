@@ -1,4 +1,6 @@
 using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
 
@@ -15,13 +17,15 @@ namespace MyProject.Core
         const float MinScrollSpeed = 1f;
         const float MaxScrollSpeed = 20f;
         const float ScrollSpeedStep = 0.1f;
-        const float DefaultScrollSpeed = 10f;
+        const float DefaultScrollSpeed = 6f;
         const BeatmapType DefaultBeatmapType = BeatmapType.Normal;
 
         const float MinNoteOffset = -0.2f;
         const float MaxNoteOffset = 0.2f;
         const float NoteOffsetStep = 0.001f;
         const float DefaultNoteOffset = -0.045f;
+
+        readonly ISaveDataRepository saveDataRepository;
 
         public ReadOnlyReactiveProperty<float> ScrollSpeed => scrollSpeed;
         readonly ReactiveProperty<float> scrollSpeed = new(DefaultScrollSpeed);
@@ -37,6 +41,29 @@ namespace MyProject.Core
 
         public ReadOnlyReactiveProperty<BeatmapType> SelectedBeatmapType => selectedBeatmapType;
         readonly ReactiveProperty<BeatmapType> selectedBeatmapType = new(DefaultBeatmapType);
+
+        public PlayerSettingsCore(ISaveDataRepository saveDataRepository)
+        {
+            this.saveDataRepository = saveDataRepository;
+        }
+
+        public async UniTask LoadSavedSettingsAsync(CancellationToken ct)
+        {
+            var saveData = await saveDataRepository.LoadPlayerSettingsAsync(ct);
+            if (saveData == null)
+            {
+                return;
+            }
+
+            SetScrollSpeed(saveData.ScrollSpeed);
+            SetNoteOffset(saveData.NoteOffset);
+        }
+
+        public UniTask SaveCurrentSettingsAsync(CancellationToken ct)
+        {
+            var saveData = new PlayerSettingsSaveDataCore(scrollSpeed.CurrentValue, noteOffset.CurrentValue);
+            return saveDataRepository.SavePlayerSettingsAsync(saveData, ct);
+        }
 
         public void SetBeatmapType(BeatmapType newBeatmapType)
         {

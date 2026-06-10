@@ -69,6 +69,7 @@ namespace MyProject.Director
         public async UniTask BeforeExitAsync(CancellationToken ct)
         {
             rootActorHub.SetOtogeInputEnabled(false);
+            await playerSettingsCore.SaveCurrentSettingsAsync(ct);
             disposables.Clear();
             if (gameSessionCore.State.CurrentValue is not GameState.Finished)
             {

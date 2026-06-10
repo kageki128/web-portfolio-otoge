@@ -20,9 +20,9 @@ namespace MyProject.Director
 
         public async UniTask InitializeAsync(CancellationToken ct)
         {
-            rootActorHub.Initialize();
-
             disposables.Clear();
+            await playerSettingsCore.LoadSavedSettingsAsync(ct);
+            rootActorHub.Initialize();
 
             rootActorHub.ScrollSpeedNormalizedChanged
                 .Subscribe(value => playerSettingsCore.SetScrollSpeedNormalized(value))

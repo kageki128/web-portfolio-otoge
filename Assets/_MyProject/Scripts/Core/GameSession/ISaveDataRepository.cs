@@ -5,7 +5,7 @@ namespace MyProject.Core
 {
     public interface ISaveDataRepository
     {
-        UniTask SaveAsync(SaveDataCore saveData, CancellationToken ct);
-        UniTask<SaveDataCore> LoadAsync(CancellationToken ct);
+        UniTask SavePlayerSettingsAsync(PlayerSettingsSaveDataCore saveData, CancellationToken ct);
+        UniTask<PlayerSettingsSaveDataCore> LoadPlayerSettingsAsync(CancellationToken ct);
     }
 }

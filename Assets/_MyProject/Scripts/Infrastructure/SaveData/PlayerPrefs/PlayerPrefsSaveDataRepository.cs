@@ -9,9 +9,9 @@ namespace MyProject.Infrastructure
 {
     public class PlayerPrefsSaveDataRepository : ISaveDataRepository
     {
-        const string SaveDataKey = "save_data";
+        const string SaveDataKey = "player_settings";
 
-        public UniTask SaveAsync(SaveDataCore saveData, CancellationToken ct)
+        public UniTask SavePlayerSettingsAsync(PlayerSettingsSaveDataCore saveData, CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
 
@@ -24,17 +24,17 @@ namespace MyProject.Infrastructure
             return UniTask.CompletedTask;
         }
 
-        public UniTask<SaveDataCore> LoadAsync(CancellationToken ct)
+        public UniTask<PlayerSettingsSaveDataCore> LoadPlayerSettingsAsync(CancellationToken ct)
         {
             ct.ThrowIfCancellationRequested();
 
             if (!PlayerPrefs.HasKey(SaveDataKey))
             {
-                return UniTask.FromResult(new SaveDataCore());
+                return UniTask.FromResult<PlayerSettingsSaveDataCore>(null);
             }
 
             var json = PlayerPrefs.GetString(SaveDataKey);
-            var saveData = JsonConvert.DeserializeObject<SaveDataCore>(json);
+            var saveData = JsonConvert.DeserializeObject<PlayerSettingsSaveDataCore>(json);
             if (saveData == null)
             {
                 throw new InvalidOperationException($"Failed to deserialize save data. key={SaveDataKey}");
