@@ -17,7 +17,7 @@ namespace MyProject.Actor
             mainActions = gameActions.Main;
 
             Quit = ObservePerformed(mainActions.Quit).Select(_ => Unit.Default);
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || UNITY_STANDALONE
             ChangeAuto = ObservePerformed(mainActions.ChangeAuto).Select(_ => Unit.Default);
 #else
             ChangeAuto = Observable.Empty<Unit>();
@@ -29,7 +29,7 @@ namespace MyProject.Actor
         public override void Enable()
         {
             mainActions.Enable();
-#if !UNITY_EDITOR && !DEVELOPMENT_BUILD
+#if !UNITY_EDITOR && !UNITY_STANDALONE
             mainActions.ChangeAuto.Disable();
 #endif
         }
